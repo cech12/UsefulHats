@@ -28,7 +28,7 @@ public class StrawHatItem extends ArmorItem {
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new StringTextComponent("While holding a shovel or hoe you get " + Effects.HASTE.getDisplayName() + " effect"));
+        tooltip.add(new StringTextComponent("While holding a shovel or hoe you get " + Effects.HASTE.getDisplayName().getFormattedText() + " effect"));
     }
 
     @Override

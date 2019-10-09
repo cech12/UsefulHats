@@ -7,7 +7,6 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
-import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
@@ -16,27 +15,28 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ChoppingHatItem extends ArmorItem {
+public class PostmanHatItem extends ArmorItem {
 
-    private static final ResourceLocation REGISTRY_NAME = new ResourceLocation(UsefulHatsMod.MOD_ID, "chopping_hat");
+    private static final ResourceLocation REGISTRY_NAME = new ResourceLocation(UsefulHatsMod.MOD_ID, "postman_hat");
 
-    public ChoppingHatItem() {
-        super(HatArmorMaterial.CHOPPING, EquipmentSlotType.HEAD, (new Properties()).group(ItemGroup.COMBAT));
+    public PostmanHatItem() {
+        super(HatArmorMaterial.POSTMAN, EquipmentSlotType.HEAD, (new Properties()).group(ItemGroup.COMBAT));
         this.setRegistryName(REGISTRY_NAME);
     }
 
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new StringTextComponent("While holding an axe you get " + Effects.HASTE.getDisplayName().getFormattedText() + " effect"));
+        tooltip.add(new StringTextComponent("You get " + Effects.SPEED.getDisplayName().getFormattedText() +
+                " effect but also " + Effects.MINING_FATIGUE.getDisplayName().getFormattedText() + " and " +
+                Effects.WEAKNESS.getDisplayName().getFormattedText() + " effect."));
     }
 
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
-        Item heldItem = player.getHeldItem(Hand.MAIN_HAND).getItem();
-        if (heldItem instanceof AxeItem) {
-            player.addPotionEffect(new EffectInstance(Effects.HASTE));
-        }
+        player.addPotionEffect(new EffectInstance(Effects.SPEED));
+        player.addPotionEffect(new EffectInstance(Effects.MINING_FATIGUE));
+        player.addPotionEffect(new EffectInstance(Effects.WEAKNESS));
     }
 
 }

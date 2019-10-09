@@ -28,7 +28,8 @@ public class MiningHatItem extends ArmorItem {
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new StringTextComponent("While holding a pickaxe you get " + Effects.HASTE.getDisplayName() + " and " + Effects.NIGHT_VISION.getDisplayName() + " effect"));
+        tooltip.add(new StringTextComponent("While holding a pickaxe you get " + Effects.HASTE.getDisplayName().getFormattedText() +
+                " and " + Effects.NIGHT_VISION.getDisplayName().getFormattedText() + " effect"));
     }
 
     @Override

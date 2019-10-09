@@ -23,6 +23,9 @@ public enum HatArmorMaterial implements IArmorMaterial {
     STRAW("usefulhats:straw", 5, 1, 0, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
         return Ingredient.fromItems(Items.WHEAT);
     }),
+    POSTMAN("usefulhats:postman", 5, 1, 0, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
+        return Ingredient.fromItems(Items.LAPIS_LAZULI);
+    }),
     STOCKING("usefulhats:stocking", 5, 1, 25, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
         return Ingredient.fromItems(Items.STRING);
     });
