@@ -20,6 +20,9 @@ public enum HatArmorMaterial implements IArmorMaterial {
     CHOPPING("usefulhats:chopping", 5, 1, 0, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
         return Ingredient.fromItems(Items.RABBIT_HIDE);
     }),
+    STRAW("usefulhats:straw", 5, 1, 0, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
+        return Ingredient.fromItems(Items.WHEAT);
+    }),
     STOCKING("usefulhats:stocking", 5, 1, 25, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
         return Ingredient.fromItems(Items.STRING);
     });
