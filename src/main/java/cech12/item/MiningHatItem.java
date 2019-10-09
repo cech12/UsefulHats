@@ -1,9 +1,19 @@
 package cech12.item;
 
 import cech12.usefulhats.UsefulHatsMod;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.world.World;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 public class MiningHatItem extends ArmorItem {
 
@@ -12,6 +22,19 @@ public class MiningHatItem extends ArmorItem {
     public MiningHatItem() {
         super(HatArmorMaterial.MINING, EquipmentSlotType.HEAD, (new Item.Properties()).group(ItemGroup.COMBAT));
         this.setRegistryName(REGISTRY_NAME);
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+        super.addInformation(stack, worldIn, tooltip, flagIn);
+        tooltip.add(new StringTextComponent("- " + Effects.HASTE.getDisplayName()));
+        tooltip.add(new StringTextComponent("- " + Effects.NIGHT_VISION.getDisplayName()));
+    }
+
+    @Override
+    public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
+        player.addPotionEffect(new EffectInstance(Effects.HASTE));
+        player.addPotionEffect(new EffectInstance(Effects.NIGHT_VISION));
     }
 
 }

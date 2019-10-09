@@ -14,38 +14,35 @@ import java.util.function.Supplier;
 
 public enum HatArmorMaterial implements IArmorMaterial {
 
-    MINING("usefulhats:mining", 7, new int[]{1, 3, 5, 2}, 25, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 0.0F, () -> {
+    MINING("usefulhats:mining", 7, 2, 0, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, () -> {
         return Ingredient.fromItems(Items.GOLD_INGOT);
     }),
-    STOCKING("usefulhats:stocking", 7, new int[]{1, 3, 5, 2}, 25, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F, () -> {
+    STOCKING("usefulhats:stocking", 5, 1, 25, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
         return Ingredient.fromItems(Items.STRING);
     });
 
-    private static final int[] MAX_DAMAGE_ARRAY = new int[]{13, 15, 16, 11};
     private final String name;
     private final int maxDamageFactor;
-    private final int[] damageReductionAmountArray;
+    private final int damageReductionAmount;
     private final int enchantability;
     private final SoundEvent soundEvent;
-    private final float toughness;
     private final LazyLoadBase<Ingredient> repairMaterial;
 
-    HatArmorMaterial(String nameIn, int maxDamageFactorIn, int[] damageReductionAmountsIn, int enchantabilityIn, SoundEvent equipSoundIn, float p_i48533_8_, Supplier<Ingredient> repairMaterialSupplier) {
+    HatArmorMaterial(String nameIn, int maxDamageFactorIn, int damageReductionAmountIn, int enchantabilityIn, SoundEvent equipSoundIn, Supplier<Ingredient> repairMaterialSupplier) {
         this.name = nameIn;
         this.maxDamageFactor = maxDamageFactorIn;
-        this.damageReductionAmountArray = damageReductionAmountsIn;
+        this.damageReductionAmount = damageReductionAmountIn;
         this.enchantability = enchantabilityIn;
         this.soundEvent = equipSoundIn;
-        this.toughness = p_i48533_8_;
         this.repairMaterial = new LazyLoadBase<>(repairMaterialSupplier);
     }
 
     public int getDurability(EquipmentSlotType slotIn) {
-        return MAX_DAMAGE_ARRAY[slotIn.getIndex()] * this.maxDamageFactor;
+        return 11 * this.maxDamageFactor;
     }
 
     public int getDamageReductionAmount(EquipmentSlotType slotIn) {
-        return this.damageReductionAmountArray[slotIn.getIndex()];
+        return this.damageReductionAmount;
     }
 
     public int getEnchantability() {
@@ -66,7 +63,7 @@ public enum HatArmorMaterial implements IArmorMaterial {
     }
 
     public float getToughness() {
-        return this.toughness;
+        return 0.0F;
     }
 
 }
