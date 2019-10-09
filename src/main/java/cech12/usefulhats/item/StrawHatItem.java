@@ -1,4 +1,4 @@
-package cech12.item;
+package cech12.usefulhats.item;
 
 import cech12.usefulhats.UsefulHatsMod;
 import net.minecraft.client.util.ITooltipFlag;
@@ -16,25 +16,25 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ChoppingHatItem extends ArmorItem {
+public class StrawHatItem extends ArmorItem {
 
-    private static final ResourceLocation REGISTRY_NAME = new ResourceLocation(UsefulHatsMod.MOD_ID, "chopping_hat");
+    private static final ResourceLocation REGISTRY_NAME = new ResourceLocation(UsefulHatsMod.MOD_ID, "straw_hat");
 
-    public ChoppingHatItem() {
-        super(HatArmorMaterial.CHOPPING, EquipmentSlotType.HEAD, (new Properties()).group(ItemGroup.COMBAT));
+    public StrawHatItem() {
+        super(HatArmorMaterial.STRAW, EquipmentSlotType.HEAD, (new Properties()).group(ItemGroup.COMBAT));
         this.setRegistryName(REGISTRY_NAME);
     }
 
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new StringTextComponent("While holding an axe you get " + Effects.HASTE.getDisplayName().getFormattedText() + " effect"));
+        tooltip.add(new StringTextComponent("While holding a shovel or hoe you get " + Effects.HASTE.getDisplayName().getFormattedText() + " effect"));
     }
 
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
         Item heldItem = player.getHeldItem(Hand.MAIN_HAND).getItem();
-        if (heldItem instanceof AxeItem) {
+        if (heldItem instanceof ShovelItem || heldItem instanceof HoeItem) {
             player.addPotionEffect(new EffectInstance(Effects.HASTE));
         }
     }

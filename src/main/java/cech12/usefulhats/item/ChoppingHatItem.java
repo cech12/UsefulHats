@@ -1,4 +1,4 @@
-package cech12.item;
+package cech12.usefulhats.item;
 
 import cech12.usefulhats.UsefulHatsMod;
 import net.minecraft.client.util.ITooltipFlag;
@@ -16,28 +16,26 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class MiningHatItem extends ArmorItem {
+public class ChoppingHatItem extends ArmorItem {
 
-    private static final ResourceLocation REGISTRY_NAME = new ResourceLocation(UsefulHatsMod.MOD_ID, "mining_hat");
+    private static final ResourceLocation REGISTRY_NAME = new ResourceLocation(UsefulHatsMod.MOD_ID, "chopping_hat");
 
-    public MiningHatItem() {
-        super(HatArmorMaterial.MINING, EquipmentSlotType.HEAD, (new Item.Properties()).group(ItemGroup.COMBAT));
+    public ChoppingHatItem() {
+        super(HatArmorMaterial.CHOPPING, EquipmentSlotType.HEAD, (new Properties()).group(ItemGroup.COMBAT));
         this.setRegistryName(REGISTRY_NAME);
     }
 
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new StringTextComponent("While holding a pickaxe you get " + Effects.HASTE.getDisplayName().getFormattedText() +
-                " and " + Effects.NIGHT_VISION.getDisplayName().getFormattedText() + " effect"));
+        tooltip.add(new StringTextComponent("While holding an axe you get " + Effects.HASTE.getDisplayName().getFormattedText() + " effect"));
     }
 
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
         Item heldItem = player.getHeldItem(Hand.MAIN_HAND).getItem();
-        if (heldItem instanceof PickaxeItem) {
+        if (heldItem instanceof AxeItem) {
             player.addPotionEffect(new EffectInstance(Effects.HASTE));
-            player.addPotionEffect(new EffectInstance(Effects.NIGHT_VISION));
         }
     }
 

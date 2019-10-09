@@ -1,4 +1,4 @@
-package cech12.item;
+package cech12.usefulhats.item;
 
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.IArmorMaterial;

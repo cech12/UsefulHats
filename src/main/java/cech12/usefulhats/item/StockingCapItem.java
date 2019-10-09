@@ -1,4 +1,4 @@
-package cech12.item;
+package cech12.usefulhats.item;
 
 import cech12.usefulhats.UsefulHatsMod;
 import net.minecraft.inventory.EquipmentSlotType;

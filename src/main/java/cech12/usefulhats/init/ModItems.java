@@ -1,6 +1,6 @@
-package cech12.init;
+package cech12.usefulhats.init;
 
-import cech12.item.*;
+import cech12.usefulhats.item.*;
 import cech12.usefulhats.UsefulHatsMod;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;

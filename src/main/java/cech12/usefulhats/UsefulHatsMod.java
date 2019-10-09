@@ -1,6 +1,6 @@
 package cech12.usefulhats;
 
-import cech12.init.ModItems;
+import cech12.usefulhats.init.ModItems;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
