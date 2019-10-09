@@ -1,6 +1,8 @@
 package cech12.usefulhats;
 
+import cech12.init.ModItems;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -14,7 +16,7 @@ public class UsefulHatsMod {
     private static final Logger LOGGER = LogManager.getLogger();
 
     public UsefulHatsMod() {
-        //TODO
+        FMLJavaModLoadingContext.get().getModEventBus().register(ModItems.class);
     }
 
 }
