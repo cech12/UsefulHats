@@ -1,5 +1,6 @@
 package cech12.init;
 
+import cech12.item.ChoppingHatItem;
 import cech12.item.MiningHatItem;
 import cech12.item.StockingCapItem;
 import cech12.usefulhats.UsefulHatsMod;
@@ -12,6 +13,7 @@ import net.minecraftforge.fml.common.Mod;
 public class ModItems {
 
     private static final Item[] items = {
+            new ChoppingHatItem(),
             new MiningHatItem(),
             new StockingCapItem()
     };
