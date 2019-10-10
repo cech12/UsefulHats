@@ -16,13 +16,10 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class MiningHatItem extends ArmorItem {
-
-    private static final ResourceLocation REGISTRY_NAME = new ResourceLocation(UsefulHatsMod.MOD_ID, "mining_hat");
+public class MiningHatItem extends AbstractHatItem {
 
     public MiningHatItem() {
-        super(HatArmorMaterial.MINING, EquipmentSlotType.HEAD, (new Item.Properties()).group(ItemGroup.COMBAT));
-        this.setRegistryName(REGISTRY_NAME);
+        super("mining_hat", HatArmorMaterial.MINING, rawColorFromRGB(255, 216, 0));
     }
 
     @Override
