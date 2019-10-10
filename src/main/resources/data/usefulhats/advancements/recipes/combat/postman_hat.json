@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "usefulhats:postman_hat"
+    ]
+  },
+  "criteria": {
+    "has_lapis_lazuli": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:lapis_lazuli"
+          }
+        ]
+      }
+    },
+    "has_gold_nugget": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:gold_nugget"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "usefulhats:postman_hat"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_lapis_lazuli",
+      "has_gold_nugget",
+      "has_the_recipe"
+    ]
+  ]
+}
