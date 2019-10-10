@@ -15,13 +15,10 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class PostmanHatItem extends ArmorItem {
-
-    private static final ResourceLocation REGISTRY_NAME = new ResourceLocation(UsefulHatsMod.MOD_ID, "postman_hat");
+public class PostmanHatItem extends AbstractHatItem {
 
     public PostmanHatItem() {
-        super(HatArmorMaterial.POSTMAN, EquipmentSlotType.HEAD, (new Properties()).group(ItemGroup.COMBAT));
-        this.setRegistryName(REGISTRY_NAME);
+        super("postman_hat", HatArmorMaterial.POSTMAN, rawColorFromRGB(2, 0, 145));
     }
 
     @Override
