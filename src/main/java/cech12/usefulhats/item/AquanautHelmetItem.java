@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
@@ -26,6 +27,8 @@ public class AquanautHelmetItem extends AbstractHatItem {
 
     public AquanautHelmetItem() {
         super("aquanaut_helmet", HatArmorMaterial.AQUANAUT, rawColorFromRGB(71, 191, 74));
+        this.addAllowedEnchantment(Enchantments.AQUA_AFFINITY);
+        this.addAllowedEnchantment(Enchantments.RESPIRATION);
     }
 
     @Override
