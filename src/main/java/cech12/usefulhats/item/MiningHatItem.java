@@ -24,14 +24,14 @@ public class MiningHatItem extends AbstractHatItem implements IBreakSpeedChanger
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
         tooltip.add(new StringTextComponent("Mining with a pickaxe is 20% faster. (stackable with enchantments and potions)"));
-        tooltip.add(new StringTextComponent("While holding a pickaxe you get " + Effects.NIGHT_VISION.getDisplayName().getFormattedText() + " effect."));
+        tooltip.add(new StringTextComponent("While holding a pickaxe you get " + Effects.NIGHT_VISION.getDisplayName().getFormattedText() + " effect in dark areas."));
     }
 
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
         //support both hands
         for (ItemStack item : player.getHeldEquipment()) {
-            if (item.getToolTypes().contains(ToolType.PICKAXE)) {
+            if (item.getToolTypes().contains(ToolType.PICKAXE) && world.getLight(player.getPosition()) < 8) {
                 player.addPotionEffect(new EffectInstance(Effects.NIGHT_VISION));
                 return;
             }
