@@ -17,20 +17,23 @@ public enum HatArmorMaterial implements IArmorMaterial {
     AQUANAUT("usefulhats:aquanaut", 7, 2, 25, SoundEvents.ITEM_ARMOR_EQUIP_TURTLE, () -> {
         return Ingredient.fromItems(Items.SCUTE);
     }),
-    MINING("usefulhats:mining", 7, 2, 25, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, () -> {
-        return Ingredient.fromItems(Items.GOLD_INGOT);
-    }),
     CHOPPING("usefulhats:chopping", 5, 1, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
         return Ingredient.fromItems(Items.RABBIT_HIDE);
     }),
-    STRAW("usefulhats:straw", 5, 1, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
-        return Ingredient.fromItems(Items.WHEAT);
+    MINING("usefulhats:mining", 7, 2, 25, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, () -> {
+        return Ingredient.fromItems(Items.GOLD_INGOT);
     }),
     POSTMAN("usefulhats:postman", 5, 1, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
         return Ingredient.fromItems(Items.LAPIS_LAZULI);
     }),
     STOCKING("usefulhats:stocking", 5, 1, 25, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
         return Ingredient.fromItems(Items.STRING);
+    }),
+    STRAW("usefulhats:straw", 5, 1, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
+        return Ingredient.fromItems(Items.WHEAT);
+    }),
+    WING("usefulhats:wing", 5, 1, 15, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> {
+        return Ingredient.fromItems(Items.FEATHER);
     });
 
     private final String name;

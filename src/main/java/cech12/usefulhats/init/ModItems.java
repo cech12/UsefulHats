@@ -21,7 +21,8 @@ public class ModItems {
             new MiningHatItem(),
             new PostmanHatItem(),
             new StockingCapItem(),
-            new StrawHatItem()
+            new StrawHatItem(),
+            new WingHelmetItem()
     };
 
     @SubscribeEvent
