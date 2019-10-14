@@ -21,7 +21,7 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class AquanautHelmetItem extends AbstractHatItem implements IRenderableOverlay {
+public class AquanautHelmetItem extends AbstractHatItem {
 
     private static final ResourceLocation AQUANAUT_GUI_TEX_PATH = new ResourceLocation(UsefulHatsMod.MOD_ID, "textures/misc/aquanautblur.png");
 
@@ -45,21 +45,19 @@ public class AquanautHelmetItem extends AbstractHatItem implements IRenderableOv
     }
 
     @Override
-    public void onRenderGameOverlayEvent(Minecraft mc) {
-        int scaledWidth = mc.mainWindow.getScaledWidth();
-        int scaledHeight = mc.mainWindow.getScaledHeight();
+    public void renderHelmetOverlay(ItemStack stack, PlayerEntity player, int width, int height, float partialTicks) {
         GlStateManager.disableDepthTest();
         GlStateManager.depthMask(false);
         GlStateManager.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
         GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         GlStateManager.disableAlphaTest();
-        mc.getTextureManager().bindTexture(AQUANAUT_GUI_TEX_PATH);
+        Minecraft.getInstance().getTextureManager().bindTexture(AQUANAUT_GUI_TEX_PATH);
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferbuilder = tessellator.getBuffer();
         bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-        bufferbuilder.pos(0.0D, scaledHeight, -90.0D).tex(0.0D, 1.0D).endVertex();
-        bufferbuilder.pos(scaledWidth, scaledHeight, -90.0D).tex(1.0D, 1.0D).endVertex();
-        bufferbuilder.pos(scaledWidth, 0.0D, -90.0D).tex(1.0D, 0.0D).endVertex();
+        bufferbuilder.pos(0.0D, height, -90.0D).tex(0.0D, 1.0D).endVertex();
+        bufferbuilder.pos(width, height, -90.0D).tex(1.0D, 1.0D).endVertex();
+        bufferbuilder.pos(width, 0.0D, -90.0D).tex(1.0D, 0.0D).endVertex();
         bufferbuilder.pos(0.0D, 0.0D, -90.0D).tex(0.0D, 0.0D).endVertex();
         tessellator.draw();
         GlStateManager.depthMask(true);
