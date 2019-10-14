@@ -3,10 +3,12 @@ package cech12.usefulhats.init;
 import cech12.usefulhats.item.*;
 import cech12.usefulhats.UsefulHatsMod;
 import net.minecraft.client.renderer.color.ItemColors;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.IDyeableArmorItem;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -37,6 +39,16 @@ public class ModItems {
                 itemcolors.register((itemStack, layer) -> {
                     return layer > 0 ? -1 : ((IDyeableArmorItem)itemStack.getItem()).getColor(itemStack);
                 }, item);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onBreakSpeedEvent(PlayerEvent.BreakSpeed event) {
+        Item headSlotItem = event.getPlayer().getItemStackFromSlot(EquipmentSlotType.HEAD).getItem();
+        for (Item item : ModItems.items) {
+            if (item instanceof IBreakSpeedChanger && headSlotItem == item) {
+                ((IBreakSpeedChanger) item).onBreakSpeedEvent(event);
             }
         }
     }

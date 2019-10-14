@@ -34,7 +34,7 @@ public class AquanautHelmetItem extends AbstractHatItem {
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new StringTextComponent(Effects.CONDUIT_POWER.getDisplayName().getFormattedText() + " effect for 1 minute."));
+        tooltip.add(new StringTextComponent("You get " + Effects.CONDUIT_POWER.getDisplayName().getFormattedText() + " effect for 1 minute."));
     }
 
     @Override

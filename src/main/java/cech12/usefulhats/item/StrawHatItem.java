@@ -1,19 +1,17 @@
 package cech12.usefulhats.item;
 
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.util.Hand;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ToolType;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class StrawHatItem extends AbstractHatItem {
+public class StrawHatItem extends AbstractHatItem implements IBreakSpeedChanger {
 
     public StrawHatItem() {
         super("straw_hat", HatArmorMaterial.STRAW, rawColorFromRGB(226,189,0));
@@ -22,14 +20,15 @@ public class StrawHatItem extends AbstractHatItem {
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new StringTextComponent("While holding a shovel or hoe you get " + Effects.HASTE.getDisplayName().getFormattedText() + " effect"));
+        tooltip.add(new StringTextComponent("Digging with a shovel is 20% faster. (stackable with enchantments and potions)"));
     }
 
     @Override
-    public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
-        Item heldItem = player.getHeldItem(Hand.MAIN_HAND).getItem();
-        if (heldItem instanceof ShovelItem || heldItem instanceof HoeItem) {
-            player.addPotionEffect(new EffectInstance(Effects.HASTE));
+    public void onBreakSpeedEvent(PlayerEvent.BreakSpeed event) {
+        for (ItemStack item : event.getPlayer().getHeldEquipment()) {
+            if (item.getToolTypes().contains(ToolType.SHOVEL) && event.getState().isToolEffective(ToolType.SHOVEL)) {
+                event.setNewSpeed(event.getOriginalSpeed() * 1.2F);
+            }
         }
     }
 

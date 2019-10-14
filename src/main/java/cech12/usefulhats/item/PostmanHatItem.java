@@ -22,15 +22,13 @@ public class PostmanHatItem extends AbstractHatItem {
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
         tooltip.add(new StringTextComponent("You get " + Effects.SPEED.getDisplayName().getFormattedText() +
-                " effect but also " + Effects.MINING_FATIGUE.getDisplayName().getFormattedText() + " and " +
-                Effects.WEAKNESS.getDisplayName().getFormattedText() + " effect."));
+                " effect but also " + Effects.HUNGER.getDisplayName().getFormattedText() + " effect."));
     }
 
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
         player.addPotionEffect(new EffectInstance(Effects.SPEED));
-        player.addPotionEffect(new EffectInstance(Effects.MINING_FATIGUE));
-        player.addPotionEffect(new EffectInstance(Effects.WEAKNESS));
+        player.addPotionEffect(new EffectInstance(Effects.HUNGER));
     }
 
 }

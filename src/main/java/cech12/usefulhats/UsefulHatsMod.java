@@ -20,6 +20,7 @@ public class UsefulHatsMod {
         FMLJavaModLoadingContext.get().getModEventBus().register(ModItems.class);
         //color events are fired on main MinecraftForge event bus
         MinecraftForge.EVENT_BUS.addListener(ModItems::registerColors);
+        MinecraftForge.EVENT_BUS.addListener(ModItems::onBreakSpeedEvent);
     }
 
 }

@@ -19,7 +19,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "usefulhats:mining_hat"
+        "recipe": "usefulhats:aquanaut_helmet"
       }
     }
   },
