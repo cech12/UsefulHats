@@ -29,6 +29,7 @@ public class MiningHatItem extends AbstractHatItem implements IBreakSpeedChanger
 
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
+        //support both hands
         for (ItemStack item : player.getHeldEquipment()) {
             if (item.getToolTypes().contains(ToolType.PICKAXE)) {
                 player.addPotionEffect(new EffectInstance(Effects.NIGHT_VISION));
@@ -39,10 +40,8 @@ public class MiningHatItem extends AbstractHatItem implements IBreakSpeedChanger
 
     @Override
     public void onBreakSpeedEvent(PlayerEvent.BreakSpeed event) {
-        for (ItemStack item : event.getPlayer().getHeldEquipment()) {
-            if (item.getToolTypes().contains(ToolType.PICKAXE) && event.getState().isToolEffective(ToolType.PICKAXE)) {
-                event.setNewSpeed(event.getOriginalSpeed() * 1.2F);
-            }
+        if (event.getPlayer().getHeldItemMainhand().getToolTypes().contains(ToolType.PICKAXE) && event.getState().isToolEffective(ToolType.PICKAXE)) {
+            event.setNewSpeed(event.getOriginalSpeed() * 1.2F);
         }
     }
 }

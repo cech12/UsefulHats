@@ -25,10 +25,8 @@ public class ChoppingHatItem extends AbstractHatItem implements IBreakSpeedChang
 
     @Override
     public void onBreakSpeedEvent(PlayerEvent.BreakSpeed event) {
-        for (ItemStack item : event.getPlayer().getHeldEquipment()) {
-            if (item.getToolTypes().contains(ToolType.AXE) && event.getState().isToolEffective(ToolType.AXE)) {
-                event.setNewSpeed(event.getOriginalSpeed() * 1.2F);
-            }
+        if (event.getPlayer().getHeldItemMainhand().getToolTypes().contains(ToolType.AXE) && event.getState().isToolEffective(ToolType.AXE)) {
+            event.setNewSpeed(event.getOriginalSpeed() * 1.2F);
         }
     }
 }
