@@ -1,6 +1,7 @@
 package cech12.usefulhats.item;
 
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
@@ -22,12 +23,21 @@ public class WingHelmetItem extends AbstractHatItem {
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
         tooltip.add(new StringTextComponent("While falling you get " + Effects.SLOW_FALLING.getDisplayName().getFormattedText() + " effect."));
+        tooltip.add(new StringTextComponent("Sometimes the helmet is afraid of monsters and flies away."));
     }
 
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
         if (!player.onGround && !player.isInWater()) {
-            player.addPotionEffect(new EffectInstance(Effects.SLOW_FALLING));
+            if (player.getActivePotionEffect(Effects.LEVITATION) == null) {
+                player.addPotionEffect(new EffectInstance(Effects.SLOW_FALLING));
+            }
+            //Sometimes the helmet is afraid of monsters and flies away
+            if (player.getLastDamageSource() != null && player.getLastDamageSource().getTrueSource() instanceof LivingEntity) {
+                if (random.nextInt(100) == 0) {
+                    player.addPotionEffect(new EffectInstance(Effects.LEVITATION, 200, 2));
+                }
+            }
         }
     }
 
