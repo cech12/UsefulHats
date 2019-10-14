@@ -21,14 +21,16 @@ public class PostmanHatItem extends AbstractHatItem {
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new StringTextComponent("You get " + Effects.SPEED.getDisplayName().getFormattedText() +
+        tooltip.add(new StringTextComponent("While sprinting you get " + Effects.SPEED.getDisplayName().getFormattedText() +
                 " effect but also " + Effects.HUNGER.getDisplayName().getFormattedText() + " effect."));
     }
 
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
-        player.addPotionEffect(new EffectInstance(Effects.SPEED));
-        player.addPotionEffect(new EffectInstance(Effects.HUNGER));
+        if (player.isSprinting()) {
+            player.addPotionEffect(new EffectInstance(Effects.SPEED));
+            player.addPotionEffect(new EffectInstance(Effects.HUNGER));
+        }
     }
 
 }
