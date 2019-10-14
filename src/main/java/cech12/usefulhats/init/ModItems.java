@@ -16,10 +16,8 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid= UsefulHatsMod.MOD_ID)
 public class ModItems {
 
-    private static final Item AQUANAUT_HELMET = new AquanautHelmetItem();
-
     private static final Item[] items = {
-            AQUANAUT_HELMET,
+            new AquanautHelmetItem(),
             new ChoppingHatItem(),
             new MiningHatItem(),
             new PostmanHatItem(),
@@ -55,9 +53,13 @@ public class ModItems {
             Minecraft mc = Minecraft.getInstance();
             if (mc.gameSettings.thirdPersonView == 0) {
                 ItemStack itemStack = mc.player.inventory.armorItemInSlot(3);
-                if (!itemStack.isEmpty() && itemStack.getItem() == AQUANAUT_HELMET) {
-                    AquanautHelmetItem.renderAquanautOverlay();
-                    event.setCanceled(true);
+                if (!itemStack.isEmpty()) {
+                    for (Item item : ModItems.items) {
+                        if (item instanceof IRenderableOverlay && itemStack.getItem() == item) {
+                            ((IRenderableOverlay) item).onRenderGameOverlayEvent(mc);
+                            event.setCanceled(true);
+                        }
+                    }
                 }
             }
         }

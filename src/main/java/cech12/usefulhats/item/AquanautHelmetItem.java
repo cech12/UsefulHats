@@ -21,7 +21,7 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class AquanautHelmetItem extends AbstractHatItem {
+public class AquanautHelmetItem extends AbstractHatItem implements IRenderableOverlay {
 
     private static final ResourceLocation AQUANAUT_GUI_TEX_PATH = new ResourceLocation(UsefulHatsMod.MOD_ID, "textures/misc/aquanautblur.png");
 
@@ -44,8 +44,8 @@ public class AquanautHelmetItem extends AbstractHatItem {
         }
     }
 
-    public static void renderAquanautOverlay() {
-        Minecraft mc = Minecraft.getInstance();
+    @Override
+    public void onRenderGameOverlayEvent(Minecraft mc) {
         int scaledWidth = mc.mainWindow.getScaledWidth();
         int scaledHeight = mc.mainWindow.getScaledHeight();
         GlStateManager.disableDepthTest();
@@ -67,6 +67,5 @@ public class AquanautHelmetItem extends AbstractHatItem {
         GlStateManager.enableAlphaTest();
         GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
     }
-
 
 }
