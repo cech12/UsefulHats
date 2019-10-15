@@ -7,12 +7,13 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.IDyeableArmorItem;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ColorHandlerEvent;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber(modid= UsefulHatsMod.MOD_ID)
+@Mod.EventBusSubscriber(modid= UsefulHatsMod.MOD_ID, bus= Mod.EventBusSubscriber.Bus.MOD)
 public class ModItems {
 
     private static final Item[] items = {
@@ -44,8 +45,14 @@ public class ModItems {
         }
     }
 
-    @SubscribeEvent
-    public static void onBreakSpeedEvent(PlayerEvent.BreakSpeed event) {
+    /**
+     * Called at mod initialization.
+     */
+    public static void addEventListeners() {
+        MinecraftForge.EVENT_BUS.addListener(ModItems::onBreakSpeedEvent);
+    }
+
+    private static void onBreakSpeedEvent(PlayerEvent.BreakSpeed event) {
         Item headSlotItem = event.getPlayer().getItemStackFromSlot(EquipmentSlotType.HEAD).getItem();
         for (Item item : ModItems.items) {
             if (item instanceof IBreakSpeedChanger && headSlotItem == item) {
