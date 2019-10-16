@@ -15,7 +15,7 @@ import java.util.List;
 public class PostmanHatItem extends AbstractHatItem {
 
     public PostmanHatItem() {
-        super("postman_hat", HatArmorMaterial.POSTMAN, rawColorFromRGB(2, 0, 145));
+        super("postman_hat", HatArmorMaterial.POSTMAN, rawColorFromRGB(57, 99, 150));
     }
 
     @Override
