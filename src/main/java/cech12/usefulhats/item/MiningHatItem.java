@@ -33,6 +33,9 @@ public class MiningHatItem extends AbstractHatItem implements IBreakSpeedChanger
         for (ItemStack item : player.getHeldEquipment()) {
             if (item.getToolTypes().contains(ToolType.PICKAXE) && world.getLight(player.getPosition()) < 8) {
                 player.addPotionEffect(new EffectInstance(Effects.NIGHT_VISION));
+                if (random.nextInt(20) == 0) {
+                    this.damageHatItemByOne(stack, player);
+                }
                 return;
             }
         }
