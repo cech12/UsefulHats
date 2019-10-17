@@ -4,12 +4,17 @@ import cech12.usefulhats.UsefulHatsMod;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.stats.Stats;
 import net.minecraft.util.ResourceLocation;
 
 import java.util.ArrayList;
+import java.util.function.Consumer;
 
 public abstract class AbstractHatItem extends ArmorItem implements IDyeableArmorItem {
 
@@ -76,5 +81,31 @@ public abstract class AbstractHatItem extends ArmorItem implements IDyeableArmor
     @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
         return this.allowedEnchantments.contains(enchantment);
+    }
+
+    /**
+     * Copy of {@link ItemStack#damageItem(int, LivingEntity, Consumer)} to enable own damaging of hat items.
+     */
+    protected void damageHatItemByOne(ItemStack stack, PlayerEntity entity) {
+        if (!entity.world.isRemote && !entity.abilities.isCreativeMode) {
+            if (this.isDamageable()) {
+                if (stack.attemptDamageItem(1, entity.getRNG(), entity instanceof ServerPlayerEntity ? (ServerPlayerEntity)entity : null)) {
+                    entity.sendBreakAnimation(EquipmentSlotType.HEAD);
+                    Item item = this.getItem();
+                    stack.shrink(1);
+                    entity.addStat(Stats.ITEM_BROKEN.get(item));
+                    stack.setDamage(0);
+                }
+            }
+        }
+    }
+
+    /**
+     * Disables vanilla damaging.
+     */
+    @Deprecated
+    @Override
+    public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
+        return 0;
     }
 }

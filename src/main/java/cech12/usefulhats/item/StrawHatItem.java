@@ -24,9 +24,10 @@ public class StrawHatItem extends AbstractHatItem implements IBreakSpeedChanger 
     }
 
     @Override
-    public void onBreakSpeedEvent(PlayerEvent.BreakSpeed event) {
+    public void onBreakSpeedEvent(PlayerEvent.BreakSpeed event, ItemStack headSlotItemStack) {
         if ( event.getPlayer().getHeldItemMainhand().getToolTypes().contains(ToolType.SHOVEL) && event.getState().isToolEffective(ToolType.SHOVEL)) {
             event.setNewSpeed(event.getOriginalSpeed() * 1.2F);
+            this.damageHatItemByOne(headSlotItemStack, event.getPlayer());
         }
     }
 

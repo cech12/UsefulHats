@@ -14,50 +14,48 @@ import java.util.function.Supplier;
 
 public enum HatArmorMaterial implements IArmorMaterial {
 
-    AQUANAUT("usefulhats:aquanaut", 7, 2, 25, SoundEvents.ITEM_ARMOR_EQUIP_TURTLE, () -> {
+    AQUANAUT("usefulhats:aquanaut", 600, 25, SoundEvents.ITEM_ARMOR_EQUIP_TURTLE, () -> {
         return Ingredient.fromItems(Items.SCUTE);
     }),
-    CHOPPING("usefulhats:chopping", 5, 1, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
+    CHOPPING("usefulhats:chopping", 300, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
         return Ingredient.fromItems(Items.RABBIT_HIDE);
     }),
-    MINING("usefulhats:mining", 7, 2, 25, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, () -> {
+    MINING("usefulhats:mining", 300, 25, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, () -> {
         return Ingredient.fromItems(Items.GOLD_INGOT);
     }),
-    POSTMAN("usefulhats:postman", 5, 1, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
+    POSTMAN("usefulhats:postman", 600, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
         return Ingredient.fromItems(Items.LAPIS_LAZULI);
     }),
-    STOCKING("usefulhats:stocking", 5, 1, 25, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
+    STOCKING("usefulhats:stocking", 600, 25, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
         return Ingredient.fromItems(Items.STRING);
     }),
-    STRAW("usefulhats:straw", 5, 1, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
+    STRAW("usefulhats:straw", 300, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
         return Ingredient.fromItems(Items.WHEAT);
     }),
-    WING("usefulhats:wing", 5, 1, 15, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> {
+    WING("usefulhats:wing", 600, 15, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> {
         return Ingredient.fromItems(Items.FEATHER);
     });
 
     private final String name;
-    private final int maxDamageFactor;
-    private final int damageReductionAmount;
+    private final int durability;
     private final int enchantability;
     private final SoundEvent soundEvent;
     private final LazyLoadBase<Ingredient> repairMaterial;
 
-    HatArmorMaterial(String nameIn, int maxDamageFactorIn, int damageReductionAmountIn, int enchantabilityIn, SoundEvent equipSoundIn, Supplier<Ingredient> repairMaterialSupplier) {
+    HatArmorMaterial(String nameIn, int durability, int enchantabilityIn, SoundEvent equipSoundIn, Supplier<Ingredient> repairMaterialSupplier) {
         this.name = nameIn;
-        this.maxDamageFactor = maxDamageFactorIn;
-        this.damageReductionAmount = damageReductionAmountIn;
+        this.durability = durability;
         this.enchantability = enchantabilityIn;
         this.soundEvent = equipSoundIn;
         this.repairMaterial = new LazyLoadBase<>(repairMaterialSupplier);
     }
 
     public int getDurability(EquipmentSlotType slotIn) {
-        return 11 * this.maxDamageFactor;
+        return this.durability;
     }
 
     public int getDamageReductionAmount(EquipmentSlotType slotIn) {
-        return this.damageReductionAmount;
+        return 0;
     }
 
     public int getEnchantability() {

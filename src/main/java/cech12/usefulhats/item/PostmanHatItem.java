@@ -30,6 +30,9 @@ public class PostmanHatItem extends AbstractHatItem {
         if (player.isSprinting()) {
             player.addPotionEffect(new EffectInstance(Effects.SPEED));
             player.addPotionEffect(new EffectInstance(Effects.HUNGER));
+            if (random.nextInt(20) == 0) {
+                this.damageHatItemByOne(stack, player);
+            }
         }
     }
 

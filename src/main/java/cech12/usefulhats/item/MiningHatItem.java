@@ -39,9 +39,10 @@ public class MiningHatItem extends AbstractHatItem implements IBreakSpeedChanger
     }
 
     @Override
-    public void onBreakSpeedEvent(PlayerEvent.BreakSpeed event) {
+    public void onBreakSpeedEvent(PlayerEvent.BreakSpeed event, ItemStack headSlotItemStack) {
         if (event.getPlayer().getHeldItemMainhand().getToolTypes().contains(ToolType.PICKAXE) && event.getState().isToolEffective(ToolType.PICKAXE)) {
             event.setNewSpeed(event.getOriginalSpeed() * 1.2F);
+            this.damageHatItemByOne(headSlotItemStack, event.getPlayer());
         }
     }
 }

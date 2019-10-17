@@ -41,6 +41,10 @@ public class AquanautHelmetItem extends AbstractHatItem {
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
         if (!player.areEyesInFluid(FluidTags.WATER)) {
             player.addPotionEffect(new EffectInstance(Effects.CONDUIT_POWER, 1200, 0, false, false, true));
+        } else {
+            if (random.nextInt(20) == 0) {
+                this.damageHatItemByOne(stack, player);
+            }
         }
     }
 

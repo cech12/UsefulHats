@@ -31,6 +31,9 @@ public class WingHelmetItem extends AbstractHatItem {
         if (!player.onGround && !player.isInWater()) {
             if (player.getActivePotionEffect(Effects.LEVITATION) == null) {
                 player.addPotionEffect(new EffectInstance(Effects.SLOW_FALLING));
+                if (random.nextInt(20) == 0) {
+                    this.damageHatItemByOne(stack, player);
+                }
             }
             //Sometimes the helmet is afraid of monsters and flies away
             if (player.getLastDamageSource() != null && player.getLastDamageSource().getTrueSource() instanceof LivingEntity) {

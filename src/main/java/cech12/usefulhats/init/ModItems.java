@@ -6,6 +6,7 @@ import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.IDyeableArmorItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
@@ -53,10 +54,10 @@ public class ModItems {
     }
 
     private static void onBreakSpeedEvent(PlayerEvent.BreakSpeed event) {
-        Item headSlotItem = event.getPlayer().getItemStackFromSlot(EquipmentSlotType.HEAD).getItem();
+        ItemStack headSlotItemStack = event.getPlayer().getItemStackFromSlot(EquipmentSlotType.HEAD);
         for (Item item : ModItems.items) {
-            if (item instanceof IBreakSpeedChanger && headSlotItem == item) {
-                ((IBreakSpeedChanger) item).onBreakSpeedEvent(event);
+            if (item instanceof IBreakSpeedChanger && headSlotItemStack.getItem() == item) {
+                ((IBreakSpeedChanger) item.getItem()).onBreakSpeedEvent(event, headSlotItemStack);
             }
         }
     }
