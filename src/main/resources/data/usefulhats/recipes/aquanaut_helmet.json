@@ -12,7 +12,7 @@
       "item": "minecraft:turtle_helmet"
     },
     "G": {
-      "item": "minecraft:glass_pane"
+      "tag": "forge:glass_panes"
     }
   },
   "result": {
