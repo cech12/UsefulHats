@@ -47,6 +47,7 @@ public class AquanautHelmetItem extends AbstractHatItem {
             int enchantmentLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.RESPIRATION, stack) + 1;
             player.addPotionEffect(new EffectInstance(Effects.CONDUIT_POWER, enchantmentLevel * 1200, 0, false, false, true));
         } else {
+            //TODO only get damage, when the effect comes from this helmet!
             if (random.nextInt(20) == 0) {
                 this.damageHatItemByOne(stack, player);
             }

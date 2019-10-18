@@ -41,7 +41,8 @@ public class PostmanHatItem extends AbstractHatItem {
 
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
-        if (player.isSprinting()) {
+        // Speed of other sources will not be overridden here.
+        if (player.isSprinting() && player.getActivePotionEffect(Effects.SPEED) == null) {
             player.addPotionEffect(new EffectInstance(Effects.SPEED, 0, EnchantmentHelper.getEnchantmentLevel(Enchantments.EFFICIENCY, stack), false, false, true));
             player.addPotionEffect(new EffectInstance(Effects.HUNGER));
             if (random.nextInt(20) == 0) {

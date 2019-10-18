@@ -28,7 +28,8 @@ public class WingHelmetItem extends AbstractHatItem {
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
         if (!player.onGround && !player.isInWater()) {
-            if (player.getActivePotionEffect(Effects.LEVITATION) == null) {
+            //only add slow falling effect when no levitation effect an no slow falling effect is active (other sources like potions)
+            if (player.getActivePotionEffect(Effects.LEVITATION) == null && player.getActivePotionEffect(Effects.SLOW_FALLING) == null) {
                 player.addPotionEffect(new EffectInstance(Effects.SLOW_FALLING));
                 if (random.nextInt(20) == 0) {
                     this.damageHatItemByOne(stack, player);

@@ -29,6 +29,8 @@ public class MiningHatItem extends AbstractMiningHatItem implements IBreakSpeedC
 
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
+        //when night vision is active (potions), do nothing
+        if (player.getActivePotionEffect(Effects.NIGHT_VISION) == null) return;
         //support both hands
         for (ItemStack item : player.getHeldEquipment()) {
             if (item.getToolTypes().contains(ToolType.PICKAXE) && world.getLight(player.getPosition()) < 8) {
