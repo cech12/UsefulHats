@@ -1,14 +1,12 @@
 package cech12.usefulhats.item;
 
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.*;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class StrawHatItem extends AbstractMiningHatItem implements IBreakSpeedChanger {
@@ -18,10 +16,10 @@ public class StrawHatItem extends AbstractMiningHatItem implements IBreakSpeedCh
     }
 
     @Override
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-        super.addInformation(stack, worldIn, tooltip, flagIn);
+    public void onItemToolTipEvent(ItemStack stack, List<ITextComponent> tooltip) {
+        super.onItemToolTipEvent(stack, tooltip);
         int value = (int) (this.getEnchantmentValue(stack) * 100);
-        tooltip.add(new StringTextComponent("Digging with a shovel is " + value + "% faster. (stackable with enchantments and potions)"));
+        tooltip.add(new StringTextComponent("Digging with a shovel is " + value + "% faster. (stackable with enchantments and potions)").applyTextStyle(TextFormatting.BLUE));
     }
 
     @Override

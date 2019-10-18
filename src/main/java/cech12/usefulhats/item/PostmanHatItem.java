@@ -1,6 +1,5 @@
 package cech12.usefulhats.item;
 
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.player.PlayerEntity;
@@ -9,9 +8,9 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class PostmanHatItem extends AbstractHatItem {
@@ -34,10 +33,10 @@ public class PostmanHatItem extends AbstractHatItem {
     }
 
     @Override
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-        super.addInformation(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new StringTextComponent("While sprinting you get " + Effects.SPEED.getDisplayName().getFormattedText() +
-                getEnchantmentRomanNumber(stack) + " effect but also " + Effects.HUNGER.getDisplayName().getFormattedText() + " effect."));
+    public void onItemToolTipEvent(ItemStack stack, List<ITextComponent> tooltip) {
+        super.onItemToolTipEvent(stack, tooltip);
+        tooltip.add(new StringTextComponent("While sprinting you get " + Effects.SPEED.getDisplayName().getFormattedText() + getEnchantmentRomanNumber(stack) + " effect.").applyTextStyle(TextFormatting.BLUE));
+        tooltip.add(new StringTextComponent("But you get also " + Effects.HUNGER.getDisplayName().getFormattedText() + " effect.").applyTextStyle(TextFormatting.RED));
     }
 
     @Override

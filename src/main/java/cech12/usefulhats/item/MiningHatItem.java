@@ -1,17 +1,16 @@
 package cech12.usefulhats.item;
 
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class MiningHatItem extends AbstractMiningHatItem implements IBreakSpeedChanger {
@@ -21,11 +20,11 @@ public class MiningHatItem extends AbstractMiningHatItem implements IBreakSpeedC
     }
 
     @Override
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-        super.addInformation(stack, worldIn, tooltip, flagIn);
+    public void onItemToolTipEvent(ItemStack stack, List<ITextComponent> tooltip) {
+        super.onItemToolTipEvent(stack, tooltip);
         int value = (int) (this.getEnchantmentValue(stack) * 100);
-        tooltip.add(new StringTextComponent("Mining with a pickaxe is " + value + "% faster. (stackable with enchantments and potions)"));
-        tooltip.add(new StringTextComponent("While holding a pickaxe you get " + Effects.NIGHT_VISION.getDisplayName().getFormattedText() + " effect in dark areas."));
+        tooltip.add(new StringTextComponent("Mining with a pickaxe is " + value + "% faster. (stackable with enchantments and potions)").applyTextStyle(TextFormatting.BLUE));
+        tooltip.add(new StringTextComponent("While holding a pickaxe you get " + Effects.NIGHT_VISION.getDisplayName().getFormattedText() + " effect in dark areas.").applyTextStyle(TextFormatting.BLUE));
     }
 
     @Override

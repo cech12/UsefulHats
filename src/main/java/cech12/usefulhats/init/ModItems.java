@@ -10,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -51,6 +52,7 @@ public class ModItems {
      */
     public static void addEventListeners() {
         MinecraftForge.EVENT_BUS.addListener(ModItems::onBreakSpeedEvent);
+        MinecraftForge.EVENT_BUS.addListener(ModItems::onItemToolTipEvent);
     }
 
     private static void onBreakSpeedEvent(PlayerEvent.BreakSpeed event) {
@@ -58,6 +60,15 @@ public class ModItems {
         for (Item item : ModItems.items) {
             if (item instanceof IBreakSpeedChanger && headSlotItemStack.getItem() == item) {
                 ((IBreakSpeedChanger) item.getItem()).onBreakSpeedEvent(event, headSlotItemStack);
+            }
+        }
+    }
+
+    private static void onItemToolTipEvent(ItemTooltipEvent event) {
+        ItemStack stack = event.getItemStack();
+        for (Item item : ModItems.items) {
+            if (item instanceof AbstractHatItem && stack.getItem() == item) {
+                ((AbstractHatItem) item).onItemToolTipEvent(stack, event.getToolTip());
             }
         }
     }

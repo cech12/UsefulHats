@@ -6,7 +6,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.player.PlayerEntity;
@@ -17,9 +16,9 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class AquanautHelmetItem extends AbstractHatItem {
@@ -32,14 +31,14 @@ public class AquanautHelmetItem extends AbstractHatItem {
     }
 
     @Override
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-        super.addInformation(stack, worldIn, tooltip, flagIn);
+    public void onItemToolTipEvent(ItemStack stack, List<ITextComponent> tooltip) {
+        super.onItemToolTipEvent(stack, tooltip);
         int enchantmentLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.RESPIRATION, stack) + 1;
         String minutes =  enchantmentLevel + " minute";
         if (enchantmentLevel > 1) {
             minutes += "s";
         }
-        tooltip.add(new StringTextComponent("You get " + Effects.CONDUIT_POWER.getDisplayName().getFormattedText() + " effect for " + minutes + "."));
+        tooltip.add(new StringTextComponent("You get " + Effects.CONDUIT_POWER.getDisplayName().getFormattedText() + " effect for " + minutes + ".").applyTextStyle(TextFormatting.BLUE));
     }
 
     @Override

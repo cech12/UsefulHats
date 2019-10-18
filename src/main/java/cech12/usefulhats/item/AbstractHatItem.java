@@ -1,10 +1,13 @@
 package cech12.usefulhats.item;
 
 import cech12.usefulhats.UsefulHatsMod;
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -12,8 +15,13 @@ import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
 
 public abstract class AbstractHatItem extends ArmorItem implements IDyeableArmorItem {
@@ -108,4 +116,22 @@ public abstract class AbstractHatItem extends ArmorItem implements IDyeableArmor
     public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
         return 0;
     }
+
+    /**
+     * Disables "When on head" line of ArmorItem Tooltip
+     */
+    @Override
+    public Multimap<String, AttributeModifier> getAttributeModifiers(EquipmentSlotType equipmentSlot) {
+        return HashMultimap.create();
+    }
+
+    /**
+     * Adds "When on head" line to end of tooltip.
+     * When hat item has no effect, override this method with an empty method.
+     */
+    public void onItemToolTipEvent(ItemStack stack, List<ITextComponent> tooltip) {
+        tooltip.add(new StringTextComponent(""));
+        tooltip.add((new TranslationTextComponent("item.modifiers." + EquipmentSlotType.HEAD.getName())).applyTextStyle(TextFormatting.GRAY));
+    }
+
 }
