@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -27,20 +28,25 @@ public class AquanautHelmetItem extends AbstractHatItem {
 
     public AquanautHelmetItem() {
         super("aquanaut_helmet", HatArmorMaterial.AQUANAUT, rawColorFromRGB(71, 191, 74));
-        this.addAllowedEnchantment(Enchantments.AQUA_AFFINITY);
         this.addAllowedEnchantment(Enchantments.RESPIRATION);
     }
 
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new StringTextComponent("You get " + Effects.CONDUIT_POWER.getDisplayName().getFormattedText() + " effect for 1 minute."));
+        int enchantmentLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.RESPIRATION, stack) + 1;
+        String minutes =  enchantmentLevel + " minute";
+        if (enchantmentLevel > 1) {
+            minutes += "s";
+        }
+        tooltip.add(new StringTextComponent("You get " + Effects.CONDUIT_POWER.getDisplayName().getFormattedText() + " effect for " + minutes + "."));
     }
 
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
         if (!player.areEyesInFluid(FluidTags.WATER)) {
-            player.addPotionEffect(new EffectInstance(Effects.CONDUIT_POWER, 1200, 0, false, false, true));
+            int enchantmentLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.RESPIRATION, stack) + 1;
+            player.addPotionEffect(new EffectInstance(Effects.CONDUIT_POWER, enchantmentLevel * 1200, 0, false, false, true));
         } else {
             if (random.nextInt(20) == 0) {
                 this.damageHatItemByOne(stack, player);

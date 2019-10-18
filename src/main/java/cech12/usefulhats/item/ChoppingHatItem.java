@@ -11,7 +11,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ChoppingHatItem extends AbstractHatItem implements IBreakSpeedChanger {
+public class ChoppingHatItem extends AbstractMiningHatItem implements IBreakSpeedChanger {
 
     public ChoppingHatItem() {
         super("chopping_hat", HatArmorMaterial.CHOPPING, rawColorFromRGB(91, 91, 91));
@@ -20,13 +20,14 @@ public class ChoppingHatItem extends AbstractHatItem implements IBreakSpeedChang
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new StringTextComponent("Chopping with an axe is 20% faster. (stackable with enchantments and potions)"));
+        int value = (int) (this.getEnchantmentValue(stack) * 100);
+        tooltip.add(new StringTextComponent("Chopping with an axe is " + value + "% faster. (stackable with enchantments and potions)"));
     }
 
     @Override
     public void onBreakSpeedEvent(PlayerEvent.BreakSpeed event, ItemStack headSlotItemStack) {
         if (event.getPlayer().getHeldItemMainhand().getToolTypes().contains(ToolType.AXE) && event.getState().isToolEffective(ToolType.AXE)) {
-            event.setNewSpeed(event.getOriginalSpeed() * 1.2F);
+            event.setNewSpeed(event.getOriginalSpeed() * (1.0F + this.getEnchantmentValue(headSlotItemStack)));
             this.damageHatItemByOne(headSlotItemStack, event.getPlayer());
         }
     }

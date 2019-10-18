@@ -11,7 +11,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class StrawHatItem extends AbstractHatItem implements IBreakSpeedChanger {
+public class StrawHatItem extends AbstractMiningHatItem implements IBreakSpeedChanger {
 
     public StrawHatItem() {
         super("straw_hat", HatArmorMaterial.STRAW, rawColorFromRGB(226,189,0));
@@ -20,13 +20,14 @@ public class StrawHatItem extends AbstractHatItem implements IBreakSpeedChanger 
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new StringTextComponent("Digging with a shovel is 20% faster. (stackable with enchantments and potions)"));
+        int value = (int) (this.getEnchantmentValue(stack) * 100);
+        tooltip.add(new StringTextComponent("Digging with a shovel is " + value + "% faster. (stackable with enchantments and potions)"));
     }
 
     @Override
     public void onBreakSpeedEvent(PlayerEvent.BreakSpeed event, ItemStack headSlotItemStack) {
         if ( event.getPlayer().getHeldItemMainhand().getToolTypes().contains(ToolType.SHOVEL) && event.getState().isToolEffective(ToolType.SHOVEL)) {
-            event.setNewSpeed(event.getOriginalSpeed() * 1.2F);
+            event.setNewSpeed(event.getOriginalSpeed() * (1.0F + this.getEnchantmentValue(headSlotItemStack)));
             this.damageHatItemByOne(headSlotItemStack, event.getPlayer());
         }
     }
