@@ -37,8 +37,11 @@ public abstract class AbstractHatItem extends ArmorItem implements IDyeableArmor
         this.resourceLocation = new ResourceLocation(UsefulHatsMod.MOD_ID, name);
         this.setRegistryName(this.resourceLocation);
         this.initColor = initColor;
-        this.allowedEnchantments.add(Enchantments.MENDING);
         this.allowedEnchantments.add(Enchantments.UNBREAKING);
+        this.allowedEnchantments.add(Enchantments.RESPIRATION);
+        this.allowedEnchantments.add(Enchantments.AQUA_AFFINITY);
+        this.allowedAdditionalBookEnchantments.add(Enchantments.THORNS);
+        this.allowedAdditionalBookEnchantments.add(Enchantments.MENDING);
         this.allowedAdditionalBookEnchantments.add(Enchantments.BINDING_CURSE);
         this.allowedAdditionalBookEnchantments.add(Enchantments.VANISHING_CURSE);
     }

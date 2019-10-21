@@ -27,7 +27,6 @@ public class AquanautHelmetItem extends AbstractHatItem {
 
     public AquanautHelmetItem() {
         super("aquanaut_helmet", HatArmorMaterial.AQUANAUT, rawColorFromRGB(71, 191, 74));
-        this.addAllowedEnchantment(Enchantments.RESPIRATION);
     }
 
     @Override
