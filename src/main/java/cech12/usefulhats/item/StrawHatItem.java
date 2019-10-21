@@ -6,6 +6,7 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.world.BlockEvent;
 
 import java.util.List;
 
@@ -26,6 +27,12 @@ public class StrawHatItem extends AbstractMiningHatItem implements IBreakSpeedCh
     public void onBreakSpeedEvent(PlayerEvent.BreakSpeed event, ItemStack headSlotItemStack) {
         if ( event.getPlayer().getHeldItemMainhand().getToolTypes().contains(ToolType.SHOVEL) && event.getState().isToolEffective(ToolType.SHOVEL)) {
             event.setNewSpeed(event.getOriginalSpeed() * (1.0F + this.getEnchantmentValue(headSlotItemStack)));
+        }
+    }
+
+    @Override
+    public void onBreakEvent(BlockEvent.BreakEvent event, ItemStack headSlotItemStack) {
+        if ( event.getPlayer().getHeldItemMainhand().getToolTypes().contains(ToolType.SHOVEL) && event.getState().isToolEffective(ToolType.SHOVEL)) {
             this.damageHatItemByOne(headSlotItemStack, event.getPlayer());
         }
     }

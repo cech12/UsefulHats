@@ -12,6 +12,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -52,6 +53,7 @@ public class ModItems {
      */
     public static void addEventListeners() {
         MinecraftForge.EVENT_BUS.addListener(ModItems::onBreakSpeedEvent);
+        MinecraftForge.EVENT_BUS.addListener(ModItems::onBreakEvent);
         MinecraftForge.EVENT_BUS.addListener(ModItems::onItemToolTipEvent);
     }
 
@@ -59,7 +61,16 @@ public class ModItems {
         ItemStack headSlotItemStack = event.getPlayer().getItemStackFromSlot(EquipmentSlotType.HEAD);
         for (Item item : ModItems.items) {
             if (item instanceof IBreakSpeedChanger && headSlotItemStack.getItem() == item) {
-                ((IBreakSpeedChanger) item.getItem()).onBreakSpeedEvent(event, headSlotItemStack);
+                ((IBreakSpeedChanger) item).onBreakSpeedEvent(event, headSlotItemStack);
+            }
+        }
+    }
+
+    private static void onBreakEvent(BlockEvent.BreakEvent event) {
+        ItemStack headSlotItemStack = event.getPlayer().getItemStackFromSlot(EquipmentSlotType.HEAD);
+        for (Item item : ModItems.items) {
+            if (item instanceof IBreakSpeedChanger && headSlotItemStack.getItem() == item) {
+                ((IBreakSpeedChanger) item).onBreakEvent(event, headSlotItemStack);
             }
         }
     }

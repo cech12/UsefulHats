@@ -133,6 +133,7 @@ public abstract class AbstractHatItem extends ArmorItem implements IDyeableArmor
      * When hat item has no effect, override this method with an empty method.
      */
     public void onItemToolTipEvent(ItemStack stack, List<ITextComponent> tooltip) {
+        //tooltip.add(new StringTextComponent("Durability: " + (stack.getMaxDamage() - stack.getDamage()) + "/" + stack.getMaxDamage()).applyTextStyle(TextFormatting.RED));
         tooltip.add(new StringTextComponent(""));
         tooltip.add((new TranslationTextComponent("item.modifiers." + EquipmentSlotType.HEAD.getName())).applyTextStyle(TextFormatting.GRAY));
     }

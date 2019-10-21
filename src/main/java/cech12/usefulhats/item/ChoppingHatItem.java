@@ -6,6 +6,7 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.world.BlockEvent;
 
 import java.util.List;
 
@@ -26,6 +27,12 @@ public class ChoppingHatItem extends AbstractMiningHatItem implements IBreakSpee
     public void onBreakSpeedEvent(PlayerEvent.BreakSpeed event, ItemStack headSlotItemStack) {
         if (event.getPlayer().getHeldItemMainhand().getToolTypes().contains(ToolType.AXE) && event.getState().isToolEffective(ToolType.AXE)) {
             event.setNewSpeed(event.getOriginalSpeed() * (1.0F + this.getEnchantmentValue(headSlotItemStack)));
+        }
+    }
+
+    @Override
+    public void onBreakEvent(BlockEvent.BreakEvent event, ItemStack headSlotItemStack) {
+        if (event.getPlayer().getHeldItemMainhand().getToolTypes().contains(ToolType.AXE) && event.getState().isToolEffective(ToolType.AXE)) {
             this.damageHatItemByOne(headSlotItemStack, event.getPlayer());
         }
     }
