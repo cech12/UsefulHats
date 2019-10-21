@@ -14,13 +14,13 @@ import java.util.function.Supplier;
 
 public enum HatArmorMaterial implements IArmorMaterial {
 
-    AQUANAUT("usefulhats:aquanaut", 600, 25, SoundEvents.ITEM_ARMOR_EQUIP_TURTLE, () -> {
+    AQUANAUT("usefulhats:aquanaut", 600, 15, SoundEvents.ITEM_ARMOR_EQUIP_TURTLE, () -> {
         return Ingredient.fromItems(Items.SCUTE);
     }),
     CHOPPING("usefulhats:chopping", 300, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
         return Ingredient.fromItems(Items.RABBIT_HIDE);
     }),
-    MINING("usefulhats:mining", 450, 25, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, () -> {
+    MINING("usefulhats:mining", 450, 15, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, () -> {
         return Ingredient.fromItems(Items.GOLD_INGOT);
     }),
     POSTMAN("usefulhats:postman", 600, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
