@@ -42,13 +42,18 @@ public class AquanautHelmetItem extends AbstractHatItem {
 
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
+        int maxDuration = (EnchantmentHelper.getEnchantmentLevel(Enchantments.RESPIRATION, stack) + 1) * 1200;
         if (!player.areEyesInFluid(FluidTags.WATER)) {
-            int enchantmentLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.RESPIRATION, stack) + 1;
-            player.addPotionEffect(new EffectInstance(Effects.CONDUIT_POWER, enchantmentLevel * 1200, 0, false, false, true));
+            player.addPotionEffect(new EffectInstance(Effects.CONDUIT_POWER, maxDuration, 0, false, false, true));
         } else {
-            //TODO only get damage, when the effect comes from this helmet!
-            if (random.nextInt(20) == 0) {
-                this.damageHatItemByOne(stack, player);
+            // only get damage, when the effect is active and duration is below the max duration
+            // (other sources can produce this effect with higher duration)
+            // TODO detect effect from other source
+            EffectInstance conduitPowerEffect = player.getActivePotionEffect(Effects.CONDUIT_POWER);
+            if (conduitPowerEffect != null && conduitPowerEffect.getDuration() <= maxDuration) {
+                if (random.nextInt(20) == 0) {
+                    this.damageHatItemByOne(stack, player);
+                }
             }
         }
     }
