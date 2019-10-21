@@ -102,13 +102,20 @@ public abstract class AbstractHatItem extends ArmorItem implements IDyeableArmor
             if (this.isDamageable()) {
                 if (stack.attemptDamageItem(1, entity.getRNG(), entity instanceof ServerPlayerEntity ? (ServerPlayerEntity)entity : null)) {
                     entity.sendBreakAnimation(EquipmentSlotType.HEAD);
-                    Item item = this.getItem();
                     stack.shrink(1);
-                    entity.addStat(Stats.ITEM_BROKEN.get(item));
+                    entity.addStat(Stats.ITEM_BROKEN.get(this));
                     stack.setDamage(0);
+                    onItemRemoved(stack, entity);
                 }
             }
         }
+    }
+
+    /**
+     * Override this method, if something must be done after breaking or unequip the item.
+     */
+    protected void onItemRemoved(ItemStack stack, PlayerEntity player) {
+        //do nothing
     }
 
     /**

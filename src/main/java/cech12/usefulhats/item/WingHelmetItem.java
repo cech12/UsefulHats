@@ -44,4 +44,11 @@ public class WingHelmetItem extends AbstractHatItem {
         }
     }
 
+    @Override
+    protected void onItemRemoved(ItemStack stack, PlayerEntity player) {
+        EffectInstance levitation = player.getActivePotionEffect(Effects.LEVITATION);
+        if (levitation != null && levitation.getDuration() <= 200) {
+            player.removePotionEffect(Effects.LEVITATION);
+        }
+    }
 }

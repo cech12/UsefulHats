@@ -48,13 +48,22 @@ public class AquanautHelmetItem extends AbstractHatItem {
         } else {
             // only get damage, when the effect is active and duration is below the max duration
             // (other sources can produce this effect with higher duration)
-            // TODO detect effect from other source
+            // TODO detect effect from other source (also for onItemRemoved)
             EffectInstance conduitPowerEffect = player.getActivePotionEffect(Effects.CONDUIT_POWER);
             if (conduitPowerEffect != null && conduitPowerEffect.getDuration() <= maxDuration) {
                 if (random.nextInt(20) == 0) {
                     this.damageHatItemByOne(stack, player);
                 }
             }
+        }
+    }
+
+    @Override
+    protected void onItemRemoved(ItemStack stack, PlayerEntity player) {
+        int maxDuration = (EnchantmentHelper.getEnchantmentLevel(Enchantments.RESPIRATION, stack) + 1) * 1200;
+        EffectInstance conduitPowerEffect = player.getActivePotionEffect(Effects.CONDUIT_POWER);
+        if (conduitPowerEffect != null && conduitPowerEffect.getDuration() <= maxDuration) {
+            player.removePotionEffect(Effects.CONDUIT_POWER);
         }
     }
 
