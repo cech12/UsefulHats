@@ -22,6 +22,7 @@ public class ModItems {
     private static final Item[] items = {
             new AquanautHelmetItem(),
             new ChoppingHatItem(),
+            new HaloItem(),
             new MiningHatItem(),
             new PostmanHatItem(),
             new StockingCapItem(),
@@ -54,6 +55,7 @@ public class ModItems {
     public static void addEventListeners() {
         MinecraftForge.EVENT_BUS.addListener(ModItems::onBreakSpeedEvent);
         MinecraftForge.EVENT_BUS.addListener(ModItems::onBreakEvent);
+        MinecraftForge.EVENT_BUS.addListener(ModItems::onVisibilityEvent);
         MinecraftForge.EVENT_BUS.addListener(ModItems::onItemToolTipEvent);
     }
 
@@ -71,6 +73,15 @@ public class ModItems {
         for (Item item : ModItems.items) {
             if (item instanceof IBreakSpeedChanger && headSlotItemStack.getItem() == item) {
                 ((IBreakSpeedChanger) item).onBreakEvent(event, headSlotItemStack);
+            }
+        }
+    }
+
+    private static void onVisibilityEvent(PlayerEvent.Visibility event) {
+        ItemStack headSlotItemStack = event.getPlayer().getItemStackFromSlot(EquipmentSlotType.HEAD);
+        for (Item item : ModItems.items) {
+            if (item instanceof IVisibilityChanger && headSlotItemStack.getItem() == item) {
+                ((IVisibilityChanger) item).onVisibilityEvent(event, headSlotItemStack);
             }
         }
     }
