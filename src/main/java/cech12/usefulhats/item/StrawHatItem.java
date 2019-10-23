@@ -2,8 +2,8 @@ package cech12.usefulhats.item;
 
 import net.minecraft.item.*;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
@@ -20,7 +20,7 @@ public class StrawHatItem extends AbstractMiningHatItem implements IBreakSpeedCh
     public void onItemToolTipEvent(ItemStack stack, List<ITextComponent> tooltip) {
         super.onItemToolTipEvent(stack, tooltip);
         int value = (int) (this.getEnchantmentValue(stack) * 100);
-        tooltip.add(new StringTextComponent("Digging with a shovel is " + value + "% faster. (stackable with enchantments and potions)").applyTextStyle(TextFormatting.BLUE));
+        tooltip.add(new TranslationTextComponent("item.usefulhats.straw_hat.desc.digging_speed", value).applyTextStyle(TextFormatting.BLUE));
     }
 
     @Override

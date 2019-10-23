@@ -6,8 +6,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -21,8 +21,8 @@ public class WingHelmetItem extends AbstractHatItem {
     @Override
     public void onItemToolTipEvent(ItemStack stack, List<ITextComponent> tooltip) {
         super.onItemToolTipEvent(stack, tooltip);
-        tooltip.add(new StringTextComponent("While falling you get " + Effects.SLOW_FALLING.getDisplayName().getFormattedText() + " effect.").applyTextStyle(TextFormatting.BLUE));
-        tooltip.add(new StringTextComponent("Sometimes the helmet is afraid of monsters and flies away.").applyTextStyle(TextFormatting.RED));
+        tooltip.add(new TranslationTextComponent("item.usefulhats.wing_helmet.desc.slow_falling").applyTextStyle(TextFormatting.BLUE));
+        tooltip.add(new TranslationTextComponent("item.usefulhats.wing_helmet.desc.scared").applyTextStyle(TextFormatting.RED));
     }
 
     @Override

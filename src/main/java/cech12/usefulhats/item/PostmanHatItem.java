@@ -7,8 +7,8 @@ import net.minecraft.item.*;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -35,8 +35,8 @@ public class PostmanHatItem extends AbstractHatItem {
     @Override
     public void onItemToolTipEvent(ItemStack stack, List<ITextComponent> tooltip) {
         super.onItemToolTipEvent(stack, tooltip);
-        tooltip.add(new StringTextComponent("While sprinting you get " + Effects.SPEED.getDisplayName().getFormattedText() + getEnchantmentRomanNumber(stack) + " effect.").applyTextStyle(TextFormatting.BLUE));
-        tooltip.add(new StringTextComponent("But you get also " + Effects.HUNGER.getDisplayName().getFormattedText() + " effect.").applyTextStyle(TextFormatting.RED));
+        tooltip.add(new TranslationTextComponent("item.usefulhats.postman_hat.desc.speed", getEnchantmentRomanNumber(stack)).applyTextStyle(TextFormatting.BLUE));
+        tooltip.add(new TranslationTextComponent("item.usefulhats.postman_hat.desc.hunger").applyTextStyle(TextFormatting.RED));
     }
 
     @Override

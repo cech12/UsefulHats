@@ -3,8 +3,8 @@ package cech12.usefulhats.item;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 
@@ -19,8 +19,8 @@ public class HaloItem extends AbstractHatItem implements IVisibilityChanger {
     @Override
     public void onItemToolTipEvent(ItemStack stack, List<ITextComponent> tooltip) {
         super.onItemToolTipEvent(stack, tooltip);
-        tooltip.add(new StringTextComponent("No entity attacks you.").applyTextStyle(TextFormatting.BLUE));
-        tooltip.add(new StringTextComponent("But beware of the nether.").applyTextStyle(TextFormatting.RED));
+        tooltip.add(new TranslationTextComponent("item.usefulhats.halo.desc.no_attack").applyTextStyle(TextFormatting.BLUE));
+        tooltip.add(new TranslationTextComponent("item.usefulhats.halo.desc.beware_of_nether").applyTextStyle(TextFormatting.RED));
     }
 
     @Override

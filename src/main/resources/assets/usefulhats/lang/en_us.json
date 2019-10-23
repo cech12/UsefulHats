@@ -1,9 +1,22 @@
 {
   "item.usefulhats.aquanaut_helmet": "Aquanaut Helmet",
+  "item.usefulhats.aquanaut_helmet.desc.conduit_power.singular": "You get Conduit Power effect for %s minute.",
+  "item.usefulhats.aquanaut_helmet.desc.conduit_power.plural": "You get Conduit Power effect for %s minutes.",
   "item.usefulhats.chopping_hat": "Chopping Hat",
+  "item.usefulhats.chopping_hat.desc.chopping_speed": "Chopping with an axe is %s%% faster. (stackable with enchantments and potions)",
+  "item.usefulhats.halo": "Halo",
+  "item.usefulhats.halo.desc.no_attack": "No entity attacks you.",
+  "item.usefulhats.halo.desc.beware_of_nether": "But beware of the nether.",
   "item.usefulhats.mining_hat": "Mining Hat",
+  "item.usefulhats.mining_hat.desc.mining_speed": "Mining with a pickaxe is %s%% faster. (stackable with enchantments and potions)",
+  "item.usefulhats.mining_hat.desc.night_vision": "While holding a pickaxe you get Night Vision effect in dark areas.",
   "item.usefulhats.postman_hat": "Postman Hat",
+  "item.usefulhats.postman_hat.desc.speed": "While sprinting you get Speed%s effect.",
+  "item.usefulhats.postman_hat.desc.hunger": "But you get also Hunger effect.",
   "item.usefulhats.stocking_cap": "Stocking Cap",
   "item.usefulhats.straw_hat": "Straw Hat",
-  "item.usefulhats.wing_helmet": "Wing Helmet"
+  "item.usefulhats.straw_hat.desc.digging_speed": "Digging with a shovel is %s%% faster. (stackable with enchantments and potions)",
+  "item.usefulhats.wing_helmet": "Wing Helmet",
+  "item.usefulhats.wing_helmet.desc.slow_falling": "While falling you get Slow Falling effect.",
+  "item.usefulhats.wing_helmet.desc.scared": "Sometimes the helmet is afraid of monsters and flies away."
 }

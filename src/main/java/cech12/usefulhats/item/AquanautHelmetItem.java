@@ -15,8 +15,8 @@ import net.minecraft.potion.Effects;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -33,11 +33,11 @@ public class AquanautHelmetItem extends AbstractHatItem {
     public void onItemToolTipEvent(ItemStack stack, List<ITextComponent> tooltip) {
         super.onItemToolTipEvent(stack, tooltip);
         int enchantmentLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.RESPIRATION, stack) + 1;
-        String minutes =  enchantmentLevel + " minute";
-        if (enchantmentLevel > 1) {
-            minutes += "s";
+        String translationKey = "item.usefulhats.aquanaut_helmet.desc.conduit_power.singular";
+        if (enchantmentLevel != 1) {
+            translationKey = "item.usefulhats.aquanaut_helmet.desc.conduit_power.plural";
         }
-        tooltip.add(new StringTextComponent("You get " + Effects.CONDUIT_POWER.getDisplayName().getFormattedText() + " effect for " + minutes + ".").applyTextStyle(TextFormatting.BLUE));
+        tooltip.add(new TranslationTextComponent(translationKey, enchantmentLevel).applyTextStyle(TextFormatting.BLUE));
     }
 
     @Override
