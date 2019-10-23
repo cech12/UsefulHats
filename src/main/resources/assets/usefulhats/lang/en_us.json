@@ -5,7 +5,7 @@
   "item.usefulhats.chopping_hat": "Chopping Hat",
   "item.usefulhats.chopping_hat.desc.chopping_speed": "Chopping with an axe is %s%% faster. (stackable with enchantments and potions)",
   "item.usefulhats.halo": "Halo",
-  "item.usefulhats.halo.desc.no_attack": "No entity attacks you.",
+  "item.usefulhats.halo.desc.no_attack": "No mob except bosses attacks you.",
   "item.usefulhats.halo.desc.beware_of_nether": "But beware of the nether.",
   "item.usefulhats.mining_hat": "Mining Hat",
   "item.usefulhats.mining_hat.desc.mining_speed": "Mining with a pickaxe is %s%% faster. (stackable with enchantments and potions)",
