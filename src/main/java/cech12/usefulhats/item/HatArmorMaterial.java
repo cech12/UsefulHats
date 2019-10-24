@@ -23,16 +23,16 @@ public enum HatArmorMaterial implements IArmorMaterial {
     HALO("usefulhats:halo", 600, 15, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, () -> {
         return Ingredient.fromItems(Items.GLOWSTONE_DUST);
     }),
-    MINING("usefulhats:mining", 450, 15, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, () -> {
+    MINING("usefulhats:blank", 450, 15, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, () -> {
         return Ingredient.fromItems(Items.GOLD_INGOT);
     }),
-    POSTMAN("usefulhats:postman", 600, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
+    POSTMAN("usefulhats:blank", 600, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
         return Ingredient.fromItems(Items.LAPIS_LAZULI);
     }),
     STOCKING("usefulhats:stocking", 600, 25, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
         return Ingredient.fromItems(Items.STRING);
     }),
-    STRAW("usefulhats:straw", 300, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
+    STRAW("usefulhats:blank", 300, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
         return Ingredient.fromItems(Items.WHEAT);
     }),
     WING("usefulhats:wing", 600, 15, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> {

@@ -14,7 +14,7 @@ import net.minecraftforge.event.world.BlockEvent;
 
 import java.util.List;
 
-public class MiningHatItem extends AbstractMiningHatItem implements IBreakSpeedChanger {
+public class MiningHatItem extends AbstractMiningHatItem implements IBreakSpeedChanger, IUsefulHatModelOwner {
 
     public MiningHatItem() {
         super("mining_hat", HatArmorMaterial.MINING, rawColorFromRGB(255, 216, 0));

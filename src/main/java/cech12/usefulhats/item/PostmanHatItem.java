@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class PostmanHatItem extends AbstractHatItem {
+public class PostmanHatItem extends AbstractHatItem implements IUsefulHatModelOwner {
 
     public PostmanHatItem() {
         super("postman_hat", HatArmorMaterial.POSTMAN, rawColorFromRGB(57, 99, 150));

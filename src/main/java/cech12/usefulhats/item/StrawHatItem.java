@@ -10,7 +10,7 @@ import net.minecraftforge.event.world.BlockEvent;
 
 import java.util.List;
 
-public class StrawHatItem extends AbstractMiningHatItem implements IBreakSpeedChanger {
+public class StrawHatItem extends AbstractMiningHatItem implements IBreakSpeedChanger, IUsefulHatModelOwner {
 
     public StrawHatItem() {
         super("straw_hat", HatArmorMaterial.STRAW, rawColorFromRGB(226,189,0));
