@@ -20,7 +20,7 @@ import java.util.Map;
  * Colorable hat layer which adds the {@link UsefulHatModel} to rendering.
  *
  * Textures for these hats must lie in textures/models/usefulhats/
- * with names: HATNMAE.png or HATNAME_overlay.png
+ * with names: HATNAME.png or HATNAME_overlay.png
  */
 public class UsefulHatLayer<T extends LivingEntity, M extends BipedModel<T>, A extends BipedModel<T>> extends BipedArmorLayer<T, M, A> {
 

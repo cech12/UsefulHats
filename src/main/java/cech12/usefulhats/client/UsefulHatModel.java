@@ -2,8 +2,6 @@ package cech12.usefulhats.client;
 
 import net.minecraft.client.renderer.entity.model.*;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.merchant.villager.AbstractVillagerEntity;
-import net.minecraft.util.math.MathHelper;
 
 /**
  * Hat model class, which adds an hat flat addition (like straw hat for villagers) .
@@ -40,19 +38,9 @@ public class UsefulHatModel<T extends Entity> extends EntityModel<T> implements 
     }
 
     public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor) {
-        boolean flag = false;
-        if (entityIn instanceof AbstractVillagerEntity) {
-            flag = ((AbstractVillagerEntity)entityIn).getShakeHeadTicks() > 0;
-        }
-
         this.innerHat.rotateAngleY = netHeadYaw * ((float)Math.PI / 180F);
         this.innerHat.rotateAngleX = headPitch * ((float)Math.PI / 180F);
-        if (flag) {
-            this.innerHat.rotateAngleZ = 0.3F * MathHelper.sin(0.45F * ageInTicks);
-            this.innerHat.rotateAngleX = 0.4F;
-        } else {
-            this.innerHat.rotateAngleZ = 0.0F;
-        }
+        this.innerHat.rotateAngleZ = 0.0F;
     }
 
     public RendererModel func_205072_a() {
