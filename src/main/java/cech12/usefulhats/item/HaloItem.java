@@ -17,7 +17,7 @@ import java.util.List;
 public class HaloItem extends AbstractHatItem implements IAttackTargetChanger, IMobEntityChanger {
 
     public HaloItem() {
-        super("halo", HatArmorMaterial.HALO, rawColorFromRGB(57, 99, 150));
+        super("halo", HatArmorMaterial.HALO, rawColorFromRGB(255, 236, 142));
     }
 
     @Override
