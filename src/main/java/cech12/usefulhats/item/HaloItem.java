@@ -1,18 +1,22 @@
 package cech12.usefulhats.item;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.monster.ZombiePigmanEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 public class HaloItem extends AbstractHatItem implements IAttackTargetChanger, IMobEntityChanger {
 
@@ -25,6 +29,18 @@ public class HaloItem extends AbstractHatItem implements IAttackTargetChanger, I
         super.onItemToolTipEvent(stack, tooltip);
         tooltip.add(new TranslationTextComponent("item.usefulhats.halo.desc.no_attack").applyTextStyle(TextFormatting.BLUE));
         tooltip.add(new TranslationTextComponent("item.usefulhats.halo.desc.beware_of_nether").applyTextStyle(TextFormatting.RED));
+    }
+
+    @Override
+    public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
+        // Looses durability outside the nether when non-boss mobs are in range (16 blocks)
+        if (player.dimension != DimensionType.THE_NETHER) {
+            AxisAlignedBB radius = new AxisAlignedBB(player.posX-16, player.posY-16, player.posZ-16, player.posX+16, player.posY+16, player.posZ+16);
+            List<MobEntity> mobsInRange = player.world.getEntitiesWithinAABB(MobEntity.class, radius, (Predicate<Entity>) entity -> entity instanceof MobEntity && entity.isNonBoss());
+            if (!mobsInRange.isEmpty() && random.nextInt(20) == 0) {
+                this.damageHatItemByOne(stack, player);
+            }
+        }
     }
 
     @Override
