@@ -13,7 +13,9 @@ import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent;
+import net.minecraftforge.event.entity.player.ItemFishedEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
@@ -27,6 +29,7 @@ public class ModItems {
             new AquanautHelmetItem(),
             new ChoppingHatItem(),
             new HaloItem(),
+            new LuckyHatItem(),
             new MiningHatItem(),
             new PostmanHatItem(),
             new StockingCapItem(),
@@ -60,7 +63,9 @@ public class ModItems {
         MinecraftForge.EVENT_BUS.addListener(ModItems::onBreakSpeedEvent);
         MinecraftForge.EVENT_BUS.addListener(ModItems::onBreakEvent);
         MinecraftForge.EVENT_BUS.addListener(ModItems::onEntityJoinWorldEvent);
+        MinecraftForge.EVENT_BUS.addListener(ModItems::onItemFishedEvent);
         MinecraftForge.EVENT_BUS.addListener(ModItems::onItemToolTipEvent);
+        MinecraftForge.EVENT_BUS.addListener(ModItems::onLivingDropsEvent);
         MinecraftForge.EVENT_BUS.addListener(ModItems::onLivingSetAttackTargetEvent);
     }
 
@@ -93,11 +98,32 @@ public class ModItems {
         }
     }
 
+    private static void onItemFishedEvent(ItemFishedEvent event) {
+        ItemStack headSlotItemStack = event.getPlayer().getItemStackFromSlot(EquipmentSlotType.HEAD);
+        for (Item item : ModItems.items) {
+            if (item instanceof IItemFishedListener && headSlotItemStack.getItem() == item) {
+                ((IItemFishedListener) item).onItemFishedListener(event, headSlotItemStack);
+            }
+        }
+    }
+
     private static void onItemToolTipEvent(ItemTooltipEvent event) {
         ItemStack stack = event.getItemStack();
         for (Item item : ModItems.items) {
             if (item instanceof AbstractHatItem && stack.getItem() == item) {
                 ((AbstractHatItem) item).onItemToolTipEvent(stack, event.getToolTip());
+            }
+        }
+    }
+
+    private static void onLivingDropsEvent(LivingDropsEvent event) {
+        if (event.getSource().getImmediateSource() instanceof PlayerEntity) {
+            PlayerEntity player = (PlayerEntity) event.getSource().getImmediateSource();
+            ItemStack headSlotItemStack = player.getItemStackFromSlot(EquipmentSlotType.HEAD);
+            for (Item item : ModItems.items) {
+                if (item instanceof ILivingDropsListener && item == headSlotItemStack.getItem()) {
+                    ((ILivingDropsListener) item).onLivingDropsEvent(event, player, headSlotItemStack);
+                }
             }
         }
     }

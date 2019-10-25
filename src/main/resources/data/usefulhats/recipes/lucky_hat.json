@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#O#",
+    "# #"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:lime_wool"
+    },
+    "O": {
+      "item": "minecraft:rabbit_foot"
+    }
+  },
+  "result": {
+    "item": "usefulhats:lucky_hat"
+  }
+}

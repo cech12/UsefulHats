@@ -1,5 +1,6 @@
 package cech12.usefulhats.item;
 
+import cech12.usefulhats.UsefulHatsUtils;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.player.PlayerEntity;
@@ -20,22 +21,11 @@ public class PostmanHatItem extends AbstractHatItem implements IUsefulHatModelOw
         this.addAllowedEnchantment(Enchantments.EFFICIENCY);
     }
 
-    private String getEnchantmentRomanNumber(ItemStack stack) {
-        int enchantmentLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.EFFICIENCY, stack);
-        switch (enchantmentLevel) {
-            case 1 : return " II";
-            case 2 : return " III";
-            case 3 : return " IV";
-            case 4 : return " V";
-            case 5 : return " VI";
-        }
-        return "";
-    }
-
     @Override
     public void onItemToolTipEvent(ItemStack stack, List<ITextComponent> tooltip) {
         super.onItemToolTipEvent(stack, tooltip);
-        tooltip.add(new TranslationTextComponent("item.usefulhats.postman_hat.desc.speed", getEnchantmentRomanNumber(stack)).applyTextStyle(TextFormatting.BLUE));
+        int enchantmentLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.EFFICIENCY, stack) + 1;
+        tooltip.add(new TranslationTextComponent("item.usefulhats.postman_hat.desc.speed", UsefulHatsUtils.getRomanNumber(enchantmentLevel, false)).applyTextStyle(TextFormatting.BLUE));
         tooltip.add(new TranslationTextComponent("item.usefulhats.postman_hat.desc.hunger").applyTextStyle(TextFormatting.RED));
     }
 
