@@ -9,6 +9,7 @@
   "item.usefulhats.halo.desc.beware_of_nether": "But beware of the nether.",
   "item.usefulhats.lucky_hat": "Lucky Hat",
   "item.usefulhats.lucky_hat.desc.luck": "While holding a sword, axe or fishing rod you get Luck%s effect.",
+  "item.usefulhats.lucky_hat.desc.unluck": "But after fishing or killing a mob you get Bad Luck effect for 10 seconds.",
   "item.usefulhats.mining_hat": "Mining Hat",
   "item.usefulhats.mining_hat.desc.mining_speed": "Mining with a pickaxe is %s%% faster. (stackable with enchantments and potions)",
   "item.usefulhats.mining_hat.desc.night_vision": "While holding a pickaxe you get Night Vision effect in dark areas.",

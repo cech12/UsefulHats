@@ -55,6 +55,7 @@ public class LuckyHatItem extends AbstractHatItem implements IItemFishedListener
     public void onItemToolTipEvent(ItemStack stack, List<ITextComponent> tooltip) {
         super.onItemToolTipEvent(stack, tooltip);
         tooltip.add(new TranslationTextComponent("item.usefulhats.lucky_hat.desc.luck", UsefulHatsUtils.getRomanNumber(getEffectLevel(stack), false)).applyTextStyle(TextFormatting.BLUE));
+        tooltip.add(new TranslationTextComponent("item.usefulhats.lucky_hat.desc.unluck").applyTextStyle(TextFormatting.RED));
     }
 
     @Override
@@ -74,6 +75,7 @@ public class LuckyHatItem extends AbstractHatItem implements IItemFishedListener
         //damage item after fishing
         if (!event.isCanceled() && this.hasHatRelatedItemInHand(event.getPlayer())) {
             this.damageHatItemByOne(headSlotItemStack, event.getPlayer());
+            event.getPlayer().addPotionEffect(new EffectInstance(Effects.UNLUCK, 200));
         }
     }
 
@@ -84,6 +86,7 @@ public class LuckyHatItem extends AbstractHatItem implements IItemFishedListener
         //damage item after killing a mob
         if (!event.isCanceled() && this.hasHatRelatedItemInHand(dropReason)) {
             this.damageHatItemByOne(headSlotItemStack, dropReason);
+            dropReason.addPotionEffect(new EffectInstance(Effects.UNLUCK, 200));
         }
     }
 }
