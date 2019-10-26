@@ -14,6 +14,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
 import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent;
 import net.minecraftforge.event.entity.player.ItemFishedEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
@@ -37,6 +38,7 @@ public class ModItems {
             new WingHelmetItem()
     };
 
+    @SuppressWarnings("unused")
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event) {
         for (Item item : ModItems.items) {
@@ -44,15 +46,14 @@ public class ModItems {
         }
     }
 
+    @SuppressWarnings("unused")
     @SubscribeEvent
     public static void registerColors(ColorHandlerEvent.Item event) {
         ItemColors itemcolors = event.getItemColors();
         for (Item item : ModItems.items) {
-            if (item instanceof IDyeableArmorItem) {
-                itemcolors.register((itemStack, layer) -> {
-                    return layer > 0 ? -1 : ((IDyeableArmorItem)itemStack.getItem()).getColor(itemStack);
-                }, item);
-            }
+            //if (item instanceof IDyeableArmorItem) {
+            itemcolors.register((itemStack, layer) -> layer > 0 ? -1 : ((IDyeableArmorItem)itemStack.getItem()).getColor(itemStack), item);
+            //}
         }
     }
 
@@ -66,6 +67,7 @@ public class ModItems {
         MinecraftForge.EVENT_BUS.addListener(ModItems::onItemFishedEvent);
         MinecraftForge.EVENT_BUS.addListener(ModItems::onItemToolTipEvent);
         MinecraftForge.EVENT_BUS.addListener(ModItems::onLivingDropsEvent);
+        MinecraftForge.EVENT_BUS.addListener(ModItems::onLivingEquipmentChangeEvent);
         MinecraftForge.EVENT_BUS.addListener(ModItems::onLivingSetAttackTargetEvent);
     }
 
@@ -110,7 +112,7 @@ public class ModItems {
     private static void onItemToolTipEvent(ItemTooltipEvent event) {
         ItemStack stack = event.getItemStack();
         for (Item item : ModItems.items) {
-            if (item instanceof AbstractHatItem && stack.getItem() == item) {
+            if (/*item instanceof AbstractHatItem &&*/ stack.getItem() == item) {
                 ((AbstractHatItem) item).onItemToolTipEvent(stack, event.getToolTip());
             }
         }
@@ -123,6 +125,18 @@ public class ModItems {
             for (Item item : ModItems.items) {
                 if (item instanceof ILivingDropsListener && item == headSlotItemStack.getItem()) {
                     ((ILivingDropsListener) item).onLivingDropsEvent(event, player, headSlotItemStack);
+                }
+            }
+        }
+    }
+
+    private static void onLivingEquipmentChangeEvent(LivingEquipmentChangeEvent event) {
+        if (event.getSlot() == EquipmentSlotType.HEAD && event.getEntityLiving() instanceof PlayerEntity) {
+            Item fromItem = event.getFrom().getItem();
+            Item toItem = event.getFrom().getItem();
+            for (Item item : ModItems.items) {
+                if (item instanceof IEquipmentChangeListener && (fromItem == item || toItem == item)) {
+                    ((IEquipmentChangeListener) item).onEquipmentChangeEvent(event);
                 }
             }
         }

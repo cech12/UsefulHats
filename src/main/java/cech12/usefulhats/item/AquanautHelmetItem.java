@@ -18,10 +18,11 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
 
 import java.util.List;
 
-public class AquanautHelmetItem extends AbstractHatItem {
+public class AquanautHelmetItem extends AbstractHatItem implements IEquipmentChangeListener {
 
     private static final ResourceLocation AQUANAUT_GUI_TEX_PATH = new ResourceLocation(UsefulHatsMod.MOD_ID, "textures/misc/aquanautblur.png");
 
@@ -59,11 +60,19 @@ public class AquanautHelmetItem extends AbstractHatItem {
     }
 
     @Override
-    protected void onItemRemoved(ItemStack stack, PlayerEntity player) {
-        int maxDuration = (EnchantmentHelper.getEnchantmentLevel(Enchantments.RESPIRATION, stack) + 1) * 1200;
-        EffectInstance conduitPowerEffect = player.getActivePotionEffect(Effects.CONDUIT_POWER);
-        if (conduitPowerEffect != null && conduitPowerEffect.getDuration() <= maxDuration) {
-            player.removePotionEffect(Effects.CONDUIT_POWER);
+    public void onEquipmentChangeEvent(LivingEquipmentChangeEvent event) {
+        if (event.getEntityLiving() instanceof PlayerEntity) {
+            PlayerEntity player = (PlayerEntity) event.getEntityLiving();
+            // disable effects when hat is removed from slot
+            ItemStack oldItemStack = event.getFrom();
+            ItemStack newItemStack = event.getTo();
+            if (oldItemStack.getItem() == this && newItemStack.getItem() != this) {
+                int maxDuration = (EnchantmentHelper.getEnchantmentLevel(Enchantments.RESPIRATION, oldItemStack) + 1) * 1200;
+                EffectInstance conduitPowerEffect = player.getActivePotionEffect(Effects.CONDUIT_POWER);
+                if (conduitPowerEffect != null && conduitPowerEffect.getDuration() <= maxDuration) {
+                    player.removePotionEffect(Effects.CONDUIT_POWER);
+                }
+            }
         }
     }
 
@@ -88,5 +97,4 @@ public class AquanautHelmetItem extends AbstractHatItem {
         GlStateManager.enableAlphaTest();
         GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
     }
-
 }

@@ -9,10 +9,14 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
 
 import java.util.List;
 
-public class WingHelmetItem extends AbstractHatItem {
+public class WingHelmetItem extends AbstractHatItem implements IEquipmentChangeListener {
+
+    private static final int LEVITATION_AMPLIFIER = 2;
+    private static final int LEVITATION_DURATION = 200;
 
     public WingHelmetItem() {
         super("wing_helmet", HatArmorMaterial.WING, rawColorFromRGB(255, 255, 255));
@@ -38,7 +42,23 @@ public class WingHelmetItem extends AbstractHatItem {
             //Sometimes the helmet is afraid of monsters and flies away
             if (player.getLastDamageSource() != null && player.getLastDamageSource().getTrueSource() instanceof LivingEntity) {
                 if (random.nextInt(100) == 0) {
-                    player.addPotionEffect(new EffectInstance(Effects.LEVITATION, 200, 2));
+                    player.addPotionEffect(new EffectInstance(Effects.LEVITATION, LEVITATION_DURATION, LEVITATION_AMPLIFIER));
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onEquipmentChangeEvent(LivingEquipmentChangeEvent event) {
+        if (event.getEntityLiving() instanceof PlayerEntity) {
+            PlayerEntity player = (PlayerEntity) event.getEntityLiving();
+            // disable effects when hat is removed from slot
+            ItemStack oldItemStack = event.getFrom();
+            ItemStack newItemStack = event.getTo();
+            if (oldItemStack.getItem() == this && newItemStack.getItem() != this) {
+                EffectInstance levitationEffect = player.getActivePotionEffect(Effects.LEVITATION);
+                if (levitationEffect != null && levitationEffect.getDuration() <= LEVITATION_DURATION && levitationEffect.getAmplifier() == LEVITATION_AMPLIFIER) {
+                    player.removePotionEffect(Effects.LEVITATION);
                 }
             }
         }
