@@ -1,11 +1,10 @@
 package cech12.usefulhats;
 
 import cech12.usefulhats.client.UsefulHatLayer;
+import cech12.usefulhats.client.UsefulHatModel;
 import cech12.usefulhats.init.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.ArmorStandRenderer;
-import net.minecraft.client.renderer.entity.LivingRenderer;
-import net.minecraft.client.renderer.entity.PlayerRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -27,16 +26,16 @@ public class UsefulHatsMod {
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void onClientRegister(FMLClientSetupEvent event) {
+        //add layer to armor stand renderer
         (Minecraft.getInstance().getRenderManager().renderers).forEach((e, r) -> {
-            if (r instanceof LivingRenderer) {
-                LivingRenderer renderer = (LivingRenderer) r;
-                if (renderer instanceof PlayerRenderer || renderer instanceof ArmorStandRenderer) {
-                    renderer.addLayer(new UsefulHatLayer(renderer));
-                }
+            if (r instanceof ArmorStandRenderer) {
+                ArmorStandRenderer renderer = (ArmorStandRenderer) r;
+                renderer.addLayer(new UsefulHatLayer(renderer, new UsefulHatModel.ArmorStandModel()));
             }
         });
+        //add layer to player renderer
         Minecraft.getInstance().getRenderManager().getSkinMap().values().forEach(r -> {
-            r.addLayer(new UsefulHatLayer<>(r));
+            r.addLayer(new UsefulHatLayer(r, new UsefulHatModel()));
         });
     }
 

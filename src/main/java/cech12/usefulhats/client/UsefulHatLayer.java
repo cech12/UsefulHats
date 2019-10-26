@@ -3,6 +3,7 @@ package cech12.usefulhats.client;
 import cech12.usefulhats.item.AbstractHatItem;
 import cech12.usefulhats.item.IUsefulHatModelOwner;
 import com.google.common.collect.Maps;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.entity.IEntityRenderer;
 import net.minecraft.client.renderer.entity.layers.BipedArmorLayer;
 import net.minecraft.client.renderer.entity.model.BipedModel;
@@ -13,11 +14,12 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Map;
 
 /**
- * Colorable hat layer which adds the {@link UsefulHatModel} to rendering.
+ * Useful hat layer which adds the {@link UsefulHatModel} to rendering.
  *
  * Textures for these hats must lie in textures/models/usefulhats/
  * with names: HATNAME.png or HATNAME_overlay.png
@@ -26,23 +28,27 @@ public class UsefulHatLayer<T extends LivingEntity, M extends BipedModel<T>, A e
 
     private static final Map<String, ResourceLocation> ARMOR_TEXTURE_RES_MAP = Maps.newHashMap();
 
-    public UsefulHatLayer(IEntityRenderer<T, M> renderer) {
-        super(renderer, (A) new UsefulHatModel<T>(0.5F), (A) new UsefulHatModel<T>(0.5F));
+    public UsefulHatLayer(IEntityRenderer<T, M> renderer, A hatModel) {
+        super(renderer, hatModel, hatModel);
     }
 
     @Override
-    public ResourceLocation getArmorResource(Entity entity, ItemStack stack, EquipmentSlotType slot, @Nullable String type) {
+    @Nonnull
+    public ResourceLocation getArmorResource(@Nonnull Entity entity, ItemStack stack, @Nonnull EquipmentSlotType slot, @Nullable String type) {
         //texture location is another for this model (only for hats)
         if (slot == EquipmentSlotType.HEAD) {
-            String texture = stack.getItem().getRegistryName().getPath();
-            String domain = stack.getItem().getRegistryName().getNamespace();
-            String s1 = String.format("%s:textures/models/usefulhats/%s%s.png", domain, texture, type == null ? "" : String.format("_%s", type));
-            ResourceLocation resourcelocation = ARMOR_TEXTURE_RES_MAP.get(s1);
-            if (resourcelocation == null) {
-                resourcelocation = new ResourceLocation(s1);
-                ARMOR_TEXTURE_RES_MAP.put(s1, resourcelocation);
+            ResourceLocation resourceLocation = stack.getItem().getRegistryName();
+            if (resourceLocation != null) {
+                String texture = resourceLocation.getPath();
+                String domain = resourceLocation.getNamespace();
+                String s1 = String.format("%s:textures/models/usefulhats/%s%s.png", domain, texture, type == null ? "" : String.format("_%s", type));
+                ResourceLocation resourcelocation = ARMOR_TEXTURE_RES_MAP.get(s1);
+                if (resourcelocation == null) {
+                    resourcelocation = new ResourceLocation(s1);
+                    ARMOR_TEXTURE_RES_MAP.put(s1, resourcelocation);
+                }
+                return resourcelocation;
             }
-            return resourcelocation;
         }
         //to avoid errors in texture finding use super method
         return super.getArmorResource(entity, stack, slot, type);
@@ -55,11 +61,13 @@ public class UsefulHatLayer<T extends LivingEntity, M extends BipedModel<T>, A e
         if (hatItem instanceof AbstractHatItem && hatItem instanceof IUsefulHatModelOwner) {
             //super method makes its job good.
             super.render(entityIn, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scale);
+            //reset color for later renderings (avoid violet book in inventory for enchanted hats)
+            GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         }
     }
 
     @Override
-    protected void setModelSlotVisible(A model, EquipmentSlotType slotIn) {
+    protected void setModelSlotVisible(@Nonnull A model, EquipmentSlotType slotIn) {
         //disable all render models of biped model except the hat (because it is overridden with own model)
         this.setModelVisible(model);
         if (slotIn == EquipmentSlotType.HEAD && model instanceof UsefulHatModel) {
