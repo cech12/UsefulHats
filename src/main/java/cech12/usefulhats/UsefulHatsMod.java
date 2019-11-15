@@ -26,6 +26,8 @@ public class UsefulHatsMod {
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void onClientRegister(FMLClientSetupEvent event) {
+        //register client event listeners
+        ModItems.addClientEventListeners();
         //add layer to armor stand renderer
         (Minecraft.getInstance().getRenderManager().renderers).forEach((e, r) -> {
             if (r instanceof ArmorStandRenderer) {

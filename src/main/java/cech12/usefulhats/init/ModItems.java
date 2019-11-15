@@ -9,6 +9,8 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.IDyeableArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
@@ -47,6 +49,7 @@ public class ModItems {
     }
 
     @SuppressWarnings("unused")
+    @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void registerColors(ColorHandlerEvent.Item event) {
         ItemColors itemcolors = event.getItemColors();
@@ -65,10 +68,17 @@ public class ModItems {
         MinecraftForge.EVENT_BUS.addListener(ModItems::onBreakEvent);
         MinecraftForge.EVENT_BUS.addListener(ModItems::onEntityJoinWorldEvent);
         MinecraftForge.EVENT_BUS.addListener(ModItems::onItemFishedEvent);
-        MinecraftForge.EVENT_BUS.addListener(ModItems::onItemToolTipEvent);
         MinecraftForge.EVENT_BUS.addListener(ModItems::onLivingDropsEvent);
         MinecraftForge.EVENT_BUS.addListener(ModItems::onLivingEquipmentChangeEvent);
         MinecraftForge.EVENT_BUS.addListener(ModItems::onLivingSetAttackTargetEvent);
+    }
+
+    /**
+     * Called at mod initialization. (client side)
+     */
+    @OnlyIn(Dist.CLIENT)
+    public static void addClientEventListeners() {
+        MinecraftForge.EVENT_BUS.addListener(ModItems::onItemToolTipEvent);
     }
 
     private static void onBreakSpeedEvent(PlayerEvent.BreakSpeed event) {
