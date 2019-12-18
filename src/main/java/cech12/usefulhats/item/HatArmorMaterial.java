@@ -4,7 +4,6 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.LazyLoadBase;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraftforge.api.distmarker.Dist;
@@ -46,14 +45,14 @@ public enum HatArmorMaterial implements IArmorMaterial {
     private final int durability;
     private final int enchantability;
     private final SoundEvent soundEvent;
-    private final LazyLoadBase<Ingredient> repairMaterial;
+    private final Supplier<Ingredient> repairMaterial;
 
     HatArmorMaterial(String nameIn, int durability, int enchantabilityIn, SoundEvent equipSoundIn, Supplier<Ingredient> repairMaterialSupplier) {
         this.name = nameIn;
         this.durability = durability;
         this.enchantability = enchantabilityIn;
         this.soundEvent = equipSoundIn;
-        this.repairMaterial = new LazyLoadBase<>(repairMaterialSupplier);
+        this.repairMaterial = repairMaterialSupplier;
     }
 
     public int getDurability(EquipmentSlotType slotIn) {
@@ -73,7 +72,7 @@ public enum HatArmorMaterial implements IArmorMaterial {
     }
 
     public Ingredient getRepairMaterial() {
-        return this.repairMaterial.getValue();
+        return this.repairMaterial.get();
     }
 
     @OnlyIn(Dist.CLIENT)
