@@ -80,21 +80,21 @@ public class AquanautHelmetItem extends AbstractHatItem implements IEquipmentCha
     public void renderHelmetOverlay(ItemStack stack, PlayerEntity player, int width, int height, float partialTicks) {
         GlStateManager.disableDepthTest();
         GlStateManager.depthMask(false);
-        GlStateManager.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-        GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-        GlStateManager.disableAlphaTest();
+        GlStateManager.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA.param, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA.param, GlStateManager.SourceFactor.ONE.param, GlStateManager.DestFactor.ZERO.param);
+        //GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+        //GlStateManager.disableAlphaTest();
         Minecraft.getInstance().getTextureManager().bindTexture(AQUANAUT_GUI_TEX_PATH);
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferbuilder = tessellator.getBuffer();
         bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-        bufferbuilder.pos(0.0D, height, -90.0D).tex(0.0D, 1.0D).endVertex();
-        bufferbuilder.pos(width, height, -90.0D).tex(1.0D, 1.0D).endVertex();
-        bufferbuilder.pos(width, 0.0D, -90.0D).tex(1.0D, 0.0D).endVertex();
-        bufferbuilder.pos(0.0D, 0.0D, -90.0D).tex(0.0D, 0.0D).endVertex();
+        bufferbuilder.pos(0.0D, height, -90.0D).tex(0.0f, 1.0f).endVertex();
+        bufferbuilder.pos(width, height, -90.0D).tex(1.0f, 1.0f).endVertex();
+        bufferbuilder.pos(width, 0.0D, -90.0D).tex(1.0f, 0.0f).endVertex();
+        bufferbuilder.pos(0.0D, 0.0D, -90.0D).tex(0.0f, 0.0f).endVertex();
         tessellator.draw();
         GlStateManager.depthMask(true);
         GlStateManager.enableDepthTest();
-        GlStateManager.enableAlphaTest();
-        GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+        //GlStateManager.enableAlphaTest();
+        //GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
     }
 }

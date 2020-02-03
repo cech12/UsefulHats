@@ -1,6 +1,7 @@
 package cech12.usefulhats.client;
 
 import net.minecraft.client.renderer.entity.model.*;
+import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ArmorStandEntity;
 
@@ -23,13 +24,13 @@ public class UsefulHatModel<T extends LivingEntity> extends BipedModel<T> {
         this.textureWidth = textureWidthIn;
         this.textureHeight = textureHeightIn;
         //override render hat models of BipedModel
-        this.bipedHead = new RendererModel(this, 0, 0);
+        this.bipedHead = new ModelRenderer(this, 0, 0);
         this.bipedHead.addBox(-4.0F, -8.5F, -4.0F, 8, 8, 8, scale);
         this.bipedHead.setRotationPoint(0.0F, 0.0F + p_i1149_2_, 0.0F);
-        this.bipedHeadwear = new RendererModel(this, 32, 0);
+        this.bipedHeadwear = new ModelRenderer(this, 32, 0);
         this.bipedHeadwear.addBox(-4.0F, -8.5F, -4.0F, 8, 8, 8, scale + 0.5F);
         this.bipedHeadwear.setRotationPoint(0.0F, 0.0F + p_i1149_2_, 0.0F);
-        RendererModel hatAddition = new RendererModel(this, 0, 31);
+        ModelRenderer hatAddition = new ModelRenderer(this, 0, 31);
         hatAddition.addBox(-8.0F, -8.0F, -5.5F - scale*2, 16, 16, 1, scale*2);
         hatAddition.setRotationPoint(0.0F, 0.0F + p_i1149_2_, 0.0F);
         hatAddition.rotateAngleX = (-(float)Math.PI / 2F);
@@ -48,7 +49,8 @@ public class UsefulHatModel<T extends LivingEntity> extends BipedModel<T> {
         }
 
         @Override
-        public void setRotationAngles(ArmorStandEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor) {
+        //setRotationAngles
+        public void render(ArmorStandEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
             this.bipedHead.rotateAngleX = ((float)Math.PI / 180F) * entityIn.getHeadRotation().getX();
             this.bipedHead.rotateAngleY = ((float)Math.PI / 180F) * entityIn.getHeadRotation().getY();
             this.bipedHead.rotateAngleZ = ((float)Math.PI / 180F) * entityIn.getHeadRotation().getZ();

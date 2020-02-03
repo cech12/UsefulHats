@@ -8,6 +8,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -35,7 +36,8 @@ public class HaloItem extends AbstractHatItem implements IAttackTargetChanger, I
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
         // Looses durability outside the nether when non-boss mobs are in range (16 blocks)
         if (player.dimension != DimensionType.THE_NETHER) {
-            AxisAlignedBB radius = new AxisAlignedBB(player.posX-16, player.posY-16, player.posZ-16, player.posX+16, player.posY+16, player.posZ+16);
+            Vec3d playerPos = player.getPositionVec();
+            AxisAlignedBB radius = new AxisAlignedBB(playerPos.getX()-16, playerPos.getY()-16, playerPos.getZ()-16, playerPos.getX()+16, playerPos.getY()+16, playerPos.getZ()+16);
             List<MobEntity> mobsInRange = player.world.getEntitiesWithinAABB(MobEntity.class, radius, (Predicate<Entity>) entity -> entity instanceof MobEntity && entity.isNonBoss());
             if (!mobsInRange.isEmpty() && random.nextInt(20) == 0) {
                 this.damageHatItemByOne(stack, player);
