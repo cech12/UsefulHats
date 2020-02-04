@@ -1,7 +1,0 @@
-{
-    "parent": "item/generated",
-    "textures": {
-        "layer0": "usefulhats:item/aquanaut_helmet",
-        "layer1": "usefulhats:item/aquanaut_helmet_overlay"
-    }
-}

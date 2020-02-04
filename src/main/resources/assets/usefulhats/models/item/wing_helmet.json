@@ -1,7 +1,0 @@
-{
-    "parent": "item/generated",
-    "textures": {
-        "layer0": "usefulhats:item/wing_helmet",
-        "layer1": "usefulhats:item/wing_helmet_overlay"
-    }
-}
