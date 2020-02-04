@@ -1,5 +1,11 @@
 {
   "type": "minecraft:crafting_shaped",
+  "conditions": [
+    {
+      "type": "usefulhats:is_enabled",
+      "item": "usefulhats:aquanaut_helmet"
+    }
+  ],
   "pattern": [
     "#O#",
     "#G#"

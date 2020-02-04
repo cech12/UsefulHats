@@ -1,5 +1,6 @@
 package cech12.usefulhats.item;
 
+import cech12.usefulhats.config.ConfigHandler;
 import net.minecraft.item.*;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -13,7 +14,7 @@ import java.util.List;
 public class ChoppingHatItem extends AbstractMiningHatItem implements IBreakSpeedChanger {
 
     public ChoppingHatItem() {
-        super("chopping_hat", HatArmorMaterial.CHOPPING, rawColorFromRGB(91, 91, 91));
+        super("chopping_hat", HatArmorMaterial.CHOPPING, rawColorFromRGB(91, 91, 91), ConfigHandler.CHOPPING_HAT_ENABLED, ConfigHandler.CHOPPING_HAT_DAMAGE_ENABLED);
     }
 
     @Override

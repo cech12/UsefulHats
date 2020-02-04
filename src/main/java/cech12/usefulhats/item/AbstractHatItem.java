@@ -1,6 +1,8 @@
 package cech12.usefulhats.item;
 
 import cech12.usefulhats.UsefulHatsMod;
+import cech12.usefulhats.config.ConfigType;
+import cech12.usefulhats.helper.IEnabled;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.enchantment.Enchantment;
@@ -20,23 +22,26 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-public abstract class AbstractHatItem extends ArmorItem implements IDyeableArmorItem {
+public abstract class AbstractHatItem extends ArmorItem implements IEnabled, IDyeableArmorItem {
 
-    private final ResourceLocation resourceLocation;
     private final int initColor;
+    private final ConfigType.Boolean enabledConfig;
+    private final ConfigType.Boolean enabledDamageConfig;
 
     private ArrayList<Enchantment> allowedEnchantments = new ArrayList<>();
     private ArrayList<Enchantment> allowedAdditionalBookEnchantments = new ArrayList<>();
 
-    public AbstractHatItem(String name, HatArmorMaterial material, int initColor) {
+    public AbstractHatItem(String name, HatArmorMaterial material, int initColor, ConfigType.Boolean enabledConfig, ConfigType.Boolean enabledDamageConfig) {
         super(material, EquipmentSlotType.HEAD, (new Properties()).group(ItemGroup.COMBAT));
-        this.resourceLocation = new ResourceLocation(UsefulHatsMod.MOD_ID, name);
-        this.setRegistryName(this.resourceLocation);
+        this.setRegistryName(new ResourceLocation(UsefulHatsMod.MOD_ID, name));
         this.initColor = initColor;
+        this.enabledConfig = enabledConfig;
+        this.enabledDamageConfig = enabledDamageConfig;
         this.allowedEnchantments.add(Enchantments.UNBREAKING);
         this.allowedEnchantments.add(Enchantments.RESPIRATION);
         this.allowedEnchantments.add(Enchantments.AQUA_AFFINITY);
@@ -51,6 +56,11 @@ public abstract class AbstractHatItem extends ArmorItem implements IDyeableArmor
         rgb = (rgb << 8) + Math.max(Math.min(0xFF, green), 0);
         rgb = (rgb << 8) + Math.max(Math.min(0xFF, blue), 0);
         return rgb;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return this.enabledConfig.getValue();
     }
 
     /**
@@ -96,8 +106,11 @@ public abstract class AbstractHatItem extends ArmorItem implements IDyeableArmor
 
     /**
      * Copy of {@link ItemStack#damageItem(int, LivingEntity, Consumer)} to enable own damaging of hat items.
+     * Added config value to disable damage.
      */
     protected void damageHatItemByOne(ItemStack stack, PlayerEntity entity) {
+        if (!this.enabledDamageConfig.getValue()) return;
+
         if (!entity.world.isRemote && !entity.abilities.isCreativeMode) {
             if (this.isDamageable()) {
                 if (stack.attemptDamageItem(1, entity.getRNG(), entity instanceof ServerPlayerEntity ? (ServerPlayerEntity)entity : null)) {
@@ -123,7 +136,7 @@ public abstract class AbstractHatItem extends ArmorItem implements IDyeableArmor
      * Disables "When on head" line of ArmorItem Tooltip
      */
     @Override
-    public Multimap<String, AttributeModifier> getAttributeModifiers(EquipmentSlotType equipmentSlot) {
+    public @Nonnull Multimap<String, AttributeModifier> getAttributeModifiers(@Nonnull EquipmentSlotType equipmentSlot) {
         return HashMultimap.create();
     }
 

@@ -1,6 +1,7 @@
 package cech12.usefulhats.item;
 
 import cech12.usefulhats.UsefulHatsMod;
+import cech12.usefulhats.config.ConfigHandler;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
@@ -27,7 +28,7 @@ public class AquanautHelmetItem extends AbstractHatItem implements IEquipmentCha
     private static final ResourceLocation AQUANAUT_GUI_TEX_PATH = new ResourceLocation(UsefulHatsMod.MOD_ID, "textures/misc/aquanautblur.png");
 
     public AquanautHelmetItem() {
-        super("aquanaut_helmet", HatArmorMaterial.AQUANAUT, rawColorFromRGB(71, 191, 74));
+        super("aquanaut_helmet", HatArmorMaterial.AQUANAUT, rawColorFromRGB(71, 191, 74), ConfigHandler.AQUANAUT_HELMET_ENABLED, ConfigHandler.AQUANAUT_HELMET_DAMAGE_ENABLED);
     }
 
     @Override

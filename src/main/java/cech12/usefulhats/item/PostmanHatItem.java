@@ -1,6 +1,7 @@
 package cech12.usefulhats.item;
 
 import cech12.usefulhats.UsefulHatsUtils;
+import cech12.usefulhats.config.ConfigHandler;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.player.PlayerEntity;
@@ -17,7 +18,7 @@ import java.util.List;
 public class PostmanHatItem extends AbstractHatItem implements IUsefulHatModelOwner {
 
     public PostmanHatItem() {
-        super("postman_hat", HatArmorMaterial.POSTMAN, rawColorFromRGB(57, 99, 150));
+        super("postman_hat", HatArmorMaterial.POSTMAN, rawColorFromRGB(57, 99, 150), ConfigHandler.POSTMAN_HAT_ENABLED, ConfigHandler.POSTMAN_HAT_DAMAGE_ENABLED);
         this.addAllowedEnchantment(Enchantments.EFFICIENCY);
     }
 
@@ -26,7 +27,9 @@ public class PostmanHatItem extends AbstractHatItem implements IUsefulHatModelOw
         super.onItemToolTipEvent(stack, tooltip);
         int enchantmentLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.EFFICIENCY, stack) + 1;
         tooltip.add(new TranslationTextComponent("item.usefulhats.postman_hat.desc.speed", UsefulHatsUtils.getRomanNumber(enchantmentLevel, false)).applyTextStyle(TextFormatting.BLUE));
-        tooltip.add(new TranslationTextComponent("item.usefulhats.postman_hat.desc.hunger").applyTextStyle(TextFormatting.RED));
+        if (ConfigHandler.POSTMAN_HAT_HUNGER_ENABLED.getValue()) {
+            tooltip.add(new TranslationTextComponent("item.usefulhats.postman_hat.desc.hunger").applyTextStyle(TextFormatting.RED));
+        }
     }
 
     @Override
@@ -34,7 +37,9 @@ public class PostmanHatItem extends AbstractHatItem implements IUsefulHatModelOw
         // Speed of other sources will not be overridden here.
         if (player.isSprinting() && player.getActivePotionEffect(Effects.SPEED) == null) {
             player.addPotionEffect(new EffectInstance(Effects.SPEED, 0, EnchantmentHelper.getEnchantmentLevel(Enchantments.EFFICIENCY, stack), false, false, true));
-            player.addPotionEffect(new EffectInstance(Effects.HUNGER));
+            if (ConfigHandler.POSTMAN_HAT_HUNGER_ENABLED.getValue()) {
+                player.addPotionEffect(new EffectInstance(Effects.HUNGER));
+            }
             if (random.nextInt(20) == 0) {
                 this.damageHatItemByOne(stack, player);
             }
