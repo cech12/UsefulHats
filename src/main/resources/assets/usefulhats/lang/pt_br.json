@@ -1,0 +1,33 @@
+{
+  "item.usefulhats.aquanaut_helmet": "Capacete do Aquanauta",
+  "item.usefulhats.aquanaut_helmet.desc.conduit_power.singular": "Você obtém o efeito §2Poder do Conduíte§9 por %s minuto.",
+  "item.usefulhats.aquanaut_helmet.desc.conduit_power.plural": "Você obtém o efeito §2Poder do Conduíte§9 por %s minutos.",
+  
+  "item.usefulhats.chopping_hat": "Chapéu do Lenhador",
+  "item.usefulhats.chopping_hat.desc.chopping_speed": "Cortar com um machado é §2%s%% §9mais rápido. (Somase a encantamentos e poções)",
+  
+  "item.usefulhats.halo": "Aréola",
+  "item.usefulhats.halo.desc.no_attack": "Nenhuma mob ataca você (Exceto chefes).",
+  "item.usefulhats.halo.desc.beware_of_nether": "Mas cuidado com o §4Nether§c.",
+  
+  "item.usefulhats.lucky_hat": "Chapéu da Sorte",
+  "item.usefulhats.lucky_hat.desc.luck": "Enquanto segura uma Espada, Machado ou Vara de Pescar, você obtém o efeito §2Sorte%s§9.",
+  "item.usefulhats.lucky_hat.desc.unluck": "Mas depois de pescar ou matar um mob, você obtém o efeito §6Má Sorte§c por 10 segundos.",
+  
+  "item.usefulhats.mining_hat": "Chapéu do Mineiro",
+  "item.usefulhats.mining_hat.desc.mining_speed": "Minerar com uma Picareta é §2%s%% §9mais rápido. (Somase a encantamentos e poções)",
+  "item.usefulhats.mining_hat.desc.night_vision": "Enquanto segura uma Picareta, você obtém o efeito de §2Visão Noturna §9em áreas escuras.",
+  
+  "item.usefulhats.postman_hat": "Chapéu do Carteiro",
+  "item.usefulhats.postman_hat.desc.speed": "Enquanto corre, você obtém o efeito §2Velocidade%s§9.",
+  "item.usefulhats.postman_hat.desc.hunger": "Mas você também obtém o efeito §6Fome§c.",
+  
+  "item.usefulhats.stocking_cap": "Gorro de Meia",
+  
+  "item.usefulhats.straw_hat": "Chapéu de Palha",
+  "item.usefulhats.straw_hat.desc.digging_speed": "Cavar com uma Pá é §2%s%% §9mais rápido. (Somase a encantamentos e poções)",
+  
+  "item.usefulhats.wing_helmet": "Capacete de Alado",
+  "item.usefulhats.wing_helmet.desc.slow_falling": "Ao cair, você obtém o efeito de §2Queda Lenta§9.",
+  "item.usefulhats.wing_helmet.desc.scared": "Às vezes, o capacete pode ter medo de monstros e voar para longe."
+}
