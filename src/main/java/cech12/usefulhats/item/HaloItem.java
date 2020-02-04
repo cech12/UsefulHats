@@ -1,5 +1,6 @@
 package cech12.usefulhats.item;
 
+import cech12.usefulhats.config.ConfigHandler;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
@@ -8,6 +9,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -21,7 +23,7 @@ import java.util.function.Predicate;
 public class HaloItem extends AbstractHatItem implements IAttackTargetChanger, IMobEntityChanger {
 
     public HaloItem() {
-        super("halo", HatArmorMaterial.HALO, rawColorFromRGB(255, 236, 142));
+        super("halo", HatArmorMaterial.HALO, rawColorFromRGB(255, 236, 142), ConfigHandler.HALO_ENABLED, ConfigHandler.HALO_DAMAGE_ENABLED);
     }
 
     @Override
@@ -33,9 +35,11 @@ public class HaloItem extends AbstractHatItem implements IAttackTargetChanger, I
 
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
-        // Looses durability outside the nether when non-boss mobs are in range (16 blocks)
+        // Looses durability outside the nether when non-boss mobs are in range (X blocks)
         if (player.dimension != DimensionType.THE_NETHER) {
-            AxisAlignedBB radius = new AxisAlignedBB(player.posX-16, player.posY-16, player.posZ-16, player.posX+16, player.posY+16, player.posZ+16);
+            Vec3d playerPos = player.getPositionVec();
+            int range = ConfigHandler.HALO_DETECTING_RANGE.getValue();
+            AxisAlignedBB radius = new AxisAlignedBB(playerPos.getX()-range, playerPos.getY()-range, playerPos.getZ()-range, playerPos.getX()+range, playerPos.getY()+range, playerPos.getZ()+range);
             List<MobEntity> mobsInRange = player.world.getEntitiesWithinAABB(MobEntity.class, radius, (Predicate<Entity>) entity -> entity instanceof MobEntity && entity.isNonBoss());
             if (!mobsInRange.isEmpty() && random.nextInt(20) == 0) {
                 this.damageHatItemByOne(stack, player);

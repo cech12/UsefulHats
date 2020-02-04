@@ -12,7 +12,7 @@ apply plugin: 'net.minecraftforge.gradle'
 // Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
-version = "${minecraft_version}-${mod_version}"
+version = "${mod_version}-${minecraft_version}"
 group = 'cech12.usefulhats' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'usefulhats'
 

@@ -1,5 +1,6 @@
 package cech12.usefulhats.item;
 
+import cech12.usefulhats.config.ConfigHandler;
 import net.minecraft.item.*;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -13,7 +14,7 @@ import java.util.List;
 public class StrawHatItem extends AbstractMiningHatItem implements IBreakSpeedChanger, IUsefulHatModelOwner {
 
     public StrawHatItem() {
-        super("straw_hat", HatArmorMaterial.STRAW, rawColorFromRGB(226,189,0));
+        super("straw_hat", HatArmorMaterial.STRAW, rawColorFromRGB(226,189,0), ConfigHandler.STRAW_HAT_ENABLED, ConfigHandler.STRAW_HAT_DAMAGE_ENABLED);
     }
 
     @Override

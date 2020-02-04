@@ -1,6 +1,7 @@
 package cech12.usefulhats.item;
 
 import cech12.usefulhats.UsefulHatsUtils;
+import cech12.usefulhats.config.ConfigHandler;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.player.PlayerEntity;
@@ -22,7 +23,7 @@ import java.util.List;
 public class LuckyHatItem extends AbstractHatItem implements IItemFishedListener, ILivingDropsListener, IUsefulHatModelOwner {
 
     public LuckyHatItem() {
-        super("lucky_hat", HatArmorMaterial.LUCKY, rawColorFromRGB(72, 242, 0));
+        super("lucky_hat", HatArmorMaterial.LUCKY, rawColorFromRGB(72, 242, 0), ConfigHandler.LUCKY_HAT_ENABLED, ConfigHandler.LUCKY_HAT_DAMAGE_ENABLED);
         this.addAllowedEnchantment(Enchantments.LUCK_OF_THE_SEA);
         this.addAllowedEnchantment(Enchantments.LOOTING);
     }
@@ -55,7 +56,9 @@ public class LuckyHatItem extends AbstractHatItem implements IItemFishedListener
     public void onItemToolTipEvent(ItemStack stack, List<ITextComponent> tooltip) {
         super.onItemToolTipEvent(stack, tooltip);
         tooltip.add(new TranslationTextComponent("item.usefulhats.lucky_hat.desc.luck", UsefulHatsUtils.getRomanNumber(getEffectLevel(stack), false)).applyTextStyle(TextFormatting.BLUE));
-        tooltip.add(new TranslationTextComponent("item.usefulhats.lucky_hat.desc.unluck").applyTextStyle(TextFormatting.RED));
+        if (ConfigHandler.LUCKY_HAT_UNLUCK_ENABLED.getValue()) {
+            tooltip.add(new TranslationTextComponent("item.usefulhats.lucky_hat.desc.unluck").applyTextStyle(TextFormatting.RED));
+        }
     }
 
     @Override
@@ -75,7 +78,9 @@ public class LuckyHatItem extends AbstractHatItem implements IItemFishedListener
         //damage item after fishing
         if (!event.isCanceled() && this.hasHatRelatedItemInHand(event.getPlayer())) {
             this.damageHatItemByOne(headSlotItemStack, event.getPlayer());
-            event.getPlayer().addPotionEffect(new EffectInstance(Effects.UNLUCK, 200));
+            if (ConfigHandler.LUCKY_HAT_UNLUCK_ENABLED.getValue()) {
+                event.getPlayer().addPotionEffect(new EffectInstance(Effects.UNLUCK, 200));
+            }
         }
     }
 
@@ -86,7 +91,9 @@ public class LuckyHatItem extends AbstractHatItem implements IItemFishedListener
         //damage item after killing a mob
         if (!event.isCanceled() && this.hasHatRelatedItemInHand(dropReason)) {
             this.damageHatItemByOne(headSlotItemStack, dropReason);
-            dropReason.addPotionEffect(new EffectInstance(Effects.UNLUCK, 200));
+            if (ConfigHandler.LUCKY_HAT_UNLUCK_ENABLED.getValue()) {
+                dropReason.addPotionEffect(new EffectInstance(Effects.UNLUCK, 200));
+            }
         }
     }
 }
