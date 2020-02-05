@@ -1,5 +1,6 @@
 package cech12.usefulhats.client;
 
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.model.*;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.LivingEntity;
@@ -20,7 +21,7 @@ public class UsefulHatModel<T extends LivingEntity> extends BipedModel<T> {
     }
 
     private UsefulHatModel(float scale, float p_i1149_2_, int textureWidthIn, int textureHeightIn) {
-        super(scale, p_i1149_2_, 64, 32);
+        super(RenderType::entityTranslucent, scale, p_i1149_2_, 64, 32);
         this.textureWidth = textureWidthIn;
         this.textureHeight = textureHeightIn;
         //override render hat models of BipedModel

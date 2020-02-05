@@ -40,12 +40,12 @@ public class UsefulHatsMod {
         (Minecraft.getInstance().getRenderManager().renderers).forEach((e, r) -> {
             if (r instanceof ArmorStandRenderer) {
                 ArmorStandRenderer renderer = (ArmorStandRenderer) r;
-                renderer.addLayer(new UsefulHatLayer(renderer, new UsefulHatModel.ArmorStandModel()));
+                renderer.addLayer(new UsefulHatLayer<>(renderer, new UsefulHatModel.ArmorStandModel()));
             }
         });
         //add layer to player renderer
         Minecraft.getInstance().getRenderManager().getSkinMap().values().forEach(r -> {
-            r.addLayer(new UsefulHatLayer(r, new UsefulHatModel()));
+            r.addLayer(new UsefulHatLayer<>(r, new UsefulHatModel<>()));
         });
     }
 
