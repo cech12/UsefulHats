@@ -1,0 +1,33 @@
+{
+  "item.usefulhats.aquanaut_helmet": "Taucherhelm",
+  "item.usefulhats.aquanaut_helmet.desc.conduit_power.singular": "Du bekommst den §2Meereskraft§9 Effekt für %s Minute.",
+  "item.usefulhats.aquanaut_helmet.desc.conduit_power.plural": "Du bekommst den §2Meereskraft§9 Effekt für %s Minuten.",
+
+  "item.usefulhats.chopping_hat": "Holzfällermütze",
+  "item.usefulhats.chopping_hat.desc.chopping_speed": "Mit einer Axt Holz hacken ist §2%s%%§9 schneller. (mit Verzauberungen und Tränken kombinierbar)",
+
+  "item.usefulhats.halo": "Heiligenschein",
+  "item.usefulhats.halo.desc.no_attack": "Kein Gegner greift dich an (außer Bossmonster).",
+  "item.usefulhats.halo.desc.beware_of_nether": "Aber hüte dich vor dem §4Nether§c.",
+
+  "item.usefulhats.lucky_hat": "Glückshut",
+  "item.usefulhats.lucky_hat.desc.luck": "Während du ein Schwert, eine Axt oder eine Angel hältst, bekommst du den §2Glück%s§9 Effekt.",
+  "item.usefulhats.lucky_hat.desc.unluck": "Aber nach dem Angeln oder dem Besiegen eines Gegners bekommst du für 10 Sekunden den §6Unglück§c Effekt.",
+
+  "item.usefulhats.mining_hat": "Bergbauhut",
+  "item.usefulhats.mining_hat.desc.mining_speed": "Mit einer Spitzhacke Gestein abbauen ist §2%s%%§9 schneller. (mit Verzauberungen und Tränken kombinierbar)",
+  "item.usefulhats.mining_hat.desc.night_vision": "Mit einer Spitzhacke in der Hand bekommst du den §2Nachtsicht§9 Effect in dunklen Bereichen.",
+
+  "item.usefulhats.postman_hat": "Postmütze",
+  "item.usefulhats.postman_hat.desc.speed": "Beim Rennen bekommst du den §2Schnelligkeit%s§9 Effekt.",
+  "item.usefulhats.postman_hat.desc.hunger": "Aber du bekommst auch den §6Hunger§c Effekt.",
+
+  "item.usefulhats.stocking_cap": "Zipfelmütze",
+
+  "item.usefulhats.straw_hat": "Strohhut",
+  "item.usefulhats.straw_hat.desc.digging_speed": "Mit einer Schaufel graben ist §2%s%%§9 schneller. (mit Verzauberungen und Tränken kombinierbar)",
+
+  "item.usefulhats.wing_helmet": "Flügelhelm",
+  "item.usefulhats.wing_helmet.desc.slow_falling": "Beim Fallen bekommst du den Effekt §2Sanfter Fall§9.",
+  "item.usefulhats.wing_helmet.desc.scared": "Manchmal hat der Helm Angst vor Monstern und fliegt davon."
+}
