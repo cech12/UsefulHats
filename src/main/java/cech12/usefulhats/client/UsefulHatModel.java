@@ -22,17 +22,18 @@ public class UsefulHatModel<T extends LivingEntity> extends BipedModel<T> {
 
     private UsefulHatModel(float scale, float p_i1149_2_, int textureWidthIn, int textureHeightIn) {
         super(RenderType::entityTranslucent, scale, p_i1149_2_, 64, 32);
+        float scaleWithOffset = scale + 0.01F; //against texture flickering (outer skin layer)
         this.textureWidth = textureWidthIn;
         this.textureHeight = textureHeightIn;
         //override render hat models of BipedModel
         this.bipedHead = new ModelRenderer(this, 0, 0);
-        this.bipedHead.addBox(-4.0F, -8.5F, -4.0F, 8, 8, 8, scale);
+        this.bipedHead.addBox(-4.0F, -8.5F, -4.0F, 8, 8, 8, scaleWithOffset);
         this.bipedHead.setRotationPoint(0.0F, 0.0F + p_i1149_2_, 0.0F);
         this.bipedHeadwear = new ModelRenderer(this, 32, 0);
-        this.bipedHeadwear.addBox(-4.0F, -8.5F, -4.0F, 8, 8, 8, scale + 0.5F);
+        this.bipedHeadwear.addBox(-4.0F, -8.5F, -4.0F, 8, 8, 8, scaleWithOffset + 0.5F);
         this.bipedHeadwear.setRotationPoint(0.0F, 0.0F + p_i1149_2_, 0.0F);
         ModelRenderer hatAddition = new ModelRenderer(this, 0, 31);
-        hatAddition.addBox(-8.0F, -8.0F, -5.5F - scale*2, 16, 16, 1, scale*2);
+        hatAddition.addBox(-8.0F, -8.0F, -5.5F - scaleWithOffset*2, 16, 16, 1, scaleWithOffset*2);
         hatAddition.setRotationPoint(0.0F, 0.0F + p_i1149_2_, 0.0F);
         hatAddition.rotateAngleX = (-(float)Math.PI / 2F);
         //add hat addition to head wear as child. So no extra calculations must be done.
