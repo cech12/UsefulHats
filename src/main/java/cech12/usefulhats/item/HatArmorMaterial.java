@@ -23,7 +23,7 @@ public enum HatArmorMaterial implements IArmorMaterial {
         return Ingredient.fromItems(Items.GLOWSTONE_DUST);
     }),
     LUCKY("usefulhats:blank", 300, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
-        return Ingredient.fromItems(Items.GLOWSTONE_DUST);
+        return Ingredient.fromItems(Items.RABBIT_FOOT);
     }),
     MINING("usefulhats:blank", 450, 15, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, () -> {
         return Ingredient.fromItems(Items.GOLD_INGOT);
