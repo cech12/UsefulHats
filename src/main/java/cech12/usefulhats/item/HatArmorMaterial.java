@@ -38,7 +38,7 @@ public enum HatArmorMaterial implements IArmorMaterial {
         return Ingredient.fromItems(Items.WHEAT);
     }),
     WING("usefulhats:wing", 600, 15, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> {
-        return Ingredient.fromItems(Items.FEATHER);
+        return Ingredient.fromItems(Items.FEATHER, Items.PHANTOM_MEMBRANE);
     });
 
     private final String name;
