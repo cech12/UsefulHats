@@ -1,7 +1,7 @@
 package cech12.usefulhats.item;
 
 import cech12.usefulhats.UsefulHatsMod;
-import cech12.usefulhats.config.ConfigHandler;
+import cech12.usefulhats.config.Config;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
@@ -28,23 +28,30 @@ public class AquanautHelmetItem extends AbstractHatItem implements IEquipmentCha
     private static final ResourceLocation AQUANAUT_GUI_TEX_PATH = new ResourceLocation(UsefulHatsMod.MOD_ID, "textures/misc/aquanautblur.png");
 
     public AquanautHelmetItem() {
-        super("aquanaut_helmet", HatArmorMaterial.AQUANAUT, rawColorFromRGB(71, 191, 74), ConfigHandler.AQUANAUT_HELMET_ENABLED, ConfigHandler.AQUANAUT_HELMET_DAMAGE_ENABLED);
+        super("aquanaut_helmet", HatArmorMaterial.AQUANAUT, rawColorFromRGB(71, 191, 74), Config.AQUANAUT_HELMET_ENABLED, Config.AQUANAUT_HELMET_DAMAGE_ENABLED);
+    }
+
+    private int getEffectTimeConfig(final int enchantmentLevel) {
+        if (enchantmentLevel <= 0) {
+            return Config.AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_0.getValue();
+        }
+        switch (enchantmentLevel) {
+            case 1: return Config.AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_1.getValue();
+            case 2: return Config.AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_2.getValue();
+            default: return Config.AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_3.getValue();
+        }
     }
 
     @Override
     public void onItemToolTipEvent(ItemStack stack, List<ITextComponent> tooltip) {
         super.onItemToolTipEvent(stack, tooltip);
-        int enchantmentLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.RESPIRATION, stack) + 1;
-        String translationKey = "item.usefulhats.aquanaut_helmet.desc.conduit_power.singular";
-        if (enchantmentLevel != 1) {
-            translationKey = "item.usefulhats.aquanaut_helmet.desc.conduit_power.plural";
-        }
-        tooltip.add(new TranslationTextComponent(translationKey, enchantmentLevel).applyTextStyle(TextFormatting.BLUE));
+        int effectTime = this.getEffectTimeConfig(EnchantmentHelper.getEnchantmentLevel(Enchantments.RESPIRATION, stack));
+        tooltip.add(new TranslationTextComponent("item.usefulhats.aquanaut_helmet.desc.conduit_power", effectTime).applyTextStyle(TextFormatting.BLUE));
     }
 
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
-        int maxDuration = (EnchantmentHelper.getEnchantmentLevel(Enchantments.RESPIRATION, stack) + 1) * 1200;
+        int maxDuration = this.getEffectTimeConfig(EnchantmentHelper.getEnchantmentLevel(Enchantments.RESPIRATION, stack)) * 20;
         if (!player.areEyesInFluid(FluidTags.WATER)) {
             player.addPotionEffect(new EffectInstance(Effects.CONDUIT_POWER, maxDuration, 0, false, false, true));
         } else {

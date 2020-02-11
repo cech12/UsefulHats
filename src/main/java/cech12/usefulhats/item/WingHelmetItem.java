@@ -1,6 +1,6 @@
 package cech12.usefulhats.item;
 
-import cech12.usefulhats.config.ConfigHandler;
+import cech12.usefulhats.config.Config;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -20,14 +20,14 @@ public class WingHelmetItem extends AbstractHatItem implements IEquipmentChangeL
     private static final int LEVITATION_DURATION = 200;
 
     public WingHelmetItem() {
-        super("wing_helmet", HatArmorMaterial.WING, rawColorFromRGB(255, 255, 255), ConfigHandler.WING_HELMET_ENABLED, ConfigHandler.WING_HELMET_DAMAGE_ENABLED);
+        super("wing_helmet", HatArmorMaterial.WING, rawColorFromRGB(255, 255, 255), Config.WING_HELMET_ENABLED, Config.WING_HELMET_DAMAGE_ENABLED);
     }
 
     @Override
     public void onItemToolTipEvent(ItemStack stack, List<ITextComponent> tooltip) {
         super.onItemToolTipEvent(stack, tooltip);
         tooltip.add(new TranslationTextComponent("item.usefulhats.wing_helmet.desc.slow_falling").applyTextStyle(TextFormatting.BLUE));
-        if (ConfigHandler.WING_HELMET_LEVITATION_ENABLED.getValue()) {
+        if (Config.WING_HELMET_LEVITATION_ENABLED.getValue()) {
             tooltip.add(new TranslationTextComponent("item.usefulhats.wing_helmet.desc.scared").applyTextStyle(TextFormatting.RED));
         }
     }
@@ -43,7 +43,7 @@ public class WingHelmetItem extends AbstractHatItem implements IEquipmentChangeL
                 }
             }
             //Sometimes the helmet is afraid of monsters and flies away
-            if (ConfigHandler.WING_HELMET_LEVITATION_ENABLED.getValue()) {
+            if (Config.WING_HELMET_LEVITATION_ENABLED.getValue()) {
                 if (player.getLastDamageSource() != null && player.getLastDamageSource().getTrueSource() instanceof LivingEntity) {
                     if (random.nextInt(100) == 0) {
                         player.addPotionEffect(new EffectInstance(Effects.LEVITATION, LEVITATION_DURATION, LEVITATION_AMPLIFIER));
@@ -60,7 +60,7 @@ public class WingHelmetItem extends AbstractHatItem implements IEquipmentChangeL
             // disable effects when hat is removed from slot
             ItemStack oldItemStack = event.getFrom();
             ItemStack newItemStack = event.getTo();
-            if (ConfigHandler.WING_HELMET_LEVITATION_ENABLED.getValue()) {
+            if (Config.WING_HELMET_LEVITATION_ENABLED.getValue()) {
                 if (oldItemStack.getItem() == this && newItemStack.getItem() != this) {
                     EffectInstance levitationEffect = player.getActivePotionEffect(Effects.LEVITATION);
                     if (levitationEffect != null && levitationEffect.getDuration() <= LEVITATION_DURATION && levitationEffect.getAmplifier() == LEVITATION_AMPLIFIER) {

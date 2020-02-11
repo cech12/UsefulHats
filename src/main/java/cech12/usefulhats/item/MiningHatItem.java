@@ -1,6 +1,6 @@
 package cech12.usefulhats.item;
 
-import cech12.usefulhats.config.ConfigHandler;
+import cech12.usefulhats.config.Config;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.potion.EffectInstance;
@@ -18,15 +18,26 @@ import java.util.List;
 public class MiningHatItem extends AbstractMiningHatItem implements IBreakSpeedChanger, IUsefulHatModelOwner {
 
     public MiningHatItem() {
-        super("mining_hat", HatArmorMaterial.MINING, rawColorFromRGB(255, 216, 0), ConfigHandler.MINING_HAT_ENABLED, ConfigHandler.MINING_HAT_DAMAGE_ENABLED);
+        super("mining_hat", HatArmorMaterial.MINING, rawColorFromRGB(255, 216, 0), Config.MINING_HAT_ENABLED, Config.MINING_HAT_DAMAGE_ENABLED);
+    }
+
+    private double[] getSpeedConfig() {
+        double[] speedConfig = new double[6];
+        speedConfig[0] = Config.MINING_HAT_SPEED_WITH_EFFICIENCY_0.getValue();
+        speedConfig[1] = Config.MINING_HAT_SPEED_WITH_EFFICIENCY_1.getValue();
+        speedConfig[2] = Config.MINING_HAT_SPEED_WITH_EFFICIENCY_2.getValue();
+        speedConfig[3] = Config.MINING_HAT_SPEED_WITH_EFFICIENCY_3.getValue();
+        speedConfig[4] = Config.MINING_HAT_SPEED_WITH_EFFICIENCY_4.getValue();
+        speedConfig[5] = Config.MINING_HAT_SPEED_WITH_EFFICIENCY_5.getValue();
+        return speedConfig;
     }
 
     @Override
     public void onItemToolTipEvent(ItemStack stack, List<ITextComponent> tooltip) {
         super.onItemToolTipEvent(stack, tooltip);
-        int value = (int) (this.getEnchantmentValue(stack) * 100);
+        int value = (int) (this.getEnchantmentValue(stack, this.getSpeedConfig()) * 100);
         tooltip.add(new TranslationTextComponent("item.usefulhats.mining_hat.desc.mining_speed", value).applyTextStyle(TextFormatting.BLUE));
-        if (ConfigHandler.MINING_HAT_NIGHT_VISION_ENABLED.getValue()) {
+        if (Config.MINING_HAT_NIGHT_VISION_ENABLED.getValue()) {
             tooltip.add(new TranslationTextComponent("item.usefulhats.mining_hat.desc.night_vision").applyTextStyle(TextFormatting.BLUE));
         }
     }
@@ -34,7 +45,7 @@ public class MiningHatItem extends AbstractMiningHatItem implements IBreakSpeedC
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
         //When Night Vision effect is disabled in config, do nothing.
-        if (!ConfigHandler.MINING_HAT_NIGHT_VISION_ENABLED.getValue()) return;
+        if (!Config.MINING_HAT_NIGHT_VISION_ENABLED.getValue()) return;
         //when night vision is active (potions), do nothing
         if (player.getActivePotionEffect(Effects.NIGHT_VISION) != null) return;
         //support both hands
@@ -52,7 +63,7 @@ public class MiningHatItem extends AbstractMiningHatItem implements IBreakSpeedC
     @Override
     public void onBreakSpeedEvent(PlayerEvent.BreakSpeed event, ItemStack headSlotItemStack) {
         if (!event.isCanceled() && event.getPlayer().getHeldItemMainhand().getToolTypes().contains(ToolType.PICKAXE) && event.getState().isToolEffective(ToolType.PICKAXE)) {
-            event.setNewSpeed(event.getOriginalSpeed() * (1.0F + this.getEnchantmentValue(headSlotItemStack)));
+            event.setNewSpeed(event.getOriginalSpeed() * (1.0F + (float) this.getEnchantmentValue(headSlotItemStack, this.getSpeedConfig())));
         }
     }
 
