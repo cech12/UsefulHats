@@ -1,7 +1,6 @@
 {
   "item.usefulhats.aquanaut_helmet": "Capacete do Aquanauta",
-  "item.usefulhats.aquanaut_helmet.desc.conduit_power.singular": "Você obtém o efeito §2Poder do Conduíte§9 por %s minuto.",
-  "item.usefulhats.aquanaut_helmet.desc.conduit_power.plural": "Você obtém o efeito §2Poder do Conduíte§9 por %s minutos.",
+  "item.usefulhats.aquanaut_helmet.desc.conduit_power": "Você obtém o efeito §2Poder do Conduíte§9 por %s segundos.",
   
   "item.usefulhats.chopping_hat": "Chapéu do Lenhador",
   "item.usefulhats.chopping_hat.desc.chopping_speed": "Cortar com um machado é §2%s%%§9 mais rápido. (Somase a encantamentos e poções)",

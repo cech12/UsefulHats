@@ -12,6 +12,10 @@ public class Config {
 
     public static final ConfigType.Boolean AQUANAUT_HELMET_ENABLED = new ConfigType.Boolean(true);
     public static final ConfigType.Boolean AQUANAUT_HELMET_DAMAGE_ENABLED = new ConfigType.Boolean(true);
+    public static final ConfigType.Integer AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_0 = new ConfigType.Integer(60);
+    public static final ConfigType.Integer AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_1 = new ConfigType.Integer(120);
+    public static final ConfigType.Integer AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_2 = new ConfigType.Integer(180);
+    public static final ConfigType.Integer AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_3 = new ConfigType.Integer(240);
 
     public static final ConfigType.Boolean CHOPPING_HAT_ENABLED = new ConfigType.Boolean(true);
     public static final ConfigType.Boolean CHOPPING_HAT_DAMAGE_ENABLED = new ConfigType.Boolean(true);
@@ -100,6 +104,18 @@ public class Config {
         AQUANAUT_HELMET_DAMAGE_ENABLED.configObj = common
                 .comment("Whether or not damaging of Aquanaut Helmet should be enabled.")
                 .define("aquanautHelmetDamageEnabled", AQUANAUT_HELMET_DAMAGE_ENABLED.getDefaultValue());
+        AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_0.configObj = common
+                .comment("Aquanaut Helmet effect time of Conduit Power without Respiration enchantment. (in seconds)")
+                .defineInRange("aquanautHelmetEffectTimeWithRespiration0", AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_0.getDefaultValue(), 10, 120);
+        AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_1.configObj = common
+                .comment("Aquanaut Helmet effect time of Conduit Power with Respiration I. (in seconds)")
+                .defineInRange("aquanautHelmetEffectTimeWithRespiration1", AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_1.getDefaultValue(), 10, 180);
+        AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_2.configObj = common
+                .comment("Aquanaut Helmet effect time of Conduit Power with Respiration II. (in seconds)")
+                .defineInRange("aquanautHelmetEffectTimeWithRespiration2", AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_2.getDefaultValue(), 10, 240);
+        AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_3.configObj = common
+                .comment("Aquanaut Helmet effect time of Conduit Power with Respiration III. (in seconds)")
+                .defineInRange("aquanautHelmetEffectTimeWithRespiration1", AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_3.getDefaultValue(), 10, 300);
         common.pop();
 
         common.push("Chopping Hat");

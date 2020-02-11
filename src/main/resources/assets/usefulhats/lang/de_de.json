@@ -1,7 +1,6 @@
 {
   "item.usefulhats.aquanaut_helmet": "Taucherhelm",
-  "item.usefulhats.aquanaut_helmet.desc.conduit_power.singular": "Du bekommst den §2Meereskraft§9 Effekt für %s Minute.",
-  "item.usefulhats.aquanaut_helmet.desc.conduit_power.plural": "Du bekommst den §2Meereskraft§9 Effekt für %s Minuten.",
+  "item.usefulhats.aquanaut_helmet.desc.conduit_power": "Du bekommst den §2Meereskraft§9 Effekt für %s Sekunden.",
 
   "item.usefulhats.chopping_hat": "Holzfällermütze",
   "item.usefulhats.chopping_hat.desc.chopping_speed": "Mit einer Axt Holz hacken ist §2%s%%§9 schneller. (mit Verzauberungen und Tränken kombinierbar)",
