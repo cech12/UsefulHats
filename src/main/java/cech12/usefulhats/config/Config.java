@@ -115,7 +115,7 @@ public class Config {
                 .defineInRange("aquanautHelmetEffectTimeWithRespiration2", AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_2.getDefaultValue(), 10, 240);
         AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_3.configObj = common
                 .comment("Aquanaut Helmet effect time of Conduit Power with Respiration III. (in seconds)")
-                .defineInRange("aquanautHelmetEffectTimeWithRespiration1", AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_3.getDefaultValue(), 10, 300);
+                .defineInRange("aquanautHelmetEffectTimeWithRespiration3", AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_3.getDefaultValue(), 10, 300);
         common.pop();
 
         common.push("Chopping Hat");
