@@ -5,7 +5,7 @@ import net.minecraftforge.common.ForgeConfigSpec;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConfigHandler {
+public class Config {
     public static ForgeConfigSpec COMMON;
 
     public static List<IResettableConfigType> allValues = new ArrayList<>();
@@ -15,6 +15,12 @@ public class ConfigHandler {
 
     public static final ConfigType.Boolean CHOPPING_HAT_ENABLED = new ConfigType.Boolean(true);
     public static final ConfigType.Boolean CHOPPING_HAT_DAMAGE_ENABLED = new ConfigType.Boolean(true);
+    public static final ConfigType.Double CHOPPING_HAT_SPEED_WITH_EFFICIENCY_0 = new ConfigType.Double(0.2);
+    public static final ConfigType.Double CHOPPING_HAT_SPEED_WITH_EFFICIENCY_1 = new ConfigType.Double(0.4);
+    public static final ConfigType.Double CHOPPING_HAT_SPEED_WITH_EFFICIENCY_2 = new ConfigType.Double(0.6);
+    public static final ConfigType.Double CHOPPING_HAT_SPEED_WITH_EFFICIENCY_3 = new ConfigType.Double(0.8);
+    public static final ConfigType.Double CHOPPING_HAT_SPEED_WITH_EFFICIENCY_4 = new ConfigType.Double(1.0);
+    public static final ConfigType.Double CHOPPING_HAT_SPEED_WITH_EFFICIENCY_5 = new ConfigType.Double(1.5);
 
     public static final ConfigType.Boolean HALO_ENABLED = new ConfigType.Boolean(true);
     public static final ConfigType.Boolean HALO_DAMAGE_ENABLED = new ConfigType.Boolean(true);
@@ -27,6 +33,12 @@ public class ConfigHandler {
     public static final ConfigType.Boolean MINING_HAT_ENABLED = new ConfigType.Boolean(true);
     public static final ConfigType.Boolean MINING_HAT_DAMAGE_ENABLED = new ConfigType.Boolean(true);
     public static final ConfigType.Boolean MINING_HAT_NIGHT_VISION_ENABLED = new ConfigType.Boolean(true);
+    public static final ConfigType.Double MINING_HAT_SPEED_WITH_EFFICIENCY_0 = new ConfigType.Double(0.2);
+    public static final ConfigType.Double MINING_HAT_SPEED_WITH_EFFICIENCY_1 = new ConfigType.Double(0.4);
+    public static final ConfigType.Double MINING_HAT_SPEED_WITH_EFFICIENCY_2 = new ConfigType.Double(0.6);
+    public static final ConfigType.Double MINING_HAT_SPEED_WITH_EFFICIENCY_3 = new ConfigType.Double(0.8);
+    public static final ConfigType.Double MINING_HAT_SPEED_WITH_EFFICIENCY_4 = new ConfigType.Double(1.0);
+    public static final ConfigType.Double MINING_HAT_SPEED_WITH_EFFICIENCY_5 = new ConfigType.Double(1.5);
 
     public static final ConfigType.Boolean POSTMAN_HAT_ENABLED = new ConfigType.Boolean(true);
     public static final ConfigType.Boolean POSTMAN_HAT_DAMAGE_ENABLED = new ConfigType.Boolean(true);
@@ -37,6 +49,12 @@ public class ConfigHandler {
 
     public static final ConfigType.Boolean STRAW_HAT_ENABLED = new ConfigType.Boolean(true);
     public static final ConfigType.Boolean STRAW_HAT_DAMAGE_ENABLED = new ConfigType.Boolean(true);
+    public static final ConfigType.Double STRAW_HAT_SPEED_WITH_EFFICIENCY_0 = new ConfigType.Double(0.2);
+    public static final ConfigType.Double STRAW_HAT_SPEED_WITH_EFFICIENCY_1 = new ConfigType.Double(0.4);
+    public static final ConfigType.Double STRAW_HAT_SPEED_WITH_EFFICIENCY_2 = new ConfigType.Double(0.6);
+    public static final ConfigType.Double STRAW_HAT_SPEED_WITH_EFFICIENCY_3 = new ConfigType.Double(0.8);
+    public static final ConfigType.Double STRAW_HAT_SPEED_WITH_EFFICIENCY_4 = new ConfigType.Double(1.0);
+    public static final ConfigType.Double STRAW_HAT_SPEED_WITH_EFFICIENCY_5 = new ConfigType.Double(1.5);
 
     public static final ConfigType.Boolean WING_HELMET_ENABLED = new ConfigType.Boolean(true);
     public static final ConfigType.Boolean WING_HELMET_DAMAGE_ENABLED = new ConfigType.Boolean(true);
@@ -78,49 +96,128 @@ public class ConfigHandler {
         common.pop();
 
         common.comment("Various options that affect individual hats.").push("Balance Options");
-
+        common.push("Aquanaut Helmet");
         AQUANAUT_HELMET_DAMAGE_ENABLED.configObj = common
                 .comment("Whether or not damaging of Aquanaut Helmet should be enabled.")
                 .define("aquanautHelmetDamageEnabled", AQUANAUT_HELMET_DAMAGE_ENABLED.getDefaultValue());
+        common.pop();
+
+        common.push("Chopping Hat");
         CHOPPING_HAT_DAMAGE_ENABLED.configObj = common
                 .comment("Whether or not damaging of Chopping Hat should be enabled.")
                 .define("choppingHatDamageEnabled", CHOPPING_HAT_DAMAGE_ENABLED.getDefaultValue());
+        CHOPPING_HAT_SPEED_WITH_EFFICIENCY_0.configObj = common
+                .comment("Chopping Hat speed increase without Efficiency enchantment.")
+                .defineInRange("choppingHatSpeedWithEfficiency0", CHOPPING_HAT_SPEED_WITH_EFFICIENCY_0.getDefaultValue(), 0.0, 1.0);
+        CHOPPING_HAT_SPEED_WITH_EFFICIENCY_1.configObj = common
+                .comment("Chopping Hat speed increase with Efficiency I.")
+                .defineInRange("choppingHatSpeedWithEfficiency1", CHOPPING_HAT_SPEED_WITH_EFFICIENCY_1.getDefaultValue(), 0.0, 1.0);
+        CHOPPING_HAT_SPEED_WITH_EFFICIENCY_2.configObj = common
+                .comment("Chopping Hat speed increase with Efficiency II.")
+                .defineInRange("choppingHatSpeedWithEfficiency2", CHOPPING_HAT_SPEED_WITH_EFFICIENCY_2.getDefaultValue(), 0.0, 2.0);
+        CHOPPING_HAT_SPEED_WITH_EFFICIENCY_3.configObj = common
+                .comment("Chopping Hat speed increase with Efficiency III.")
+                .defineInRange("choppingHatSpeedWithEfficiency3", CHOPPING_HAT_SPEED_WITH_EFFICIENCY_3.getDefaultValue(), 0.0, 3.0);
+        CHOPPING_HAT_SPEED_WITH_EFFICIENCY_4.configObj = common
+                .comment("Chopping Hat speed increase with Efficiency IV.")
+                .defineInRange("choppingHatSpeedWithEfficiency4", CHOPPING_HAT_SPEED_WITH_EFFICIENCY_4.getDefaultValue(), 0.0, 4.0);
+        CHOPPING_HAT_SPEED_WITH_EFFICIENCY_5.configObj = common
+                .comment("Chopping Hat speed increase with Efficiency V.")
+                .defineInRange("choppingHatSpeedWithEfficiency5", CHOPPING_HAT_SPEED_WITH_EFFICIENCY_5.getDefaultValue(), 0.0, 5.0);
+        common.pop();
+
+        common.push("Halo");
         HALO_DAMAGE_ENABLED.configObj = common
                 .comment("Whether or not damaging of Halo should be enabled.")
                 .define("haloDamageEnabled", HALO_DAMAGE_ENABLED.getDefaultValue());
         HALO_DETECTING_RANGE.configObj = common
                 .comment("Detecting range of Halo for damage calculation. (in blocks)")
                 .defineInRange("haloDetectingRange", HALO_DETECTING_RANGE.getDefaultValue(), 1, 100);
+        common.pop();
+
+        common.push("Lucky Hat");
         LUCKY_HAT_DAMAGE_ENABLED.configObj = common
                 .comment("Whether or not damaging of Lucky Hat should be enabled.")
                 .define("luckyHatDamageEnabled", LUCKY_HAT_DAMAGE_ENABLED.getDefaultValue());
         LUCKY_HAT_UNLUCK_ENABLED.configObj = common
                 .comment("Whether or not Hunger effect of Lucky Hat should be enabled while running.")
                 .define("luckyHatUnluckEnabled", LUCKY_HAT_UNLUCK_ENABLED.getDefaultValue());
+        common.pop();
+
+        common.push("Mining Hat");
         MINING_HAT_DAMAGE_ENABLED.configObj = common
                 .comment("Whether or not damaging of Mining Hat should be enabled.")
                 .define("miningHatDamageEnabled", MINING_HAT_DAMAGE_ENABLED.getDefaultValue());
         MINING_HAT_NIGHT_VISION_ENABLED.configObj = common
                 .comment("Whether or not Night Vision effect of Mining Hat should be enabled in dark areas.")
                 .define("miningHatNightVisionEnabled", MINING_HAT_NIGHT_VISION_ENABLED.getDefaultValue());
+        MINING_HAT_SPEED_WITH_EFFICIENCY_0.configObj = common
+                .comment("Mining Hat speed increase without Efficiency enchantment.")
+                .defineInRange("miningHatSpeedWithEfficiency0", MINING_HAT_SPEED_WITH_EFFICIENCY_0.getDefaultValue(), 0.0, 1.0);
+        MINING_HAT_SPEED_WITH_EFFICIENCY_1.configObj = common
+                .comment("Mining Hat speed increase with Efficiency I.")
+                .defineInRange("miningHatSpeedWithEfficiency1", MINING_HAT_SPEED_WITH_EFFICIENCY_1.getDefaultValue(), 0.0, 1.0);
+        MINING_HAT_SPEED_WITH_EFFICIENCY_2.configObj = common
+                .comment("Mining Hat speed increase with Efficiency II.")
+                .defineInRange("miningHatSpeedWithEfficiency2", MINING_HAT_SPEED_WITH_EFFICIENCY_2.getDefaultValue(), 0.0, 2.0);
+        MINING_HAT_SPEED_WITH_EFFICIENCY_3.configObj = common
+                .comment("Mining Hat speed increase with Efficiency III.")
+                .defineInRange("miningHatSpeedWithEfficiency3", MINING_HAT_SPEED_WITH_EFFICIENCY_3.getDefaultValue(), 0.0, 3.0);
+        MINING_HAT_SPEED_WITH_EFFICIENCY_4.configObj = common
+                .comment("Mining Hat speed increase with Efficiency IV.")
+                .defineInRange("miningHatSpeedWithEfficiency4", MINING_HAT_SPEED_WITH_EFFICIENCY_4.getDefaultValue(), 0.0, 4.0);
+        MINING_HAT_SPEED_WITH_EFFICIENCY_5.configObj = common
+                .comment("Mining Hat speed increase with Efficiency V.")
+                .defineInRange("miningHatSpeedWithEfficiency5", MINING_HAT_SPEED_WITH_EFFICIENCY_5.getDefaultValue(), 0.0, 5.0);
+        common.pop();
+
+        common.push("Postman Hat");
         POSTMAN_HAT_DAMAGE_ENABLED.configObj = common
                 .comment("Whether or not damaging of Postman Hat should be enabled.")
                 .define("postmanHatDamageEnabled", POSTMAN_HAT_DAMAGE_ENABLED.getDefaultValue());
         POSTMAN_HAT_HUNGER_ENABLED.configObj = common
                 .comment("Whether or not Hunger effect of Postman Hat should be enabled while running.")
                 .define("postmanHatHungerEnabled", POSTMAN_HAT_HUNGER_ENABLED.getDefaultValue());
+        common.pop();
+
+        common.push("Stocking Cap");
         STOCKING_CAP_DAMAGE_ENABLED.configObj = common
                 .comment("Whether or not damaging of Stocking Cap should be enabled.")
                 .define("stockingCapDamageEnabled", STOCKING_CAP_DAMAGE_ENABLED.getDefaultValue());
+        common.pop();
+
+        common.push("Straw Hat");
         STRAW_HAT_DAMAGE_ENABLED.configObj = common
                 .comment("Whether or not damaging of Straw Hat should be enabled.")
                 .define("strawHatDamageEnabled", STRAW_HAT_DAMAGE_ENABLED.getDefaultValue());
+        STRAW_HAT_SPEED_WITH_EFFICIENCY_0.configObj = common
+                .comment("Straw Hat speed increase without Efficiency enchantment.")
+                .defineInRange("strawHatSpeedWithEfficiency0", STRAW_HAT_SPEED_WITH_EFFICIENCY_0.getDefaultValue(), 0.0, 1.0);
+        STRAW_HAT_SPEED_WITH_EFFICIENCY_1.configObj = common
+                .comment("Straw Hat speed increase with Efficiency I.")
+                .defineInRange("strawHatSpeedWithEfficiency1", STRAW_HAT_SPEED_WITH_EFFICIENCY_1.getDefaultValue(), 0.0, 1.0);
+        STRAW_HAT_SPEED_WITH_EFFICIENCY_2.configObj = common
+                .comment("Straw Hat speed increase with Efficiency II.")
+                .defineInRange("strawHatSpeedWithEfficiency2", STRAW_HAT_SPEED_WITH_EFFICIENCY_2.getDefaultValue(), 0.0, 2.0);
+        STRAW_HAT_SPEED_WITH_EFFICIENCY_3.configObj = common
+                .comment("Straw Hat speed increase with Efficiency III.")
+                .defineInRange("strawHatSpeedWithEfficiency3", STRAW_HAT_SPEED_WITH_EFFICIENCY_3.getDefaultValue(), 0.0, 3.0);
+        STRAW_HAT_SPEED_WITH_EFFICIENCY_4.configObj = common
+                .comment("Straw Hat speed increase with Efficiency IV.")
+                .defineInRange("strawHatSpeedWithEfficiency4", STRAW_HAT_SPEED_WITH_EFFICIENCY_4.getDefaultValue(), 0.0, 4.0);
+        STRAW_HAT_SPEED_WITH_EFFICIENCY_5.configObj = common
+                .comment("Straw Hat speed increase with Efficiency V.")
+                .defineInRange("strawHatSpeedWithEfficiency5", STRAW_HAT_SPEED_WITH_EFFICIENCY_5.getDefaultValue(), 0.0, 5.0);
+        common.pop();
+
+        common.push("Wing Helmet");
         WING_HELMET_DAMAGE_ENABLED.configObj = common
                 .comment("Whether or not damaging of Wing Helmet should be enabled.")
                 .define("wingHelmetDamageEnabled", WING_HELMET_DAMAGE_ENABLED.getDefaultValue());
         WING_HELMET_LEVITATION_ENABLED.configObj = common
                 .comment("Whether or not Levitation effect of Wing Helmet should be enabled.")
                 .define("wingHelmetLevitationEnabled", WING_HELMET_LEVITATION_ENABLED.getDefaultValue());
+        common.pop();
 
         common.pop();
 

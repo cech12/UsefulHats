@@ -11,7 +11,7 @@ public class ConfigType {
 
         public Boolean(boolean defaultValueIn) {
             this.defaultValue = defaultValueIn;
-            ConfigHandler.allValues.add(this);
+            Config.allValues.add(this);
         }
 
         public boolean getDefaultValue() {
@@ -42,7 +42,7 @@ public class ConfigType {
 
         public Integer(int defaultValueIn) {
             this.defaultValue = defaultValueIn;
-            ConfigHandler.allValues.add(this);
+            Config.allValues.add(this);
         }
 
         public int getDefaultValue() {
@@ -67,5 +67,35 @@ public class ConfigType {
         }
     }
 
+    public static class Double implements IResettableConfigType {
+        public ForgeConfigSpec.DoubleValue configObj;
+        private double defaultValue;
+
+        public Double(double defaultValueIn) {
+            this.defaultValue = defaultValueIn;
+            Config.allValues.add(this);
+        }
+
+        public double getDefaultValue() {
+            return this.defaultValue;
+        }
+
+        public void setDefaultValue(double value) {
+            this.defaultValue = value;
+        }
+
+        public double getValue() {
+
+            if (this.configObj != null)
+                return this.configObj.get();
+            else
+                return defaultValue;
+        }
+
+        public void reset() {
+            this.configObj.set(this.defaultValue);
+            this.configObj.save();
+        }
+    }
 
 }

@@ -1,6 +1,6 @@
 package cech12.usefulhats.item;
 
-import cech12.usefulhats.config.ConfigHandler;
+import cech12.usefulhats.config.Config;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
@@ -23,7 +23,7 @@ import java.util.function.Predicate;
 public class HaloItem extends AbstractHatItem implements IAttackTargetChanger, IMobEntityChanger {
 
     public HaloItem() {
-        super("halo", HatArmorMaterial.HALO, rawColorFromRGB(255, 236, 142), ConfigHandler.HALO_ENABLED, ConfigHandler.HALO_DAMAGE_ENABLED);
+        super("halo", HatArmorMaterial.HALO, rawColorFromRGB(255, 236, 142), Config.HALO_ENABLED, Config.HALO_DAMAGE_ENABLED);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class HaloItem extends AbstractHatItem implements IAttackTargetChanger, I
         // Looses durability outside the nether when non-boss mobs are in range (X blocks)
         if (player.dimension != DimensionType.THE_NETHER) {
             Vec3d playerPos = player.getPositionVec();
-            int range = ConfigHandler.HALO_DETECTING_RANGE.getValue();
+            int range = Config.HALO_DETECTING_RANGE.getValue();
             AxisAlignedBB radius = new AxisAlignedBB(playerPos.getX()-range, playerPos.getY()-range, playerPos.getZ()-range, playerPos.getX()+range, playerPos.getY()+range, playerPos.getZ()+range);
             List<MobEntity> mobsInRange = player.world.getEntitiesWithinAABB(MobEntity.class, radius, (Predicate<Entity>) entity -> entity instanceof MobEntity && entity.isNonBoss());
             if (!mobsInRange.isEmpty() && random.nextInt(20) == 0) {

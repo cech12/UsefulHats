@@ -2,7 +2,7 @@ package cech12.usefulhats;
 
 import cech12.usefulhats.client.UsefulHatLayer;
 import cech12.usefulhats.client.UsefulHatModel;
-import cech12.usefulhats.config.ConfigHandler;
+import cech12.usefulhats.config.Config;
 import cech12.usefulhats.helper.UsefulHatsRecipeSerializers;
 import cech12.usefulhats.init.ModItems;
 import net.minecraft.client.Minecraft;
@@ -27,7 +27,7 @@ public class UsefulHatsMod {
     public UsefulHatsMod() {
         ModItems.addEventListeners();
         //Configs
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ConfigHandler.COMMON, "usefulhats-legacy-common.toml");
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON, "usefulhats-legacy-common.toml");
         FMLJavaModLoadingContext.get().getModEventBus().register(new UsefulHatsRecipeSerializers());
     }
 

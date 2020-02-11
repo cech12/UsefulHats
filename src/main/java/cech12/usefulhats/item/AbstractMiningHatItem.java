@@ -12,13 +12,18 @@ public class AbstractMiningHatItem extends AbstractHatItem {
         this.addAllowedEnchantment(Enchantments.EFFICIENCY);
     }
 
-    protected float getEnchantmentValue(ItemStack stack) {
-        int enchantmentLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.EFFICIENCY, stack) + 1;
-        float enchantmentValue = (0.2F * enchantmentLevel);
-        if (enchantmentLevel > 5) {
-            enchantmentValue += 0.3F;
+    protected double getEnchantmentValue(final ItemStack stack, final double[] speedConfig) {
+        if (speedConfig == null || speedConfig.length == 0) {
+            return 0.0;
         }
-        return enchantmentValue;
+        int enchantmentLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.EFFICIENCY, stack);
+        if (enchantmentLevel >= speedConfig.length) {
+            return speedConfig[speedConfig.length - 1];
+        }
+        if (enchantmentLevel < 0) {
+            return speedConfig[0];
+        }
+        return speedConfig[enchantmentLevel];
     }
 
 }
