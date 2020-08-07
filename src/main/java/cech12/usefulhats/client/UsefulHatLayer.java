@@ -68,9 +68,10 @@ public class UsefulHatLayer<T extends LivingEntity, M extends BipedModel<T>, A e
     }
 
     @Override
-    protected void setModelSlotVisible(@Nonnull A model, EquipmentSlotType slotIn) {
+    protected void setModelSlotVisible(@Nonnull A model, @Nonnull EquipmentSlotType slotIn) {
         //disable all render models of biped model except the hat (because it is overridden with own model)
-        this.setModelVisible(model);
+        //this.setModelVisible(model);
+        model.setVisible(false);
         if (slotIn == EquipmentSlotType.HEAD && model instanceof UsefulHatModel) {
             model.bipedHead.showModel = true;
             model.bipedHeadwear.showModel = true;

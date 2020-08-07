@@ -55,33 +55,45 @@ public enum HatArmorMaterial implements IArmorMaterial {
         this.repairMaterial = repairMaterialSupplier;
     }
 
+    @Override
     public int getDurability(EquipmentSlotType slotIn) {
         return this.durability;
     }
 
+    @Override
     public int getDamageReductionAmount(EquipmentSlotType slotIn) {
         return 0;
     }
 
+    @Override
     public int getEnchantability() {
         return this.enchantability;
     }
 
+    @Override
     public SoundEvent getSoundEvent() {
         return this.soundEvent;
     }
 
+    @Override
     public Ingredient getRepairMaterial() {
         return this.repairMaterial.get();
     }
 
+    @Override
     @OnlyIn(Dist.CLIENT)
     public String getName() {
         return this.name;
     }
 
+    @Override
     public float getToughness() {
         return 0.0F;
+    }
+
+    @Override
+    public float func_230304_f_() {
+        return 0;
     }
 
 }

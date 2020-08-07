@@ -32,7 +32,8 @@ public class ChoppingHatItem extends AbstractMiningHatItem implements IBreakSpee
     public void onItemToolTipEvent(ItemStack stack, List<ITextComponent> tooltip) {
         super.onItemToolTipEvent(stack, tooltip);
         int value = (int) (this.getEnchantmentValue(stack, this.getSpeedConfig()) * 100);
-        tooltip.add(new TranslationTextComponent("item.usefulhats.chopping_hat.desc.chopping_speed", value).applyTextStyle(TextFormatting.BLUE));
+        //tooltip.add(new TranslationTextComponent("item.usefulhats.chopping_hat.desc.chopping_speed", value).applyTextStyle(TextFormatting.BLUE));
+        tooltip.add(new TranslationTextComponent("item.usefulhats.chopping_hat.desc.chopping_speed", value).func_240699_a_(TextFormatting.BLUE));
     }
 
     @Override

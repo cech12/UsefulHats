@@ -26,15 +26,17 @@ public class WingHelmetItem extends AbstractHatItem implements IEquipmentChangeL
     @Override
     public void onItemToolTipEvent(ItemStack stack, List<ITextComponent> tooltip) {
         super.onItemToolTipEvent(stack, tooltip);
-        tooltip.add(new TranslationTextComponent("item.usefulhats.wing_helmet.desc.slow_falling").applyTextStyle(TextFormatting.BLUE));
+        //tooltip.add(new TranslationTextComponent("item.usefulhats.wing_helmet.desc.slow_falling").applyTextStyle(TextFormatting.BLUE));
+        tooltip.add(new TranslationTextComponent("item.usefulhats.wing_helmet.desc.slow_falling").func_240699_a_(TextFormatting.BLUE));
         if (Config.WING_HELMET_LEVITATION_ENABLED.getValue()) {
-            tooltip.add(new TranslationTextComponent("item.usefulhats.wing_helmet.desc.scared").applyTextStyle(TextFormatting.RED));
+            //tooltip.add(new TranslationTextComponent("item.usefulhats.wing_helmet.desc.scared").applyTextStyle(TextFormatting.RED));
+            tooltip.add(new TranslationTextComponent("item.usefulhats.wing_helmet.desc.scared").func_240699_a_(TextFormatting.RED));
         }
     }
 
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
-        if (!player.onGround && !player.isInWater()) {
+        if (!player.func_233570_aj_() && !player.isInWater()) { //onGround - func_233570_aj_
             //only add slow falling effect when no levitation effect an no slow falling effect is active (other sources like potions)
             if (player.getActivePotionEffect(Effects.LEVITATION) == null && player.getActivePotionEffect(Effects.SLOW_FALLING) == null) {
                 player.addPotionEffect(new EffectInstance(Effects.SLOW_FALLING));

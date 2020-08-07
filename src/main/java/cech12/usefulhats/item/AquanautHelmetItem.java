@@ -46,7 +46,8 @@ public class AquanautHelmetItem extends AbstractHatItem implements IEquipmentCha
     public void onItemToolTipEvent(ItemStack stack, List<ITextComponent> tooltip) {
         super.onItemToolTipEvent(stack, tooltip);
         int effectTime = this.getEffectTimeConfig(EnchantmentHelper.getEnchantmentLevel(Enchantments.RESPIRATION, stack));
-        tooltip.add(new TranslationTextComponent("item.usefulhats.aquanaut_helmet.desc.conduit_power", effectTime).applyTextStyle(TextFormatting.BLUE));
+        //tooltip.add(new TranslationTextComponent("item.usefulhats.aquanaut_helmet.desc.conduit_power", effectTime).applyTextStyle(TextFormatting.BLUE));
+        tooltip.add(new TranslationTextComponent("item.usefulhats.aquanaut_helmet.desc.conduit_power", effectTime).func_240699_a_(TextFormatting.BLUE));
     }
 
     @Override

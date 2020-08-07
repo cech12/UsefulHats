@@ -21,7 +21,7 @@ public class UsefulHatModel<T extends LivingEntity> extends BipedModel<T> {
     }
 
     private UsefulHatModel(float scale, float p_i1149_2_, int textureWidthIn, int textureHeightIn) {
-        super(RenderType::entityTranslucent, scale, p_i1149_2_, 64, 32);
+        super(RenderType::getEntityTranslucent, scale, p_i1149_2_, 64, 32);
         float scaleWithOffset = scale + 0.01F; //against texture flickering (outer skin layer)
         this.textureWidth = textureWidthIn;
         this.textureHeight = textureHeightIn;
@@ -52,7 +52,8 @@ public class UsefulHatModel<T extends LivingEntity> extends BipedModel<T> {
 
         @Override
         //setRotationAngles
-        public void render(ArmorStandEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        //render
+        public void setRotationAngles(ArmorStandEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
             this.bipedHead.rotateAngleX = ((float)Math.PI / 180F) * entityIn.getHeadRotation().getX();
             this.bipedHead.rotateAngleY = ((float)Math.PI / 180F) * entityIn.getHeadRotation().getY();
             this.bipedHead.rotateAngleZ = ((float)Math.PI / 180F) * entityIn.getHeadRotation().getZ();

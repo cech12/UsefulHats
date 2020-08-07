@@ -9,6 +9,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -136,7 +137,7 @@ public abstract class AbstractHatItem extends ArmorItem implements IEnabled, IDy
      * Disables "When on head" line of ArmorItem Tooltip
      */
     @Override
-    public @Nonnull Multimap<String, AttributeModifier> getAttributeModifiers(@Nonnull EquipmentSlotType equipmentSlot) {
+    public @Nonnull Multimap<Attribute, AttributeModifier> getAttributeModifiers(@Nonnull EquipmentSlotType equipmentSlot) {
         return HashMultimap.create();
     }
 
@@ -147,7 +148,8 @@ public abstract class AbstractHatItem extends ArmorItem implements IEnabled, IDy
     public void onItemToolTipEvent(ItemStack stack, List<ITextComponent> tooltip) {
         //tooltip.add(new StringTextComponent("Durability: " + (stack.getMaxDamage() - stack.getDamage()) + "/" + stack.getMaxDamage()).applyTextStyle(TextFormatting.RED));
         tooltip.add(new StringTextComponent(""));
-        tooltip.add((new TranslationTextComponent("item.modifiers." + EquipmentSlotType.HEAD.getName())).applyTextStyle(TextFormatting.GRAY));
+        //tooltip.add((new TranslationTextComponent("item.modifiers." + EquipmentSlotType.HEAD.getName())).applyTextStyle(TextFormatting.GRAY));
+        tooltip.add((new TranslationTextComponent("item.modifiers." + EquipmentSlotType.HEAD.getName())).func_240699_a_(TextFormatting.GRAY));
     }
 
 }

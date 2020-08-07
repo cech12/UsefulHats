@@ -36,9 +36,11 @@ public class MiningHatItem extends AbstractMiningHatItem implements IBreakSpeedC
     public void onItemToolTipEvent(ItemStack stack, List<ITextComponent> tooltip) {
         super.onItemToolTipEvent(stack, tooltip);
         int value = (int) (this.getEnchantmentValue(stack, this.getSpeedConfig()) * 100);
-        tooltip.add(new TranslationTextComponent("item.usefulhats.mining_hat.desc.mining_speed", value).applyTextStyle(TextFormatting.BLUE));
+        //tooltip.add(new TranslationTextComponent("item.usefulhats.mining_hat.desc.mining_speed", value).applyTextStyle(TextFormatting.BLUE));
+        tooltip.add(new TranslationTextComponent("item.usefulhats.mining_hat.desc.mining_speed", value).func_240699_a_(TextFormatting.BLUE));
         if (Config.MINING_HAT_NIGHT_VISION_ENABLED.getValue()) {
-            tooltip.add(new TranslationTextComponent("item.usefulhats.mining_hat.desc.night_vision").applyTextStyle(TextFormatting.BLUE));
+            //tooltip.add(new TranslationTextComponent("item.usefulhats.mining_hat.desc.night_vision").applyTextStyle(TextFormatting.BLUE));
+            tooltip.add(new TranslationTextComponent("item.usefulhats.mining_hat.desc.night_vision").func_240699_a_(TextFormatting.BLUE));
         }
     }
 
@@ -50,7 +52,7 @@ public class MiningHatItem extends AbstractMiningHatItem implements IBreakSpeedC
         if (player.getActivePotionEffect(Effects.NIGHT_VISION) != null) return;
         //support both hands
         for (ItemStack item : player.getHeldEquipment()) {
-            if (item.getToolTypes().contains(ToolType.PICKAXE) && world.getLight(player.getPosition()) < 8) {
+            if (item.getToolTypes().contains(ToolType.PICKAXE) && world.getLight(player.func_233580_cy_()) < 8) { //getPosition - func_233580_cy_
                 player.addPotionEffect(new EffectInstance(Effects.NIGHT_VISION));
                 if (random.nextInt(20) == 0) {
                     this.damageHatItemByOne(stack, player);
