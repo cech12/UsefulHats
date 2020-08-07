@@ -67,7 +67,7 @@ public class Config {
     static {
         final ForgeConfigSpec.Builder common = new ForgeConfigSpec.Builder();
 
-        common.comment("Enable or disable certain hats. Disabled hats will not be craftable.").push("Accesibility Config");
+        common.comment("Enable or disable certain hats. Disabled hats will not be craftable.").push("Accessibility Config");
 
         AQUANAUT_HELMET_ENABLED.configObj = common
                 .comment("Whether or not Aquanaut Helmet should be enabled.")
