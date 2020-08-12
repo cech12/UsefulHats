@@ -4,13 +4,17 @@ import cech12.usefulhats.item.AbstractHatItem;
 import cech12.usefulhats.item.IUsefulHatModelOwner;
 import com.google.common.collect.Maps;
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.entity.IEntityRenderer;
 import net.minecraft.client.renderer.entity.layers.BipedArmorLayer;
 import net.minecraft.client.renderer.entity.model.BipedModel;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -28,14 +32,16 @@ import java.util.Map;
 public class UsefulHatLayer<T extends LivingEntity, M extends BipedModel<T>, A extends BipedModel<T>> extends BipedArmorLayer<T, M, A> {
 
     private static final Map<String, ResourceLocation> ARMOR_TEXTURE_RES_MAP = Maps.newHashMap();
+    private final A hatModel;
 
     public UsefulHatLayer(IEntityRenderer<T, M> renderer, A hatModel) {
         super(renderer, hatModel, hatModel);
+        this.hatModel = hatModel;
     }
 
     @Override
     @Nonnull
-    public ResourceLocation getArmorResource(@Nonnull Entity entity, ItemStack stack, @Nonnull EquipmentSlotType slot, @Nullable String type) {
+    public ResourceLocation getArmorResource(@Nonnull Entity entity, @Nonnull ItemStack stack, @Nonnull EquipmentSlotType slot, @Nullable String type) {
         //texture location is another for this model (only for hats)
         if (slot == EquipmentSlotType.HEAD) {
             ResourceLocation resourceLocation = stack.getItem().getRegistryName();
@@ -57,14 +63,31 @@ public class UsefulHatLayer<T extends LivingEntity, M extends BipedModel<T>, A e
 
     @Override
     public void render(@Nonnull MatrixStack matrixStackIn, @Nonnull IRenderTypeBuffer bufferIn, int packedLightIn, T entityIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-        ItemStack hatItemStack = entityIn.getItemStackFromSlot(EquipmentSlotType.HEAD);
-        Item hatItem = hatItemStack.getItem();
-        if (hatItem instanceof AbstractHatItem && hatItem instanceof IUsefulHatModelOwner) {
-            //super method makes its job good.
-            super.render(matrixStackIn, bufferIn, packedLightIn, entityIn, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
-            //reset color for later renderings (avoid violet book in inventory for enchanted hats) (not necessary for 1.15)
-            //GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+        //copied from super class - only HEAD slot
+        ItemStack itemstack = entityIn.getItemStackFromSlot(EquipmentSlotType.HEAD);
+        Item hatItem = itemstack.getItem();
+        if (hatItem instanceof AbstractHatItem && hatItem instanceof IUsefulHatModelOwner) { //difference in checking the item
+            ArmorItem armoritem = (ArmorItem) hatItem;
+            if (armoritem.getEquipmentSlot() == EquipmentSlotType.HEAD) {
+                A model = getArmorModelHook(entityIn, itemstack, EquipmentSlotType.HEAD, this.hatModel);
+                this.getEntityModel().setModelAttributes(model);
+                this.setModelSlotVisible(model, EquipmentSlotType.HEAD);
+                boolean flag1 = itemstack.hasEffect();
+                int i = ((net.minecraft.item.IDyeableArmorItem)armoritem).getColor(itemstack);
+                float f = (float)(i >> 16 & 255) / 255.0F;
+                float f1 = (float)(i >> 8 & 255) / 255.0F;
+                float f2 = (float)(i & 255) / 255.0F;
+                this.func_241738_a_(matrixStackIn, bufferIn, packedLightIn, flag1, model, f, f1, f2, this.getArmorResource(entityIn, itemstack, EquipmentSlotType.HEAD, null));
+                this.func_241738_a_(matrixStackIn, bufferIn, packedLightIn, flag1, model, 1.0F, 1.0F, 1.0F, this.getArmorResource(entityIn, itemstack, EquipmentSlotType.HEAD, "overlay"));
+            }
         }
+    }
+
+    private void func_241738_a_(MatrixStack p_241738_1_, IRenderTypeBuffer p_241738_2_, int p_241738_3_, boolean p_241738_5_, A p_241738_6_, float p_241738_8_, float p_241738_9_, float p_241738_10_, ResourceLocation armorResource) {
+        //copied from super class
+        //important difference "p_241738_6_.getRenderType(armorResource)" [before it was armor_cutout_no_cull]
+        IVertexBuilder ivertexbuilder = ItemRenderer.func_239386_a_(p_241738_2_, p_241738_6_.getRenderType(armorResource), false, p_241738_5_);
+        p_241738_6_.render(p_241738_1_, ivertexbuilder, p_241738_3_, OverlayTexture.NO_OVERLAY, p_241738_8_, p_241738_9_, p_241738_10_, 1.0F);
     }
 
     @Override

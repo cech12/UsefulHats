@@ -9,11 +9,12 @@ import net.minecraft.util.SoundEvents;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import javax.annotation.Nonnull;
 import java.util.function.Supplier;
 
 public enum HatArmorMaterial implements IArmorMaterial {
 
-    AQUANAUT("usefulhats:aquanaut", 600, 15, SoundEvents.ITEM_ARMOR_EQUIP_TURTLE, () -> {
+    AQUANAUT("usefulhats:blank", 600, 15, SoundEvents.ITEM_ARMOR_EQUIP_TURTLE, () -> {
         return Ingredient.fromItems(Items.SCUTE);
     }),
     CHOPPING("usefulhats:chopping", 300, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
@@ -56,12 +57,12 @@ public enum HatArmorMaterial implements IArmorMaterial {
     }
 
     @Override
-    public int getDurability(EquipmentSlotType slotIn) {
+    public int getDurability(@Nonnull EquipmentSlotType slotIn) {
         return this.durability;
     }
 
     @Override
-    public int getDamageReductionAmount(EquipmentSlotType slotIn) {
+    public int getDamageReductionAmount(@Nonnull EquipmentSlotType slotIn) {
         return 0;
     }
 
@@ -71,16 +72,19 @@ public enum HatArmorMaterial implements IArmorMaterial {
     }
 
     @Override
+    @Nonnull
     public SoundEvent getSoundEvent() {
         return this.soundEvent;
     }
 
     @Override
+    @Nonnull
     public Ingredient getRepairMaterial() {
         return this.repairMaterial.get();
     }
 
     @Override
+    @Nonnull
     @OnlyIn(Dist.CLIENT)
     public String getName() {
         return this.name;
