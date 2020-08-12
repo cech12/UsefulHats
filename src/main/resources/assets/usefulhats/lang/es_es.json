@@ -24,7 +24,7 @@
   "item.usefulhats.stocking_cap": "Gorro con borla",
 
   "item.usefulhats.straw_hat": "Sombrero de paja",
-  "item.usefulhats.straw_hat.desc.digging_speed": "Cavar con una pala es §2%s%%§9 más rápido. (se puede combinar con encantos y pociones)",
+  "item.usefulhats.straw_hat.desc.digging_speed": "Cavar con una pala o azada es §2%s%%§9 más rápido. (se puede combinar con encantos y pociones)",
 
   "item.usefulhats.wing_helmet": "Casco de alas",
   "item.usefulhats.wing_helmet.desc.slow_falling": "Mientras caes, recibes el efecto §2Caída lenta§9.",

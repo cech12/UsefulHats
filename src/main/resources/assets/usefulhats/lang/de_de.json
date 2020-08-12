@@ -24,7 +24,7 @@
   "item.usefulhats.stocking_cap": "Zipfelmütze",
 
   "item.usefulhats.straw_hat": "Strohhut",
-  "item.usefulhats.straw_hat.desc.digging_speed": "Mit einer Schaufel graben ist §2%s%%§9 schneller. (mit Verzauberungen und Tränken kombinierbar)",
+  "item.usefulhats.straw_hat.desc.digging_speed": "Mit einer Schaufel graben oder mit einer Hacke abbauen ist §2%s%%§9 schneller. (mit Verzauberungen und Tränken kombinierbar)",
 
   "item.usefulhats.wing_helmet": "Flügelhelm",
   "item.usefulhats.wing_helmet.desc.slow_falling": "Beim Fallen bekommst du den Effekt §2Sanfter Fall§9.",

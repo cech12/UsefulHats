@@ -1,6 +1,7 @@
 package cech12.usefulhats.item;
 
 import cech12.usefulhats.config.Config;
+import net.minecraft.block.BlockState;
 import net.minecraft.item.*;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -10,6 +11,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
 
 import java.util.List;
+import java.util.Set;
 
 public class StrawHatItem extends AbstractMiningHatItem implements IBreakSpeedChanger, IUsefulHatModelOwner {
 
@@ -36,16 +38,21 @@ public class StrawHatItem extends AbstractMiningHatItem implements IBreakSpeedCh
         tooltip.add(new TranslationTextComponent("item.usefulhats.straw_hat.desc.digging_speed", value).func_240699_a_(TextFormatting.BLUE));
     }
 
+    private boolean isToolEffective(Set<ToolType> toolTypes, BlockState state) {
+        return (toolTypes.contains(ToolType.SHOVEL) && state.isToolEffective(ToolType.SHOVEL))
+                || (toolTypes.contains(ToolType.HOE) && state.isToolEffective(ToolType.HOE));
+    }
+
     @Override
     public void onBreakSpeedEvent(PlayerEvent.BreakSpeed event, ItemStack headSlotItemStack) {
-        if (!event.isCanceled() && event.getPlayer().getHeldItemMainhand().getToolTypes().contains(ToolType.SHOVEL) && event.getState().isToolEffective(ToolType.SHOVEL)) {
+        if (!event.isCanceled() && this.isToolEffective(event.getPlayer().getHeldItemMainhand().getToolTypes(), event.getState())) {
             event.setNewSpeed(event.getOriginalSpeed() * (1.0F + (float) this.getEnchantmentValue(headSlotItemStack, this.getSpeedConfig())));
         }
     }
 
     @Override
     public void onBreakEvent(BlockEvent.BreakEvent event, ItemStack headSlotItemStack) {
-        if (!event.isCanceled() && event.getPlayer().getHeldItemMainhand().getToolTypes().contains(ToolType.SHOVEL) && event.getState().isToolEffective(ToolType.SHOVEL)) {
+        if (!event.isCanceled() && this.isToolEffective(event.getPlayer().getHeldItemMainhand().getToolTypes(), event.getState())) {
             this.damageHatItemByOne(headSlotItemStack, event.getPlayer());
         }
     }

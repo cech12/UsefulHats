@@ -24,7 +24,7 @@
   "item.usefulhats.stocking_cap": "Stocking Cap",
 
   "item.usefulhats.straw_hat": "Straw Hat",
-  "item.usefulhats.straw_hat.desc.digging_speed": "Digging with a shovel is §2%s%%§9 faster. (stackable with enchantments and potions)",
+  "item.usefulhats.straw_hat.desc.digging_speed": "Digging with a shovel or mining with a hoe is §2%s%%§9 faster. (stackable with enchantments and potions)",
 
   "item.usefulhats.wing_helmet": "Wing Helmet",
   "item.usefulhats.wing_helmet.desc.slow_falling": "While falling you get §2Slow Falling§9 effect.",
