@@ -36,7 +36,7 @@ public class WingHelmetItem extends AbstractHatItem implements IEquipmentChangeL
 
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
-        if (!player.func_233570_aj_() && !player.isInWater()) { //onGround - func_233570_aj_
+        if (!player.func_233570_aj_() && !player.isInWater() && !player.isInLava()) { //onGround - func_233570_aj_
             //only add slow falling effect when no levitation effect an no slow falling effect is active (other sources like potions)
             if (player.getActivePotionEffect(Effects.LEVITATION) == null && player.getActivePotionEffect(Effects.SLOW_FALLING) == null) {
                 player.addPotionEffect(new EffectInstance(Effects.SLOW_FALLING));
