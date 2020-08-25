@@ -1,6 +1,7 @@
 modLoader="javafml"
 loaderVersion="[32,)"
 issueTrackerURL="https://github.com/cech12/UsefulHats/issues"
+license="The MIT License (MIT)"
 [[mods]]
     modId="usefulhats"
     version="${file.jarVersion}"
@@ -11,3 +12,15 @@ issueTrackerURL="https://github.com/cech12/UsefulHats/issues"
     description='''
     A mod which adds some useful hats.
     '''
+[[dependencies.usefulhats]]
+    modId="forge"
+    mandatory=true
+    versionRange="[32.0.70,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.usefulhats]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.16.1,)"
+    ordering="NONE"
+    side="BOTH"
