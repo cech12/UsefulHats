@@ -12,6 +12,7 @@ public class Config {
 
     public static final ConfigType.Boolean AQUANAUT_HELMET_ENABLED = new ConfigType.Boolean(true);
     public static final ConfigType.Boolean AQUANAUT_HELMET_DAMAGE_ENABLED = new ConfigType.Boolean(true);
+    public static final ConfigType.Integer AQUANAUT_HELMET_DURABILITY = new ConfigType.Integer(600);
     public static final ConfigType.Integer AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_0 = new ConfigType.Integer(60);
     public static final ConfigType.Integer AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_1 = new ConfigType.Integer(120);
     public static final ConfigType.Integer AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_2 = new ConfigType.Integer(180);
@@ -19,6 +20,7 @@ public class Config {
 
     public static final ConfigType.Boolean CHOPPING_HAT_ENABLED = new ConfigType.Boolean(true);
     public static final ConfigType.Boolean CHOPPING_HAT_DAMAGE_ENABLED = new ConfigType.Boolean(true);
+    public static final ConfigType.Integer CHOPPING_HAT_DURABILITY = new ConfigType.Integer(300);
     public static final ConfigType.Double CHOPPING_HAT_SPEED_WITH_EFFICIENCY_0 = new ConfigType.Double(0.2);
     public static final ConfigType.Double CHOPPING_HAT_SPEED_WITH_EFFICIENCY_1 = new ConfigType.Double(0.4);
     public static final ConfigType.Double CHOPPING_HAT_SPEED_WITH_EFFICIENCY_2 = new ConfigType.Double(0.6);
@@ -28,14 +30,17 @@ public class Config {
 
     public static final ConfigType.Boolean HALO_ENABLED = new ConfigType.Boolean(true);
     public static final ConfigType.Boolean HALO_DAMAGE_ENABLED = new ConfigType.Boolean(true);
+    public static final ConfigType.Integer HALO_DURABILITY = new ConfigType.Integer(600);
     public static final ConfigType.Integer HALO_DETECTING_RANGE = new ConfigType.Integer(16);
 
     public static final ConfigType.Boolean LUCKY_HAT_ENABLED = new ConfigType.Boolean(true);
     public static final ConfigType.Boolean LUCKY_HAT_DAMAGE_ENABLED = new ConfigType.Boolean(true);
+    public static final ConfigType.Integer LUCKY_HAT_DURABILITY = new ConfigType.Integer(300);
     public static final ConfigType.Boolean LUCKY_HAT_UNLUCK_ENABLED = new ConfigType.Boolean(true);
 
     public static final ConfigType.Boolean MINING_HAT_ENABLED = new ConfigType.Boolean(true);
     public static final ConfigType.Boolean MINING_HAT_DAMAGE_ENABLED = new ConfigType.Boolean(true);
+    public static final ConfigType.Integer MINING_HAT_DURABILITY = new ConfigType.Integer(450);
     public static final ConfigType.Boolean MINING_HAT_NIGHT_VISION_ENABLED = new ConfigType.Boolean(true);
     public static final ConfigType.Double MINING_HAT_SPEED_WITH_EFFICIENCY_0 = new ConfigType.Double(0.2);
     public static final ConfigType.Double MINING_HAT_SPEED_WITH_EFFICIENCY_1 = new ConfigType.Double(0.4);
@@ -46,13 +51,16 @@ public class Config {
 
     public static final ConfigType.Boolean POSTMAN_HAT_ENABLED = new ConfigType.Boolean(true);
     public static final ConfigType.Boolean POSTMAN_HAT_DAMAGE_ENABLED = new ConfigType.Boolean(true);
+    public static final ConfigType.Integer POSTMAN_HAT_DURABILITY = new ConfigType.Integer(600);
     public static final ConfigType.Boolean POSTMAN_HAT_HUNGER_ENABLED = new ConfigType.Boolean(true);
 
     public static final ConfigType.Boolean STOCKING_CAP_ENABLED = new ConfigType.Boolean(true);
     public static final ConfigType.Boolean STOCKING_CAP_DAMAGE_ENABLED = new ConfigType.Boolean(true);
+    public static final ConfigType.Integer STOCKING_CAP_DURABILITY = new ConfigType.Integer(600);
 
     public static final ConfigType.Boolean STRAW_HAT_ENABLED = new ConfigType.Boolean(true);
     public static final ConfigType.Boolean STRAW_HAT_DAMAGE_ENABLED = new ConfigType.Boolean(true);
+    public static final ConfigType.Integer STRAW_HAT_DURABILITY = new ConfigType.Integer(300);
     public static final ConfigType.Double STRAW_HAT_SPEED_WITH_EFFICIENCY_0 = new ConfigType.Double(0.2);
     public static final ConfigType.Double STRAW_HAT_SPEED_WITH_EFFICIENCY_1 = new ConfigType.Double(0.4);
     public static final ConfigType.Double STRAW_HAT_SPEED_WITH_EFFICIENCY_2 = new ConfigType.Double(0.6);
@@ -62,6 +70,7 @@ public class Config {
 
     public static final ConfigType.Boolean WING_HELMET_ENABLED = new ConfigType.Boolean(true);
     public static final ConfigType.Boolean WING_HELMET_DAMAGE_ENABLED = new ConfigType.Boolean(true);
+    public static final ConfigType.Integer WING_HELMET_DURABILITY = new ConfigType.Integer(600);
     public static final ConfigType.Boolean WING_HELMET_LEVITATION_ENABLED = new ConfigType.Boolean(true);
 
     static {
@@ -104,6 +113,9 @@ public class Config {
         AQUANAUT_HELMET_DAMAGE_ENABLED.configObj = common
                 .comment("Whether or not damaging of Aquanaut Helmet should be enabled.")
                 .define("aquanautHelmetDamageEnabled", AQUANAUT_HELMET_DAMAGE_ENABLED.getDefaultValue());
+        AQUANAUT_HELMET_DURABILITY.configObj = common
+                .comment("Aquanaut Helmet durability.")
+                .defineInRange("aquanautHelmetDurability", AQUANAUT_HELMET_DURABILITY.getDefaultValue(), 1, 10000);
         AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_0.configObj = common
                 .comment("Aquanaut Helmet effect time of Conduit Power without Respiration enchantment. (in seconds)")
                 .defineInRange("aquanautHelmetEffectTimeWithRespiration0", AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_0.getDefaultValue(), 10, 120);
@@ -122,6 +134,9 @@ public class Config {
         CHOPPING_HAT_DAMAGE_ENABLED.configObj = common
                 .comment("Whether or not damaging of Chopping Hat should be enabled.")
                 .define("choppingHatDamageEnabled", CHOPPING_HAT_DAMAGE_ENABLED.getDefaultValue());
+        CHOPPING_HAT_DURABILITY.configObj = common
+                .comment("Chopping Hat durability.")
+                .defineInRange("choppingHatDurability", CHOPPING_HAT_DURABILITY.getDefaultValue(), 1, 10000);
         CHOPPING_HAT_SPEED_WITH_EFFICIENCY_0.configObj = common
                 .comment("Chopping Hat speed increase without Efficiency enchantment.")
                 .defineInRange("choppingHatSpeedWithEfficiency0", CHOPPING_HAT_SPEED_WITH_EFFICIENCY_0.getDefaultValue(), 0.0, 1.0);
@@ -146,6 +161,9 @@ public class Config {
         HALO_DAMAGE_ENABLED.configObj = common
                 .comment("Whether or not damaging of Halo should be enabled.")
                 .define("haloDamageEnabled", HALO_DAMAGE_ENABLED.getDefaultValue());
+        HALO_DURABILITY.configObj = common
+                .comment("Halo durability.")
+                .defineInRange("haloDurability", HALO_DURABILITY.getDefaultValue(), 1, 10000);
         HALO_DETECTING_RANGE.configObj = common
                 .comment("Detecting range of Halo for damage calculation. (in blocks)")
                 .defineInRange("haloDetectingRange", HALO_DETECTING_RANGE.getDefaultValue(), 1, 100);
@@ -155,6 +173,9 @@ public class Config {
         LUCKY_HAT_DAMAGE_ENABLED.configObj = common
                 .comment("Whether or not damaging of Lucky Hat should be enabled.")
                 .define("luckyHatDamageEnabled", LUCKY_HAT_DAMAGE_ENABLED.getDefaultValue());
+        LUCKY_HAT_DURABILITY.configObj = common
+                .comment("Lucky Hat durability.")
+                .defineInRange("luckyHatDurability", LUCKY_HAT_DURABILITY.getDefaultValue(), 1, 10000);
         LUCKY_HAT_UNLUCK_ENABLED.configObj = common
                 .comment("Whether or not Hunger effect of Lucky Hat should be enabled while running.")
                 .define("luckyHatUnluckEnabled", LUCKY_HAT_UNLUCK_ENABLED.getDefaultValue());
@@ -164,6 +185,9 @@ public class Config {
         MINING_HAT_DAMAGE_ENABLED.configObj = common
                 .comment("Whether or not damaging of Mining Hat should be enabled.")
                 .define("miningHatDamageEnabled", MINING_HAT_DAMAGE_ENABLED.getDefaultValue());
+        MINING_HAT_DURABILITY.configObj = common
+                .comment("Mining Hat durability.")
+                .defineInRange("miningHatDurability", MINING_HAT_DURABILITY.getDefaultValue(), 1, 10000);
         MINING_HAT_NIGHT_VISION_ENABLED.configObj = common
                 .comment("Whether or not Night Vision effect of Mining Hat should be enabled in dark areas.")
                 .define("miningHatNightVisionEnabled", MINING_HAT_NIGHT_VISION_ENABLED.getDefaultValue());
@@ -191,6 +215,9 @@ public class Config {
         POSTMAN_HAT_DAMAGE_ENABLED.configObj = common
                 .comment("Whether or not damaging of Postman Hat should be enabled.")
                 .define("postmanHatDamageEnabled", POSTMAN_HAT_DAMAGE_ENABLED.getDefaultValue());
+        POSTMAN_HAT_DURABILITY.configObj = common
+                .comment("Postman Hat durability.")
+                .defineInRange("postmanHatDurability", POSTMAN_HAT_DURABILITY.getDefaultValue(), 1, 10000);
         POSTMAN_HAT_HUNGER_ENABLED.configObj = common
                 .comment("Whether or not Hunger effect of Postman Hat should be enabled while running.")
                 .define("postmanHatHungerEnabled", POSTMAN_HAT_HUNGER_ENABLED.getDefaultValue());
@@ -200,12 +227,18 @@ public class Config {
         STOCKING_CAP_DAMAGE_ENABLED.configObj = common
                 .comment("Whether or not damaging of Stocking Cap should be enabled.")
                 .define("stockingCapDamageEnabled", STOCKING_CAP_DAMAGE_ENABLED.getDefaultValue());
+        STOCKING_CAP_DURABILITY.configObj = common
+                .comment("Stocking Cap durability.")
+                .defineInRange("stockingCapDurability", STOCKING_CAP_DURABILITY.getDefaultValue(), 1, 10000);
         common.pop();
 
         common.push("Straw Hat");
         STRAW_HAT_DAMAGE_ENABLED.configObj = common
                 .comment("Whether or not damaging of Straw Hat should be enabled.")
                 .define("strawHatDamageEnabled", STRAW_HAT_DAMAGE_ENABLED.getDefaultValue());
+        STRAW_HAT_DURABILITY.configObj = common
+                .comment("Straw Hat durability.")
+                .defineInRange("strawHatDurability", STRAW_HAT_DURABILITY.getDefaultValue(), 1, 10000);
         STRAW_HAT_SPEED_WITH_EFFICIENCY_0.configObj = common
                 .comment("Straw Hat speed increase without Efficiency enchantment.")
                 .defineInRange("strawHatSpeedWithEfficiency0", STRAW_HAT_SPEED_WITH_EFFICIENCY_0.getDefaultValue(), 0.0, 1.0);
@@ -230,6 +263,9 @@ public class Config {
         WING_HELMET_DAMAGE_ENABLED.configObj = common
                 .comment("Whether or not damaging of Wing Helmet should be enabled.")
                 .define("wingHelmetDamageEnabled", WING_HELMET_DAMAGE_ENABLED.getDefaultValue());
+        WING_HELMET_DURABILITY.configObj = common
+                .comment("Wing Helmet durability.")
+                .defineInRange("wingHelmetDurability", WING_HELMET_DURABILITY.getDefaultValue(), 1, 10000);
         WING_HELMET_LEVITATION_ENABLED.configObj = common
                 .comment("Whether or not Levitation effect of Wing Helmet should be enabled.")
                 .define("wingHelmetLevitationEnabled", WING_HELMET_LEVITATION_ENABLED.getDefaultValue());
