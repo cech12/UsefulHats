@@ -30,16 +30,18 @@ import java.util.function.Consumer;
 
 public abstract class AbstractHatItem extends ArmorItem implements IEnabled, IDyeableArmorItem {
 
+    private final HatArmorMaterial material;
     private final int initColor;
     private final ConfigType.Boolean enabledConfig;
     private final ConfigType.Boolean enabledDamageConfig;
 
-    private ArrayList<Enchantment> allowedEnchantments = new ArrayList<>();
-    private ArrayList<Enchantment> allowedAdditionalBookEnchantments = new ArrayList<>();
+    private final ArrayList<Enchantment> allowedEnchantments = new ArrayList<>();
+    private final ArrayList<Enchantment> allowedAdditionalBookEnchantments = new ArrayList<>();
 
     public AbstractHatItem(String name, HatArmorMaterial material, int initColor, ConfigType.Boolean enabledConfig, ConfigType.Boolean enabledDamageConfig) {
         super(material, EquipmentSlotType.HEAD, (new Properties()).group(ItemGroup.COMBAT));
         this.setRegistryName(new ResourceLocation(UsefulHatsMod.MOD_ID, name));
+        this.material = material;
         this.initColor = initColor;
         this.enabledConfig = enabledConfig;
         this.enabledDamageConfig = enabledDamageConfig;
@@ -62,6 +64,12 @@ public abstract class AbstractHatItem extends ArmorItem implements IEnabled, IDy
     @Override
     public boolean isEnabled() {
         return this.enabledConfig.getValue();
+    }
+
+    @Override
+    public int getMaxDamage(ItemStack stack) {
+        //get durability from config because the config is not loaded in constructor
+        return this.material.getDurability(EquipmentSlotType.HEAD);
     }
 
     /**

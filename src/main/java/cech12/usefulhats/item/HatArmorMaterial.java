@@ -1,5 +1,7 @@
 package cech12.usefulhats.item;
 
+import cech12.usefulhats.config.Config;
+import cech12.usefulhats.config.ConfigType;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.Items;
@@ -14,43 +16,43 @@ import java.util.function.Supplier;
 
 public enum HatArmorMaterial implements IArmorMaterial {
 
-    AQUANAUT("usefulhats:blank", 600, 15, SoundEvents.ITEM_ARMOR_EQUIP_TURTLE, () -> {
+    AQUANAUT("usefulhats:blank", Config.AQUANAUT_HELMET_DURABILITY, 15, SoundEvents.ITEM_ARMOR_EQUIP_TURTLE, () -> {
         return Ingredient.fromItems(Items.SCUTE);
     }),
-    CHOPPING("usefulhats:chopping", 300, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
+    CHOPPING("usefulhats:chopping", Config.CHOPPING_HAT_DURABILITY, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
         return Ingredient.fromItems(Items.RABBIT_HIDE);
     }),
-    HALO("usefulhats:halo", 600, 15, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, () -> {
+    HALO("usefulhats:halo", Config.HALO_DURABILITY, 15, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, () -> {
         return Ingredient.fromItems(Items.GLOWSTONE_DUST);
     }),
-    LUCKY("usefulhats:blank", 300, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
+    LUCKY("usefulhats:blank", Config.LUCKY_HAT_DURABILITY, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
         return Ingredient.fromItems(Items.RABBIT_FOOT);
     }),
-    MINING("usefulhats:blank", 450, 15, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, () -> {
+    MINING("usefulhats:blank", Config.MINING_HAT_DURABILITY, 15, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, () -> {
         return Ingredient.fromItems(Items.GOLD_INGOT);
     }),
-    POSTMAN("usefulhats:blank", 600, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
+    POSTMAN("usefulhats:blank", Config.POSTMAN_HAT_DURABILITY, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
         return Ingredient.fromItems(Items.LAPIS_LAZULI);
     }),
-    STOCKING("usefulhats:stocking", 600, 25, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
+    STOCKING("usefulhats:stocking", Config.STOCKING_CAP_DURABILITY, 25, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
         return Ingredient.fromItems(Items.STRING);
     }),
-    STRAW("usefulhats:blank", 300, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
+    STRAW("usefulhats:blank", Config.STRAW_HAT_DURABILITY, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
         return Ingredient.fromItems(Items.WHEAT);
     }),
-    WING("usefulhats:wing", 600, 15, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> {
+    WING("usefulhats:wing", Config.WING_HELMET_DURABILITY, 15, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> {
         return Ingredient.fromItems(Items.FEATHER, Items.PHANTOM_MEMBRANE);
     });
 
     private final String name;
-    private final int durability;
+    private final ConfigType.Integer durabilityConfig;
     private final int enchantability;
     private final SoundEvent soundEvent;
     private final Supplier<Ingredient> repairMaterial;
 
-    HatArmorMaterial(String nameIn, int durability, int enchantabilityIn, SoundEvent equipSoundIn, Supplier<Ingredient> repairMaterialSupplier) {
+    HatArmorMaterial(String nameIn, ConfigType.Integer durabilityConfig, int enchantabilityIn, SoundEvent equipSoundIn, Supplier<Ingredient> repairMaterialSupplier) {
         this.name = nameIn;
-        this.durability = durability;
+        this.durabilityConfig = durabilityConfig;
         this.enchantability = enchantabilityIn;
         this.soundEvent = equipSoundIn;
         this.repairMaterial = repairMaterialSupplier;
@@ -58,7 +60,7 @@ public enum HatArmorMaterial implements IArmorMaterial {
 
     @Override
     public int getDurability(@Nonnull EquipmentSlotType slotIn) {
-        return this.durability;
+        return this.durabilityConfig.getValue();
     }
 
     @Override
