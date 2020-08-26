@@ -53,17 +53,16 @@ public class AquanautHelmetItem extends AbstractHatItem implements IEquipmentCha
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
         int maxDuration = this.getEffectTimeConfig(EnchantmentHelper.getEnchantmentLevel(Enchantments.RESPIRATION, stack)) * 20;
+        // only get damage, when the effect is active and duration is below the max duration
+        // (other sources can produce this effect with higher duration)
+        // TODO detect effect from other source (also for onItemRemoved)
+        EffectInstance conduitPowerEffect = player.getActivePotionEffect(Effects.CONDUIT_POWER);
+        if (conduitPowerEffect != null && (conduitPowerEffect.isAmbient() || conduitPowerEffect.getDuration() >= maxDuration)) return;
         if (!player.areEyesInFluid(FluidTags.WATER)) {
             player.addPotionEffect(new EffectInstance(Effects.CONDUIT_POWER, maxDuration, 0, false, false, true));
         } else {
-            // only get damage, when the effect is active and duration is below the max duration
-            // (other sources can produce this effect with higher duration)
-            // TODO detect effect from other source (also for onItemRemoved)
-            EffectInstance conduitPowerEffect = player.getActivePotionEffect(Effects.CONDUIT_POWER);
-            if (conduitPowerEffect != null && conduitPowerEffect.getDuration() <= maxDuration) {
-                if (random.nextInt(20) == 0) {
-                    this.damageHatItemByOne(stack, player);
-                }
+            if (random.nextInt(20) == 0) {
+                this.damageHatItemByOne(stack, player);
             }
         }
     }
@@ -78,7 +77,7 @@ public class AquanautHelmetItem extends AbstractHatItem implements IEquipmentCha
             if (oldItemStack.getItem() == this && newItemStack.getItem() != this) {
                 int maxDuration = (EnchantmentHelper.getEnchantmentLevel(Enchantments.RESPIRATION, oldItemStack) + 1) * 1200;
                 EffectInstance conduitPowerEffect = player.getActivePotionEffect(Effects.CONDUIT_POWER);
-                if (conduitPowerEffect != null && conduitPowerEffect.getDuration() <= maxDuration) {
+                if (conduitPowerEffect != null && !conduitPowerEffect.isAmbient() && conduitPowerEffect.getDuration() <= maxDuration) {
                     player.removePotionEffect(Effects.CONDUIT_POWER);
                 }
             }
