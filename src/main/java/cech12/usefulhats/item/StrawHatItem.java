@@ -2,7 +2,7 @@ package cech12.usefulhats.item;
 
 import cech12.usefulhats.config.Config;
 import net.minecraft.block.BlockState;
-import net.minecraft.item.*;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;

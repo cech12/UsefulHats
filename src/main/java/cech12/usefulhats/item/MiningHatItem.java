@@ -3,7 +3,7 @@ package cech12.usefulhats.item;
 import cech12.usefulhats.config.Config;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.*;
+import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -17,7 +17,7 @@ import java.util.List;
 
 public class MiningHatItem extends AbstractMiningHatItem implements IBreakSpeedChanger, IEquipmentChangeListener, IUsefulHatModelOwner {
 
-    private static final int NIGHT_VISION_DURATION = 219;
+    private static final int NIGHT_VISION_DURATION = 239;
     private static final int NIGHT_VISION_AMPLIFIER = 0;
 
     public MiningHatItem() {
@@ -90,6 +90,6 @@ public class MiningHatItem extends AbstractMiningHatItem implements IBreakSpeedC
     @Override
     public void onUnequippedHatItem(LivingEntity entity, ItemStack oldStack) {
         // disable effects when hat is removed from slot
-        this.removeEffect(entity, Effects.NIGHT_VISION, NIGHT_VISION_DURATION, NIGHT_VISION_DURATION);
+        this.removeEffect(entity, Effects.NIGHT_VISION, NIGHT_VISION_DURATION, NIGHT_VISION_AMPLIFIER);
     }
 }
