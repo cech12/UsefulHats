@@ -87,7 +87,19 @@ minecraft {
 }
 
 repositories {
-    maven { url 'https://jitpack.io' }
+    maven {
+        name "curios"
+        url "https://maven.theillusivec4.top/"
+    }
+    /*
+    maven {
+        name 'Baubles'
+        url 'https://jitpack.io'
+    }
+    flatDir {
+        dirs 'lib'
+    }
+     */
 }
 
 dependencies {
@@ -96,7 +108,16 @@ dependencies {
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
     minecraft "net.minecraftforge:forge:${project.forge_version}"
 
-    implementation "com.github.lazyMods:Baubles:${project.baubles_version}"
+    //before curios 4.0.0.0
+    compileOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-${project.curios_version}:api")
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-${project.curios_version}")
+    //since curios 4.0.0.0
+    //compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${project.curios_version}:api")
+    //runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${project.curios_version}")
+
+    //baubles has problems with running client in development environment
+    //implementation "com.github.lazyMods:Baubles:${project.baubles_version}"
+    //implementation name: "baubles-${project.baubles_version}-1.16.2-api"
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..

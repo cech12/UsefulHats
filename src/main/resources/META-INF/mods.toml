@@ -24,3 +24,9 @@ license="The MIT License (MIT)"
     versionRange="[1.16.1,)"
     ordering="NONE"
     side="BOTH"
+[[dependencies.usefulhats]]
+    modId="curios"
+    mandatory=false
+    versionRange="[3.0.0.2,)"
+    ordering="NONE"
+    side="BOTH"

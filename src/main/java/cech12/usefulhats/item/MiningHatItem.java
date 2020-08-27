@@ -4,14 +4,12 @@ import cech12.usefulhats.config.Config;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
-import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
-import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
 
@@ -19,7 +17,8 @@ import java.util.List;
 
 public class MiningHatItem extends AbstractMiningHatItem implements IBreakSpeedChanger, IEquipmentChangeListener, IUsefulHatModelOwner {
 
-    private static final int NIGHT_VISION_DURATION = 220;
+    private static final int NIGHT_VISION_DURATION = 219;
+    private static final int NIGHT_VISION_AMPLIFIER = 0;
 
     public MiningHatItem() {
         super("mining_hat", HatArmorMaterial.MINING, rawColorFromRGB(255, 216, 0), Config.MINING_HAT_ENABLED, Config.MINING_HAT_DAMAGE_ENABLED);
@@ -50,25 +49,26 @@ public class MiningHatItem extends AbstractMiningHatItem implements IBreakSpeedC
 
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
-        //When Night Vision effect is disabled in config, do nothing.
-        if (!Config.MINING_HAT_NIGHT_VISION_ENABLED.getValue()) return;
-        // only get effect and damage, when the effect is active and duration is below the max duration
-        // (other sources can produce this effect with higher duration)
-        // TODO detect effect from other source (also for onEquipmentChangeEvent)
-        EffectInstance nightVisionEffect = player.getActivePotionEffect(Effects.NIGHT_VISION);
-        if (nightVisionEffect != null && (nightVisionEffect.isAmbient() || nightVisionEffect.getDuration() >= NIGHT_VISION_DURATION)) return;
-        //support both hands
-        for (ItemStack item : player.getHeldEquipment()) {
-            if (item.getToolTypes().contains(ToolType.PICKAXE) && world.getLight(player.func_233580_cy_()) < 8) { //getPosition - func_233580_cy_
-                player.addPotionEffect(new EffectInstance(Effects.NIGHT_VISION, NIGHT_VISION_DURATION, 0, false, false, true));
-                if (random.nextInt(20) == 0) {
-                    this.damageHatItemByOne(stack, player);
-                }
+        if (!world.isRemote) {
+            //When Night Vision effect is disabled in config, do nothing.
+            if (!Config.MINING_HAT_NIGHT_VISION_ENABLED.getValue()) return;
+            //When Night Vision effect is caused by another source, do nothing
+            if (this.isEffectCausedByOtherSource(player, Effects.NIGHT_VISION, NIGHT_VISION_DURATION, NIGHT_VISION_AMPLIFIER))
                 return;
+            boolean isNightVisionActive = player.getActivePotionEffect(Effects.NIGHT_VISION) != null;
+            //support both hands
+            for (ItemStack item : player.getHeldEquipment()) {
+                if (item.getToolTypes().contains(ToolType.PICKAXE) && world.getLight(player.func_233580_cy_()) < 8) { //getPosition - func_233580_cy_
+                    if (!isNightVisionActive || player.ticksExisted % 19 == 0) {
+                        this.addEffect(player, Effects.NIGHT_VISION, NIGHT_VISION_DURATION, NIGHT_VISION_AMPLIFIER);
+                    }
+                    if (random.nextInt(20) == 0) {
+                        this.damageHatItemByOne(stack, player);
+                    }
+                    return;
+                }
             }
-        }
-        //if not holding a pickaxe or not being in dark areas, remove the night vision effect when present
-        if (nightVisionEffect != null) {
+            //if not holding a pickaxe or not being in dark areas, remove the night vision effect
             player.removePotionEffect(Effects.NIGHT_VISION);
         }
     }
@@ -90,9 +90,6 @@ public class MiningHatItem extends AbstractMiningHatItem implements IBreakSpeedC
     @Override
     public void onUnequippedHatItem(LivingEntity entity, ItemStack oldStack) {
         // disable effects when hat is removed from slot
-        EffectInstance nightVisionEffect = entity.getActivePotionEffect(Effects.NIGHT_VISION);
-        if (nightVisionEffect != null && !nightVisionEffect.isAmbient() && nightVisionEffect.getDuration() <= NIGHT_VISION_DURATION) {
-            entity.removePotionEffect(Effects.NIGHT_VISION);
-        }
+        this.removeEffect(entity, Effects.NIGHT_VISION, NIGHT_VISION_DURATION, NIGHT_VISION_DURATION);
     }
 }

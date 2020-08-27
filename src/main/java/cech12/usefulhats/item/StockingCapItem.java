@@ -21,7 +21,7 @@ public class StockingCapItem extends AbstractHatItem {
 
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
-        if (random.nextInt(1000) == 0) {
+        if (!world.isRemote && random.nextInt(1000) == 0) {
             this.damageHatItemByOne(stack, player);
         }
     }
