@@ -16,7 +16,7 @@ import java.util.function.Supplier;
 
 public enum HatArmorMaterial implements IArmorMaterial {
 
-    AQUANAUT("usefulhats:aquanaut", Config.AQUANAUT_HELMET_DURABILITY, 15, SoundEvents.ITEM_ARMOR_EQUIP_TURTLE, () -> {
+    AQUANAUT("usefulhats:blank", Config.AQUANAUT_HELMET_DURABILITY, 15, SoundEvents.ITEM_ARMOR_EQUIP_TURTLE, () -> {
         return Ingredient.fromItems(Items.SCUTE);
     }),
     CHOPPING("usefulhats:chopping", Config.CHOPPING_HAT_DURABILITY, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {

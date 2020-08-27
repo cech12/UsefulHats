@@ -9,9 +9,9 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.ResourceLocation;
@@ -19,11 +19,10 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
-import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
 
 import java.util.List;
 
-public class AquanautHelmetItem extends AbstractHatItem implements IEquipmentChangeListener {
+public class AquanautHelmetItem extends AbstractHatItem implements IEquipmentChangeListener, IUsefulHatModelOwner {
 
     private static final ResourceLocation AQUANAUT_GUI_TEX_PATH = new ResourceLocation(UsefulHatsMod.MOD_ID, "textures/misc/aquanautblur.png");
 
@@ -42,6 +41,10 @@ public class AquanautHelmetItem extends AbstractHatItem implements IEquipmentCha
         }
     }
 
+    private int getConduitPowerDuration(ItemStack stack) {
+        return this.getEffectTimeConfig(EnchantmentHelper.getEnchantmentLevel(Enchantments.RESPIRATION, stack)) * 20;
+    }
+
     @Override
     public void onItemToolTipEvent(ItemStack stack, List<ITextComponent> tooltip) {
         super.onItemToolTipEvent(stack, tooltip);
@@ -51,36 +54,26 @@ public class AquanautHelmetItem extends AbstractHatItem implements IEquipmentCha
 
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
-        int maxDuration = this.getEffectTimeConfig(EnchantmentHelper.getEnchantmentLevel(Enchantments.RESPIRATION, stack)) * 20;
-        // only get damage, when the effect is active and duration is below the max duration
-        // (other sources can produce this effect with higher duration)
-        // TODO detect effect from other source (also for onItemRemoved)
-        EffectInstance conduitPowerEffect = player.getActivePotionEffect(Effects.CONDUIT_POWER);
-        if (conduitPowerEffect != null && (conduitPowerEffect.isAmbient() || conduitPowerEffect.getDuration() >= maxDuration)) return;
-        if (!player.areEyesInFluid(FluidTags.WATER)) {
-            player.addPotionEffect(new EffectInstance(Effects.CONDUIT_POWER, maxDuration, 0, false, false, true));
-        } else {
-            if (conduitPowerEffect != null && random.nextInt(20) == 0) {
-                this.damageHatItemByOne(stack, player);
+        if (!world.isRemote) {
+            int maxDuration = this.getConduitPowerDuration(stack);
+            //When Conduit Power effect is caused by another source, do nothing
+            if (this.isEffectCausedByOtherSource(player, Effects.CONDUIT_POWER, maxDuration, 0))
+                return;
+
+            if (!player.areEyesInFluid(FluidTags.WATER)) {
+                this.addEffect(player, Effects.CONDUIT_POWER, maxDuration, 0);
+            } else {
+                if (player.getActivePotionEffect(Effects.CONDUIT_POWER) != null && random.nextInt(20) == 0) {
+                    this.damageHatItemByOne(stack, player);
+                }
             }
         }
     }
 
     @Override
-    public void onEquipmentChangeEvent(LivingEquipmentChangeEvent event) {
-        if (event.getEntityLiving() instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity) event.getEntityLiving();
-            // disable effects when hat is removed from slot
-            ItemStack oldItemStack = event.getFrom();
-            ItemStack newItemStack = event.getTo();
-            if (oldItemStack.getItem() == this && newItemStack.getItem() != this) {
-                int maxDuration = (EnchantmentHelper.getEnchantmentLevel(Enchantments.RESPIRATION, oldItemStack) + 1) * 1200;
-                EffectInstance conduitPowerEffect = player.getActivePotionEffect(Effects.CONDUIT_POWER);
-                if (conduitPowerEffect != null && !conduitPowerEffect.isAmbient() && conduitPowerEffect.getDuration() <= maxDuration) {
-                    player.removePotionEffect(Effects.CONDUIT_POWER);
-                }
-            }
-        }
+    public void onUnequippedHatItem(LivingEntity entity, ItemStack oldStack) {
+        // disable effects when hat is removed from slot
+        this.removeEffect(entity, Effects.CONDUIT_POWER, this.getConduitPowerDuration(oldStack), 0);
     }
 
     @Override

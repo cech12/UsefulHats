@@ -15,12 +15,18 @@ license="The MIT License (MIT)"
 [[dependencies.usefulhats]]
     modId="forge"
     mandatory=true
-    versionRange="[30.0.2,)"
+    versionRange="[31.1.0,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.usefulhats]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.15.1,)"
+    versionRange="[1.15.2,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.usefulhats]]
+    modId="curios"
+    mandatory=false
+    versionRange="[2.0.2.4,)"
     ordering="NONE"
     side="BOTH"
