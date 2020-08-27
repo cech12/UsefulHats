@@ -56,19 +56,12 @@ public class WingHelmetItem extends AbstractHatItem implements IEquipmentChangeL
     }
 
     @Override
-    public void onEquipmentChangeEvent(LivingEquipmentChangeEvent event) {
-        if (event.getEntityLiving() instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity) event.getEntityLiving();
-            // disable effects when hat is removed from slot
-            ItemStack oldItemStack = event.getFrom();
-            ItemStack newItemStack = event.getTo();
-            if (Config.WING_HELMET_LEVITATION_ENABLED.getValue()) {
-                if (oldItemStack.getItem() == this && newItemStack.getItem() != this) {
-                    EffectInstance levitationEffect = player.getActivePotionEffect(Effects.LEVITATION);
-                    if (levitationEffect != null && !levitationEffect.isAmbient() && levitationEffect.getDuration() <= LEVITATION_DURATION && levitationEffect.getAmplifier() == LEVITATION_AMPLIFIER) {
-                        player.removePotionEffect(Effects.LEVITATION);
-                    }
-                }
+    public void onUnequippedHatItem(LivingEntity entity, ItemStack oldStack) {
+        // disable effects when hat is removed from slot
+        if (Config.WING_HELMET_LEVITATION_ENABLED.getValue()) {
+            EffectInstance levitationEffect = entity.getActivePotionEffect(Effects.LEVITATION);
+            if (levitationEffect != null && !levitationEffect.isAmbient() && levitationEffect.getDuration() <= LEVITATION_DURATION && levitationEffect.getAmplifier() == LEVITATION_AMPLIFIER) {
+                entity.removePotionEffect(Effects.LEVITATION);
             }
         }
     }

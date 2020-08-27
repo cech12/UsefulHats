@@ -1,9 +1,12 @@
 package cech12.usefulhats.item;
 
-import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ItemStack;
 
 public interface IEquipmentChangeListener {
 
-    void onEquipmentChangeEvent(LivingEquipmentChangeEvent event);
+    //void onEquippedHatItem(LivingEntity entity, ItemStack newStack);
+
+    void onUnequippedHatItem(LivingEntity entity, ItemStack oldStack);
 
 }

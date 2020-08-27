@@ -5,6 +5,9 @@ import cech12.usefulhats.config.ConfigType;
 import cech12.usefulhats.helper.IEnabled;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+import com.lazy.baubles.api.BaubleType;
+import com.lazy.baubles.api.BaublesApi;
+import com.lazy.baubles.api.IBauble;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
@@ -28,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-public abstract class AbstractHatItem extends ArmorItem implements IEnabled, IDyeableArmorItem {
+public abstract class AbstractHatItem extends ArmorItem implements IEnabled, IDyeableArmorItem, IBauble {
 
     private final HatArmorMaterial material;
     private final int initColor;
@@ -160,4 +163,36 @@ public abstract class AbstractHatItem extends ArmorItem implements IEnabled, IDy
         tooltip.add((new TranslationTextComponent("item.modifiers." + EquipmentSlotType.HEAD.getName())).func_240699_a_(TextFormatting.GRAY));
     }
 
+    /// Following Methods are related to the Baubles API
+
+    @Override
+    public BaubleType getBaubleType() {
+        return BaubleType.HEAD;
+    }
+
+    @Override
+    public boolean canEquip(LivingEntity player) {
+        //TODO Config
+        return true;
+    }
+
+    @Override
+    public void onWornTick(LivingEntity entity) {
+        if (entity instanceof PlayerEntity) {
+            PlayerEntity player = (PlayerEntity) entity;
+            ItemStack stack = BaublesApi.getBaublesHandler(player)
+                    .map(handler -> handler.getStackInSlot(BaubleType.HEAD.ordinal()))
+                    .orElse(ItemStack.EMPTY);
+            if (!stack.isEmpty() && stack.getItem() == this) {
+                this.onArmorTick(stack, player.world, player);
+            }
+        }
+    }
+
+    @Override
+    public void onUnequipped(LivingEntity player) {
+        if (this instanceof IEquipmentChangeListener) {
+            ((IEquipmentChangeListener) this).onUnequippedHatItem(player, ItemStack.EMPTY); //TODO ItemStack.EMPTY???
+        }
+    }
 }

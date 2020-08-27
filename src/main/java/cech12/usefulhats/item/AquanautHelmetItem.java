@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
@@ -68,19 +69,12 @@ public class AquanautHelmetItem extends AbstractHatItem implements IEquipmentCha
     }
 
     @Override
-    public void onEquipmentChangeEvent(LivingEquipmentChangeEvent event) {
-        if (event.getEntityLiving() instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity) event.getEntityLiving();
-            // disable effects when hat is removed from slot
-            ItemStack oldItemStack = event.getFrom();
-            ItemStack newItemStack = event.getTo();
-            if (oldItemStack.getItem() == this && newItemStack.getItem() != this) {
-                int maxDuration = (EnchantmentHelper.getEnchantmentLevel(Enchantments.RESPIRATION, oldItemStack) + 1) * 1200;
-                EffectInstance conduitPowerEffect = player.getActivePotionEffect(Effects.CONDUIT_POWER);
-                if (conduitPowerEffect != null && !conduitPowerEffect.isAmbient() && conduitPowerEffect.getDuration() <= maxDuration) {
-                    player.removePotionEffect(Effects.CONDUIT_POWER);
-                }
-            }
+    public void onUnequippedHatItem(LivingEntity entity, ItemStack oldStack) {
+        // disable effects when hat is removed from slot
+        int maxDuration = (EnchantmentHelper.getEnchantmentLevel(Enchantments.RESPIRATION, oldStack) + 1) * 1200;
+        EffectInstance conduitPowerEffect = entity.getActivePotionEffect(Effects.CONDUIT_POWER);
+        if (conduitPowerEffect != null && !conduitPowerEffect.isAmbient() && conduitPowerEffect.getDuration() <= maxDuration) {
+            entity.removePotionEffect(Effects.CONDUIT_POWER);
         }
     }
 

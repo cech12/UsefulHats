@@ -1,6 +1,7 @@
 package cech12.usefulhats.item;
 
 import cech12.usefulhats.config.Config;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.potion.EffectInstance;
@@ -87,18 +88,11 @@ public class MiningHatItem extends AbstractMiningHatItem implements IBreakSpeedC
     }
 
     @Override
-    public void onEquipmentChangeEvent(LivingEquipmentChangeEvent event) {
-        if (event.getEntityLiving() instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity) event.getEntityLiving();
-            // disable effects when hat is removed from slot
-            ItemStack oldItemStack = event.getFrom();
-            ItemStack newItemStack = event.getTo();
-            if (oldItemStack.getItem() == this && newItemStack.getItem() != this) {
-                EffectInstance nightVisionEffect = player.getActivePotionEffect(Effects.NIGHT_VISION);
-                if (nightVisionEffect != null && !nightVisionEffect.isAmbient() && nightVisionEffect.getDuration() <= NIGHT_VISION_DURATION) {
-                    player.removePotionEffect(Effects.NIGHT_VISION);
-                }
-            }
+    public void onUnequippedHatItem(LivingEntity entity, ItemStack oldStack) {
+        // disable effects when hat is removed from slot
+        EffectInstance nightVisionEffect = entity.getActivePotionEffect(Effects.NIGHT_VISION);
+        if (nightVisionEffect != null && !nightVisionEffect.isAmbient() && nightVisionEffect.getDuration() <= NIGHT_VISION_DURATION) {
+            entity.removePotionEffect(Effects.NIGHT_VISION);
         }
     }
 }

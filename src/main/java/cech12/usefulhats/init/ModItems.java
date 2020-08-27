@@ -141,12 +141,12 @@ public class ModItems {
     }
 
     private static void onLivingEquipmentChangeEvent(LivingEquipmentChangeEvent event) {
-        if (event.getSlot() == EquipmentSlotType.HEAD && event.getEntityLiving() instanceof PlayerEntity) {
-            Item fromItem = event.getFrom().getItem();
-            Item toItem = event.getFrom().getItem();
+        if (event.getSlot() == EquipmentSlotType.HEAD) {
+            ItemStack fromItem = event.getFrom();
+            ItemStack toItem = event.getTo();
             for (Item item : ModItems.items) {
-                if (item instanceof IEquipmentChangeListener && (fromItem == item || toItem == item)) {
-                    ((IEquipmentChangeListener) item).onEquipmentChangeEvent(event);
+                if (item instanceof IEquipmentChangeListener && fromItem.getItem() == item && toItem.getItem() != item) {
+                    ((IEquipmentChangeListener) item).onUnequippedHatItem(event.getEntityLiving(), fromItem);
                 }
             }
         }
