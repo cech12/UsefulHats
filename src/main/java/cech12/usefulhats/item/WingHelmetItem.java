@@ -65,7 +65,7 @@ public class WingHelmetItem extends AbstractHatItem implements IEquipmentChangeL
             if (Config.WING_HELMET_LEVITATION_ENABLED.getValue()) {
                 if (oldItemStack.getItem() == this && newItemStack.getItem() != this) {
                     EffectInstance levitationEffect = player.getActivePotionEffect(Effects.LEVITATION);
-                    if (levitationEffect != null && levitationEffect.getDuration() <= LEVITATION_DURATION && levitationEffect.getAmplifier() == LEVITATION_AMPLIFIER) {
+                    if (levitationEffect != null && !levitationEffect.isAmbient() && levitationEffect.getDuration() <= LEVITATION_DURATION && levitationEffect.getAmplifier() == LEVITATION_AMPLIFIER) {
                         player.removePotionEffect(Effects.LEVITATION);
                     }
                 }
