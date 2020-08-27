@@ -4,11 +4,11 @@ import cech12.usefulhats.UsefulHatsUtils;
 import cech12.usefulhats.config.Config;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.FishingRodItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
-import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -20,7 +20,11 @@ import net.minecraftforge.event.entity.player.ItemFishedEvent;
 
 import java.util.List;
 
-public class LuckyHatItem extends AbstractHatItem implements IItemFishedListener, ILivingDropsListener, IUsefulHatModelOwner {
+public class LuckyHatItem extends AbstractHatItem implements IItemFishedListener, ILivingDropsListener, IEquipmentChangeListener, IUsefulHatModelOwner {
+
+    private static final int LUCK_DURATION = 219;
+    private static final int UNLUCK_AMPLIFIER = 0;
+    private static final int UNLUCK_DURATION = 200;
 
     public LuckyHatItem() {
         super("lucky_hat", HatArmorMaterial.LUCKY, rawColorFromRGB(72, 242, 0), Config.LUCKY_HAT_ENABLED, Config.LUCKY_HAT_DAMAGE_ENABLED);
@@ -28,10 +32,9 @@ public class LuckyHatItem extends AbstractHatItem implements IItemFishedListener
         this.addAllowedEnchantment(Enchantments.LOOTING);
     }
 
-    private boolean isLuckOrUnluckActive(PlayerEntity player) {
-        EffectInstance luck = player.getActivePotionEffect(Effects.LUCK);
-        EffectInstance unluck = player.getActivePotionEffect(Effects.UNLUCK);
-        return ((luck != null && luck.getDuration() > 0) || (unluck != null && unluck.getDuration() > 0));
+    private boolean isLuckOrUnluckCausedByOtherSource(PlayerEntity player, ItemStack stack) {
+        return this.isEffectCausedByOtherSource(player, Effects.LUCK, LUCK_DURATION, this.getLuckAmplifier(stack)) ||
+                this.isEffectCausedByOtherSource(player, Effects.UNLUCK, UNLUCK_DURATION, UNLUCK_AMPLIFIER);
     }
 
     private boolean hasHatRelatedItemInHand(PlayerEntity player) {
@@ -52,6 +55,10 @@ public class LuckyHatItem extends AbstractHatItem implements IItemFishedListener
                 EnchantmentHelper.getEnchantmentLevel(Enchantments.LUCK_OF_THE_SEA, stack);
     }
 
+    private int getLuckAmplifier(ItemStack stack) {
+        return this.getEffectLevel(stack) - 1;
+    }
+
     @Override
     public void onItemToolTipEvent(ItemStack stack, List<ITextComponent> tooltip) {
         super.onItemToolTipEvent(stack, tooltip);
@@ -63,23 +70,32 @@ public class LuckyHatItem extends AbstractHatItem implements IItemFishedListener
 
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
-        //when luck or unluck is active (potions), do nothing
-        if (this.isLuckOrUnluckActive(player)) return;
-        //else add luck effect when correct item is in hand
-        if (this.hasHatRelatedItemInHand(player)) {
-            player.addPotionEffect(new EffectInstance(Effects.LUCK, 0, getEffectLevel(stack) - 1, false, false, true));
+        if (!world.isRemote) {
+            //when luck or unluck are caused by other source, do nothing
+            if (this.isLuckOrUnluckCausedByOtherSource(player, stack)) return;
+            //else add luck effect when correct item is in hand and unluck is not active
+            int luckAmplifier = this.getLuckAmplifier(stack);
+            if (this.hasHatRelatedItemInHand(player) && player.getActivePotionEffect(Effects.UNLUCK) == null) {
+                if (player.getActivePotionEffect(Effects.LUCK) == null || player.ticksExisted % 19 == 0) {
+                    this.addEffect(player, Effects.LUCK, LUCK_DURATION, luckAmplifier);
+                }
+            } else {
+                this.removeEffect(player, Effects.LUCK, LUCK_DURATION, luckAmplifier);
+            }
         }
     }
 
     @Override
     public void onItemFishedListener(ItemFishedEvent event, ItemStack headSlotItemStack) {
+        PlayerEntity player = event.getPlayer();
         //when luck or unluck is active (potions), do nothing
-        if (this.isLuckOrUnluckActive(event.getPlayer())) return;
+        if (this.isLuckOrUnluckCausedByOtherSource(player, headSlotItemStack)) return;
         //damage item after fishing
         if (!event.isCanceled() && this.hasHatRelatedItemInHand(event.getPlayer())) {
             this.damageHatItemByOne(headSlotItemStack, event.getPlayer());
             if (Config.LUCKY_HAT_UNLUCK_ENABLED.getValue()) {
-                event.getPlayer().addPotionEffect(new EffectInstance(Effects.UNLUCK, 200));
+                this.removeEffect(player, Effects.LUCK, LUCK_DURATION, this.getLuckAmplifier(headSlotItemStack));
+                this.addEffect(player, Effects.UNLUCK, UNLUCK_DURATION, UNLUCK_AMPLIFIER);
             }
         }
     }
@@ -87,13 +103,20 @@ public class LuckyHatItem extends AbstractHatItem implements IItemFishedListener
     @Override
     public void onLivingDropsEvent(LivingDropsEvent event, PlayerEntity dropReason, ItemStack headSlotItemStack) {
         //when luck or unluck is active (potions), do nothing
-        if (this.isLuckOrUnluckActive(dropReason)) return;
+        if (this.isLuckOrUnluckCausedByOtherSource(dropReason, headSlotItemStack)) return;
         //damage item after killing a mob
         if (!event.isCanceled() && this.hasHatRelatedItemInHand(dropReason)) {
             this.damageHatItemByOne(headSlotItemStack, dropReason);
             if (Config.LUCKY_HAT_UNLUCK_ENABLED.getValue()) {
-                dropReason.addPotionEffect(new EffectInstance(Effects.UNLUCK, 200));
+                this.removeEffect(dropReason, Effects.LUCK, LUCK_DURATION, this.getLuckAmplifier(headSlotItemStack));
+                this.addEffect(dropReason, Effects.UNLUCK, UNLUCK_DURATION, UNLUCK_AMPLIFIER);
             }
         }
+    }
+
+    @Override
+    public void onUnequippedHatItem(LivingEntity entity, ItemStack oldStack) {
+        // disable effects when hat is removed from slot
+        this.removeEffect(entity, Effects.LUCK, LUCK_DURATION, this.getLuckAmplifier(oldStack));
     }
 }

@@ -15,19 +15,33 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.potion.Effect;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.stats.Stats;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import top.theillusivec4.curios.api.capability.CuriosCapability;
+import top.theillusivec4.curios.api.capability.ICurio;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-public abstract class AbstractHatItem extends ArmorItem implements IEnabled, IDyeableArmorItem {
+public abstract class AbstractHatItem extends ArmorItem implements IEnabled, IDyeableArmorItem/*, IBauble*/ {
 
     private final HatArmorMaterial material;
     private final int initColor;
@@ -51,6 +65,9 @@ public abstract class AbstractHatItem extends ArmorItem implements IEnabled, IDy
         this.allowedAdditionalBookEnchantments.add(Enchantments.MENDING);
         this.allowedAdditionalBookEnchantments.add(Enchantments.BINDING_CURSE);
         this.allowedAdditionalBookEnchantments.add(Enchantments.VANISHING_CURSE);
+        //for curios
+        IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        eventBus.addListener(this::setup);
     }
 
     protected static int rawColorFromRGB(int red, int green, int blue) {
@@ -69,6 +86,34 @@ public abstract class AbstractHatItem extends ArmorItem implements IEnabled, IDy
     public int getMaxDamage(ItemStack stack) {
         //get durability from config because the config is not loaded in constructor
         return this.material.getDurability(EquipmentSlotType.HEAD);
+    }
+
+    protected boolean isEffectCausedByOtherSource(LivingEntity entity, Effect effect, int maxDuration, int amplifier) {
+        //TODO detect effect source correctly
+        EffectInstance effectInstance = entity.getActivePotionEffect(effect);
+        return (effectInstance != null && (effectInstance.isAmbient() || effectInstance.getDuration() >= maxDuration || effectInstance.getAmplifier() != amplifier));
+    }
+
+    protected void addEffect(LivingEntity entity, Effect effect, int duration, int amplifier) {
+        this.addEffect(entity, effect, duration, amplifier, false);
+    }
+
+    protected void addEffect(LivingEntity entity, Effect effect, int duration, int amplifier, boolean showParticles) {
+        entity.addPotionEffect(new EffectInstance(effect, duration, amplifier, false, showParticles, true));
+    }
+
+    /**
+     * This is a helper method to remove an effect of a living entity with a maximal duration and a specific amplifier.
+     * @param entity entity
+     * @param effect effect object
+     * @param maxDuration maximal effect duration
+     * @param amplifier effect amplifier
+     */
+    protected void removeEffect(LivingEntity entity, Effect effect, int maxDuration, int amplifier) {
+        EffectInstance effectInstance = entity.getActivePotionEffect(effect);
+        if (effectInstance != null && !effectInstance.isAmbient() && effectInstance.getDuration() <= maxDuration && effectInstance.getAmplifier() == amplifier) {
+            entity.removePotionEffect(effect);
+        }
     }
 
     /**
@@ -157,5 +202,64 @@ public abstract class AbstractHatItem extends ArmorItem implements IEnabled, IDy
         tooltip.add(new StringTextComponent(""));
         tooltip.add((new TranslationTextComponent("item.modifiers." + EquipmentSlotType.HEAD.getName())).applyTextStyle(TextFormatting.GRAY));
     }
+
+
+    /// Following Methods are related to the Curios API
+
+    private void setup(final FMLCommonSetupEvent evt) {
+        MinecraftForge.EVENT_BUS.addGenericListener(ItemStack.class, this::attachCapabilities);
+    }
+
+    private void attachCapabilities(AttachCapabilitiesEvent<ItemStack> evt) {
+        ItemStack stack = evt.getObject();
+        if (stack.getItem() != this) {
+            return;
+        }
+        AbstractHatItemCurioCapability cap = new AbstractHatItemCurioCapability(stack);
+        evt.addCapability(CuriosCapability.ID_ITEM, new ICapabilityProvider() {
+            final LazyOptional<ICurio> curio = LazyOptional.of(() -> cap);
+
+            @Nonnull
+            @Override
+            public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
+                return CuriosCapability.ITEM.orEmpty(cap, curio);
+            }
+        });
+    }
+
+
+    /// Following Methods are related to the Baubles API
+    /* Mod has bugs in development environment.
+    @Override
+    public BaubleType getBaubleType() {
+        return BaubleType.HEAD;
+    }
+
+    @Override
+    public boolean canEquip(LivingEntity player) {
+        //TODO Config
+        return true;
+    }
+
+    @Override
+    public void onWornTick(LivingEntity entity) {
+        if (entity instanceof PlayerEntity) {
+            PlayerEntity player = (PlayerEntity) entity;
+            ItemStack stack = BaublesApi.getBaublesHandler(player)
+                    .map(handler -> handler.getStackInSlot(BaubleType.HEAD.ordinal()))
+                    .orElse(ItemStack.EMPTY);
+            if (!stack.isEmpty() && stack.getItem() == this) {
+                this.onArmorTick(stack, player.world, player);
+            }
+        }
+    }
+
+    @Override
+    public void onUnequipped(LivingEntity player) {
+        if (this instanceof IEquipmentChangeListener) {
+            ((IEquipmentChangeListener) this).onUnequippedHatItem(player, ItemStack.EMPTY); //TODO ItemStack.EMPTY???
+        }
+    }
+     */
 
 }

@@ -4,17 +4,18 @@ import cech12.usefulhats.config.Config;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
-import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
 
 import java.util.List;
 
 public class WingHelmetItem extends AbstractHatItem implements IEquipmentChangeListener {
+
+    private static final int SLOW_FALLING_AMPLIFIER = 0;
+    private static final int SLOW_FALLING_DURATION = 219;
 
     private static final int LEVITATION_AMPLIFIER = 2;
     private static final int LEVITATION_DURATION = 200;
@@ -34,40 +35,50 @@ public class WingHelmetItem extends AbstractHatItem implements IEquipmentChangeL
 
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
-        if (!player.onGround && !player.isInWater() && !player.isInLava()) {
-            //only add slow falling effect when no levitation effect an no slow falling effect is active (other sources like potions)
-            if (player.getActivePotionEffect(Effects.LEVITATION) == null && player.getActivePotionEffect(Effects.SLOW_FALLING) == null) {
-                player.addPotionEffect(new EffectInstance(Effects.SLOW_FALLING));
-                if (random.nextInt(20) == 0) {
-                    this.damageHatItemByOne(stack, player);
-                }
-            }
+        if (!world.isRemote) {
             //Sometimes the helmet is afraid of monsters and flies away
-            if (Config.WING_HELMET_LEVITATION_ENABLED.getValue()) {
+            boolean isLevitationFromOtherSource = this.isEffectCausedByOtherSource(player, Effects.LEVITATION, LEVITATION_DURATION, LEVITATION_AMPLIFIER);
+            boolean isLevitationEffectActive = player.getActivePotionEffect(Effects.LEVITATION) != null;
+            if (!isLevitationEffectActive && Config.WING_HELMET_LEVITATION_ENABLED.getValue()) {
                 if (player.getLastDamageSource() != null && player.getLastDamageSource().getTrueSource() instanceof LivingEntity) {
                     if (random.nextInt(100) == 0) {
-                        player.addPotionEffect(new EffectInstance(Effects.LEVITATION, LEVITATION_DURATION, LEVITATION_AMPLIFIER));
+                        this.removeEffect(player, Effects.SLOW_FALLING, SLOW_FALLING_DURATION, SLOW_FALLING_AMPLIFIER);
+                        this.addEffect(player, Effects.LEVITATION, LEVITATION_DURATION, LEVITATION_AMPLIFIER, true);
+                        isLevitationEffectActive = true;
                     }
+                }
+            }
+            //slow falling effect
+            boolean isSlowFallingFromOtherSource = this.isEffectCausedByOtherSource(player, Effects.SLOW_FALLING, SLOW_FALLING_DURATION, SLOW_FALLING_AMPLIFIER);
+            boolean isSlowFallingEffectActive = player.getActivePotionEffect(Effects.SLOW_FALLING) != null;
+            if (!player.onGround && !player.isInWater() && !player.isInLava()) {
+                if (!isLevitationEffectActive && !isSlowFallingFromOtherSource) {
+                    //only add slow falling effect when no levitation effect an no slow falling effect is active (other sources like potions)
+                    if (!isSlowFallingEffectActive || player.ticksExisted % 19 == 0) {
+                        this.addEffect(player, Effects.SLOW_FALLING, SLOW_FALLING_DURATION, SLOW_FALLING_AMPLIFIER);
+                        isSlowFallingEffectActive = true;
+                    }
+                }
+            } else {
+                //remove slow falling effect when on ground
+                this.removeEffect(player, Effects.SLOW_FALLING, SLOW_FALLING_DURATION, SLOW_FALLING_AMPLIFIER);
+            }
+            //calculate damage if slow falling or levitation is caused by this item
+            if ((isSlowFallingEffectActive && !isSlowFallingFromOtherSource) ||
+                    (isLevitationEffectActive && !isLevitationFromOtherSource && Config.WING_HELMET_LEVITATION_ENABLED.getValue())) {
+                if (random.nextInt(20) == 0) {
+                    this.damageHatItemByOne(stack, player);
                 }
             }
         }
     }
 
     @Override
-    public void onEquipmentChangeEvent(LivingEquipmentChangeEvent event) {
-        if (event.getEntityLiving() instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity) event.getEntityLiving();
-            // disable effects when hat is removed from slot
-            ItemStack oldItemStack = event.getFrom();
-            ItemStack newItemStack = event.getTo();
-            if (Config.WING_HELMET_LEVITATION_ENABLED.getValue()) {
-                if (oldItemStack.getItem() == this && newItemStack.getItem() != this) {
-                    EffectInstance levitationEffect = player.getActivePotionEffect(Effects.LEVITATION);
-                    if (levitationEffect != null && !levitationEffect.isAmbient() && levitationEffect.getDuration() <= LEVITATION_DURATION && levitationEffect.getAmplifier() == LEVITATION_AMPLIFIER) {
-                        player.removePotionEffect(Effects.LEVITATION);
-                    }
-                }
-            }
+    public void onUnequippedHatItem(LivingEntity entity, ItemStack oldStack) {
+        // disable effects when hat is removed from slot
+        this.removeEffect(entity, Effects.SLOW_FALLING, SLOW_FALLING_DURATION, SLOW_FALLING_AMPLIFIER);
+        if (Config.WING_HELMET_LEVITATION_ENABLED.getValue()) {
+            this.removeEffect(entity, Effects.LEVITATION, LEVITATION_DURATION, LEVITATION_AMPLIFIER);
         }
     }
 
