@@ -88,6 +88,6 @@ public class MiningHatItem extends AbstractMiningHatItem implements IBreakSpeedC
     @Override
     public void onUnequippedHatItem(LivingEntity entity, ItemStack oldStack) {
         // disable effects when hat is removed from slot
-        this.removeEffect(entity, Effects.NIGHT_VISION, NIGHT_VISION_DURATION, NIGHT_VISION_DURATION);
+        this.removeEffect(entity, Effects.NIGHT_VISION, NIGHT_VISION_DURATION, NIGHT_VISION_AMPLIFIER);
     }
 }
