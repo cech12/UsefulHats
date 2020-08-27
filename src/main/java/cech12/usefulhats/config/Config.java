@@ -10,6 +10,8 @@ public class Config {
 
     public static List<IResettableConfigType> allValues = new ArrayList<>();
 
+    public static final ConfigType.Boolean CURIOS_ENABLED = new ConfigType.Boolean(true);
+
     public static final ConfigType.Boolean AQUANAUT_HELMET_ENABLED = new ConfigType.Boolean(true);
     public static final ConfigType.Boolean AQUANAUT_HELMET_DAMAGE_ENABLED = new ConfigType.Boolean(true);
     public static final ConfigType.Integer AQUANAUT_HELMET_DURABILITY = new ConfigType.Integer(600);
@@ -75,6 +77,14 @@ public class Config {
 
     static {
         final ForgeConfigSpec.Builder common = new ForgeConfigSpec.Builder();
+
+        common.comment("Some configs in relation to other mods.").push("Compatibility option");
+
+        CURIOS_ENABLED.configObj = common
+                .comment("Whether or not hats from this mod should be placeable in Curios head slots.")
+                .define("curiosEnabled", CURIOS_ENABLED.getDefaultValue());
+
+        common.pop();
 
         common.comment("Enable or disable certain hats. Disabled hats will not be craftable.").push("Accessibility Config");
 

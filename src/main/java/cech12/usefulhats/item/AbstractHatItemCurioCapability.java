@@ -1,5 +1,6 @@
 package cech12.usefulhats.item;
 
+import cech12.usefulhats.config.Config;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -22,8 +23,7 @@ public class AbstractHatItemCurioCapability implements ICurio {
 
     @Override
     public boolean canEquip(String identifier, LivingEntity livingEntity) {
-        //TODO Config
-        return true;
+        return Config.CURIOS_ENABLED.getValue();
     }
 
     @Override
