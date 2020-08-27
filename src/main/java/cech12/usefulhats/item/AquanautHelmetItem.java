@@ -61,7 +61,7 @@ public class AquanautHelmetItem extends AbstractHatItem implements IEquipmentCha
         if (!player.areEyesInFluid(FluidTags.WATER)) {
             player.addPotionEffect(new EffectInstance(Effects.CONDUIT_POWER, maxDuration, 0, false, false, true));
         } else {
-            if (random.nextInt(20) == 0) {
+            if (conduitPowerEffect != null && random.nextInt(20) == 0) {
                 this.damageHatItemByOne(stack, player);
             }
         }
