@@ -24,6 +24,7 @@ import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import top.theillusivec4.curios.api.CuriosAPI;
 import top.theillusivec4.curios.api.event.LivingCurioChangeEvent;
@@ -78,12 +79,8 @@ public class ModItems {
         MinecraftForge.EVENT_BUS.addListener(ModItems::onLivingEquipmentChangeEvent);
         MinecraftForge.EVENT_BUS.addListener(ModItems::onLivingSetAttackTargetEvent);
         //curios events
-        try {
-            //check if event is loaded (curios is installed)
-            Class.forName("top.theillusivec4.curios.api.event.LivingCurioChangeEvent");
+        if (ModList.get().isLoaded("curios")) {
             MinecraftForge.EVENT_BUS.addListener(ModItems::onCuriosEquipmentChangeEvent);
-        } catch( ClassNotFoundException e ) {
-            //do nothing
         }
     }
 
