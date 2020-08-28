@@ -78,7 +78,13 @@ public class ModItems {
         MinecraftForge.EVENT_BUS.addListener(ModItems::onLivingEquipmentChangeEvent);
         MinecraftForge.EVENT_BUS.addListener(ModItems::onLivingSetAttackTargetEvent);
         //curios events
-        MinecraftForge.EVENT_BUS.addListener(ModItems::onCuriosEquipmentChangeEvent);
+        try {
+            //check if event is loaded (curios is installed)
+            Class.forName("top.theillusivec4.curios.api.event.LivingCurioChangeEvent");
+            MinecraftForge.EVENT_BUS.addListener(ModItems::onCuriosEquipmentChangeEvent);
+        } catch( ClassNotFoundException e ) {
+            //do nothing
+        }
     }
 
     /**
