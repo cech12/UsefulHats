@@ -102,16 +102,18 @@ public class ModItems {
         List<ItemStack> stacks = new LinkedList<>();
         //vanilla head slot
         stacks.add(entity.getItemStackFromSlot(EquipmentSlotType.HEAD));
-        //curios head slots
-        CuriosAPI.getCuriosHandler(entity).ifPresent(itemHandler -> {
-            int slots = itemHandler.getSlots();
-            for (int i = 0; i < slots; i++) {
-                ItemStack stack = itemHandler.getStackInSlot("head", i);
-                if (!stack.isEmpty()) {
-                    stacks.add(stack);
+        if (ModList.get().isLoaded("curios")) {
+            //curios head slots
+            CuriosAPI.getCuriosHandler(entity).ifPresent(itemHandler -> {
+                int slots = itemHandler.getSlots();
+                for (int i = 0; i < slots; i++) {
+                    ItemStack stack = itemHandler.getStackInSlot("head", i);
+                    if (!stack.isEmpty()) {
+                        stacks.add(stack);
+                    }
                 }
-            }
-        });
+            });
+        }
         return stacks;
     }
 
