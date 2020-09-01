@@ -38,6 +38,7 @@ public class ModItems {
             new LuckyHatItem(),
             new MiningHatItem(),
             new PostmanHatItem(),
+            new ShulkerHelmetItem(),
             new StockingCapItem(),
             new StrawHatItem(),
             new WingHelmetItem()

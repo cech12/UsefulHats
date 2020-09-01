@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "conditions": [
+    {
+      "type": "usefulhats:is_enabled",
+      "item": "usefulhats:shulker_helmet"
+    }
+  ],
+  "pattern": [
+    "#S#",
+    "# #"
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:shulker_shell"
+    },
+    "#": {
+      "item": "minecraft:phantom_membrane"
+    }
+  },
+  "result": {
+    "item": "usefulhats:shulker_helmet"
+  }
+}

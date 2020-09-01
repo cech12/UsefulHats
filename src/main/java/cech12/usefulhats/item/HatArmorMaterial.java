@@ -34,6 +34,9 @@ public enum HatArmorMaterial implements IArmorMaterial {
     POSTMAN("usefulhats:blank", Config.POSTMAN_HAT_DURABILITY, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
         return Ingredient.fromItems(Items.LAPIS_LAZULI);
     }),
+    SHULKER("usefulhats:shulker", Config.SHULKER_HELMET_DURABILITY, 15, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> {
+        return Ingredient.fromItems(Items.SHULKER_SHELL, Items.PHANTOM_MEMBRANE);
+    }),
     STOCKING("usefulhats:stocking", Config.STOCKING_CAP_DURABILITY, 25, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
         return Ingredient.fromItems(Items.STRING);
     }),
