@@ -32,22 +32,29 @@ public class UsefulHatLayer<T extends LivingEntity, M extends BipedModel<T>, A e
         super(renderer, hatModel, hatModel);
     }
 
+    public static ResourceLocation getTexture(@Nonnull ItemStack stack, @Nullable String type) {
+        ResourceLocation resourceLocation = stack.getItem().getRegistryName();
+        if (resourceLocation != null) {
+            String texture = resourceLocation.getPath();
+            String domain = resourceLocation.getNamespace();
+            String s1 = String.format("%s:textures/models/usefulhats/%s%s.png", domain, texture, type == null ? "" : String.format("_%s", type));
+            resourceLocation = ARMOR_TEXTURE_RES_MAP.get(s1);
+            if (resourceLocation == null) {
+                resourceLocation = new ResourceLocation(s1);
+                ARMOR_TEXTURE_RES_MAP.put(s1, resourceLocation);
+            }
+        }
+        return resourceLocation;
+    }
+
     @Override
     @Nonnull
-    public ResourceLocation getArmorResource(@Nonnull Entity entity, ItemStack stack, @Nonnull EquipmentSlotType slot, @Nullable String type) {
+    public ResourceLocation getArmorResource(@Nonnull Entity entity, @Nonnull ItemStack stack, @Nonnull EquipmentSlotType slot, @Nullable String type) {
         //texture location is another for this model (only for hats)
         if (slot == EquipmentSlotType.HEAD) {
-            ResourceLocation resourceLocation = stack.getItem().getRegistryName();
-            if (resourceLocation != null) {
-                String texture = resourceLocation.getPath();
-                String domain = resourceLocation.getNamespace();
-                String s1 = String.format("%s:textures/models/usefulhats/%s%s.png", domain, texture, type == null ? "" : String.format("_%s", type));
-                ResourceLocation resourcelocation = ARMOR_TEXTURE_RES_MAP.get(s1);
-                if (resourcelocation == null) {
-                    resourcelocation = new ResourceLocation(s1);
-                    ARMOR_TEXTURE_RES_MAP.put(s1, resourcelocation);
-                }
-                return resourcelocation;
+            ResourceLocation location = getTexture(stack, type);
+            if (location != null) {
+                return location;
             }
         }
         //to avoid errors in texture finding use super method
@@ -67,7 +74,7 @@ public class UsefulHatLayer<T extends LivingEntity, M extends BipedModel<T>, A e
     }
 
     @Override
-    protected void setModelSlotVisible(@Nonnull A model, EquipmentSlotType slotIn) {
+    protected void setModelSlotVisible(@Nonnull A model, @Nonnull EquipmentSlotType slotIn) {
         //disable all render models of biped model except the hat (because it is overridden with own model)
         this.setModelVisible(model);
         if (slotIn == EquipmentSlotType.HEAD && model instanceof UsefulHatModel) {

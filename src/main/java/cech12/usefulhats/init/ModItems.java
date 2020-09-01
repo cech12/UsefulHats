@@ -1,9 +1,10 @@
 package cech12.usefulhats.init;
 
+import cech12.usefulhats.UsefulHatsUtils;
+import cech12.usefulhats.compat.CuriosMod;
 import cech12.usefulhats.item.*;
 import cech12.usefulhats.UsefulHatsMod;
 import net.minecraft.client.renderer.color.ItemColors;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -24,13 +25,8 @@ import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
-import top.theillusivec4.curios.api.CuriosAPI;
 import top.theillusivec4.curios.api.event.LivingCurioChangeEvent;
-
-import java.util.LinkedList;
-import java.util.List;
 
 @Mod.EventBusSubscriber(modid= UsefulHatsMod.MOD_ID, bus= Mod.EventBusSubscriber.Bus.MOD)
 public class ModItems {
@@ -79,7 +75,7 @@ public class ModItems {
         MinecraftForge.EVENT_BUS.addListener(ModItems::onLivingEquipmentChangeEvent);
         MinecraftForge.EVENT_BUS.addListener(ModItems::onLivingSetAttackTargetEvent);
         //curios events
-        if (ModList.get().isLoaded("curios")) {
+        if (CuriosMod.isLoaded()) {
             MinecraftForge.EVENT_BUS.addListener(ModItems::onCuriosEquipmentChangeEvent);
         }
     }
@@ -92,33 +88,8 @@ public class ModItems {
         MinecraftForge.EVENT_BUS.addListener(ModItems::onItemToolTipEvent);
     }
 
-    /**
-     * Get all equipped head slot item stacks. Some APIs like Curios enables to have more
-     * than one head slot.
-     * @param entity entity
-     * @return List of all equipped head slot item stacks
-     */
-    public static List<ItemStack> getHeadSlotItemStacks(LivingEntity entity) {
-        List<ItemStack> stacks = new LinkedList<>();
-        //vanilla head slot
-        stacks.add(entity.getItemStackFromSlot(EquipmentSlotType.HEAD));
-        if (ModList.get().isLoaded("curios")) {
-            //curios head slots
-            CuriosAPI.getCuriosHandler(entity).ifPresent(itemHandler -> {
-                int slots = itemHandler.getSlots();
-                for (int i = 0; i < slots; i++) {
-                    ItemStack stack = itemHandler.getStackInSlot("head", i);
-                    if (!stack.isEmpty()) {
-                        stacks.add(stack);
-                    }
-                }
-            });
-        }
-        return stacks;
-    }
-
     private static void onBreakSpeedEvent(PlayerEvent.BreakSpeed event) {
-        for (ItemStack headSlotItemStack : getHeadSlotItemStacks(event.getPlayer())) {
+        for (ItemStack headSlotItemStack : UsefulHatsUtils.getHeadSlotItemStacks(event.getPlayer())) {
             for (Item item : ModItems.items) {
                 if (item instanceof IBreakSpeedChanger && headSlotItemStack.getItem() == item) {
                     ((IBreakSpeedChanger) item).onBreakSpeedEvent(event, headSlotItemStack);
@@ -128,7 +99,7 @@ public class ModItems {
     }
 
     private static void onBreakEvent(BlockEvent.BreakEvent event) {
-        for (ItemStack headSlotItemStack : getHeadSlotItemStacks(event.getPlayer())) {
+        for (ItemStack headSlotItemStack : UsefulHatsUtils.getHeadSlotItemStacks(event.getPlayer())) {
             for (Item item : ModItems.items) {
                 if (item instanceof IBreakSpeedChanger && headSlotItemStack.getItem() == item) {
                     ((IBreakSpeedChanger) item).onBreakEvent(event, headSlotItemStack);
@@ -149,7 +120,7 @@ public class ModItems {
     }
 
     private static void onItemFishedEvent(ItemFishedEvent event) {
-        for (ItemStack headSlotItemStack : getHeadSlotItemStacks(event.getPlayer())) {
+        for (ItemStack headSlotItemStack : UsefulHatsUtils.getHeadSlotItemStacks(event.getPlayer())) {
             for (Item item : ModItems.items) {
                 if (item instanceof IItemFishedListener && headSlotItemStack.getItem() == item) {
                     ((IItemFishedListener) item).onItemFishedListener(event, headSlotItemStack);
@@ -170,7 +141,7 @@ public class ModItems {
     private static void onLivingDropsEvent(LivingDropsEvent event) {
         if (event.getSource().getImmediateSource() instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity) event.getSource().getImmediateSource();
-            for (ItemStack headSlotItemStack : getHeadSlotItemStacks(player)) {
+            for (ItemStack headSlotItemStack : UsefulHatsUtils.getHeadSlotItemStacks(player)) {
                 for (Item item : ModItems.items) {
                     if (item instanceof ILivingDropsListener && item == headSlotItemStack.getItem()) {
                         ((ILivingDropsListener) item).onLivingDropsEvent(event, player, headSlotItemStack);
@@ -221,7 +192,7 @@ public class ModItems {
         if (event.getEntity() instanceof MobEntity && event.getTarget() instanceof PlayerEntity) {
             MobEntity mob = (MobEntity) event.getEntity();
             PlayerEntity player = (PlayerEntity) event.getTarget();
-            for (ItemStack headSlotItemStack : getHeadSlotItemStacks(player)) {
+            for (ItemStack headSlotItemStack : UsefulHatsUtils.getHeadSlotItemStacks(player)) {
                 for (Item item : ModItems.items) {
                     if (item instanceof IAttackTargetChanger && item == headSlotItemStack.getItem()) {
                         ((IAttackTargetChanger) item).onLivingSetAttackTarget(mob, player);

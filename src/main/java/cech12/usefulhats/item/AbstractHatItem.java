@@ -1,6 +1,7 @@
 package cech12.usefulhats.item;
 
 import cech12.usefulhats.UsefulHatsMod;
+import cech12.usefulhats.compat.CuriosMod;
 import cech12.usefulhats.config.ConfigType;
 import cech12.usefulhats.helper.IEnabled;
 import com.google.common.collect.HashMultimap;
@@ -70,7 +71,7 @@ public abstract class AbstractHatItem extends ArmorItem implements IEnabled, IDy
         this.allowedAdditionalBookEnchantments.add(Enchantments.BINDING_CURSE);
         this.allowedAdditionalBookEnchantments.add(Enchantments.VANISHING_CURSE);
         //for curios
-        if (ModList.get().isLoaded("curios")) {
+        if (CuriosMod.isLoaded()) {
             IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
             eventBus.addListener(this::setup);
         }

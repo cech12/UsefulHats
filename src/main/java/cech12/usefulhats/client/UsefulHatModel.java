@@ -36,6 +36,10 @@ public class UsefulHatModel<T extends LivingEntity> extends BipedModel<T> {
         hatAddition.rotateAngleX = (-(float)Math.PI / 2F);
         //add hat addition to head wear as child. So no extra calculations must be done.
         this.bipedHeadwear.addChild(hatAddition);
+        //disable all render models of biped model except the hat (because it is overridden with own model)
+        this.setVisible(false);
+        this.bipedHead.showModel = true;
+        this.bipedHeadwear.showModel = true;
     }
 
 
