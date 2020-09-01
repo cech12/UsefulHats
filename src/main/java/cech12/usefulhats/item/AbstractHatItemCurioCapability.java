@@ -65,6 +65,7 @@ public class AbstractHatItemCurioCapability implements ICurio {
         return (BipedModel<LivingEntity>) model;
     }
 
+    @OnlyIn(Dist.CLIENT)
     private ResourceLocation getTexture(String type) {
         ResourceLocation location;
         ArmorItem item = (ArmorItem) this.stack.getItem();
@@ -99,7 +100,7 @@ public class AbstractHatItemCurioCapability implements ICurio {
     @OnlyIn(Dist.CLIENT)
     public void render(String identifier, int index, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int light, LivingEntity entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         Item item = this.stack.getItem();
-        BipedModel<LivingEntity> model = getModel();
+        BipedModel<LivingEntity> model = this.getModel();
         model.setRotationAngles(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
         model.setLivingAnimations(entity, limbSwing, limbSwingAmount, partialTicks);
         RenderHelper.followBodyRotations(entity, model);
@@ -114,6 +115,7 @@ public class AbstractHatItemCurioCapability implements ICurio {
         this.renderLayer(matrixStack, renderTypeBuffer, light, flag1, model, 1.0F, 1.0F, 1.0F, this.getTexture("overlay"));
     }
 
+    @OnlyIn(Dist.CLIENT)
     private void renderLayer(MatrixStack p_241738_1_, IRenderTypeBuffer p_241738_2_, int p_241738_3_, boolean p_241738_5_, BipedModel<LivingEntity> p_241738_6_, float p_241738_8_, float p_241738_9_, float p_241738_10_, ResourceLocation armorResource) {
         //mostly copied from UsefulHatLayer
         IVertexBuilder ivertexbuilder = ItemRenderer.getBuffer(p_241738_2_, p_241738_6_.getRenderType(armorResource), false, p_241738_5_);
