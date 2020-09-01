@@ -39,22 +39,29 @@ public class UsefulHatLayer<T extends LivingEntity, M extends BipedModel<T>, A e
         this.hatModel = hatModel;
     }
 
+    public static ResourceLocation getTexture(@Nonnull ItemStack stack, @Nullable String type) {
+        ResourceLocation resourceLocation = stack.getItem().getRegistryName();
+        if (resourceLocation != null) {
+            String texture = resourceLocation.getPath();
+            String domain = resourceLocation.getNamespace();
+            String s1 = String.format("%s:textures/models/usefulhats/%s%s.png", domain, texture, type == null ? "" : String.format("_%s", type));
+            resourceLocation = ARMOR_TEXTURE_RES_MAP.get(s1);
+            if (resourceLocation == null) {
+                resourceLocation = new ResourceLocation(s1);
+                ARMOR_TEXTURE_RES_MAP.put(s1, resourceLocation);
+            }
+        }
+        return resourceLocation;
+    }
+
     @Override
     @Nonnull
     public ResourceLocation getArmorResource(@Nonnull Entity entity, @Nonnull ItemStack stack, @Nonnull EquipmentSlotType slot, @Nullable String type) {
         //texture location is another for this model (only for hats)
         if (slot == EquipmentSlotType.HEAD) {
-            ResourceLocation resourceLocation = stack.getItem().getRegistryName();
-            if (resourceLocation != null) {
-                String texture = resourceLocation.getPath();
-                String domain = resourceLocation.getNamespace();
-                String s1 = String.format("%s:textures/models/usefulhats/%s%s.png", domain, texture, type == null ? "" : String.format("_%s", type));
-                ResourceLocation resourcelocation = ARMOR_TEXTURE_RES_MAP.get(s1);
-                if (resourcelocation == null) {
-                    resourcelocation = new ResourceLocation(s1);
-                    ARMOR_TEXTURE_RES_MAP.put(s1, resourcelocation);
-                }
-                return resourcelocation;
+            ResourceLocation location = getTexture(stack, type);
+            if (location != null) {
+                return location;
             }
         }
         //to avoid errors in texture finding use super method
@@ -71,7 +78,7 @@ public class UsefulHatLayer<T extends LivingEntity, M extends BipedModel<T>, A e
             if (armoritem.getEquipmentSlot() == EquipmentSlotType.HEAD) {
                 A model = getArmorModelHook(entityIn, itemstack, EquipmentSlotType.HEAD, this.hatModel);
                 this.getEntityModel().setModelAttributes(model);
-                this.setModelSlotVisible(model, EquipmentSlotType.HEAD);
+                //this.setModelSlotVisible(model, EquipmentSlotType.HEAD);
                 boolean flag1 = itemstack.hasEffect();
                 int i = ((net.minecraft.item.IDyeableArmorItem)armoritem).getColor(itemstack);
                 float f = (float)(i >> 16 & 255) / 255.0F;
@@ -86,10 +93,11 @@ public class UsefulHatLayer<T extends LivingEntity, M extends BipedModel<T>, A e
     private void func_241738_a_(MatrixStack p_241738_1_, IRenderTypeBuffer p_241738_2_, int p_241738_3_, boolean p_241738_5_, A p_241738_6_, float p_241738_8_, float p_241738_9_, float p_241738_10_, ResourceLocation armorResource) {
         //copied from super class
         //important difference "p_241738_6_.getRenderType(armorResource)" [before it was armor_cutout_no_cull]
-        IVertexBuilder ivertexbuilder = ItemRenderer.func_239386_a_(p_241738_2_, p_241738_6_.getRenderType(armorResource), false, p_241738_5_);
+        IVertexBuilder ivertexbuilder = ItemRenderer.getBuffer(p_241738_2_, p_241738_6_.getRenderType(armorResource), false, p_241738_5_);
         p_241738_6_.render(p_241738_1_, ivertexbuilder, p_241738_3_, OverlayTexture.NO_OVERLAY, p_241738_8_, p_241738_9_, p_241738_10_, 1.0F);
     }
 
+    /*
     @Override
     protected void setModelSlotVisible(@Nonnull A model, @Nonnull EquipmentSlotType slotIn) {
         //disable all render models of biped model except the hat (because it is overridden with own model)
@@ -100,4 +108,5 @@ public class UsefulHatLayer<T extends LivingEntity, M extends BipedModel<T>, A e
             model.bipedHeadwear.showModel = true;
         }
     }
+     */
 }

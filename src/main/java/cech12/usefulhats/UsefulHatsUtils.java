@@ -1,5 +1,14 @@
 package cech12.usefulhats;
 
+import cech12.usefulhats.compat.CuriosMod;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.ItemStack;
+import top.theillusivec4.curios.api.CuriosApi;
+
+import java.util.LinkedList;
+import java.util.List;
+
 public class UsefulHatsUtils {
 
     private UsefulHatsUtils() {}
@@ -19,6 +28,31 @@ public class UsefulHatsUtils {
             case 10 : romanNumber = "X"; break;
         }
         return " " + romanNumber;
+    }
+
+    /**
+     * Get all equipped head slot item stacks. Some APIs like Curios enables to have more
+     * than one head slot.
+     * @param entity entity
+     * @return List of all equipped head slot item stacks
+     */
+    public static List<ItemStack> getHeadSlotItemStacks(LivingEntity entity) {
+        List<ItemStack> stacks = new LinkedList<>();
+        //vanilla head slot
+        stacks.add(entity.getItemStackFromSlot(EquipmentSlotType.HEAD));
+        if (CuriosMod.isLoaded()) {
+            //curios slots //TODO only head slots
+            CuriosApi.getCuriosHelper().getEquippedCurios(entity).ifPresent(itemHandler -> {
+                int slots = itemHandler.getSlots();
+                for (int i = 0; i < slots; i++) {
+                    ItemStack stack = itemHandler.getStackInSlot(i);
+                    if (!stack.isEmpty()) {
+                        stacks.add(stack);
+                    }
+                }
+            });
+        }
+        return stacks;
     }
 
 }

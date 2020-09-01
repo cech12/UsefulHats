@@ -1,7 +1,7 @@
 package cech12.usefulhats.item;
 
+import cech12.usefulhats.UsefulHatsUtils;
 import cech12.usefulhats.config.Config;
-import cech12.usefulhats.init.ModItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
@@ -81,7 +81,7 @@ public class HaloItem extends AbstractHatItem implements IAttackTargetChanger, I
             super(mobEntity, PlayerEntity.class, 0, true, false,
                     (entity) -> {
                         if (entity instanceof PlayerEntity && isEntityInNether(entity)) {
-                            for (ItemStack headSlotItemStack : ModItems.getHeadSlotItemStacks(entity)) {
+                            for (ItemStack headSlotItemStack : UsefulHatsUtils.getHeadSlotItemStacks(entity)) {
                                 if (headSlotItemStack.getItem() == hatItem) {
                                     return true;
                                 }
