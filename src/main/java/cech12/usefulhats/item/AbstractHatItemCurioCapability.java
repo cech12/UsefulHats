@@ -47,7 +47,7 @@ public class AbstractHatItemCurioCapability implements ICurio {
 
     @Override
     public void curioTick(String identifier, int index, LivingEntity livingEntity) {
-        if (identifier.equals("head") && livingEntity instanceof PlayerEntity) {
+        if (Config.CURIOS_ENABLED.getValue() && livingEntity instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity) livingEntity;
             this.stack.getItem().onArmorTick(this.stack, player.world, player);
         }

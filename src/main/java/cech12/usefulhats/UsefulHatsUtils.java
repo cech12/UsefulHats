@@ -41,7 +41,7 @@ public class UsefulHatsUtils {
         //vanilla head slot
         stacks.add(entity.getItemStackFromSlot(EquipmentSlotType.HEAD));
         if (CuriosMod.isLoaded()) {
-            //curios slots //TODO only head slots
+            //all curios slots
             CuriosApi.getCuriosHelper().getEquippedCurios(entity).ifPresent(itemHandler -> {
                 int slots = itemHandler.getSlots();
                 for (int i = 0; i < slots; i++) {
