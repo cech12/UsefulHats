@@ -36,17 +36,11 @@ public class ShulkerHelmetItem extends AbstractHatItem implements IEquipmentChan
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
         if (!world.isRemote) {
             int levitationAmplifier = EnchantmentHelper.getEnchantmentLevel(Enchantments.EFFICIENCY, stack);
-            //Sometimes the helmet is afraid of monsters and flies away
-            boolean isLevitationFromOtherSource = this.isEffectCausedByOtherSource(player, Effects.LEVITATION, LEVITATION_DURATION, levitationAmplifier);
-            boolean isLevitationEffectActive = player.getActivePotionEffect(Effects.LEVITATION) != null;
-            if (!isLevitationFromOtherSource) {
-                if (!isLevitationEffectActive || player.ticksExisted % 19 == 0) {
+            if (!this.isEffectCausedByOtherSource(player, Effects.LEVITATION, LEVITATION_DURATION, levitationAmplifier)) {
+                if (player.getActivePotionEffect(Effects.LEVITATION) == null || player.ticksExisted % 19 == 0) {
                     this.addEffect(player, Effects.LEVITATION, LEVITATION_DURATION, levitationAmplifier);
-                    isLevitationEffectActive = true;
                 }
-            }
-            //calculate damage if levitation is caused by this item
-            if (isLevitationEffectActive) {
+                //calculate damage if levitation is caused by this item
                 if (random.nextInt(20) == 0) {
                     this.damageHatItemByOne(stack, player);
                 }
