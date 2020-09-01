@@ -20,7 +20,10 @@
   "item.usefulhats.postman_hat": "Chapéu do Carteiro",
   "item.usefulhats.postman_hat.desc.speed": "Enquanto corre, você obtém o efeito §2Velocidade%s§9.",
   "item.usefulhats.postman_hat.desc.hunger": "Mas você também obtém o efeito §6Fome§c.",
-  
+
+  "item.usefulhats.shulker_helmet": "Capacete de Shulker",
+  "item.usefulhats.shulker_helmet.desc.levitation": "Você obtém o efeito §2Levitação%s§9.",
+
   "item.usefulhats.stocking_cap": "Gorro de Meia",
   
   "item.usefulhats.straw_hat": "Chapéu de Palha",
