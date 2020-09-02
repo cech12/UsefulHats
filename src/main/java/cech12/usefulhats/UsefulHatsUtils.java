@@ -1,6 +1,7 @@
 package cech12.usefulhats;
 
 import cech12.usefulhats.compat.CuriosMod;
+import cech12.usefulhats.item.AbstractHatItem;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
@@ -41,12 +42,12 @@ public class UsefulHatsUtils {
         //vanilla head slot
         stacks.add(entity.getItemStackFromSlot(EquipmentSlotType.HEAD));
         if (CuriosMod.isLoaded()) {
-            //all curios slots
+            //all curios slots that contain an AbstractHatItem
             CuriosApi.getCuriosHelper().getEquippedCurios(entity).ifPresent(itemHandler -> {
                 int slots = itemHandler.getSlots();
                 for (int i = 0; i < slots; i++) {
                     ItemStack stack = itemHandler.getStackInSlot(i);
-                    if (!stack.isEmpty()) {
+                    if (!stack.isEmpty() && stack.getItem() instanceof AbstractHatItem) {
                         stacks.add(stack);
                     }
                 }
