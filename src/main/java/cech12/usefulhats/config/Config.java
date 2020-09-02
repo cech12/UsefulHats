@@ -56,6 +56,10 @@ public class Config {
     public static final ConfigType.Integer POSTMAN_HAT_DURABILITY = new ConfigType.Integer(600);
     public static final ConfigType.Boolean POSTMAN_HAT_HUNGER_ENABLED = new ConfigType.Boolean(true);
 
+    public static final ConfigType.Boolean SHULKER_HELMET_ENABLED = new ConfigType.Boolean(true);
+    public static final ConfigType.Boolean SHULKER_HELMET_DAMAGE_ENABLED = new ConfigType.Boolean(true);
+    public static final ConfigType.Integer SHULKER_HELMET_DURABILITY = new ConfigType.Integer(600);
+
     public static final ConfigType.Boolean STOCKING_CAP_ENABLED = new ConfigType.Boolean(true);
     public static final ConfigType.Boolean STOCKING_CAP_DAMAGE_ENABLED = new ConfigType.Boolean(true);
     public static final ConfigType.Integer STOCKING_CAP_DURABILITY = new ConfigType.Integer(600);
@@ -106,6 +110,9 @@ public class Config {
         POSTMAN_HAT_ENABLED.configObj = common
                 .comment("Whether or not Postman Hat should be enabled.")
                 .define("postmanHatEnabled", POSTMAN_HAT_ENABLED.getDefaultValue());
+        SHULKER_HELMET_ENABLED.configObj = common
+                .comment("Whether or not Shulker Helmet should be enabled.")
+                .define("shulkerHelmetEnabled", SHULKER_HELMET_ENABLED.getDefaultValue());
         STOCKING_CAP_ENABLED.configObj = common
                 .comment("Whether or not Stocking Cap should be enabled.")
                 .define("stockingCapEnabled", STOCKING_CAP_ENABLED.getDefaultValue());
@@ -231,6 +238,15 @@ public class Config {
         POSTMAN_HAT_HUNGER_ENABLED.configObj = common
                 .comment("Whether or not Hunger effect of Postman Hat should be enabled while running.")
                 .define("postmanHatHungerEnabled", POSTMAN_HAT_HUNGER_ENABLED.getDefaultValue());
+        common.pop();
+
+        common.push("Shulker Helmet");
+        SHULKER_HELMET_DAMAGE_ENABLED.configObj = common
+                .comment("Whether or not damaging of Shulker Helmet should be enabled.")
+                .define("shulkerHelmetDamageEnabled", SHULKER_HELMET_DAMAGE_ENABLED.getDefaultValue());
+        SHULKER_HELMET_DURABILITY.configObj = common
+                .comment("Shulker Helmet durability.")
+                .defineInRange("shulkerHelmetDurability", SHULKER_HELMET_DURABILITY.getDefaultValue(), 1, 10000);
         common.pop();
 
         common.push("Stocking Cap");
