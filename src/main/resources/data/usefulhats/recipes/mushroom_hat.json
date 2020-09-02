@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "conditions": [
+    {
+      "type": "usefulhats:is_enabled",
+      "item": "usefulhats:mushroom_hat"
+    }
+  ],
+  "pattern": [
+    "###",
+    "# #"
+  ],
+  "key": {
+    "#": {
+      "tag": "forge:mushroom_caps"
+    }
+  },
+  "result": {
+    "item": "usefulhats:mushroom_hat"
+  }
+}

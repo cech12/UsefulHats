@@ -16,7 +16,10 @@
   "item.usefulhats.mining_hat": "Chapéu do Mineiro",
   "item.usefulhats.mining_hat.desc.mining_speed": "Minerar com uma Picareta é §2%s%%§9 mais rápido. (Somase a encantamentos e poções)",
   "item.usefulhats.mining_hat.desc.night_vision": "Enquanto segura uma Picareta, você obtém o efeito de §2Visão Noturna§9 em áreas escuras.",
-  
+
+  "item.usefulhats.mushroom_hat": "Mushroom Hat",
+  "item.usefulhats.mushroom_hat.desc.feeding": "When you are hungry, you take a bite out of this hat.",
+
   "item.usefulhats.postman_hat": "Chapéu do Carteiro",
   "item.usefulhats.postman_hat.desc.speed": "Enquanto corre, você obtém o efeito §2Velocidade%s§9.",
   "item.usefulhats.postman_hat.desc.hunger": "Mas você também obtém o efeito §6Fome§c.",

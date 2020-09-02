@@ -17,6 +17,9 @@
   "item.usefulhats.mining_hat.desc.mining_speed": "Mining with a pickaxe is §2%s%%§9 faster. (stackable with enchantments and potions)",
   "item.usefulhats.mining_hat.desc.night_vision": "While holding a pickaxe you get §2Night Vision§9 effect in dark areas.",
 
+  "item.usefulhats.mushroom_hat": "Mushroom Hat",
+  "item.usefulhats.mushroom_hat.desc.feeding": "When you are hungry, you take a bite out of this hat.",
+
   "item.usefulhats.postman_hat": "Postman Hat",
   "item.usefulhats.postman_hat.desc.speed": "While sprinting you get §2Speed%s§9 effect.",
   "item.usefulhats.postman_hat.desc.hunger": "But you get also §6Hunger§c effect.",
