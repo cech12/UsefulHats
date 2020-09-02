@@ -1,5 +1,6 @@
 package cech12.usefulhats.item;
 
+import cech12.usefulhats.UsefulHatsTags;
 import cech12.usefulhats.config.Config;
 import cech12.usefulhats.config.ConfigType;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -30,6 +31,9 @@ public enum HatArmorMaterial implements IArmorMaterial {
     }),
     MINING("usefulhats:blank", Config.MINING_HAT_DURABILITY, 15, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, () -> {
         return Ingredient.fromItems(Items.GOLD_INGOT);
+    }),
+    MUSHROOM("usefulhats:blank", Config.MUSHROOM_HAT_DURABILITY, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
+        return Ingredient.fromTag(UsefulHatsTags.Items.MUSHROOM_CAPS);
     }),
     POSTMAN("usefulhats:blank", Config.POSTMAN_HAT_DURABILITY, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
         return Ingredient.fromItems(Items.LAPIS_LAZULI);

@@ -1,0 +1,7 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "usefulhats:item/mushroom_hat",
+        "layer1": "usefulhats:item/mushroom_hat_overlay"
+    }
+}
