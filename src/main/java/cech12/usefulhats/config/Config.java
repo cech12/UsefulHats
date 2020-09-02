@@ -51,6 +51,11 @@ public class Config {
     public static final ConfigType.Double MINING_HAT_SPEED_WITH_EFFICIENCY_4 = new ConfigType.Double(1.0);
     public static final ConfigType.Double MINING_HAT_SPEED_WITH_EFFICIENCY_5 = new ConfigType.Double(1.5);
 
+    public static final ConfigType.Boolean MUSHROOM_HAT_ENABLED = new ConfigType.Boolean(true);
+    public static final ConfigType.Boolean MUSHROOM_HAT_DAMAGE_ENABLED = new ConfigType.Boolean(true);
+    public static final ConfigType.Integer MUSHROOM_HAT_DURABILITY = new ConfigType.Integer(80);
+    public static final ConfigType.Integer MUSHROOM_HAT_EAT_INTERVAL = new ConfigType.Integer(60);
+
     public static final ConfigType.Boolean POSTMAN_HAT_ENABLED = new ConfigType.Boolean(true);
     public static final ConfigType.Boolean POSTMAN_HAT_DAMAGE_ENABLED = new ConfigType.Boolean(true);
     public static final ConfigType.Integer POSTMAN_HAT_DURABILITY = new ConfigType.Integer(600);
@@ -107,6 +112,9 @@ public class Config {
         MINING_HAT_ENABLED.configObj = common
                 .comment("Whether or not Mining Hat should be enabled.")
                 .define("miningHatEnabled", MINING_HAT_ENABLED.getDefaultValue());
+        MUSHROOM_HAT_ENABLED.configObj = common
+                .comment("Whether or not Mushroom Hat should be enabled.")
+                .define("mushroomHatEnabled", MUSHROOM_HAT_ENABLED.getDefaultValue());
         POSTMAN_HAT_ENABLED.configObj = common
                 .comment("Whether or not Postman Hat should be enabled.")
                 .define("postmanHatEnabled", POSTMAN_HAT_ENABLED.getDefaultValue());
@@ -226,6 +234,18 @@ public class Config {
         MINING_HAT_SPEED_WITH_EFFICIENCY_5.configObj = common
                 .comment("Mining Hat speed increase with Efficiency V.")
                 .defineInRange("miningHatSpeedWithEfficiency5", MINING_HAT_SPEED_WITH_EFFICIENCY_5.getDefaultValue(), 0.0, 5.0);
+        common.pop();
+
+        common.push("Mushroom Hat");
+        MUSHROOM_HAT_DAMAGE_ENABLED.configObj = common
+                .comment("Whether or not damaging of Mushroom Hat should be enabled.")
+                .define("mushroomHatDamageEnabled", LUCKY_HAT_DAMAGE_ENABLED.getDefaultValue());
+        MUSHROOM_HAT_DURABILITY.configObj = common
+                .comment("Mushroom Hat durability.")
+                .defineInRange("mushroomHatDurability", MUSHROOM_HAT_DURABILITY.getDefaultValue(), 1, 10000);
+        MUSHROOM_HAT_EAT_INTERVAL.configObj = common
+                .comment("Interval the Mushroom Hat is eaten by the player (in ticks). default: 60 (3 seconds)")
+                .defineInRange("mushroomHatEatInterval", MUSHROOM_HAT_EAT_INTERVAL.getDefaultValue(), 1, 10000);
         common.pop();
 
         common.push("Postman Hat");

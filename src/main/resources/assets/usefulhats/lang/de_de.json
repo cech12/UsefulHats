@@ -17,6 +17,9 @@
   "item.usefulhats.mining_hat.desc.mining_speed": "Mit einer Spitzhacke Gestein abbauen ist §2%s%%§9 schneller. (mit Verzauberungen und Tränken kombinierbar)",
   "item.usefulhats.mining_hat.desc.night_vision": "Mit einer Spitzhacke in der Hand bekommst du den §2Nachtsicht§9 Effect in dunklen Bereichen.",
 
+  "item.usefulhats.mushroom_hat": "Pilzhut",
+  "item.usefulhats.mushroom_hat.desc.feeding": "Wenn du Hunger hast, isst du einen Happen von diesem Hut.",
+
   "item.usefulhats.postman_hat": "Postmütze",
   "item.usefulhats.postman_hat.desc.speed": "Beim Rennen bekommst du den §2Schnelligkeit%s§9 Effekt.",
   "item.usefulhats.postman_hat.desc.hunger": "Aber du bekommst auch den §6Hunger§c Effekt.",
