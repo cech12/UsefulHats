@@ -154,15 +154,18 @@ public class ModItems {
 
     private static void onLivingEquipmentChangeEvent(LivingEquipmentChangeEvent event) {
         if (event.getSlot() == EquipmentSlotType.HEAD) {
-            ItemStack fromItem = event.getFrom();
-            ItemStack toItem = event.getTo();
-            for (Item item : ModItems.items) {
-                if (item instanceof IEquipmentChangeListener) {
-                    if (fromItem.getItem() == item && toItem.getItem() != item) {
-                        ((IEquipmentChangeListener) item).onUnequippedHatItem(event.getEntityLiving(), fromItem);
-                    }
-                    if (fromItem.getItem() != item && toItem.getItem() == item) {
-                        ((IEquipmentChangeListener) item).onEquippedHatItem(event.getEntityLiving(), toItem);
+            ItemStack fromItemStack = event.getFrom();
+            Item fromItem = fromItemStack.getItem();
+            ItemStack toItemStack = event.getTo();
+            Item toItem = toItemStack.getItem();
+            if (fromItem != toItem && (fromItem instanceof IEquipmentChangeListener || toItem instanceof IEquipmentChangeListener)) {
+                for (Item item : ModItems.items) {
+                    if (item instanceof IEquipmentChangeListener) {
+                        if (fromItem == item) {
+                            ((IEquipmentChangeListener) item).onUnequippedHatItem(event.getEntityLiving(), fromItemStack);
+                        } else if (toItem == item) {
+                            ((IEquipmentChangeListener) item).onEquippedHatItem(event.getEntityLiving(), toItemStack);
+                        }
                     }
                 }
             }
@@ -173,16 +176,17 @@ public class ModItems {
      * equipment change event of curios mod
      */
     private static void onCuriosEquipmentChangeEvent(LivingCurioChangeEvent event) {
-        if (event.getTypeIdentifier().equals("head")) {
-            ItemStack fromItem = event.getFrom();
-            ItemStack toItem = event.getTo();
+        ItemStack fromItemStack = event.getFrom();
+        Item fromItem = fromItemStack.getItem();
+        ItemStack toItemStack = event.getTo();
+        Item toItem = toItemStack.getItem();
+        if (fromItem != toItem && (fromItem instanceof IEquipmentChangeListener || toItem instanceof IEquipmentChangeListener)) {
             for (Item item : ModItems.items) {
                 if (item instanceof IEquipmentChangeListener) {
-                    if (fromItem.getItem() == item && toItem.getItem() != item) {
-                        ((IEquipmentChangeListener) item).onUnequippedHatItem(event.getEntityLiving(), fromItem);
-                    }
-                    if (fromItem.getItem() != item && toItem.getItem() == item) {
-                        ((IEquipmentChangeListener) item).onEquippedHatItem(event.getEntityLiving(), toItem);
+                    if (fromItem == item) {
+                        ((IEquipmentChangeListener) item).onUnequippedHatItem(event.getEntityLiving(), fromItemStack);
+                    } else if (toItem == item) {
+                        ((IEquipmentChangeListener) item).onEquippedHatItem(event.getEntityLiving(), toItemStack);
                     }
                 }
             }
