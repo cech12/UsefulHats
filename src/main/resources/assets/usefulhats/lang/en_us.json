@@ -2,6 +2,10 @@
   "item.usefulhats.aquanaut_helmet": "Aquanaut Helmet",
   "item.usefulhats.aquanaut_helmet.desc.conduit_power": "You get §2Conduit Power§9 effect for %s seconds.",
 
+  "item.usefulhats.bunny_ears": "Bunny Ears",
+  "item.usefulhats.bunny_ears.desc.jump_boost": "You get §2Jump Boost%s§9 effect.",
+  "item.usefulhats.bunny_ears.desc.eating": "Eating is §2%s§9 times faster.",
+
   "item.usefulhats.chopping_hat": "Chopping Hat",
   "item.usefulhats.chopping_hat.desc.chopping_speed": "Chopping with an axe is §2%s%%§9 faster. (stackable with enchantments and potions)",
 

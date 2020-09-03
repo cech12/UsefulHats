@@ -18,6 +18,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
 import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent;
 import net.minecraftforge.event.entity.player.ItemFishedEvent;
@@ -33,6 +34,7 @@ public class ModItems {
 
     private static final Item[] items = {
             new AquanautHelmetItem(),
+            new BunnyEarsItem(),
             new ChoppingHatItem(),
             new HaloItem(),
             new LuckyHatItem(),
@@ -76,6 +78,7 @@ public class ModItems {
         MinecraftForge.EVENT_BUS.addListener(ModItems::onLivingDropsEvent);
         MinecraftForge.EVENT_BUS.addListener(ModItems::onLivingEquipmentChangeEvent);
         MinecraftForge.EVENT_BUS.addListener(ModItems::onLivingSetAttackTargetEvent);
+        MinecraftForge.EVENT_BUS.addListener(ModItems::onLivingUseItemEvent);
         //curios events
         if (CuriosMod.isLoaded()) {
             MinecraftForge.EVENT_BUS.addListener(ModItems::onCuriosEquipmentChangeEvent);
@@ -147,6 +150,19 @@ public class ModItems {
                 for (Item item : ModItems.items) {
                     if (item instanceof ILivingDropsListener && item == headSlotItemStack.getItem()) {
                         ((ILivingDropsListener) item).onLivingDropsEvent(event, player, headSlotItemStack);
+                    }
+                }
+            }
+        }
+    }
+
+    private static void onLivingUseItemEvent(LivingEntityUseItemEvent event) {
+        if (event.getEntityLiving() instanceof PlayerEntity) {
+            PlayerEntity player = (PlayerEntity) event.getEntityLiving();
+            for (ItemStack headSlotItemStack : UsefulHatsUtils.getHeadSlotItemStacks(player)) {
+                for (Item item : ModItems.items) {
+                    if (item instanceof IItemUseListener && item == headSlotItemStack.getItem()) {
+                        ((IItemUseListener) item).onItemUseEvent(event, player, headSlotItemStack);
                     }
                 }
             }

@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "usefulhats:bunny_ears"
+    ]
+  },
+  "criteria": {
+    "has_rabbit_hide": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:rabbit_hide"
+          }
+        ]
+      }
+    },
+    "has_carrot": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:carrot"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "usefulhats:bunny_ears"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_rabbit_hide",
+      "has_carrot",
+      "has_the_recipe"
+    ]
+  ]
+}
