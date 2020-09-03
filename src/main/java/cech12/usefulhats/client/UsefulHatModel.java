@@ -48,6 +48,11 @@ public class UsefulHatModel<T extends LivingEntity> extends BipedModel<T> {
         outerTopHatAddition.addBox(-4.0F, -10.5F - (scaleWithOffset + 0.5F)*2, -4.0F, 8, 2, 8, scaleWithOffset + 0.5F);
         outerTopHatAddition.setRotationPoint(0.0F, 0.0F + p_i1149_2_, 0.0F);
         this.bipedHeadwear.addChild(outerTopHatAddition);
+        //add vertical flat box for bunny ears or similar
+        ModelRenderer verticalHatAddition = new ModelRenderer(this, 34, 31);
+        verticalHatAddition.addBox(-4.5F, -16.0F - scale, 0.0F, 9, 8, 1, scale);
+        verticalHatAddition.setRotationPoint(0.0F, 0.0F + p_i1149_2_, 0.0F);
+        this.bipedHeadwear.addChild(verticalHatAddition);
         //disable all render models of biped model except the hat (because it is overridden with own model)
         this.setVisible(false);
         this.bipedHead.showModel = true;
