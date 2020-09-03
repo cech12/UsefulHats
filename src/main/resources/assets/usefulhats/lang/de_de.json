@@ -2,6 +2,10 @@
   "item.usefulhats.aquanaut_helmet": "Taucherhelm",
   "item.usefulhats.aquanaut_helmet.desc.conduit_power": "Du bekommst den §2Meereskraft§9 Effekt für %s Sekunden.",
 
+  "item.usefulhats.bunny_ears": "Hasenohren",
+  "item.usefulhats.bunny_ears.desc.jump_boost": "Du bekommst den §2Sprungkraft%s§9 Effekt.",
+  "item.usefulhats.bunny_ears.desc.eating": "Essen ist §2%s§9 mal schneller.",
+
   "item.usefulhats.chopping_hat": "Holzfällermütze",
   "item.usefulhats.chopping_hat.desc.chopping_speed": "Mit einer Axt Holz hacken ist §2%s%%§9 schneller. (mit Verzauberungen und Tränken kombinierbar)",
 

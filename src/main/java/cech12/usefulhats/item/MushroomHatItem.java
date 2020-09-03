@@ -1,9 +1,6 @@
 package cech12.usefulhats.item;
 
-import cech12.usefulhats.UsefulHatsUtils;
 import cech12.usefulhats.config.Config;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.FoodStats;
@@ -25,8 +22,7 @@ public class MushroomHatItem extends AbstractHatItem implements IUsefulHatModelO
     @Override
     public void onItemToolTipEvent(ItemStack stack, List<ITextComponent> tooltip) {
         super.onItemToolTipEvent(stack, tooltip);
-        int enchantmentLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.EFFICIENCY, stack) + 1;
-        tooltip.add(new TranslationTextComponent("item.usefulhats.mushroom_hat.desc.feeding", UsefulHatsUtils.getRomanNumber(enchantmentLevel, false)).applyTextStyle(TextFormatting.BLUE));
+        tooltip.add(new TranslationTextComponent("item.usefulhats.mushroom_hat.desc.feeding").applyTextStyle(TextFormatting.BLUE));
     }
 
     @Override

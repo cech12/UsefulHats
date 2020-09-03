@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "conditions": [
+    {
+      "type": "usefulhats:is_enabled",
+      "item": "usefulhats:bunny_ears"
+    }
+  ],
+  "pattern": [
+    "# #",
+    "# #",
+    "CCC"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:rabbit_hide"
+    },
+    "C": {
+      "item": "minecraft:carrot"
+    }
+  },
+  "result": {
+    "item": "usefulhats:bunny_ears"
+  }
+}

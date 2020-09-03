@@ -20,6 +20,9 @@ public enum HatArmorMaterial implements IArmorMaterial {
     AQUANAUT("usefulhats:blank", Config.AQUANAUT_HELMET_DURABILITY, 15, SoundEvents.ITEM_ARMOR_EQUIP_TURTLE, () -> {
         return Ingredient.fromItems(Items.SCUTE);
     }),
+    BUNNY("usefulhats:blank", Config.BUNNY_EARS_DURABILITY, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
+        return Ingredient.fromItems(Items.RABBIT_HIDE, Items.CARROT);
+    }),
     CHOPPING("usefulhats:chopping", Config.CHOPPING_HAT_DURABILITY, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
         return Ingredient.fromItems(Items.RABBIT_HIDE);
     }),

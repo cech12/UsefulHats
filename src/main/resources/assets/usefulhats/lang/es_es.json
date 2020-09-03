@@ -2,6 +2,10 @@
   "item.usefulhats.aquanaut_helmet": "Casco de acuanauta",
   "item.usefulhats.aquanaut_helmet.desc.conduit_power": "Recibes el efecto de §2Canalización§9 por %s segundos.",
 
+  "item.usefulhats.bunny_ears": "Bunny Ears",
+  "item.usefulhats.bunny_ears.desc.jump_boost": "You get §2Jump Boost%s§9 effect.",
+  "item.usefulhats.bunny_ears.desc.eating": "Eating is §2%s§9 times faster.",
+
   "item.usefulhats.chopping_hat": "Sombrero de leñador",
   "item.usefulhats.chopping_hat.desc.chopping_speed": "Cortar con un hacha es §2%s%%§9 más rápido. (se puede combinar con encantos y pociones)",
 

@@ -1,0 +1,7 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "usefulhats:item/bunny_ears",
+        "layer1": "usefulhats:item/bunny_ears_overlay"
+    }
+}

@@ -20,6 +20,10 @@ public class Config {
     public static final ConfigType.Integer AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_2 = new ConfigType.Integer(180);
     public static final ConfigType.Integer AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_3 = new ConfigType.Integer(240);
 
+    public static final ConfigType.Boolean BUNNY_EARS_ENABLED = new ConfigType.Boolean(true);
+    public static final ConfigType.Boolean BUNNY_EARS_DAMAGE_ENABLED = new ConfigType.Boolean(true);
+    public static final ConfigType.Integer BUNNY_EARS_DURABILITY = new ConfigType.Integer(600);
+
     public static final ConfigType.Boolean CHOPPING_HAT_ENABLED = new ConfigType.Boolean(true);
     public static final ConfigType.Boolean CHOPPING_HAT_DAMAGE_ENABLED = new ConfigType.Boolean(true);
     public static final ConfigType.Integer CHOPPING_HAT_DURABILITY = new ConfigType.Integer(300);
@@ -100,6 +104,9 @@ public class Config {
         AQUANAUT_HELMET_ENABLED.configObj = common
                 .comment("Whether or not Aquanaut Helmet should be enabled.")
                 .define("aquanautHelmetEnabled", AQUANAUT_HELMET_ENABLED.getDefaultValue());
+        BUNNY_EARS_ENABLED.configObj = common
+                .comment("Whether or not Bunny Ears should be enabled.")
+                .define("bunnyEarsEnabled", BUNNY_EARS_ENABLED.getDefaultValue());
         CHOPPING_HAT_ENABLED.configObj = common
                 .comment("Whether or not Chopping Hat should be enabled.")
                 .define("choppingHatEnabled", CHOPPING_HAT_ENABLED.getDefaultValue());
@@ -153,6 +160,15 @@ public class Config {
         AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_3.configObj = common
                 .comment("Aquanaut Helmet effect time of Conduit Power with Respiration III. (in seconds)")
                 .defineInRange("aquanautHelmetEffectTimeWithRespiration3", AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_3.getDefaultValue(), 10, 300);
+        common.pop();
+
+        common.push("Bunny Ears");
+        HALO_DAMAGE_ENABLED.configObj = common
+                .comment("Whether or not damaging of Bunny Ears should be enabled.")
+                .define("bunnyEarsDamageEnabled", HALO_DAMAGE_ENABLED.getDefaultValue());
+        HALO_DURABILITY.configObj = common
+                .comment("Bunny Ears durability.")
+                .defineInRange("bunnyEarsDurability", HALO_DURABILITY.getDefaultValue(), 1, 10000);
         common.pop();
 
         common.push("Chopping Hat");
