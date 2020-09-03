@@ -17,7 +17,7 @@ public class UsefulHatModel<T extends LivingEntity> extends BipedModel<T> {
     }
 
     private UsefulHatModel(float modelSize) {
-        this(modelSize, 0.0F, 64, 48);
+        this(modelSize, 0.0F, 64, 58);
     }
 
     private UsefulHatModel(float scale, float p_i1149_2_, int textureWidthIn, int textureHeightIn) {
@@ -32,12 +32,22 @@ public class UsefulHatModel<T extends LivingEntity> extends BipedModel<T> {
         this.bipedHeadwear = new ModelRenderer(this, 32, 0);
         this.bipedHeadwear.addBox(-4.0F, -8.5F, -4.0F, 8, 8, 8, scaleWithOffset + 0.5F);
         this.bipedHeadwear.setRotationPoint(0.0F, 0.0F + p_i1149_2_, 0.0F);
+        //add flat hat addition
         ModelRenderer hatAddition = new ModelRenderer(this, 0, 31);
         hatAddition.addBox(-8.0F, -8.0F, -5.5F - scaleWithOffset*2, 16, 16, 1, scaleWithOffset*2);
         hatAddition.setRotationPoint(0.0F, 0.0F + p_i1149_2_, 0.0F);
         hatAddition.rotateAngleX = (-(float)Math.PI / 2F);
         //add hat addition to head wear as child. So no extra calculations must be done.
         this.bipedHeadwear.addChild(hatAddition);
+        //add top hat addition
+        ModelRenderer topHatAddition = new ModelRenderer(this, 0, 48);
+        topHatAddition.addBox(-4.0F, -10.5F - scaleWithOffset*2, -4.0F, 8, 2, 8, scaleWithOffset);
+        topHatAddition.setRotationPoint(0.0F, 0.0F + p_i1149_2_, 0.0F);
+        this.bipedHead.addChild(topHatAddition);
+        ModelRenderer outerTopHatAddition = new ModelRenderer(this, 32, 48);
+        outerTopHatAddition.addBox(-4.0F, -10.5F - (scaleWithOffset + 0.5F)*2, -4.0F, 8, 2, 8, scaleWithOffset + 0.5F);
+        outerTopHatAddition.setRotationPoint(0.0F, 0.0F + p_i1149_2_, 0.0F);
+        this.bipedHeadwear.addChild(outerTopHatAddition);
         //disable all render models of biped model except the hat (because it is overridden with own model)
         this.setVisible(false);
         this.bipedHead.showModel = true;
