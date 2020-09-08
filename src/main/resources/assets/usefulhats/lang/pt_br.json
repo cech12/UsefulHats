@@ -2,9 +2,9 @@
   "item.usefulhats.aquanaut_helmet": "Capacete do Aquanauta",
   "item.usefulhats.aquanaut_helmet.desc.conduit_power": "Você obtém o efeito §2Poder do Conduíte§9 por %s segundos.",
 
-  "item.usefulhats.bunny_ears": "Bunny Ears",
-  "item.usefulhats.bunny_ears.desc.jump_boost": "You get §2Jump Boost%s§9 effect.",
-  "item.usefulhats.bunny_ears.desc.eating": "Eating is §2%s§9 times faster.",
+  "item.usefulhats.bunny_ears": "Orelhas de Coelho",
+  "item.usefulhats.bunny_ears.desc.jump_boost": "Você obtém efeito de §2Super Pulo%s§9.",
+  "item.usefulhats.bunny_ears.desc.eating": "Comer é §2%s§9 vezes mais rápido.",
 
   "item.usefulhats.chopping_hat": "Chapéu do Lenhador",
   "item.usefulhats.chopping_hat.desc.chopping_speed": "Cortar com um machado é §2%s%%§9 mais rápido. (Somase a encantamentos e poções)",
@@ -21,8 +21,8 @@
   "item.usefulhats.mining_hat.desc.mining_speed": "Minerar com uma Picareta é §2%s%%§9 mais rápido. (Somase a encantamentos e poções)",
   "item.usefulhats.mining_hat.desc.night_vision": "Enquanto segura uma Picareta, você obtém o efeito de §2Visão Noturna§9 em áreas escuras.",
 
-  "item.usefulhats.mushroom_hat": "Mushroom Hat",
-  "item.usefulhats.mushroom_hat.desc.feeding": "When you are hungry, you take a bite out of this hat.",
+  "item.usefulhats.mushroom_hat": "Chapéu de Cogumelo",
+  "item.usefulhats.mushroom_hat.desc.feeding": "Quando você está com fome, você dá uma mordida neste chapéu.",
   
   "item.usefulhats.postman_hat": "Chapéu do Carteiro",
   "item.usefulhats.postman_hat.desc.speed": "Enquanto corre, você obtém o efeito §2Velocidade%s§9.",
