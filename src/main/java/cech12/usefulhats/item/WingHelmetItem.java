@@ -34,6 +34,12 @@ public class WingHelmetItem extends AbstractHatItem implements IEquipmentChangeL
         }
     }
 
+    private boolean isPlayerFalling(PlayerEntity player) {
+        return !player.onGround && player.getMotion().getY() < 0 //not on ground & motion downwards
+                && !player.abilities.isFlying && !player.isElytraFlying() //not (elytra) flying
+                && !player.isInWater() && !player.isInLava(); //not in fluid
+    }
+
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
         if (!world.isRemote) {
@@ -53,7 +59,7 @@ public class WingHelmetItem extends AbstractHatItem implements IEquipmentChangeL
             //slow falling effect
             boolean isSlowFallingFromOtherSource = this.isEffectCausedByOtherSource(player, Effects.SLOW_FALLING, SLOW_FALLING_DURATION, SLOW_FALLING_AMPLIFIER);
             boolean isSlowFallingEffectActive = player.getActivePotionEffect(Effects.SLOW_FALLING) != null;
-            if (!player.onGround && !player.isInWater() && !player.isInLava()) {
+            if (this.isPlayerFalling(player)) {
                 if (!isLevitationEffectActive && !isSlowFallingFromOtherSource) {
                     //only add slow falling effect when no levitation effect an no slow falling effect is active (other sources like potions)
                     if (!isSlowFallingEffectActive || player.ticksExisted % 19 == 0) {
