@@ -1,0 +1,42 @@
+{
+  "item.usefulhats.aquanaut_helmet": "潛水頭盔",
+  "item.usefulhats.aquanaut_helmet.desc.conduit_power": "可獲得 %s 秒的 §2海靈祝福§9 效果.",
+
+  "item.usefulhats.bunny_ears": "兔耳",
+  "item.usefulhats.bunny_ears.desc.jump_boost": "可獲得 §2跳躍提升 %s§9 效果.",
+  "item.usefulhats.bunny_ears.desc.eating": "吃東西縮短 §2%s§9 時間.",
+
+  "item.usefulhats.chopping_hat": "木工帽",
+  "item.usefulhats.chopping_hat.desc.chopping_speed": "用斧砍樹時加速 §2%s%%§9 時間. (可和附魔及藥水效果疊加)",
+
+  "item.usefulhats.halo": "聖光",
+  "item.usefulhats.halo.desc.no_attack": "除了Boss以外的生物不會攻擊你.",
+  "item.usefulhats.halo.desc.beware_of_nether": "除了 §4地獄§c 生物.",
+
+  "item.usefulhats.lucky_hat": "幸運帽",
+  "item.usefulhats.lucky_hat.desc.luck": "握著劍,斧或魚竿時，可獲得 §2幸運%s§9 效果.",
+  "item.usefulhats.lucky_hat.desc.unluck": "但是在釣魚或殺死生物之後，會獲得十秒 §6霉運§c 效果.",
+
+  "item.usefulhats.mining_hat": "礦工帽",
+  "item.usefulhats.mining_hat.desc.mining_speed": "用鎬挖礦時加速 §2%s%%§9 時間. (可和附魔及藥水效果疊加)",
+  "item.usefulhats.mining_hat.desc.night_vision": "在黑暗中拿著鎬時獲得 §2夜視§9 效果.",
+
+  "item.usefulhats.mushroom_hat": "蘑菇帽",
+  "item.usefulhats.mushroom_hat.desc.feeding": "當你餓了, 你可以咬一口這頂帽子.",
+
+  "item.usefulhats.postman_hat": "郵差帽",
+  "item.usefulhats.postman_hat.desc.speed": "當你疾跑時獲得 §2速度%s§9 效果.",
+  "item.usefulhats.postman_hat.desc.hunger": "但你也獲得 §6飢餓§c 效果.",
+
+  "item.usefulhats.shulker_helmet": "界伏帽",
+  "item.usefulhats.shulker_helmet.desc.levitation": "可獲得 §2懸浮%s§9 效果.",
+
+  "item.usefulhats.stocking_cap": "長襪帽",
+
+  "item.usefulhats.straw_hat": "草帽",
+  "item.usefulhats.straw_hat.desc.digging_speed": "用鋤或鏟時加速 §2%s%%§9 時間. (可和附魔及藥水效果疊加)",
+
+  "item.usefulhats.wing_helmet": "帶翼帽",
+  "item.usefulhats.wing_helmet.desc.slow_falling": "當你墜落時獲得 §2緩降§9 效果.",
+  "item.usefulhats.wing_helmet.desc.scared": "有時帽子會因為怕怪物而飛走."
+}
