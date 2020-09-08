@@ -94,7 +94,7 @@ public class ModItems {
     }
 
     private static void onBreakSpeedEvent(PlayerEvent.BreakSpeed event) {
-        for (ItemStack headSlotItemStack : UsefulHatsUtils.getHeadSlotItemStacks(event.getPlayer())) {
+        for (ItemStack headSlotItemStack : UsefulHatsUtils.getEquippedHatItemStacks(event.getPlayer())) {
             for (Item item : ModItems.items) {
                 if (item instanceof IBreakSpeedChanger && headSlotItemStack.getItem() == item) {
                     ((IBreakSpeedChanger) item).onBreakSpeedEvent(event, headSlotItemStack);
@@ -104,7 +104,7 @@ public class ModItems {
     }
 
     private static void onBreakEvent(BlockEvent.BreakEvent event) {
-        for (ItemStack headSlotItemStack : UsefulHatsUtils.getHeadSlotItemStacks(event.getPlayer())) {
+        for (ItemStack headSlotItemStack : UsefulHatsUtils.getEquippedHatItemStacks(event.getPlayer())) {
             for (Item item : ModItems.items) {
                 if (item instanceof IBreakSpeedChanger && headSlotItemStack.getItem() == item) {
                     ((IBreakSpeedChanger) item).onBreakEvent(event, headSlotItemStack);
@@ -125,7 +125,7 @@ public class ModItems {
     }
 
     private static void onItemFishedEvent(ItemFishedEvent event) {
-        for (ItemStack headSlotItemStack : UsefulHatsUtils.getHeadSlotItemStacks(event.getPlayer())) {
+        for (ItemStack headSlotItemStack : UsefulHatsUtils.getEquippedHatItemStacks(event.getPlayer())) {
             for (Item item : ModItems.items) {
                 if (item instanceof IItemFishedListener && headSlotItemStack.getItem() == item) {
                     ((IItemFishedListener) item).onItemFishedListener(event, headSlotItemStack);
@@ -146,7 +146,7 @@ public class ModItems {
     private static void onLivingDropsEvent(LivingDropsEvent event) {
         if (event.getSource().getImmediateSource() instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity) event.getSource().getImmediateSource();
-            for (ItemStack headSlotItemStack : UsefulHatsUtils.getHeadSlotItemStacks(player)) {
+            for (ItemStack headSlotItemStack : UsefulHatsUtils.getEquippedHatItemStacks(player)) {
                 for (Item item : ModItems.items) {
                     if (item instanceof ILivingDropsListener && item == headSlotItemStack.getItem()) {
                         ((ILivingDropsListener) item).onLivingDropsEvent(event, player, headSlotItemStack);
@@ -159,7 +159,7 @@ public class ModItems {
     private static void onLivingUseItemEvent(LivingEntityUseItemEvent event) {
         if (event.getEntityLiving() instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity) event.getEntityLiving();
-            for (ItemStack headSlotItemStack : UsefulHatsUtils.getHeadSlotItemStacks(player)) {
+            for (ItemStack headSlotItemStack : UsefulHatsUtils.getEquippedHatItemStacks(player)) {
                 for (Item item : ModItems.items) {
                     if (item instanceof IItemUseListener && item == headSlotItemStack.getItem()) {
                         ((IItemUseListener) item).onItemUseEvent(event, player, headSlotItemStack);
@@ -214,7 +214,7 @@ public class ModItems {
         if (event.getEntity() instanceof MobEntity && event.getTarget() instanceof PlayerEntity) {
             MobEntity mob = (MobEntity) event.getEntity();
             PlayerEntity player = (PlayerEntity) event.getTarget();
-            for (ItemStack headSlotItemStack : UsefulHatsUtils.getHeadSlotItemStacks(player)) {
+            for (ItemStack headSlotItemStack : UsefulHatsUtils.getEquippedHatItemStacks(player)) {
                 for (Item item : ModItems.items) {
                     if (item instanceof IAttackTargetChanger && item == headSlotItemStack.getItem()) {
                         ((IAttackTargetChanger) item).onLivingSetAttackTarget(mob, player);

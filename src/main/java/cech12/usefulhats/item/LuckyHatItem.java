@@ -71,6 +71,7 @@ public class LuckyHatItem extends AbstractHatItem implements IItemFishedListener
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
         if (!world.isRemote) {
+            if (!UsefulHatsUtils.getEquippedHatItemStacks(player).contains(stack)) return; //only one worn stack of this item should add its effect
             //when luck or unluck are caused by other source, do nothing
             if (this.isLuckOrUnluckCausedByOtherSource(player, stack)) return;
             //else add luck effect when correct item is in hand and unluck is not active
