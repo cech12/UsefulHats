@@ -36,6 +36,7 @@ public class BunnyEarsItem extends AbstractHatItem implements IEquipmentChangeLi
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
         if (!world.isRemote) {
+            if (!UsefulHatsUtils.getEquippedHatItemStacks(player).contains(stack)) return; //only one worn stack of this item should add its effect
             int amplifier = EnchantmentHelper.getEnchantmentLevel(Enchantments.EFFICIENCY, stack);
             if (!this.isEffectCausedByOtherSource(player, Effects.JUMP_BOOST, JUMP_BOOST_DURATION, amplifier)) {
                 if (player.getActivePotionEffect(Effects.JUMP_BOOST) == null || player.ticksExisted % 19 == 0) {

@@ -1,5 +1,6 @@
 package cech12.usefulhats.item;
 
+import cech12.usefulhats.UsefulHatsUtils;
 import cech12.usefulhats.config.Config;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -48,6 +49,7 @@ public class MiningHatItem extends AbstractMiningHatItem implements IBreakSpeedC
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
         if (!world.isRemote) {
+            if (!UsefulHatsUtils.getEquippedHatItemStacks(player).contains(stack)) return; //only one worn stack of this item should add its effect
             //When Night Vision effect is disabled in config, do nothing.
             if (!Config.MINING_HAT_NIGHT_VISION_ENABLED.getValue()) return;
             //When Night Vision effect is caused by another source, do nothing

@@ -40,6 +40,7 @@ public class HaloItem extends AbstractHatItem implements IAttackTargetChanger, I
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
         if (!world.isRemote) {
+            if (!UsefulHatsUtils.getEquippedHatItemStacks(player).contains(stack)) return; //only one worn stack of this item should add its effect
             // Looses durability outside the nether when non-boss mobs are in range (X blocks)
             if (!isEntityInNether(player)) {
                 Vec3d playerPos = player.getPositionVec();
@@ -74,7 +75,7 @@ public class HaloItem extends AbstractHatItem implements IAttackTargetChanger, I
             super(mobEntity, PlayerEntity.class, 0, true, false,
                     (entity) -> {
                         if (entity instanceof PlayerEntity && isEntityInNether(entity)) {
-                            for (ItemStack headSlotItemStack : UsefulHatsUtils.getHeadSlotItemStacks(entity)) {
+                            for (ItemStack headSlotItemStack : UsefulHatsUtils.getEquippedHatItemStacks(entity)) {
                                 if (headSlotItemStack.getItem() == hatItem) {
                                     return true;
                                 }

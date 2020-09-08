@@ -1,5 +1,6 @@
 package cech12.usefulhats.item;
 
+import cech12.usefulhats.UsefulHatsUtils;
 import cech12.usefulhats.config.Config;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -28,6 +29,7 @@ public class MushroomHatItem extends AbstractHatItem implements IUsefulHatModelO
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
         if (!world.isRemote) {
+            if (!UsefulHatsUtils.getEquippedHatItemStacks(player).contains(stack)) return; //only one worn stack of this item should add its effect
             //eat every 3 seconds until no food is needed
             FoodStats foodStats = player.getFoodStats();
             if (foodStats.needFood() && player.ticksExisted % Config.MUSHROOM_HAT_EAT_INTERVAL.getValue() == 0) {
