@@ -41,6 +41,7 @@ public class PostmanHatItem extends AbstractHatItem implements IEquipmentChangeL
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
         if (!world.isRemote) {
+            if (!UsefulHatsUtils.getEquippedHatItemStacks(player).contains(stack)) return; //only one worn stack of this item should add its effect
             int speedAmplifier = EnchantmentHelper.getEnchantmentLevel(Enchantments.EFFICIENCY, stack);
             //When Speed effect is caused by another source, do nothing
             if (this.isEffectCausedByOtherSource(player, Effects.SPEED, SPEED_DURATION, speedAmplifier)) return;

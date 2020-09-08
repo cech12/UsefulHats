@@ -32,22 +32,25 @@ public class UsefulHatsUtils {
     }
 
     /**
-     * Get all equipped head slot item stacks. Some APIs like Curios enables to have more
-     * than one head slot.
+     * Get all equipped item stacks of hat items of this mod. Some APIs like Curios enables to have more than one slot.
+     * If two hats of the same item are worn, only one is in the list to avoid effect stacking.
      * @param entity entity
-     * @return List of all equipped head slot item stacks
+     * @return List of all equipped item stacks of hat items of this mod.
      */
-    public static List<ItemStack> getHeadSlotItemStacks(LivingEntity entity) {
+    public static List<ItemStack> getEquippedHatItemStacks(LivingEntity entity) {
         List<ItemStack> stacks = new LinkedList<>();
         //vanilla head slot
-        stacks.add(entity.getItemStackFromSlot(EquipmentSlotType.HEAD));
+        ItemStack headItemStack = entity.getItemStackFromSlot(EquipmentSlotType.HEAD);
+        if (headItemStack.getItem() instanceof AbstractHatItem) {
+            stacks.add(headItemStack);
+        }
         if (CuriosMod.isLoaded()) {
             //all curios slots that contain an AbstractHatItem
             CuriosApi.getCuriosHelper().getEquippedCurios(entity).ifPresent(itemHandler -> {
                 int slots = itemHandler.getSlots();
                 for (int i = 0; i < slots; i++) {
                     ItemStack stack = itemHandler.getStackInSlot(i);
-                    if (!stack.isEmpty() && stack.getItem() instanceof AbstractHatItem) {
+                    if (!stack.isEmpty() && stack.getItem() instanceof AbstractHatItem && stacks.stream().noneMatch(s -> s.getItem() == stack.getItem())) {
                         stacks.add(stack);
                     }
                 }

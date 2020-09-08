@@ -1,6 +1,7 @@
 package cech12.usefulhats.item;
 
 import cech12.usefulhats.UsefulHatsMod;
+import cech12.usefulhats.UsefulHatsUtils;
 import cech12.usefulhats.config.Config;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.Minecraft;
@@ -56,6 +57,7 @@ public class AquanautHelmetItem extends AbstractHatItem implements IEquipmentCha
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
         if (!world.isRemote) {
+            if (!UsefulHatsUtils.getEquippedHatItemStacks(player).contains(stack)) return; //only one worn stack of this item should add its effect
             int maxDuration = this.getConduitPowerDuration(stack);
             //When Conduit Power effect is caused by another source, do nothing
             if (this.isEffectCausedByOtherSource(player, Effects.CONDUIT_POWER, maxDuration, 0))

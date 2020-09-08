@@ -1,5 +1,6 @@
 package cech12.usefulhats.item;
 
+import cech12.usefulhats.UsefulHatsUtils;
 import cech12.usefulhats.config.Config;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -38,6 +39,7 @@ public class WingHelmetItem extends AbstractHatItem implements IEquipmentChangeL
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
         if (!world.isRemote) {
+            if (!UsefulHatsUtils.getEquippedHatItemStacks(player).contains(stack)) return; //only one worn stack of this item should add its effect
             //Sometimes the helmet is afraid of monsters and flies away
             boolean isLevitationFromOtherSource = this.isEffectCausedByOtherSource(player, Effects.LEVITATION, LEVITATION_DURATION, LEVITATION_AMPLIFIER);
             boolean isLevitationEffectActive = player.getActivePotionEffect(Effects.LEVITATION) != null;

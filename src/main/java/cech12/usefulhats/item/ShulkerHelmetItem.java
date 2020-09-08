@@ -35,6 +35,7 @@ public class ShulkerHelmetItem extends AbstractHatItem implements IEquipmentChan
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
         if (!world.isRemote) {
+            if (!UsefulHatsUtils.getEquippedHatItemStacks(player).contains(stack)) return; //only one worn stack of this item should add its effect
             int levitationAmplifier = EnchantmentHelper.getEnchantmentLevel(Enchantments.EFFICIENCY, stack);
             if (!this.isEffectCausedByOtherSource(player, Effects.LEVITATION, LEVITATION_DURATION, levitationAmplifier)) {
                 if (player.getActivePotionEffect(Effects.LEVITATION) == null || player.ticksExisted % 19 == 0) {
