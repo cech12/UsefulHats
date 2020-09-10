@@ -25,6 +25,7 @@ import net.minecraftforge.event.entity.player.ItemFishedEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import top.theillusivec4.curios.api.event.LivingCurioChangeEvent;
@@ -71,7 +72,8 @@ public class ModItems {
      * Called at mod initialization.
      */
     public static void addEventListeners() {
-        MinecraftForge.EVENT_BUS.addListener(ModItems::onBreakSpeedEvent);
+        //reduce event priority to support other mods that are overriding the speed
+        MinecraftForge.EVENT_BUS.addListener(EventPriority.LOWEST, ModItems::onBreakSpeedEvent);
         MinecraftForge.EVENT_BUS.addListener(ModItems::onBreakEvent);
         MinecraftForge.EVENT_BUS.addListener(ModItems::onEntityJoinWorldEvent);
         MinecraftForge.EVENT_BUS.addListener(ModItems::onItemFishedEvent);
