@@ -78,7 +78,7 @@ public class MiningHatItem extends AbstractMiningHatItem implements IBreakSpeedC
 
     @Override
     protected boolean isToolEffective(Set<ToolType> toolTypes, BlockState state) {
-        return (toolTypes.contains(ToolType.PICKAXE) && state.isToolEffective(ToolType.PICKAXE));
+        return toolTypes.contains(ToolType.PICKAXE) && state.isToolEffective(ToolType.PICKAXE);
     }
 
     @Override

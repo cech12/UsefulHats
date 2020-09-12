@@ -40,9 +40,9 @@ public class ChoppingHatItem extends AbstractMiningHatItem {
 
     @Override
     protected boolean isToolEffective(Set<ToolType> toolTypes, BlockState state) {
-        return (toolTypes.contains(ToolType.AXE) && (state.isToolEffective(ToolType.AXE)
+        return toolTypes.contains(ToolType.AXE) && (state.isToolEffective(ToolType.AXE)
                 //in 1.16 there is a problem in checking the effective tool for axe tool type & vanilla blocks.
                 //So, add a diamond axe speed check as work around.
-                || (new ItemStack((Items.DIAMOND_AXE)).getDestroySpeed(state)) > 1.0));
+                || (new ItemStack((Items.DIAMOND_AXE)).getDestroySpeed(state)) > 1.0);
     }
 }
