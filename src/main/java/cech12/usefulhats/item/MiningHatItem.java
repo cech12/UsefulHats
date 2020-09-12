@@ -2,6 +2,7 @@ package cech12.usefulhats.item;
 
 import cech12.usefulhats.UsefulHatsUtils;
 import cech12.usefulhats.config.Config;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -11,10 +12,9 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.world.BlockEvent;
 
 import java.util.List;
+import java.util.Set;
 
 public class MiningHatItem extends AbstractMiningHatItem implements IBreakSpeedChanger, IEquipmentChangeListener, IUsefulHatModelOwner {
 
@@ -25,7 +25,8 @@ public class MiningHatItem extends AbstractMiningHatItem implements IBreakSpeedC
         super("mining_hat", HatArmorMaterial.MINING, rawColorFromRGB(255, 216, 0), Config.MINING_HAT_ENABLED, Config.MINING_HAT_DAMAGE_ENABLED);
     }
 
-    private double[] getSpeedConfig() {
+    @Override
+    protected double[] getSpeedConfig() {
         double[] speedConfig = new double[6];
         speedConfig[0] = Config.MINING_HAT_SPEED_WITH_EFFICIENCY_0.getValue();
         speedConfig[1] = Config.MINING_HAT_SPEED_WITH_EFFICIENCY_1.getValue();
@@ -74,18 +75,8 @@ public class MiningHatItem extends AbstractMiningHatItem implements IBreakSpeedC
     }
 
     @Override
-    public void onBreakSpeedEvent(PlayerEvent.BreakSpeed event, ItemStack headSlotItemStack) {
-        if (!event.isCanceled() && event.getPlayer().getHeldItemMainhand().getToolTypes().contains(ToolType.PICKAXE) && event.getState().isToolEffective(ToolType.PICKAXE)) {
-            //use getNewSpeed() instead of getOriginalSpeed() to support other mods that are changing the break speed with this event.
-            event.setNewSpeed((1.0F + (float) this.getEnchantmentValue(headSlotItemStack, this.getSpeedConfig())) * event.getNewSpeed());
-        }
-    }
-
-    @Override
-    public void onBreakEvent(BlockEvent.BreakEvent event, ItemStack headSlotItemStack) {
-        if (!event.isCanceled() && event.getPlayer().getHeldItemMainhand().getToolTypes().contains(ToolType.PICKAXE) && event.getState().isToolEffective(ToolType.PICKAXE)) {
-            this.damageHatItemByOne(headSlotItemStack, event.getPlayer());
-        }
+    protected boolean isToolEffective(Set<ToolType> toolTypes, BlockState state) {
+        return toolTypes.contains(ToolType.PICKAXE) && state.isToolEffective(ToolType.PICKAXE);
     }
 
     @Override

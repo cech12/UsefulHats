@@ -1,15 +1,15 @@
 package cech12.usefulhats.item;
 
 import cech12.usefulhats.config.Config;
+import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.ToolType;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.world.BlockEvent;
 
 import java.util.List;
+import java.util.Set;
 
 public class StrawHatItem extends AbstractMiningHatItem implements IBreakSpeedChanger, IUsefulHatModelOwner {
 
@@ -17,7 +17,8 @@ public class StrawHatItem extends AbstractMiningHatItem implements IBreakSpeedCh
         super("straw_hat", HatArmorMaterial.STRAW, rawColorFromRGB(226,189,0), Config.STRAW_HAT_ENABLED, Config.STRAW_HAT_DAMAGE_ENABLED);
     }
 
-    private double[] getSpeedConfig() {
+    @Override
+    protected double[] getSpeedConfig() {
         double[] speedConfig = new double[6];
         speedConfig[0] = Config.STRAW_HAT_SPEED_WITH_EFFICIENCY_0.getValue();
         speedConfig[1] = Config.STRAW_HAT_SPEED_WITH_EFFICIENCY_1.getValue();
@@ -36,18 +37,8 @@ public class StrawHatItem extends AbstractMiningHatItem implements IBreakSpeedCh
     }
 
     @Override
-    public void onBreakSpeedEvent(PlayerEvent.BreakSpeed event, ItemStack headSlotItemStack) {
-        if (!event.isCanceled() && event.getPlayer().getHeldItemMainhand().getToolTypes().contains(ToolType.SHOVEL) && event.getState().isToolEffective(ToolType.SHOVEL)) {
-            //use getNewSpeed() instead of getOriginalSpeed() to support other mods that are changing the break speed with this event.
-            event.setNewSpeed((1.0F + (float) this.getEnchantmentValue(headSlotItemStack, this.getSpeedConfig())) * event.getNewSpeed());
-        }
-    }
-
-    @Override
-    public void onBreakEvent(BlockEvent.BreakEvent event, ItemStack headSlotItemStack) {
-        if (!event.isCanceled() && event.getPlayer().getHeldItemMainhand().getToolTypes().contains(ToolType.SHOVEL) && event.getState().isToolEffective(ToolType.SHOVEL)) {
-            this.damageHatItemByOne(headSlotItemStack, event.getPlayer());
-        }
+    protected boolean isToolEffective(Set<ToolType> toolTypes, BlockState state) {
+        return toolTypes.contains(ToolType.SHOVEL) && state.isToolEffective(ToolType.SHOVEL);
     }
 
 }
