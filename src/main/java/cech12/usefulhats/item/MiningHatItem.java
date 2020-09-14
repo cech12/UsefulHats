@@ -86,4 +86,9 @@ public class MiningHatItem extends AbstractMiningHatItem implements IBreakSpeedC
         // disable effects when hat is removed from slot
         this.removeEffect(entity, Effects.NIGHT_VISION, NIGHT_VISION_DURATION, NIGHT_VISION_AMPLIFIER);
     }
+
+    @Override
+    public boolean makesPiglinsNeutral(ItemStack stack, LivingEntity wearer) {
+        return Config.MINING_HAT_MAKE_PIGLINS_NEUTRAL_ENABLED.getValue();
+    }
 }

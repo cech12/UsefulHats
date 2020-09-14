@@ -48,6 +48,7 @@ public class Config {
     public static final ConfigType.Boolean MINING_HAT_DAMAGE_ENABLED = new ConfigType.Boolean(true);
     public static final ConfigType.Integer MINING_HAT_DURABILITY = new ConfigType.Integer(450);
     public static final ConfigType.Boolean MINING_HAT_NIGHT_VISION_ENABLED = new ConfigType.Boolean(true);
+    public static final ConfigType.Boolean MINING_HAT_MAKE_PIGLINS_NEUTRAL_ENABLED = new ConfigType.Boolean(true);
     public static final ConfigType.Double MINING_HAT_SPEED_WITH_EFFICIENCY_0 = new ConfigType.Double(0.2);
     public static final ConfigType.Double MINING_HAT_SPEED_WITH_EFFICIENCY_1 = new ConfigType.Double(0.4);
     public static final ConfigType.Double MINING_HAT_SPEED_WITH_EFFICIENCY_2 = new ConfigType.Double(0.6);
@@ -232,6 +233,9 @@ public class Config {
         MINING_HAT_NIGHT_VISION_ENABLED.configObj = common
                 .comment("Whether or not Night Vision effect of Mining Hat should be enabled in dark areas.")
                 .define("miningHatNightVisionEnabled", MINING_HAT_NIGHT_VISION_ENABLED.getDefaultValue());
+        MINING_HAT_MAKE_PIGLINS_NEUTRAL_ENABLED.configObj = common
+                .comment("Whether or not wearing a Mining Hat should make Piglins neutral.")
+                .define("miningHatMakePiglinsNeutralEnabled", MINING_HAT_NIGHT_VISION_ENABLED.getDefaultValue());
         MINING_HAT_SPEED_WITH_EFFICIENCY_0.configObj = common
                 .comment("Mining Hat speed increase without Efficiency enchantment.")
                 .defineInRange("miningHatSpeedWithEfficiency0", MINING_HAT_SPEED_WITH_EFFICIENCY_0.getDefaultValue(), 0.0, 1.0);
