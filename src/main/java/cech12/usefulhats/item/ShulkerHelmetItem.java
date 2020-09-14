@@ -28,8 +28,7 @@ public class ShulkerHelmetItem extends AbstractHatItem implements IEquipmentChan
     public void onItemToolTipEvent(ItemStack stack, List<ITextComponent> tooltip) {
         super.onItemToolTipEvent(stack, tooltip);
         int enchantmentLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.EFFICIENCY, stack) + 1;
-        //tooltip.add(new TranslationTextComponent("item.usefulhats.shulker_helmet.desc.levitation", UsefulHatsUtils.getRomanNumber(enchantmentLevel, false)).applyTextStyle(TextFormatting.BLUE));
-        tooltip.add(new TranslationTextComponent("item.usefulhats.shulker_helmet.desc.levitation", UsefulHatsUtils.getRomanNumber(enchantmentLevel, false)).func_240699_a_(TextFormatting.BLUE));
+        tooltip.add(new TranslationTextComponent("item.usefulhats.shulker_helmet.desc.levitation", UsefulHatsUtils.getRomanNumber(enchantmentLevel, false)).mergeStyle(TextFormatting.BLUE));
     }
 
     @Override

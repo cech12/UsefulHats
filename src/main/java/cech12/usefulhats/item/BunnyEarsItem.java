@@ -29,10 +29,8 @@ public class BunnyEarsItem extends AbstractHatItem implements IEquipmentChangeLi
     public void onItemToolTipEvent(ItemStack stack, List<ITextComponent> tooltip) {
         super.onItemToolTipEvent(stack, tooltip);
         int enchantmentLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.EFFICIENCY, stack) + 1;
-        //tooltip.add(new TranslationTextComponent("item.usefulhats.bunny_ears.desc.jump_boost", UsefulHatsUtils.getRomanNumber(enchantmentLevel, false)).applyTextStyle(TextFormatting.BLUE));
-        tooltip.add(new TranslationTextComponent("item.usefulhats.bunny_ears.desc.jump_boost", UsefulHatsUtils.getRomanNumber(enchantmentLevel, false)).func_240699_a_(TextFormatting.BLUE));
-        //tooltip.add(new TranslationTextComponent("item.usefulhats.bunny_ears.desc.eating", enchantmentLevel + 1).applyTextStyle(TextFormatting.BLUE));
-        tooltip.add(new TranslationTextComponent("item.usefulhats.bunny_ears.desc.eating", enchantmentLevel + 1).func_240699_a_(TextFormatting.BLUE));
+        tooltip.add(new TranslationTextComponent("item.usefulhats.bunny_ears.desc.jump_boost", UsefulHatsUtils.getRomanNumber(enchantmentLevel, false)).mergeStyle(TextFormatting.BLUE));
+        tooltip.add(new TranslationTextComponent("item.usefulhats.bunny_ears.desc.eating", enchantmentLevel + 1).mergeStyle(TextFormatting.BLUE));
     }
 
     @Override

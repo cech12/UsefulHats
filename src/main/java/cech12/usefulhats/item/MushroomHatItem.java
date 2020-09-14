@@ -23,8 +23,7 @@ public class MushroomHatItem extends AbstractHatItem implements IUsefulHatModelO
     @Override
     public void onItemToolTipEvent(ItemStack stack, List<ITextComponent> tooltip) {
         super.onItemToolTipEvent(stack, tooltip);
-        //tooltip.add(new TranslationTextComponent("item.usefulhats.mushroom_hat.desc.feeding").applyTextStyle(TextFormatting.BLUE));
-        tooltip.add(new TranslationTextComponent("item.usefulhats.mushroom_hat.desc.feeding").func_240699_a_(TextFormatting.BLUE));
+        tooltip.add(new TranslationTextComponent("item.usefulhats.mushroom_hat.desc.feeding").mergeStyle(TextFormatting.BLUE));
     }
 
     @Override

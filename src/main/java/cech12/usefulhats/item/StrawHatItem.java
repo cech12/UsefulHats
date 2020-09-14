@@ -33,8 +33,7 @@ public class StrawHatItem extends AbstractMiningHatItem implements IBreakSpeedCh
     public void onItemToolTipEvent(ItemStack stack, List<ITextComponent> tooltip) {
         super.onItemToolTipEvent(stack, tooltip);
         int value = (int) (this.getEnchantmentValue(stack, this.getSpeedConfig()) * 100);
-        //tooltip.add(new TranslationTextComponent("item.usefulhats.straw_hat.desc.digging_speed", value).applyTextStyle(TextFormatting.BLUE));
-        tooltip.add(new TranslationTextComponent("item.usefulhats.straw_hat.desc.digging_speed", value).func_240699_a_(TextFormatting.BLUE));
+        tooltip.add(new TranslationTextComponent("item.usefulhats.straw_hat.desc.digging_speed", value).mergeStyle(TextFormatting.BLUE));
     }
 
     @Override

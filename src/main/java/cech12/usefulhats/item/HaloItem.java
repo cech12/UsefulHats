@@ -28,10 +28,8 @@ public class HaloItem extends AbstractHatItem implements IAttackTargetChanger, I
     @Override
     public void onItemToolTipEvent(ItemStack stack, List<ITextComponent> tooltip) {
         super.onItemToolTipEvent(stack, tooltip);
-        //tooltip.add(new TranslationTextComponent("item.usefulhats.halo.desc.no_attack").applyTextStyle(TextFormatting.BLUE));
-        tooltip.add(new TranslationTextComponent("item.usefulhats.halo.desc.no_attack").func_240699_a_(TextFormatting.BLUE));
-        //tooltip.add(new TranslationTextComponent("item.usefulhats.halo.desc.beware_of_nether").applyTextStyle(TextFormatting.RED));
-        tooltip.add(new TranslationTextComponent("item.usefulhats.halo.desc.beware_of_nether").func_240699_a_(TextFormatting.RED));
+        tooltip.add(new TranslationTextComponent("item.usefulhats.halo.desc.no_attack").mergeStyle(TextFormatting.BLUE));
+        tooltip.add(new TranslationTextComponent("item.usefulhats.halo.desc.beware_of_nether").mergeStyle(TextFormatting.RED));
     }
 
     private static boolean isEntityInNether(Entity entity) {

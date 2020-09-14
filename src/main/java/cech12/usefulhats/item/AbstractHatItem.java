@@ -205,10 +205,9 @@ public abstract class AbstractHatItem extends ArmorItem implements IEnabled, IDy
      * When hat item has no effect, override this method with an empty method.
      */
     public void onItemToolTipEvent(ItemStack stack, List<ITextComponent> tooltip) {
-        //tooltip.add(new StringTextComponent("Durability: " + (stack.getMaxDamage() - stack.getDamage()) + "/" + stack.getMaxDamage()).applyTextStyle(TextFormatting.RED));
+        //tooltip.add(new StringTextComponent("Durability: " + (stack.getMaxDamage() - stack.getDamage()) + "/" + stack.getMaxDamage()).mergeStyle(TextFormatting.RED));
         tooltip.add(new StringTextComponent(""));
-        //tooltip.add((new TranslationTextComponent("item.modifiers." + EquipmentSlotType.HEAD.getName())).applyTextStyle(TextFormatting.GRAY));
-        tooltip.add((new TranslationTextComponent("item.modifiers." + EquipmentSlotType.HEAD.getName())).func_240699_a_(TextFormatting.GRAY));
+        tooltip.add((new TranslationTextComponent("item.modifiers." + EquipmentSlotType.HEAD.getName())).mergeStyle(TextFormatting.GRAY));
     }
 
 

@@ -28,17 +28,14 @@ public class WingHelmetItem extends AbstractHatItem implements IEquipmentChangeL
     @Override
     public void onItemToolTipEvent(ItemStack stack, List<ITextComponent> tooltip) {
         super.onItemToolTipEvent(stack, tooltip);
-        //tooltip.add(new TranslationTextComponent("item.usefulhats.wing_helmet.desc.slow_falling").applyTextStyle(TextFormatting.BLUE));
-        tooltip.add(new TranslationTextComponent("item.usefulhats.wing_helmet.desc.slow_falling").func_240699_a_(TextFormatting.BLUE));
+        tooltip.add(new TranslationTextComponent("item.usefulhats.wing_helmet.desc.slow_falling").mergeStyle(TextFormatting.BLUE));
         if (Config.WING_HELMET_LEVITATION_ENABLED.getValue()) {
-            //tooltip.add(new TranslationTextComponent("item.usefulhats.wing_helmet.desc.scared").applyTextStyle(TextFormatting.RED));
-            tooltip.add(new TranslationTextComponent("item.usefulhats.wing_helmet.desc.scared").func_240699_a_(TextFormatting.RED));
+            tooltip.add(new TranslationTextComponent("item.usefulhats.wing_helmet.desc.scared").mergeStyle(TextFormatting.RED));
         }
     }
 
     private boolean isPlayerFalling(PlayerEntity player) {
-        //onGround - func_233570_aj_
-        return !player.func_233570_aj_() && player.getMotion().getY() < 0 //not on ground & motion downwards
+        return !player.isOnGround() && player.getMotion().getY() < 0 //not on ground & motion downwards
                 && !player.abilities.isFlying && !player.isElytraFlying() //not (elytra) flying
                 && !player.isInWater() && !player.isInLava(); //not in fluid
     }
