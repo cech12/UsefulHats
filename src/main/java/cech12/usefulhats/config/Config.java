@@ -235,7 +235,7 @@ public class Config {
                 .define("miningHatNightVisionEnabled", MINING_HAT_NIGHT_VISION_ENABLED.getDefaultValue());
         MINING_HAT_MAKE_PIGLINS_NEUTRAL_ENABLED.configObj = common
                 .comment("Whether or not wearing a Mining Hat should make Piglins neutral.")
-                .define("miningHatMakePiglinsNeutralEnabled", MINING_HAT_NIGHT_VISION_ENABLED.getDefaultValue());
+                .define("miningHatMakePiglinsNeutralEnabled", MINING_HAT_MAKE_PIGLINS_NEUTRAL_ENABLED.getDefaultValue());
         MINING_HAT_SPEED_WITH_EFFICIENCY_0.configObj = common
                 .comment("Mining Hat speed increase without Efficiency enchantment.")
                 .defineInRange("miningHatSpeedWithEfficiency0", MINING_HAT_SPEED_WITH_EFFICIENCY_0.getDefaultValue(), 0.0, 1.0);
