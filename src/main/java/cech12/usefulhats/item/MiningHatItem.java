@@ -16,7 +16,7 @@ import net.minecraftforge.common.ToolType;
 import java.util.List;
 import java.util.Set;
 
-public class MiningHatItem extends AbstractMiningHatItem implements IBreakSpeedChanger, IEquipmentChangeListener, IUsefulHatModelOwner {
+public class MiningHatItem extends AbstractMiningHatItem implements IEquipmentChangeListener, IUsefulHatModelOwner {
 
     private static final int NIGHT_VISION_DURATION = 239;
     private static final int NIGHT_VISION_AMPLIFIER = 0;
