@@ -104,11 +104,11 @@ dependencies {
     minecraft "net.minecraftforge:forge:${project.forge_version}"
 
     //before curios 4.0.0.0
-    //compileOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-${project.curios_version}:api")
-    //runtimeOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-${project.curios_version}")
+    compileOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-${project.curios_version}:api")
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-${project.curios_version}")
     //since curios 4.0.0.0
-    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${project.curios_version}:api")
-    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${project.curios_version}")
+    //compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${project.curios_version}:api")
+    //runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${project.curios_version}")
 
     //baubles has problems with running client in development environment, so compileOnly
     compileOnly "com.github.lazyMods:Baubles:${project.baubles_version}"
