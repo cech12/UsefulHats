@@ -1,11 +1,14 @@
 package cech12.usefulhats.item;
 
 import cech12.usefulhats.UsefulHatsMod;
+import cech12.usefulhats.compat.BaublesMod;
 import cech12.usefulhats.compat.CuriosMod;
 import cech12.usefulhats.config.ConfigType;
 import cech12.usefulhats.helper.IEnabled;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+import com.lazy.baubles.api.IBauble;
+import com.lazy.baubles.api.cap.BaublesCapabilities;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
@@ -70,11 +73,9 @@ public abstract class AbstractHatItem extends ArmorItem implements IEnabled, IDy
         this.allowedAdditionalBookEnchantments.add(Enchantments.MENDING);
         this.allowedAdditionalBookEnchantments.add(Enchantments.BINDING_CURSE);
         this.allowedAdditionalBookEnchantments.add(Enchantments.VANISHING_CURSE);
-        //for curios
-        if (CuriosMod.isLoaded()) {
-            IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
-            eventBus.addListener(this::setup);
-        }
+        //for other apis
+        IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        eventBus.addListener(this::setup);
     }
 
     protected static int rawColorFromRGB(int red, int green, int blue) {
@@ -211,7 +212,7 @@ public abstract class AbstractHatItem extends ArmorItem implements IEnabled, IDy
     }
 
 
-    /// Following Methods are related to the Curios API
+    /// Following Methods are related to the Curios & Baubles API
 
     private void setup(final FMLCommonSetupEvent evt) {
         MinecraftForge.EVENT_BUS.addGenericListener(ItemStack.class, this::attachCapabilities);
@@ -222,51 +223,32 @@ public abstract class AbstractHatItem extends ArmorItem implements IEnabled, IDy
         if (stack.getItem() != this) {
             return;
         }
-        AbstractHatItemCurioCapability cap = new AbstractHatItemCurioCapability(stack);
-        evt.addCapability(CuriosCapability.ID_ITEM, new ICapabilityProvider() {
-            final LazyOptional<ICurio> curio = LazyOptional.of(() -> cap);
+        //for curios
+        if (CuriosMod.isLoaded()) {
+            AbstractHatItemCurioCapability cap = new AbstractHatItemCurioCapability(stack);
+            evt.addCapability(CuriosCapability.ID_ITEM, new ICapabilityProvider() {
+                final LazyOptional<ICurio> curio = LazyOptional.of(() -> cap);
 
-            @Nonnull
-            @Override
-            public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-                return CuriosCapability.ITEM.orEmpty(cap, curio);
-            }
-        });
-    }
+                @Nonnull
+                @Override
+                public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
+                    return CuriosCapability.ITEM.orEmpty(cap, curio);
+                }
+            });
+        }
+        //for baubles
+        if (BaublesMod.isLoaded()) {
+            AbstractHatItemBaublesCapability cap = new AbstractHatItemBaublesCapability(stack);
+            evt.addCapability(BaublesMod.BAUBLES_ITEM_ID, new ICapabilityProvider() {
+                final LazyOptional<IBauble> bauble = LazyOptional.of(() -> cap);
 
-
-    /// Following Methods are related to the Baubles API
-    /* Mod has bugs in development environment.
-    @Override
-    public BaubleType getBaubleType() {
-        return BaubleType.HEAD;
-    }
-
-    @Override
-    public boolean canEquip(LivingEntity player) {
-        //TODO Config
-        return true;
-    }
-
-    @Override
-    public void onWornTick(LivingEntity entity) {
-        if (entity instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity) entity;
-            ItemStack stack = BaublesApi.getBaublesHandler(player)
-                    .map(handler -> handler.getStackInSlot(BaubleType.HEAD.ordinal()))
-                    .orElse(ItemStack.EMPTY);
-            if (!stack.isEmpty() && stack.getItem() == this) {
-                this.onArmorTick(stack, player.world, player);
-            }
+                @Nonnull
+                @Override
+                public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
+                    return BaublesCapabilities.ITEM_BAUBLE.orEmpty(cap, bauble);
+                }
+            });
         }
     }
-
-    @Override
-    public void onUnequipped(LivingEntity player) {
-        if (this instanceof IEquipmentChangeListener) {
-            ((IEquipmentChangeListener) this).onUnequippedHatItem(player, ItemStack.EMPTY); //TODO ItemStack.EMPTY???
-        }
-    }
-     */
 
 }
