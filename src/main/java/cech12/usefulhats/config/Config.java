@@ -96,7 +96,7 @@ public class Config {
 
         BAUBLES_ENABLED.configObj = common
                 .comment("Whether or not hats from this mod should be placeable in Baubles head slots.")
-                .define("curiosEnabled", BAUBLES_ENABLED.getDefaultValue());
+                .define("baublesEnabled", BAUBLES_ENABLED.getDefaultValue());
         CURIOS_ENABLED.configObj = common
                 .comment("Whether or not hats from this mod should be placeable in Curios head slots.")
                 .define("curiosEnabled", CURIOS_ENABLED.getDefaultValue());
