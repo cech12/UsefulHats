@@ -30,3 +30,9 @@ license="The MIT License (MIT)"
     versionRange="[2.0.2.4,)"
     ordering="NONE"
     side="BOTH"
+[[dependencies.usefulhats]]
+    modId="baubles"
+    mandatory=false
+    versionRange="[1.7.1,)"
+    ordering="NONE"
+    side="BOTH"

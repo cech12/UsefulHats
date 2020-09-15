@@ -10,6 +10,7 @@ public class Config {
 
     public static List<IResettableConfigType> allValues = new ArrayList<>();
 
+    public static final ConfigType.Boolean BAUBLES_ENABLED = new ConfigType.Boolean(true);
     public static final ConfigType.Boolean CURIOS_ENABLED = new ConfigType.Boolean(true);
 
     public static final ConfigType.Boolean AQUANAUT_HELMET_ENABLED = new ConfigType.Boolean(true);
@@ -93,6 +94,9 @@ public class Config {
 
         common.comment("Some configs in relation to other mods.").push("Compatibility option");
 
+        BAUBLES_ENABLED.configObj = common
+                .comment("Whether or not hats from this mod should be placeable in Baubles head slots.")
+                .define("curiosEnabled", BAUBLES_ENABLED.getDefaultValue());
         CURIOS_ENABLED.configObj = common
                 .comment("Whether or not hats from this mod should be placeable in Curios head slots.")
                 .define("curiosEnabled", CURIOS_ENABLED.getDefaultValue());

@@ -89,15 +89,10 @@ repositories {
         name "curios"
         url "https://maven.theillusivec4.top/"
     }
-    /*
     maven {
         name 'Baubles'
         url 'https://jitpack.io'
     }
-    flatDir {
-        dirs 'lib'
-    }
-     */
 }
 
 dependencies {
@@ -109,9 +104,8 @@ dependencies {
     compileOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-${project.curios_version}:api")
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-${project.curios_version}")
 
-    //baubles has problems with running client in development environment
-    //implementation "com.github.lazyMods:Baubles:${project.baubles_version}"
-    //implementation name: "baubles-${project.baubles_version}-1.16.2-api"
+    //baubles has problems with running client in development environment, so compileOnly
+    compileOnly "com.github.lazyMods:Baubles:${project.baubles_version}"
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..
