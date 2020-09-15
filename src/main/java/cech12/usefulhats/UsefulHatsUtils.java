@@ -1,8 +1,11 @@
 package cech12.usefulhats;
 
+import cech12.usefulhats.compat.BaublesMod;
 import cech12.usefulhats.compat.CuriosMod;
 import cech12.usefulhats.item.AbstractHatItem;
+import com.lazy.baubles.api.BaublesApi;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import top.theillusivec4.curios.api.CuriosAPI;
@@ -58,6 +61,18 @@ public class UsefulHatsUtils {
                                 stacks.add(stack);
                             }
                         }
+                    }
+                }
+            });
+        }
+        if (BaublesMod.isLoaded() && entity instanceof PlayerEntity) {
+            //all baubles slots that contain an AbstractHatItem
+            BaublesApi.getBaublesHandler((PlayerEntity)entity).ifPresent(itemHandler -> {
+                int slots = itemHandler.getSlots();
+                for (int i = 0; i < slots; i++) {
+                    ItemStack stack = itemHandler.getStackInSlot(i);
+                    if (!stack.isEmpty() && stack.getItem() instanceof AbstractHatItem && stacks.stream().noneMatch(s -> s.getItem() == stack.getItem())) {
+                        stacks.add(stack);
                     }
                 }
             });
