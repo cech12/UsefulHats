@@ -1,6 +1,6 @@
 # UsefulHats [![Curseforge](http://cf.way2muchnoise.eu/full_useful-hats_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/useful-hats) [![Curseforge](http://cf.way2muchnoise.eu/versions/For%20MC_useful-hats_all.svg)](https://www.curseforge.com/minecraft/mc-mods/useful-hats/files)  [![](https://img.shields.io/discord/752506676719910963.svg?style=flat&color=informational&logo=discord&label=Discord)](https://discord.gg/gRUFH5t) [![License](https://img.shields.io/github/license/cech12/UsefulHats)](http://opensource.org/licenses/MIT)
 
-This is a **Minecraft Forge** mod for versions 1.14.4, 1.15.2, 1.16.1, 1.16.2. **Useful Hats** adds some useful and configurable hats to the game. 
+This is a **Minecraft Forge** mod for versions 1.14.4, 1.15.2, 1.16.1, 1.16.2, 1.16.3. **Useful Hats** adds some useful and configurable hats to the game. 
 
 ![All Hats](https://raw.githubusercontent.com/cech12/UsefulHats/material/material/wiki/all_hats.png)
 
@@ -18,5 +18,7 @@ This is a **Minecraft Forge** mod for versions 1.14.4, 1.15.2, 1.16.1, 1.16.2. *
 * [Wing Helmet](https://github.com/cech12/UsefulHats/wiki/Wing-Helmet): Slow Falling effect while falling
 
 All included hats are dyable and configurable.
+
+This mod is compatible with [Curios](https://www.curseforge.com/minecraft/mc-mods/curios) (since 1.7.0) and [Baubles Reborn](https://www.curseforge.com/minecraft/mc-mods/baubles-reborn) (since 1.8.3).
 
 For more information check out the **Wiki**: https://github.com/cech12/UsefulHats/wiki
