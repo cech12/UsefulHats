@@ -12,6 +12,7 @@ public class Config {
 
     public static final ConfigType.Boolean BAUBLES_ENABLED = new ConfigType.Boolean(true);
     public static final ConfigType.Boolean CURIOS_ENABLED = new ConfigType.Boolean(true);
+    public static final ConfigType.Boolean CURIOS_ADD_HEAD_SLOT = new ConfigType.Boolean(false);
 
     public static final ConfigType.Boolean AQUANAUT_HELMET_ENABLED = new ConfigType.Boolean(true);
     public static final ConfigType.Boolean AQUANAUT_HELMET_DAMAGE_ENABLED = new ConfigType.Boolean(true);
@@ -95,11 +96,14 @@ public class Config {
         common.comment("Some configs in relation to other mods.").push("Compatibility option");
 
         BAUBLES_ENABLED.configObj = common
-                .comment("Whether or not hats from this mod should be placeable in Baubles head slots.")
+                .comment("Whether or not hats from this mod should be placeable in Baubles head slot if Baubles is installed.")
                 .define("baublesEnabled", BAUBLES_ENABLED.getDefaultValue());
         CURIOS_ENABLED.configObj = common
-                .comment("Whether or not hats from this mod should be placeable in Curios head slots.")
+                .comment("Whether or not hats from this mod should be placeable in Curios head slots if Curios is installed.")
                 .define("curiosEnabled", CURIOS_ENABLED.getDefaultValue());
+        CURIOS_ADD_HEAD_SLOT.configObj = common
+                .comment("Whether or not a Curios head slot should be added if Curios is installed.")
+                .define("curiosAddHeadSlot", CURIOS_ADD_HEAD_SLOT.getDefaultValue());
 
         common.pop();
 
