@@ -12,6 +12,7 @@ public class Config {
 
     public static final ConfigType.Boolean BAUBLES_ENABLED = new ConfigType.Boolean(true);
     public static final ConfigType.Boolean CURIOS_ENABLED = new ConfigType.Boolean(true);
+    public static final ConfigType.Boolean CURIOS_ADD_HEAD_SLOT = new ConfigType.Boolean(false);
 
     public static final ConfigType.Boolean AQUANAUT_HELMET_ENABLED = new ConfigType.Boolean(true);
     public static final ConfigType.Boolean AQUANAUT_HELMET_DAMAGE_ENABLED = new ConfigType.Boolean(true);
@@ -101,6 +102,9 @@ public class Config {
         CURIOS_ENABLED.configObj = common
                 .comment("Whether or not hats from this mod should be placeable in Curios head slots.")
                 .define("curiosEnabled", CURIOS_ENABLED.getDefaultValue());
+        CURIOS_ADD_HEAD_SLOT.configObj = common
+                .comment("Whether or not a Curios head slot is added if Curios is installed.")
+                .define("curiosAddHeadSlot", CURIOS_ADD_HEAD_SLOT.getDefaultValue());
 
         common.pop();
 
