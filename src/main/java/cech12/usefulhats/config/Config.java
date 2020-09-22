@@ -96,13 +96,13 @@ public class Config {
         common.comment("Some configs in relation to other mods.").push("Compatibility option");
 
         BAUBLES_ENABLED.configObj = common
-                .comment("Whether or not hats from this mod should be placeable in Baubles head slots.")
+                .comment("Whether or not hats from this mod should be placeable in Baubles head slot if Baubles is installed.")
                 .define("baublesEnabled", BAUBLES_ENABLED.getDefaultValue());
         CURIOS_ENABLED.configObj = common
-                .comment("Whether or not hats from this mod should be placeable in Curios head slots.")
+                .comment("Whether or not hats from this mod should be placeable in Curios head slots if Curios is installed.")
                 .define("curiosEnabled", CURIOS_ENABLED.getDefaultValue());
         CURIOS_ADD_HEAD_SLOT.configObj = common
-                .comment("Whether or not a Curios head slot is added if Curios is installed.")
+                .comment("Whether or not a Curios head slot should be added if Curios is installed.")
                 .define("curiosAddHeadSlot", CURIOS_ADD_HEAD_SLOT.getDefaultValue());
 
         common.pop();
