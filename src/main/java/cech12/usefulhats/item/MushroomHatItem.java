@@ -29,7 +29,7 @@ public class MushroomHatItem extends AbstractHatItem implements IUsefulHatModelO
     @OnlyIn(Dist.CLIENT)
     public void addInformation(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new TranslationTextComponent("item.usefulhats.mushroom_hat.desc.feeding").mergeStyle(TextFormatting.BLUE));
+        this.addTextLineToTooltip(tooltip, new TranslationTextComponent("item.usefulhats.mushroom_hat.desc.feeding").mergeStyle(TextFormatting.BLUE));
     }
 
     @Override

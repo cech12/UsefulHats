@@ -47,9 +47,9 @@ public class MiningHatItem extends AbstractMiningHatItem implements IEquipmentCh
     public void addInformation(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
         int value = (int) (this.getEnchantmentValue(stack, this.getSpeedConfig()) * 100);
-        tooltip.add(new TranslationTextComponent("item.usefulhats.mining_hat.desc.mining_speed", value).mergeStyle(TextFormatting.BLUE));
+        this.addTextLineToTooltip(tooltip, new TranslationTextComponent("item.usefulhats.mining_hat.desc.mining_speed", value).mergeStyle(TextFormatting.BLUE));
         if (Config.MINING_HAT_NIGHT_VISION_ENABLED.getValue()) {
-            tooltip.add(new TranslationTextComponent("item.usefulhats.mining_hat.desc.night_vision").mergeStyle(TextFormatting.BLUE));
+            this.addTextLineToTooltip(tooltip, new TranslationTextComponent("item.usefulhats.mining_hat.desc.night_vision").mergeStyle(TextFormatting.BLUE));
         }
     }
 

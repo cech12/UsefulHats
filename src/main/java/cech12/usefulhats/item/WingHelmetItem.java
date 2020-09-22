@@ -34,9 +34,9 @@ public class WingHelmetItem extends AbstractHatItem implements IEquipmentChangeL
     @OnlyIn(Dist.CLIENT)
     public void addInformation(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new TranslationTextComponent("item.usefulhats.wing_helmet.desc.slow_falling").mergeStyle(TextFormatting.BLUE));
+        this.addTextLineToTooltip(tooltip, new TranslationTextComponent("item.usefulhats.wing_helmet.desc.slow_falling").mergeStyle(TextFormatting.BLUE));
         if (Config.WING_HELMET_LEVITATION_ENABLED.getValue()) {
-            tooltip.add(new TranslationTextComponent("item.usefulhats.wing_helmet.desc.scared").mergeStyle(TextFormatting.RED));
+            this.addTextLineToTooltip(tooltip, new TranslationTextComponent("item.usefulhats.wing_helmet.desc.scared").mergeStyle(TextFormatting.RED));
         }
     }
 

@@ -34,8 +34,8 @@ public class HaloItem extends AbstractHatItem implements IAttackTargetChanger, I
     @OnlyIn(Dist.CLIENT)
     public void addInformation(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new TranslationTextComponent("item.usefulhats.halo.desc.no_attack").mergeStyle(TextFormatting.BLUE));
-        tooltip.add(new TranslationTextComponent("item.usefulhats.halo.desc.beware_of_nether").mergeStyle(TextFormatting.RED));
+        this.addTextLineToTooltip(tooltip, new TranslationTextComponent("item.usefulhats.halo.desc.no_attack").mergeStyle(TextFormatting.BLUE));
+        this.addTextLineToTooltip(tooltip, new TranslationTextComponent("item.usefulhats.halo.desc.beware_of_nether").mergeStyle(TextFormatting.RED));
     }
 
     private static boolean isEntityInNether(Entity entity) {
