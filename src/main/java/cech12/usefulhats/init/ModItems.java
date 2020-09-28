@@ -222,7 +222,7 @@ public class ModItems {
     private static void onRenderGameOverlayEvent(RenderGameOverlayEvent.Pre event) {
         if (!event.isCanceled() && event.getType() == RenderGameOverlayEvent.ElementType.HELMET) {
             Minecraft mc = Minecraft.getInstance();
-            if (mc.player != null && mc.gameSettings.thirdPersonView == 0) {
+            if (mc.player != null && mc.gameSettings.func_243230_g().func_243192_a()) { //isNotThirdPerson
                 for (ItemStack headSlotItemStack : UsefulHatsUtils.getEquippedHatItemStacks(mc.player)) {
                     for (Item item : ModItems.items) {
                         if (item instanceof IGameOverlayRenderer && item == headSlotItemStack.getItem()) {

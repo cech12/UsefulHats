@@ -103,12 +103,8 @@ dependencies {
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
     minecraft "net.minecraftforge:forge:${project.forge_version}"
 
-    //before curios 4.0.0.0
-    compileOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-${project.curios_version}:api")
-    runtimeOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-${project.curios_version}")
-    //since curios 4.0.0.0
-    //compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${project.curios_version}:api")
-    //runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${project.curios_version}")
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${project.curios_version}:api")
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${project.curios_version}")
 
     //baubles has problems with running client in development environment, so compileOnly
     //TODO try compile with version 1.8.2 (Forge 34.1.0)

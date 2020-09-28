@@ -34,6 +34,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.ITextProperties;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
@@ -221,7 +222,7 @@ public abstract class AbstractHatItem extends ArmorItem implements IEnabled, IDy
         FontRenderer font = Minecraft.getInstance().fontRenderer;
         int textLineWidth = font.func_238414_a_(textLine);
         if (textLineWidth > MAX_TEXT_LINE_WIDTH) {
-            List<ITextProperties> wrappedLine = font.func_238425_b_(textLine, MAX_TEXT_LINE_WIDTH);
+            List<ITextProperties> wrappedLine = font.func_238420_b_().func_238362_b_(textLine, MAX_TEXT_LINE_WIDTH, Style.EMPTY);
             for (ITextProperties line : wrappedLine) {
                 tooltip.add(new StringTextComponent(line.getString()).mergeStyle(textLine.getStyle()));
             }
