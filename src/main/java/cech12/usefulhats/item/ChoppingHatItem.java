@@ -49,6 +49,7 @@ public class ChoppingHatItem extends AbstractMiningHatItem {
         return toolTypes.contains(ToolType.AXE) && (state.isToolEffective(ToolType.AXE)
                 //in 1.16 there is a problem in checking the effective tool for axe tool type & vanilla blocks.
                 //So, add a diamond axe speed check as work around.
+                //TODO remove workaround after building against Forge 1.16.3-34.1.1 or later (see PR #7351)
                 || (new ItemStack((Items.DIAMOND_AXE)).getDestroySpeed(state)) > 1.0);
     }
 }
