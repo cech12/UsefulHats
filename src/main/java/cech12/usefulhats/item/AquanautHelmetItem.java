@@ -86,6 +86,7 @@ public class AquanautHelmetItem extends AbstractHatItem implements IEquipmentCha
 
     @Override
     public void renderHelmetOverlay(ItemStack stack, PlayerEntity player, int width, int height, float partialTicks) {
+        // TODO use {@link net.minecraftforge.client.event.RenderGameOverlayEvent} to handle this.
         GlStateManager.disableDepthTest();
         GlStateManager.depthMask(false);
         GlStateManager.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA.param, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA.param, GlStateManager.SourceFactor.ONE.param, GlStateManager.DestFactor.ZERO.param);

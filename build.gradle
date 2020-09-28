@@ -111,6 +111,7 @@ dependencies {
     //runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${project.curios_version}")
 
     //baubles has problems with running client in development environment, so compileOnly
+    //TODO try compile with version 1.8.2 (Forge 34.1.0)
     compileOnly "com.github.lazyMods:Baubles:${project.baubles_version}"
 }
 
