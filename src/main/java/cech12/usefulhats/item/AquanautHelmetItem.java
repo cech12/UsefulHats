@@ -20,10 +20,12 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.List;
 
-public class AquanautHelmetItem extends AbstractHatItem implements IEquipmentChangeListener {
+public class AquanautHelmetItem extends AbstractHatItem implements IEquipmentChangeListener, IUsefulHatModelOwner, IGameOverlayRenderer {
 
     private static final ResourceLocation AQUANAUT_GUI_TEX_PATH = new ResourceLocation(UsefulHatsMod.MOD_ID, "textures/misc/aquanautblur.png");
 
@@ -78,8 +80,13 @@ public class AquanautHelmetItem extends AbstractHatItem implements IEquipmentCha
         this.removeEffect(entity, Effects.CONDUIT_POWER, this.getConduitPowerDuration(oldStack), 0);
     }
 
+    //to support other apis do not use this method
+    //@Override
+    //public void renderHelmetOverlay(ItemStack stack, PlayerEntity player, int width, int height, float partialTicks) {}
+
+    @OnlyIn(Dist.CLIENT)
     @Override
-    public void renderHelmetOverlay(ItemStack stack, PlayerEntity player, int width, int height, float partialTicks) {
+    public void onRenderGameOverlay(int width, int height, float partialTicks) {
         GlStateManager.disableDepthTest();
         GlStateManager.depthMask(false);
         GlStateManager.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);

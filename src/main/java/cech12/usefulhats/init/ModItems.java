@@ -4,6 +4,7 @@ import cech12.usefulhats.UsefulHatsUtils;
 import cech12.usefulhats.compat.CuriosMod;
 import cech12.usefulhats.item.*;
 import cech12.usefulhats.UsefulHatsMod;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -14,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ColorHandlerEvent;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -93,6 +95,7 @@ public class ModItems {
     @OnlyIn(Dist.CLIENT)
     public static void addClientEventListeners() {
         MinecraftForge.EVENT_BUS.addListener(ModItems::onItemToolTipEvent);
+        MinecraftForge.EVENT_BUS.addListener(ModItems::onRenderGameOverlayEvent);
     }
 
     private static void onBreakSpeedEvent(PlayerEvent.BreakSpeed event) {
@@ -225,4 +228,21 @@ public class ModItems {
             }
         }
     }
+
+    @OnlyIn(Dist.CLIENT)
+    private static void onRenderGameOverlayEvent(RenderGameOverlayEvent.Pre event) {
+        if (!event.isCanceled() && event.getType() == RenderGameOverlayEvent.ElementType.HELMET) {
+            Minecraft mc = Minecraft.getInstance();
+            if (mc.player != null && mc.gameSettings.thirdPersonView == 0) {
+                for (ItemStack headSlotItemStack : UsefulHatsUtils.getEquippedHatItemStacks(mc.player)) {
+                    for (Item item : ModItems.items) {
+                        if (item instanceof IGameOverlayRenderer && item == headSlotItemStack.getItem()) {
+                            ((IGameOverlayRenderer) item).onRenderGameOverlay(mc.mainWindow.getScaledWidth(), mc.mainWindow.getScaledHeight(), event.getPartialTicks());
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 }
