@@ -216,6 +216,7 @@ public abstract class AbstractHatItem extends ArmorItem implements IEnabled, IDy
      * Forge removed {@link net.minecraftforge.fml.client.gui.GuiUtils::drawHoveringText} call
      * from {@link net.minecraft.client.gui.screen.Screen} class. So, all long texts are not reordered.
      * Reordering by myself.
+     * //TODO could be removed when building against Forge 1.16.3-34.1.11 or later
      */
     @OnlyIn(Dist.CLIENT)
     protected void addTextLineToTooltip(@Nonnull List<ITextComponent> tooltip, @Nonnull ITextComponent textLine) {
