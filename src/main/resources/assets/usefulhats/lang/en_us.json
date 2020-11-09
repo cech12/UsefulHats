@@ -9,6 +9,14 @@
   "item.usefulhats.chopping_hat": "Chopping Hat",
   "item.usefulhats.chopping_hat.desc.chopping_speed": "Chopping with an axe is §2%s%%§9 faster. (stackable with enchantments and potions)",
 
+  "item.usefulhats.ender_helmet": "Ender Helmet",
+  "item.usefulhats.ender_helmet.desc.define_teleport": "Sneak right click to define a new teleport position.",
+  "item.usefulhats.ender_helmet.desc.teleport": "Use an Ender Pearl to teleport to the defined position.",
+  "item.usefulhats.ender_helmet.desc.teleport_position": "Position: X: %s, Y: %s, Z: %s",
+  "item.usefulhats.ender_helmet.message.position_saved": "Position saved.",
+  "item.usefulhats.ender_helmet.message.position_obstructed": "Destination obstructed.",
+  "item.usefulhats.ender_helmet.message.wrong_dimension": "Wrong dimension.",
+
   "item.usefulhats.halo": "Halo",
   "item.usefulhats.halo.desc.no_attack": "No mob except bosses attacks you.",
   "item.usefulhats.halo.desc.beware_of_nether": "But beware of the §4Nether§c.",

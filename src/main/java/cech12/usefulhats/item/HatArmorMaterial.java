@@ -26,6 +26,9 @@ public enum HatArmorMaterial implements IArmorMaterial {
     CHOPPING("usefulhats:chopping", Config.CHOPPING_HAT_DURABILITY, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
         return Ingredient.fromItems(Items.RABBIT_HIDE);
     }),
+    ENDER("usefulhats:ender", Config.ENDER_HELMET_DURABILITY, 15, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> {
+        return Ingredient.fromItems(Items.ENDER_PEARL);
+    }),
     HALO("usefulhats:halo", Config.HALO_DURABILITY, 15, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, () -> {
         return Ingredient.fromItems(Items.GLOWSTONE_DUST);
     }),

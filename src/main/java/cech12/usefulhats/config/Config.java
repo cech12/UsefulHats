@@ -36,6 +36,11 @@ public class Config {
     public static final ConfigType.Double CHOPPING_HAT_SPEED_WITH_EFFICIENCY_4 = new ConfigType.Double(1.0);
     public static final ConfigType.Double CHOPPING_HAT_SPEED_WITH_EFFICIENCY_5 = new ConfigType.Double(1.5);
 
+    public static final ConfigType.Boolean ENDER_HELMET_ENABLED = new ConfigType.Boolean(true);
+    public static final ConfigType.Boolean ENDER_HELMET_DAMAGE_ENABLED = new ConfigType.Boolean(true);
+    public static final ConfigType.Integer ENDER_HELMET_DURABILITY = new ConfigType.Integer(80);
+    public static final ConfigType.Boolean ENDER_HELMET_INTERDIMENSIONAL_ENABLED = new ConfigType.Boolean(true);
+
     public static final ConfigType.Boolean HALO_ENABLED = new ConfigType.Boolean(true);
     public static final ConfigType.Boolean HALO_DAMAGE_ENABLED = new ConfigType.Boolean(true);
     public static final ConfigType.Integer HALO_DURABILITY = new ConfigType.Integer(600);
@@ -119,6 +124,9 @@ public class Config {
         CHOPPING_HAT_ENABLED.configObj = common
                 .comment("Whether or not Chopping Hat should be enabled.")
                 .define("choppingHatEnabled", CHOPPING_HAT_ENABLED.getDefaultValue());
+        ENDER_HELMET_ENABLED.configObj = common
+                .comment("Whether or not Ender Helmet should be enabled.")
+                .define("enderHelmetEnabled", ENDER_HELMET_ENABLED.getDefaultValue());
         HALO_ENABLED.configObj = common
                 .comment("Whether or not Halo should be enabled.")
                 .define("haloEnabled", HALO_ENABLED.getDefaultValue());
@@ -205,6 +213,18 @@ public class Config {
         CHOPPING_HAT_SPEED_WITH_EFFICIENCY_5.configObj = common
                 .comment("Chopping Hat speed increase with Efficiency V.")
                 .defineInRange("choppingHatSpeedWithEfficiency5", CHOPPING_HAT_SPEED_WITH_EFFICIENCY_5.getDefaultValue(), 0.0, 5.0);
+        common.pop();
+
+        common.push("Ender Helmet");
+        ENDER_HELMET_DAMAGE_ENABLED.configObj = common
+                .comment("Whether or not damaging of Ender Helmet should be enabled.")
+                .define("enderHelmetDamageEnabled", ENDER_HELMET_DAMAGE_ENABLED.getDefaultValue());
+        ENDER_HELMET_DURABILITY.configObj = common
+                .comment("Ender Helmet durability.")
+                .defineInRange("enderHelmetDurability", ENDER_HELMET_DURABILITY.getDefaultValue(), 1, 10000);
+        ENDER_HELMET_INTERDIMENSIONAL_ENABLED.configObj = common
+                .comment("Whether or not interdimensional teleporting with the Ender Helmet should be enabled.")
+                .define("enderHelmetInterdimensionalEnabled", ENDER_HELMET_INTERDIMENSIONAL_ENABLED.getDefaultValue());
         common.pop();
 
         common.push("Halo");
