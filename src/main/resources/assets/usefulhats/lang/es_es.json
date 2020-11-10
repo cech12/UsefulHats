@@ -9,6 +9,14 @@
   "item.usefulhats.chopping_hat": "Sombrero de leñador",
   "item.usefulhats.chopping_hat.desc.chopping_speed": "Cortar con un hacha es §2%s%%§9 más rápido. (se puede combinar con encantos y pociones)",
 
+  "item.usefulhats.ender_helmet": "Ender Helmet",
+  "item.usefulhats.ender_helmet.desc.define_teleport": "Sneak right click to define a new teleport position.",
+  "item.usefulhats.ender_helmet.desc.teleport": "Use an Ender Pearl to teleport to the defined position.",
+  "item.usefulhats.ender_helmet.desc.teleport_position": "Position: X: %s, Y: %s, Z: %s",
+  "item.usefulhats.ender_helmet.message.position_saved": "Position saved.",
+  "item.usefulhats.ender_helmet.message.position_obstructed": "Destination obstructed.",
+  "item.usefulhats.ender_helmet.message.wrong_dimension": "Wrong dimension.",
+
   "item.usefulhats.halo": "Aureola",
   "item.usefulhats.halo.desc.no_attack": "Ningunas criaturas te atacan excepto jefes.",
   "item.usefulhats.halo.desc.beware_of_nether": "Pero cuidado con el §4Nether§c.",

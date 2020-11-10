@@ -24,8 +24,8 @@ import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
 import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent;
 import net.minecraftforge.event.entity.player.ItemFishedEvent;
-import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -39,6 +39,7 @@ public class ModItems {
             new AquanautHelmetItem(),
             new BunnyEarsItem(),
             new ChoppingHatItem(),
+            new EnderHelmetItem(),
             new HaloItem(),
             new LuckyHatItem(),
             new MiningHatItem(),
@@ -83,6 +84,7 @@ public class ModItems {
         MinecraftForge.EVENT_BUS.addListener(ModItems::onLivingEquipmentChangeEvent);
         MinecraftForge.EVENT_BUS.addListener(ModItems::onLivingSetAttackTargetEvent);
         MinecraftForge.EVENT_BUS.addListener(ModItems::onLivingUseItemEvent);
+        MinecraftForge.EVENT_BUS.addListener(ModItems::onRightClickItemEvent);
         //curios events
         if (CuriosMod.isLoaded()) {
             MinecraftForge.EVENT_BUS.addListener(ModItems::onCuriosEquipmentChangeEvent);
@@ -94,7 +96,6 @@ public class ModItems {
      */
     @OnlyIn(Dist.CLIENT)
     public static void addClientEventListeners() {
-        MinecraftForge.EVENT_BUS.addListener(ModItems::onItemToolTipEvent);
         MinecraftForge.EVENT_BUS.addListener(ModItems::onRenderGameOverlayEvent);
     }
 
@@ -135,15 +136,6 @@ public class ModItems {
                 if (item instanceof IItemFishedListener && headSlotItemStack.getItem() == item) {
                     ((IItemFishedListener) item).onItemFishedListener(event, headSlotItemStack);
                 }
-            }
-        }
-    }
-
-    private static void onItemToolTipEvent(ItemTooltipEvent event) {
-        ItemStack stack = event.getItemStack();
-        for (Item item : ModItems.items) {
-            if (/*item instanceof AbstractHatItem &&*/ stack.getItem() == item) {
-                ((AbstractHatItem) item).onItemToolTipEvent(stack, event.getToolTip());
             }
         }
     }
@@ -224,6 +216,17 @@ public class ModItems {
                     if (item instanceof IAttackTargetChanger && item == headSlotItemStack.getItem()) {
                         ((IAttackTargetChanger) item).onLivingSetAttackTarget(mob, player);
                     }
+                }
+            }
+        }
+    }
+
+    private static void onRightClickItemEvent(PlayerInteractEvent.RightClickItem event) {
+        PlayerEntity player = event.getPlayer();
+        for (ItemStack headSlotItemStack : UsefulHatsUtils.getEquippedHatItemStacks(player)) {
+            for (Item item : ModItems.items) {
+                if (item instanceof IRightClickListener && item == headSlotItemStack.getItem()) {
+                    ((IRightClickListener) item).onRightClickItemEvent(event, headSlotItemStack);
                 }
             }
         }

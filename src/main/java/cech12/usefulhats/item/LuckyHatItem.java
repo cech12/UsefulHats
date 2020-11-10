@@ -2,6 +2,7 @@ package cech12.usefulhats.item;
 
 import cech12.usefulhats.UsefulHatsUtils;
 import cech12.usefulhats.config.Config;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
@@ -14,10 +15,14 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.player.ItemFishedEvent;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class LuckyHatItem extends AbstractHatItem implements IItemFishedListener, ILivingDropsListener, IEquipmentChangeListener, IUsefulHatModelOwner {
@@ -60,8 +65,9 @@ public class LuckyHatItem extends AbstractHatItem implements IItemFishedListener
     }
 
     @Override
-    public void onItemToolTipEvent(ItemStack stack, List<ITextComponent> tooltip) {
-        super.onItemToolTipEvent(stack, tooltip);
+    @OnlyIn(Dist.CLIENT)
+    public void addInformation(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
+        super.addInformation(stack, worldIn, tooltip, flagIn);
         tooltip.add(new TranslationTextComponent("item.usefulhats.lucky_hat.desc.luck", UsefulHatsUtils.getRomanNumber(getEffectLevel(stack), false)).applyTextStyle(TextFormatting.BLUE));
         if (Config.LUCKY_HAT_UNLUCK_ENABLED.getValue()) {
             tooltip.add(new TranslationTextComponent("item.usefulhats.lucky_hat.desc.unluck").applyTextStyle(TextFormatting.RED));

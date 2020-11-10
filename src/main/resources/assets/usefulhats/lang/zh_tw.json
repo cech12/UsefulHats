@@ -9,6 +9,14 @@
   "item.usefulhats.chopping_hat": "木工帽",
   "item.usefulhats.chopping_hat.desc.chopping_speed": "用斧砍樹時加速 §2%s%%§9 時間. (可和附魔及藥水效果疊加)",
 
+  "item.usefulhats.ender_helmet": "Ender Helmet",
+  "item.usefulhats.ender_helmet.desc.define_teleport": "Sneak right click to define a new teleport position.",
+  "item.usefulhats.ender_helmet.desc.teleport": "Use an Ender Pearl to teleport to the defined position.",
+  "item.usefulhats.ender_helmet.desc.teleport_position": "Position: X: %s, Y: %s, Z: %s",
+  "item.usefulhats.ender_helmet.message.position_saved": "Position saved.",
+  "item.usefulhats.ender_helmet.message.position_obstructed": "Destination obstructed.",
+  "item.usefulhats.ender_helmet.message.wrong_dimension": "Wrong dimension.",
+
   "item.usefulhats.halo": "聖光",
   "item.usefulhats.halo.desc.no_attack": "除了Boss以外的生物不會攻擊你.",
   "item.usefulhats.halo.desc.beware_of_nether": "除了 §4地獄§c 生物.",
