@@ -47,9 +47,7 @@ public class EnderHelmetItem extends AbstractHatItem implements IRightClickListe
             BlockPos pos = getPosition(stack);
             this.addTextLineToTooltip(tooltip, new TranslationTextComponent("item.usefulhats.ender_helmet.desc.teleport").mergeStyle(TextFormatting.BLUE));
             this.addTextLineToTooltip(tooltip, new TranslationTextComponent("item.usefulhats.ender_helmet.desc.teleport_position", pos.getX(), pos.getY(), pos.getZ()).mergeStyle(TextFormatting.BLUE));
-            if (worldIn == null || !isRightDimension(worldIn, stack)) {
-                this.addTextLineToTooltip(tooltip, new StringTextComponent(getDimensionString(stack)).mergeStyle(TextFormatting.BLUE));
-            }
+            this.addTextLineToTooltip(tooltip, new StringTextComponent(getDimensionString(stack)).mergeStyle(TextFormatting.BLUE));
         }
     }
 
@@ -61,7 +59,7 @@ public class EnderHelmetItem extends AbstractHatItem implements IRightClickListe
         positionNBT.putInt("Y", pos.getY());
         positionNBT.putInt("Z", pos.getZ());
         positionNBT.putString("dimKey", world.func_234923_W_().getRegistryName().toString()); //dimension registry key
-        positionNBT.putString("dimValue", world.func_234923_W_().func_240901_a_().toString()); //dimension name
+        positionNBT.putString("dimName", world.func_234923_W_().func_240901_a_().toString()); //dimension name
         nbt.put(TELEPORT_POSITION_ID, positionNBT);
         stack.setTag(nbt);
     }
@@ -82,14 +80,15 @@ public class EnderHelmetItem extends AbstractHatItem implements IRightClickListe
     @OnlyIn(Dist.CLIENT)
     private String getDimensionString(@Nonnull ItemStack stack) {
         if (hasPosition(stack)) {
-            return stack.getOrCreateTag().getCompound(TELEPORT_POSITION_ID).getString("dimValue");
+            return stack.getOrCreateTag().getCompound(TELEPORT_POSITION_ID).getString("dimName");
         }
         return "?";
     }
 
     private static boolean equalsWorldAndNBT(World world, CompoundNBT positionNBT) {
-        return world.func_234923_W_().getRegistryName().toString().equals(positionNBT.getString("dimKey"))
-                && world.func_234923_W_().func_240901_a_().toString().equals(positionNBT.getString("dimValue"));
+        return (!positionNBT.contains("dimKey")  //to be compatible with older versions
+                || world.func_234923_W_().getRegistryName().toString().equals(positionNBT.getString("dimKey")))
+                && world.func_234923_W_().func_240901_a_().toString().equals(positionNBT.getString("dimName"));
     }
 
     private ServerWorld getWorld(@Nonnull MinecraftServer server, @Nonnull ItemStack stack) {
