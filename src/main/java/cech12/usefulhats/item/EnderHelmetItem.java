@@ -13,6 +13,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
@@ -21,6 +22,7 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -91,10 +93,9 @@ public class EnderHelmetItem extends AbstractHatItem implements IRightClickListe
     private ServerWorld getWorld(@Nonnull MinecraftServer server, @Nonnull ItemStack stack) {
         if (hasPosition(stack)) {
             CompoundNBT positionNBT = stack.getOrCreateTag().getCompound(TELEPORT_POSITION_ID);
-            for (ServerWorld world : server.getWorlds()) {
-                if (equalsWorldAndNBT(world, positionNBT)) {
-                    return world;
-                }
+            DimensionType type = DimensionType.byName(new ResourceLocation(positionNBT.getString("dimName")));
+            if (type != null) {
+                return server.getWorld(type);
             }
         }
         return null;
