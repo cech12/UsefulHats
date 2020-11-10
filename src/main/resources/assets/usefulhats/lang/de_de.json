@@ -9,6 +9,14 @@
   "item.usefulhats.chopping_hat": "Holzfällermütze",
   "item.usefulhats.chopping_hat.desc.chopping_speed": "Mit einer Axt Holz hacken ist §2%s%%§9 schneller. (mit Verzauberungen und Tränken kombinierbar)",
 
+  "item.usefulhats.ender_helmet": "Enderhelm",
+  "item.usefulhats.ender_helmet.desc.define_teleport": "Shift-Rechtsklick um eine neue Teleport-Position zu definieren.",
+  "item.usefulhats.ender_helmet.desc.teleport": "Benutze eine Enderperle um dich an die definierte Position zu teleportieren.",
+  "item.usefulhats.ender_helmet.desc.teleport_position": "Position: X: %s, Y: %s, Z: %s",
+  "item.usefulhats.ender_helmet.message.position_saved": "Position gespeichert.",
+  "item.usefulhats.ender_helmet.message.position_obstructed": "Ziel blockiert.",
+  "item.usefulhats.ender_helmet.message.wrong_dimension": "Falsche Dimension.",
+
   "item.usefulhats.halo": "Heiligenschein",
   "item.usefulhats.halo.desc.no_attack": "Kein Gegner greift dich an (außer Bossmonster).",
   "item.usefulhats.halo.desc.beware_of_nether": "Aber hüte dich vor dem §4Nether§c.",
