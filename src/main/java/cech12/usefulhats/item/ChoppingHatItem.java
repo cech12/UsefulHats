@@ -2,12 +2,18 @@ package cech12.usefulhats.item;
 
 import cech12.usefulhats.config.Config;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolType;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Set;
 
@@ -30,8 +36,9 @@ public class ChoppingHatItem extends AbstractMiningHatItem {
     }
 
     @Override
-    public void onItemToolTipEvent(ItemStack stack, List<ITextComponent> tooltip) {
-        super.onItemToolTipEvent(stack, tooltip);
+    @OnlyIn(Dist.CLIENT)
+    public void addInformation(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
+        super.addInformation(stack, worldIn, tooltip, flagIn);
         int value = (int) (this.getEnchantmentValue(stack, this.getSpeedConfig()) * 100);
         tooltip.add(new TranslationTextComponent("item.usefulhats.chopping_hat.desc.chopping_speed", value).applyTextStyle(TextFormatting.BLUE));
     }

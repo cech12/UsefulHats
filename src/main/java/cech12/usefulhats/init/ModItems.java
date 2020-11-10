@@ -24,7 +24,6 @@ import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
 import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent;
 import net.minecraftforge.event.entity.player.ItemFishedEvent;
-import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
@@ -97,7 +96,6 @@ public class ModItems {
      */
     @OnlyIn(Dist.CLIENT)
     public static void addClientEventListeners() {
-        MinecraftForge.EVENT_BUS.addListener(ModItems::onItemToolTipEvent);
         MinecraftForge.EVENT_BUS.addListener(ModItems::onRenderGameOverlayEvent);
     }
 
@@ -138,15 +136,6 @@ public class ModItems {
                 if (item instanceof IItemFishedListener && headSlotItemStack.getItem() == item) {
                     ((IItemFishedListener) item).onItemFishedListener(event, headSlotItemStack);
                 }
-            }
-        }
-    }
-
-    private static void onItemToolTipEvent(ItemTooltipEvent event) {
-        ItemStack stack = event.getItemStack();
-        for (Item item : ModItems.items) {
-            if (/*item instanceof AbstractHatItem &&*/ stack.getItem() == item) {
-                ((AbstractHatItem) item).onItemToolTipEvent(stack, event.getToolTip());
             }
         }
     }

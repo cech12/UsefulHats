@@ -2,6 +2,7 @@ package cech12.usefulhats.item;
 
 import cech12.usefulhats.UsefulHatsUtils;
 import cech12.usefulhats.config.Config;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.FoodStats;
@@ -11,7 +12,11 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class MushroomHatItem extends AbstractHatItem implements IUsefulHatModelOwner {
@@ -21,8 +26,9 @@ public class MushroomHatItem extends AbstractHatItem implements IUsefulHatModelO
     }
 
     @Override
-    public void onItemToolTipEvent(ItemStack stack, List<ITextComponent> tooltip) {
-        super.onItemToolTipEvent(stack, tooltip);
+    @OnlyIn(Dist.CLIENT)
+    public void addInformation(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
+        super.addInformation(stack, worldIn, tooltip, flagIn);
         tooltip.add(new TranslationTextComponent("item.usefulhats.mushroom_hat.desc.feeding").applyTextStyle(TextFormatting.BLUE));
     }
 

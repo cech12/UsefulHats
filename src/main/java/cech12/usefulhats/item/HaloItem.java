@@ -2,6 +2,7 @@ package cech12.usefulhats.item;
 
 import cech12.usefulhats.UsefulHatsUtils;
 import cech12.usefulhats.config.Config;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
@@ -15,8 +16,12 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -27,8 +32,9 @@ public class HaloItem extends AbstractHatItem implements IAttackTargetChanger, I
     }
 
     @Override
-    public void onItemToolTipEvent(ItemStack stack, List<ITextComponent> tooltip) {
-        super.onItemToolTipEvent(stack, tooltip);
+    @OnlyIn(Dist.CLIENT)
+    public void addInformation(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
+        super.addInformation(stack, worldIn, tooltip, flagIn);
         tooltip.add(new TranslationTextComponent("item.usefulhats.halo.desc.no_attack").applyTextStyle(TextFormatting.BLUE));
         tooltip.add(new TranslationTextComponent("item.usefulhats.halo.desc.beware_of_nether").applyTextStyle(TextFormatting.RED));
     }
