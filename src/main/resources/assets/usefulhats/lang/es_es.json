@@ -10,7 +10,7 @@
   "item.usefulhats.chopping_hat.desc.chopping_speed": "Cortar con un hacha es §2%s%%§9 más rápido. (se puede combinar con encantos y pociones)",
 
   "item.usefulhats.ender_helmet": "Casco de ender",
-  "item.usefulhats.ender_helmet.desc.define_teleport": "Sostén el casco en tu mano, agacharte y haz clic derecho para definir la posición de teletransporte.",
+  "item.usefulhats.ender_helmet.desc.define_teleport": "Sostén el casco en tu mano, agáchate y haz clic derecho para definir la posición de teletransporte.",
   "item.usefulhats.ender_helmet.desc.teleport": "Usa una perla de ender para teletransportarte a la posición definida.",
   "item.usefulhats.ender_helmet.desc.teleport_position": "Posición: X: %s, Y: %s, Z: %s",
   "item.usefulhats.ender_helmet.message.position_saved": "Posición guardada.",
