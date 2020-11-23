@@ -10,7 +10,7 @@
   "item.usefulhats.chopping_hat.desc.chopping_speed": "Cortar com um machado é §2%s%%§9 mais rápido. (Somase a encantamentos e poções)",
 
   "item.usefulhats.ender_helmet": "Ender Helmet",
-  "item.usefulhats.ender_helmet.desc.define_teleport": "Sneak right click to define a new teleport position.",
+  "item.usefulhats.ender_helmet.desc.define_teleport": "Hold the helmet in your hand and sneak right click to define the teleport position.",
   "item.usefulhats.ender_helmet.desc.teleport": "Use an Ender Pearl to teleport to the defined position.",
   "item.usefulhats.ender_helmet.desc.teleport_position": "Position: X: %s, Y: %s, Z: %s",
   "item.usefulhats.ender_helmet.message.position_saved": "Position saved.",

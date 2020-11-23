@@ -10,7 +10,7 @@
   "item.usefulhats.chopping_hat.desc.chopping_speed": "Mit einer Axt Holz hacken ist §2%s%%§9 schneller. (mit Verzauberungen und Tränken kombinierbar)",
 
   "item.usefulhats.ender_helmet": "Enderhelm",
-  "item.usefulhats.ender_helmet.desc.define_teleport": "Shift-Rechtsklick um eine neue Teleport-Position zu definieren.",
+  "item.usefulhats.ender_helmet.desc.define_teleport": "Halte den Helm in der Hand um mit Shift-Rechtsklick die Teleport-Position zu definieren.",
   "item.usefulhats.ender_helmet.desc.teleport": "Benutze eine Enderperle um dich an die definierte Position zu teleportieren.",
   "item.usefulhats.ender_helmet.desc.teleport_position": "Position: X: %s, Y: %s, Z: %s",
   "item.usefulhats.ender_helmet.message.position_saved": "Position gespeichert.",
