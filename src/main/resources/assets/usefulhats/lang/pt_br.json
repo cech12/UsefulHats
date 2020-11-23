@@ -10,7 +10,7 @@
   "item.usefulhats.chopping_hat.desc.chopping_speed": "Cortar com um machado é §2%s%%§9 mais rápido. (Somase a encantamentos e poções)",
 
   "item.usefulhats.ender_helmet": "Capacete do Fim",
-  "item.usefulhats.ender_helmet.desc.define_teleport": "Com o capacete em sua mão, Esgueire-se + Clique com o botão direito para definir uma nova posição de teletransporte.",
+  "item.usefulhats.ender_helmet.desc.define_teleport": "Com o capacete em sua mão, Esgueire-se e Clique com o botão direito para definir uma nova posição de teletransporte.",
   "item.usefulhats.ender_helmet.desc.teleport": "Use uma Péroa do Fim para se teletransportar para a posição definida.",
   "item.usefulhats.ender_helmet.desc.teleport_position": "Posição: X: %s, Y: %s, Z: %s",
   "item.usefulhats.ender_helmet.message.position_saved": "Posição salva.",
