@@ -16,6 +16,7 @@ import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Calendar;
 import java.util.Map;
 
 /**
@@ -27,6 +28,7 @@ import java.util.Map;
 public class UsefulHatLayer<T extends LivingEntity, M extends BipedModel<T>, A extends BipedModel<T>> extends BipedArmorLayer<T, M, A> {
 
     private static final Map<String, ResourceLocation> ARMOR_TEXTURE_RES_MAP = Maps.newHashMap();
+    private static final boolean IS_CHRISTMAS = Calendar.getInstance().get(Calendar.MONTH) + 1 == 12;
 
     public UsefulHatLayer(IEntityRenderer<T, M> renderer, A hatModel) {
         super(renderer, hatModel, hatModel);
@@ -37,7 +39,9 @@ public class UsefulHatLayer<T extends LivingEntity, M extends BipedModel<T>, A e
         if (resourceLocation != null) {
             String texture = resourceLocation.getPath();
             String domain = resourceLocation.getNamespace();
-            String s1 = String.format("%s:textures/models/usefulhats/%s%s.png", domain, texture, type == null ? "" : String.format("_%s", type));
+            String s1 = String.format("%s:textures/models/usefulhats/%s%s%s.png", domain, texture,
+                    (IS_CHRISTMAS && ((IUsefulHatModelOwner) stack.getItem()).hasChristmasVariant()) ? "_xmas" : "",
+                    type == null ? "" : String.format("_%s", type));
             resourceLocation = ARMOR_TEXTURE_RES_MAP.get(s1);
             if (resourceLocation == null) {
                 resourceLocation = new ResourceLocation(s1);
