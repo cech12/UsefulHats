@@ -14,10 +14,15 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class StockingCapItem extends AbstractHatItem {
+public class StockingCapItem extends AbstractHatItem implements IUsefulHatModelOwner {
 
     public StockingCapItem() {
         super("stocking_cap", HatArmorMaterial.STOCKING, rawColorFromRGB(204, 0, 23), Config.STOCKING_CAP_ENABLED, Config.STOCKING_CAP_DAMAGE_ENABLED);
+    }
+
+    @Override
+    public boolean hasChristmasVariant() {
+        return true;
     }
 
     /**

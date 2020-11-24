@@ -60,7 +60,7 @@ public abstract class AbstractHatItem extends ArmorItem implements IEnabled, IDy
     private final ConfigType.Boolean enabledDamageConfig;
 
     private final ArrayList<Enchantment> allowedEnchantments = new ArrayList<>();
-    private final ArrayList<Enchantment> allowedAdditionalBookEnchantments = new ArrayList<>();
+    private final ArrayList<Enchantment> forbiddenEnchantments = new ArrayList<>();
 
     public AbstractHatItem(String name, HatArmorMaterial material, int initColor, ConfigType.Boolean enabledConfig, ConfigType.Boolean enabledDamageConfig) {
         super(material, EquipmentSlotType.HEAD, (new Properties()).group(ItemGroup.COMBAT));
@@ -69,13 +69,10 @@ public abstract class AbstractHatItem extends ArmorItem implements IEnabled, IDy
         this.initColor = initColor;
         this.enabledConfig = enabledConfig;
         this.enabledDamageConfig = enabledDamageConfig;
-        this.allowedEnchantments.add(Enchantments.UNBREAKING);
-        this.allowedEnchantments.add(Enchantments.RESPIRATION);
-        this.allowedEnchantments.add(Enchantments.AQUA_AFFINITY);
-        this.allowedAdditionalBookEnchantments.add(Enchantments.THORNS);
-        this.allowedAdditionalBookEnchantments.add(Enchantments.MENDING);
-        this.allowedAdditionalBookEnchantments.add(Enchantments.BINDING_CURSE);
-        this.allowedAdditionalBookEnchantments.add(Enchantments.VANISHING_CURSE);
+        this.addForbiddenEnchantment(Enchantments.FIRE_PROTECTION);
+        this.addForbiddenEnchantment(Enchantments.PROJECTILE_PROTECTION);
+        this.addForbiddenEnchantment(Enchantments.BLAST_PROTECTION);
+        this.addForbiddenEnchantment(Enchantments.PROTECTION);
         //for other apis
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
         eventBus.addListener(this::setup);
@@ -129,20 +126,23 @@ public abstract class AbstractHatItem extends ArmorItem implements IEnabled, IDy
 
     /**
      * Add an allowed enchantment to this item.
-     * Standard allowed enchantments are MENDING and UNBREAKING.
+     * All Minecraft helmet enchantments are enabled per default. Only other enchantments should be added here.
      * @param enchantment enchantment to add
      */
     protected void addAllowedEnchantment(Enchantment enchantment) {
+        this.forbiddenEnchantments.remove(enchantment);
         this.allowedEnchantments.add(enchantment);
     }
 
     /**
-     * Add an allowed additional book enchantment to this item.
-     * Standard allowed additional book enchantments are BINDING_CURSE and VANISHING_CURSE.
+     * Add a forbidden enchantment to this item.
+     * Standard forbidden enchantments are FIRE_PROTECTION, PROJECTILE_PROTECTION, BLAST_PROTECTION, PROTECTION.
+     * UNBREAKING & MENDING are deactivated if the hat durability is disabled via config.
      * @param enchantment enchantment to add
      */
-    protected void addAllowedAdditionalBookEnchantment(Enchantment enchantment) {
-        this.allowedAdditionalBookEnchantments.add(enchantment);
+    protected void addForbiddenEnchantment(Enchantment enchantment) {
+        this.allowedEnchantments.remove(enchantment);
+        this.forbiddenEnchantments.add(enchantment);
     }
 
     @Override
@@ -153,10 +153,8 @@ public abstract class AbstractHatItem extends ArmorItem implements IEnabled, IDy
 
     @Override
     public boolean isBookEnchantable(ItemStack stack, ItemStack book) {
-        ArrayList<Enchantment> allowedE = new ArrayList<>(allowedEnchantments);
-        allowedE.addAll(allowedAdditionalBookEnchantments);
         for (Enchantment enchantment : EnchantmentHelper.getEnchantments(book).keySet()) {
-            if (!allowedE.contains(enchantment)) {
+            if (!this.canApplyAtEnchantingTable(stack, enchantment)) {
                 return false;
             }
         }
@@ -165,7 +163,17 @@ public abstract class AbstractHatItem extends ArmorItem implements IEnabled, IDy
 
     @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
-        return this.allowedEnchantments.contains(enchantment);
+        if (this.allowedEnchantments.contains(enchantment)) {
+            return true;
+        }
+        if (this.forbiddenEnchantments.contains(enchantment)) {
+            return false;
+        }
+        //disable UNBREAKING & MENDING if damage is disabled
+        if (!this.enabledDamageConfig.getValue() && (enchantment == Enchantments.UNBREAKING || enchantment == Enchantments.MENDING)) {
+            return false;
+        }
+        return super.canApplyAtEnchantingTable(stack, enchantment);
     }
 
     /**
