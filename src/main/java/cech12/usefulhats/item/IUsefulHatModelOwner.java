@@ -5,4 +5,9 @@ package cech12.usefulhats.item;
  * Mostly it is better to use a blank texture for the normal helmet rendering.
  */
 public interface IUsefulHatModelOwner {
+
+    default boolean hasChristmasVariant() {
+        return false;
+    }
+
 }
