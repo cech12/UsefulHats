@@ -35,6 +35,8 @@ import top.theillusivec4.curios.api.event.CurioChangeEvent;
 @Mod.EventBusSubscriber(modid= UsefulHatsMod.MOD_ID, bus= Mod.EventBusSubscriber.Bus.MOD)
 public class ModItems {
 
+    public static final StockingCapItem STOCKING_CAP = new StockingCapItem();
+
     private static final Item[] items = {
             new AquanautHelmetItem(),
             new BunnyEarsItem(),
@@ -46,7 +48,7 @@ public class ModItems {
             new MushroomHatItem(),
             new PostmanHatItem(),
             new ShulkerHelmetItem(),
-            new StockingCapItem(),
+            STOCKING_CAP,
             new StrawHatItem(),
             new WingHelmetItem()
     };
