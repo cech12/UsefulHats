@@ -20,7 +20,6 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.IDyeableArmorItem;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.Effect;
@@ -63,7 +62,7 @@ public abstract class AbstractHatItem extends ArmorItem implements IEnabled, IDy
     private final ArrayList<Enchantment> forbiddenEnchantments = new ArrayList<>();
 
     public AbstractHatItem(String name, HatArmorMaterial material, int initColor, ConfigType.Boolean enabledConfig, ConfigType.Boolean enabledDamageConfig) {
-        super(material, EquipmentSlotType.HEAD, (new Properties()).group(ItemGroup.COMBAT));
+        super(material, EquipmentSlotType.HEAD, (new Properties()).group(UsefulHatsMod.ITEM_GROUP));
         this.setRegistryName(new ResourceLocation(UsefulHatsMod.MOD_ID, name));
         this.material = material;
         this.initColor = initColor;

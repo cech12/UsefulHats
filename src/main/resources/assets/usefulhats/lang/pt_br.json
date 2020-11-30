@@ -1,4 +1,6 @@
 {
+  "itemGroup.usefulhats": "Useful Hats",
+
   "item.usefulhats.aquanaut_helmet": "Capacete do Aquanauta",
   "item.usefulhats.aquanaut_helmet.desc.conduit_power": "Você obtém o efeito §2Poder do Conduíte§9 por %s segundos.",
 
