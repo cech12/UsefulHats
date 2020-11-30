@@ -8,6 +8,8 @@ import cech12.usefulhats.helper.UsefulHatsRecipeSerializers;
 import cech12.usefulhats.init.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.ArmorStandRenderer;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -25,6 +27,13 @@ import static cech12.usefulhats.UsefulHatsMod.MOD_ID;
 public class UsefulHatsMod {
 
     public static final String MOD_ID = "usefulhats";
+
+    public static final ItemGroup ITEM_GROUP = new ItemGroup("usefulhats") {
+        @Override
+        public ItemStack createIcon() {
+            return new ItemStack(ModItems.STOCKING_CAP);
+        }
+    };
 
     public UsefulHatsMod() {
         ModItems.addEventListeners();
