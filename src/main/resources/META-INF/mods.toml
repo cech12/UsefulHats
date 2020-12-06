@@ -33,6 +33,6 @@ license="The MIT License (MIT)"
 [[dependencies.usefulhats]]
     modId="baubles"
     mandatory=false
-    versionRange="[1.8.0,)"
+    versionRange="[1.8.3,)"
     ordering="NONE"
     side="BOTH"

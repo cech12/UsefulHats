@@ -1,8 +1,8 @@
 package cech12.usefulhats.item;
 
 import cech12.usefulhats.config.Config;
-import com.lazy.baubles.api.BaubleType;
-import com.lazy.baubles.api.IBauble;
+import com.lazy.baubles.api.bauble.BaubleType;
+import com.lazy.baubles.api.bauble.IBauble;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -26,8 +26,13 @@ public class AbstractHatItemBaublesCapability implements IBauble {
         return BaubleType.HEAD;
     }
 
+    //@Override //version 1.8.4
+    public BaubleType getBaubleType(ItemStack stack) {
+        return BaubleType.HEAD;
+    }
+
     @Override
-    public void onWornTick(LivingEntity livingEntity) {
+    public void onWornTick(LivingEntity livingEntity, ItemStack stack) {
         if (Config.BAUBLES_ENABLED.getValue() && livingEntity instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity) livingEntity;
             this.item.onArmorTick(this.stack, player.world, player);
@@ -35,14 +40,14 @@ public class AbstractHatItemBaublesCapability implements IBauble {
     }
 
     @Override
-    public void onEquipped(LivingEntity livingEntity) {
+    public void onEquipped(LivingEntity livingEntity, ItemStack stack) {
         if (this.item instanceof IEquipmentChangeListener) {
             ((IEquipmentChangeListener) this.item).onEquippedHatItem(livingEntity, this.stack);
         }
     }
 
     @Override
-    public void onUnequipped(LivingEntity livingEntity) {
+    public void onUnequipped(LivingEntity livingEntity, ItemStack stack) {
         if (this.item instanceof IEquipmentChangeListener) {
             ((IEquipmentChangeListener) this.item).onUnequippedHatItem(livingEntity, this.stack);
         }
