@@ -1,13 +1,9 @@
 package cech12.usefulhats;
 
-import cech12.usefulhats.client.UsefulHatLayer;
-import cech12.usefulhats.client.UsefulHatModel;
 import cech12.usefulhats.compat.CuriosMod;
 import cech12.usefulhats.config.Config;
 import cech12.usefulhats.helper.UsefulHatsRecipeSerializers;
 import cech12.usefulhats.init.ModItems;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.entity.ArmorStandRenderer;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
@@ -52,17 +48,6 @@ public class UsefulHatsMod {
     public static void onClientRegister(FMLClientSetupEvent event) {
         //register client event listeners
         ModItems.addClientEventListeners();
-        //add layer to armor stand renderer
-        (Minecraft.getInstance().getRenderManager().renderers).forEach((e, r) -> {
-            if (r instanceof ArmorStandRenderer) {
-                ArmorStandRenderer renderer = (ArmorStandRenderer) r;
-                renderer.addLayer(new UsefulHatLayer<>(renderer, new UsefulHatModel.ArmorStandModel()));
-            }
-        });
-        //add layer to player renderer
-        Minecraft.getInstance().getRenderManager().getSkinMap().values().forEach(r -> {
-            r.addLayer(new UsefulHatLayer<>(r, new UsefulHatModel<>()));
-        });
     }
 
 }

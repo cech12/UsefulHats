@@ -1,6 +1,7 @@
 package cech12.usefulhats.item;
 
 import cech12.usefulhats.UsefulHatsMod;
+import cech12.usefulhats.client.UsefulHatModel;
 import cech12.usefulhats.compat.BaublesMod;
 import cech12.usefulhats.compat.CuriosMod;
 import cech12.usefulhats.config.ConfigType;
@@ -11,10 +12,12 @@ import com.lazy.baubles.api.bauble.IBauble;
 import com.lazy.baubles.api.cap.BaublesCapabilities;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -53,10 +56,14 @@ import top.theillusivec4.curios.api.type.capability.ICurio;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.function.Consumer;
 
 public abstract class AbstractHatItem extends ArmorItem implements IEnabled, IDyeableArmorItem {
+
+    private static final boolean IS_CHRISTMAS = Calendar.getInstance().get(Calendar.MONTH) + 1 == 12;
+    private static UsefulHatModel<LivingEntity> model;
 
     private final HatArmorMaterial material;
     private final int initColor;
@@ -252,6 +259,34 @@ public abstract class AbstractHatItem extends ArmorItem implements IEnabled, IDy
         tooltip.add((new TranslationTextComponent("item.modifiers." + EquipmentSlotType.HEAD.getName())).mergeStyle(TextFormatting.GRAY));
     }
 
+    @OnlyIn(Dist.CLIENT)
+    @Nullable
+    @Override
+    public <A extends BipedModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, A _default) {
+        if (this instanceof IUsefulHatModelOwner) {
+            if (model == null) {
+                model = new UsefulHatModel<>();
+            }
+            return (A) model;
+        }
+        return super.getArmorModel(entityLiving, itemStack, armorSlot, _default);
+    }
+
+    @Nullable
+    @Override
+    public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
+        if (this instanceof IUsefulHatModelOwner) {
+            ResourceLocation resourceLocation = stack.getItem().getRegistryName();
+            if (resourceLocation != null) {
+                String texture = resourceLocation.getPath();
+                String domain = resourceLocation.getNamespace();
+                return String.format("%s:textures/models/usefulhats/%s%s%s.png", domain, texture,
+                        (IS_CHRISTMAS && ((IUsefulHatModelOwner) stack.getItem()).hasChristmasVariant()) ? "_xmas" : "",
+                        type == null ? "" : String.format("_%s", type));
+            }
+        }
+        return super.getArmorTexture(stack, entity, slot, type);
+    }
 
     /// Following Methods are related to the Curios & Baubles API
 

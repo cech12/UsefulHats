@@ -1,6 +1,5 @@
 package cech12.usefulhats.item;
 
-import cech12.usefulhats.client.UsefulHatLayer;
 import cech12.usefulhats.client.UsefulHatModel;
 import cech12.usefulhats.config.Config;
 import com.google.common.collect.Maps;
@@ -67,10 +66,10 @@ public class AbstractHatItemCurioCapability implements ICurio {
 
     @OnlyIn(Dist.CLIENT)
     private ResourceLocation getTexture(String type) {
-        ResourceLocation location;
         ArmorItem item = (ArmorItem) this.stack.getItem();
+        String locationString;
         if (item instanceof IUsefulHatModelOwner) {
-            location =  UsefulHatLayer.getTexture(this.stack, type);
+            locationString = item.getArmorTexture(this.stack, this.stack.getAttachedEntity(), this.stack.getEquipmentSlot(), type);
         } else {
             //mostly copied from BipedArmorLayer class
             String texture = item.getArmorMaterial().getName();
@@ -80,12 +79,12 @@ public class AbstractHatItemCurioCapability implements ICurio {
                 domain = texture.substring(0, idx);
                 texture = texture.substring(idx + 1);
             }
-            String s1 = String.format("%s:textures/models/armor/%s_layer_%d%s.png", domain, texture, 1, type == null ? "" : String.format("_%s", type));
-            location = ARMOR_TEXTURE_RES_MAP.get(s1);
-            if (location == null) {
-                location = new ResourceLocation(s1);
-                ARMOR_TEXTURE_RES_MAP.put(s1, location);
-            }
+            locationString = String.format("%s:textures/models/armor/%s_layer_%d%s.png", domain, texture, 1, type == null ? "" : String.format("_%s", type));
+        }
+        ResourceLocation location = ARMOR_TEXTURE_RES_MAP.get(locationString);
+        if (location == null && locationString != null) {
+            location = new ResourceLocation(locationString);
+            ARMOR_TEXTURE_RES_MAP.put(locationString, location);
         }
         return location;
     }
