@@ -35,8 +35,8 @@ public class BunnyEarsItem extends AbstractHatItem implements IEquipmentChangeLi
     public void appendHoverText(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         int enchantmentLevel = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY, stack) + 1;
-        this.addTextLineToTooltip(tooltip, new TranslationTextComponent("item.usefulhats.bunny_ears.desc.jump_boost", UsefulHatsUtils.getRomanNumber(enchantmentLevel, false)).withStyle(TextFormatting.BLUE));
-        this.addTextLineToTooltip(tooltip, new TranslationTextComponent("item.usefulhats.bunny_ears.desc.eating", enchantmentLevel + 1).withStyle(TextFormatting.BLUE));
+        tooltip.add(new TranslationTextComponent("item.usefulhats.bunny_ears.desc.jump_boost", UsefulHatsUtils.getRomanNumber(enchantmentLevel, false)).withStyle(TextFormatting.BLUE));
+        tooltip.add(new TranslationTextComponent("item.usefulhats.bunny_ears.desc.eating", enchantmentLevel + 1).withStyle(TextFormatting.BLUE));
     }
 
     @Override

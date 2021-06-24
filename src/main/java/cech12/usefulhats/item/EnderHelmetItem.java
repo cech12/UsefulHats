@@ -41,13 +41,13 @@ public class EnderHelmetItem extends AbstractHatItem implements IRightClickListe
     @Override
     @OnlyIn(Dist.CLIENT)
     public void appendHoverText(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
-        this.addTextLineToTooltip(tooltip, new TranslationTextComponent("item.usefulhats.ender_helmet.desc.define_teleport").withStyle(TextFormatting.BLUE));
+        tooltip.add(new TranslationTextComponent("item.usefulhats.ender_helmet.desc.define_teleport").withStyle(TextFormatting.BLUE));
         if (hasPosition(stack)) {
             super.appendHoverText(stack, worldIn, tooltip, flagIn);
             BlockPos pos = getPosition(stack);
-            this.addTextLineToTooltip(tooltip, new TranslationTextComponent("item.usefulhats.ender_helmet.desc.teleport").withStyle(TextFormatting.BLUE));
-            this.addTextLineToTooltip(tooltip, new TranslationTextComponent("item.usefulhats.ender_helmet.desc.teleport_position", pos.getX(), pos.getY(), pos.getZ()).withStyle(TextFormatting.BLUE));
-            this.addTextLineToTooltip(tooltip, new StringTextComponent(getDimensionString(stack)).withStyle(TextFormatting.BLUE));
+            tooltip.add(new TranslationTextComponent("item.usefulhats.ender_helmet.desc.teleport").withStyle(TextFormatting.BLUE));
+            tooltip.add(new TranslationTextComponent("item.usefulhats.ender_helmet.desc.teleport_position", pos.getX(), pos.getY(), pos.getZ()).withStyle(TextFormatting.BLUE));
+            tooltip.add(new StringTextComponent(getDimensionString(stack)).withStyle(TextFormatting.BLUE));
         }
     }
 

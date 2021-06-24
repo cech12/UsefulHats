@@ -68,9 +68,9 @@ public class LuckyHatItem extends AbstractHatItem implements IItemFishedListener
     @OnlyIn(Dist.CLIENT)
     public void appendHoverText(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
-        this.addTextLineToTooltip(tooltip, new TranslationTextComponent("item.usefulhats.lucky_hat.desc.luck", UsefulHatsUtils.getRomanNumber(getEffectLevel(stack), false)).withStyle(TextFormatting.BLUE));
+        tooltip.add(new TranslationTextComponent("item.usefulhats.lucky_hat.desc.luck", UsefulHatsUtils.getRomanNumber(getEffectLevel(stack), false)).withStyle(TextFormatting.BLUE));
         if (Config.LUCKY_HAT_UNLUCK_ENABLED.getValue()) {
-            this.addTextLineToTooltip(tooltip, new TranslationTextComponent("item.usefulhats.lucky_hat.desc.unluck").withStyle(TextFormatting.RED));
+            tooltip.add(new TranslationTextComponent("item.usefulhats.lucky_hat.desc.unluck").withStyle(TextFormatting.RED));
         }
     }
 

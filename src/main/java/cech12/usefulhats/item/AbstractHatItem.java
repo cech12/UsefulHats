@@ -10,8 +10,6 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import lazy.baubles.api.bauble.IBauble;
 import lazy.baubles.api.cap.BaublesCapabilities;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.Enchantment;
@@ -34,9 +32,7 @@ import net.minecraft.stats.Stats;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.ITextProperties;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
@@ -221,29 +217,6 @@ public abstract class AbstractHatItem extends ArmorItem implements IEnabled, IDy
     @Override
     public @Nonnull Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(@Nonnull EquipmentSlotType equipmentSlot) {
         return HashMultimap.create();
-    }
-
-    private static final int MAX_TEXT_LINE_WIDTH = 180;
-
-    /**
-     * Workaround for 1.16.2+
-     * Forge removed {@link net.minecraftforge.fml.client.gui.GuiUtils::drawHoveringText} call
-     * from {@link net.minecraft.client.gui.screen.Screen} class. So, all long texts are not reordered.
-     * Reordering by myself.
-     * //TODO could be removed when building against Forge 1.16.3-34.1.11 or later
-     */
-    @OnlyIn(Dist.CLIENT)
-    protected void addTextLineToTooltip(@Nonnull List<ITextComponent> tooltip, @Nonnull ITextComponent textLine) {
-        FontRenderer font = Minecraft.getInstance().font;
-        int textLineWidth = font.width(textLine);
-        if (textLineWidth > MAX_TEXT_LINE_WIDTH) {
-            List<ITextProperties> wrappedLine = font.getSplitter().splitLines(textLine, MAX_TEXT_LINE_WIDTH, Style.EMPTY);
-            for (ITextProperties line : wrappedLine) {
-                tooltip.add(new StringTextComponent(line.getString()).withStyle(textLine.getStyle()));
-            }
-        } else {
-            tooltip.add(textLine);
-        }
     }
 
     /**

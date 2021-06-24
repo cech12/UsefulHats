@@ -36,9 +36,9 @@ public class PostmanHatItem extends AbstractHatItem implements IEquipmentChangeL
     public void appendHoverText(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         int enchantmentLevel = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY, stack) + 1;
-        this.addTextLineToTooltip(tooltip, new TranslationTextComponent("item.usefulhats.postman_hat.desc.speed", UsefulHatsUtils.getRomanNumber(enchantmentLevel, false)).withStyle(TextFormatting.BLUE));
+        tooltip.add(new TranslationTextComponent("item.usefulhats.postman_hat.desc.speed", UsefulHatsUtils.getRomanNumber(enchantmentLevel, false)).withStyle(TextFormatting.BLUE));
         if (Config.POSTMAN_HAT_HUNGER_ENABLED.getValue()) {
-            this.addTextLineToTooltip(tooltip, new TranslationTextComponent("item.usefulhats.postman_hat.desc.hunger").withStyle(TextFormatting.RED));
+            tooltip.add(new TranslationTextComponent("item.usefulhats.postman_hat.desc.hunger").withStyle(TextFormatting.RED));
         }
     }
 
