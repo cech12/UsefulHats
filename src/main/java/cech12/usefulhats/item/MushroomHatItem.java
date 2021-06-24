@@ -27,20 +27,20 @@ public class MushroomHatItem extends AbstractHatItem implements IUsefulHatModelO
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void addInformation(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
-        super.addInformation(stack, worldIn, tooltip, flagIn);
-        this.addTextLineToTooltip(tooltip, new TranslationTextComponent("item.usefulhats.mushroom_hat.desc.feeding").mergeStyle(TextFormatting.BLUE));
+    public void appendHoverText(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
+        super.appendHoverText(stack, worldIn, tooltip, flagIn);
+        this.addTextLineToTooltip(tooltip, new TranslationTextComponent("item.usefulhats.mushroom_hat.desc.feeding").withStyle(TextFormatting.BLUE));
     }
 
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
-        if (!world.isRemote) {
+        if (!world.isClientSide) {
             if (!UsefulHatsUtils.getEquippedHatItemStacks(player).contains(stack)) return; //only one worn stack of this item should add its effect
             //eat every 3 seconds until no food is needed
-            FoodStats foodStats = player.getFoodStats();
-            if (foodStats.needFood() && player.ticksExisted % Config.MUSHROOM_HAT_EAT_INTERVAL.getValue() == 0) {
-                foodStats.addStats(1, 0.5F);
-                world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
+            FoodStats foodStats = player.getFoodData();
+            if (foodStats.needsFood() && player.tickCount % Config.MUSHROOM_HAT_EAT_INTERVAL.getValue() == 0) {
+                foodStats.eat(1, 0.5F);
+                world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.PLAYER_BURP, SoundCategory.PLAYERS, 0.5F, world.random.nextFloat() * 0.1F + 0.9F);
                 this.damageHatItemByOne(stack, player);
             }
         }

@@ -33,8 +33,8 @@ public class LuckyHatItem extends AbstractHatItem implements IItemFishedListener
 
     public LuckyHatItem() {
         super("lucky_hat", HatArmorMaterial.LUCKY, rawColorFromRGB(72, 242, 0), Config.LUCKY_HAT_ENABLED, Config.LUCKY_HAT_DAMAGE_ENABLED);
-        this.addAllowedEnchantment(Enchantments.LUCK_OF_THE_SEA);
-        this.addAllowedEnchantment(Enchantments.LOOTING);
+        this.addAllowedEnchantment(Enchantments.FISHING_LUCK);
+        this.addAllowedEnchantment(Enchantments.MOB_LOOTING);
     }
 
     private boolean isLuckOrUnluckCausedByOtherSource(PlayerEntity player, ItemStack stack) {
@@ -44,7 +44,7 @@ public class LuckyHatItem extends AbstractHatItem implements IItemFishedListener
 
     private boolean hasHatRelatedItemInHand(PlayerEntity player) {
         //support both hands
-        for (ItemStack item : player.getHeldEquipment()) {
+        for (ItemStack item : player.getHandSlots()) {
             if (item.getToolTypes().contains(ToolType.AXE) ||
                     item.getItem() instanceof FishingRodItem ||
                     item.getItem() instanceof SwordItem) {
@@ -56,8 +56,8 @@ public class LuckyHatItem extends AbstractHatItem implements IItemFishedListener
 
     private int getEffectLevel(ItemStack stack) {
         //looting and luck of the sea raise the luck level
-        return 1 + EnchantmentHelper.getEnchantmentLevel(Enchantments.LOOTING, stack) +
-                EnchantmentHelper.getEnchantmentLevel(Enchantments.LUCK_OF_THE_SEA, stack);
+        return 1 + EnchantmentHelper.getItemEnchantmentLevel(Enchantments.MOB_LOOTING, stack) +
+                EnchantmentHelper.getItemEnchantmentLevel(Enchantments.FISHING_LUCK, stack);
     }
 
     private int getLuckAmplifier(ItemStack stack) {
@@ -66,24 +66,24 @@ public class LuckyHatItem extends AbstractHatItem implements IItemFishedListener
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void addInformation(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
-        super.addInformation(stack, worldIn, tooltip, flagIn);
-        this.addTextLineToTooltip(tooltip, new TranslationTextComponent("item.usefulhats.lucky_hat.desc.luck", UsefulHatsUtils.getRomanNumber(getEffectLevel(stack), false)).mergeStyle(TextFormatting.BLUE));
+    public void appendHoverText(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
+        super.appendHoverText(stack, worldIn, tooltip, flagIn);
+        this.addTextLineToTooltip(tooltip, new TranslationTextComponent("item.usefulhats.lucky_hat.desc.luck", UsefulHatsUtils.getRomanNumber(getEffectLevel(stack), false)).withStyle(TextFormatting.BLUE));
         if (Config.LUCKY_HAT_UNLUCK_ENABLED.getValue()) {
-            this.addTextLineToTooltip(tooltip, new TranslationTextComponent("item.usefulhats.lucky_hat.desc.unluck").mergeStyle(TextFormatting.RED));
+            this.addTextLineToTooltip(tooltip, new TranslationTextComponent("item.usefulhats.lucky_hat.desc.unluck").withStyle(TextFormatting.RED));
         }
     }
 
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
-        if (!world.isRemote) {
+        if (!world.isClientSide) {
             if (!UsefulHatsUtils.getEquippedHatItemStacks(player).contains(stack)) return; //only one worn stack of this item should add its effect
             //when luck or unluck are caused by other source, do nothing
             if (this.isLuckOrUnluckCausedByOtherSource(player, stack)) return;
             //else add luck effect when correct item is in hand and unluck is not active
             int luckAmplifier = this.getLuckAmplifier(stack);
-            if (this.hasHatRelatedItemInHand(player) && player.getActivePotionEffect(Effects.UNLUCK) == null) {
-                if (player.getActivePotionEffect(Effects.LUCK) == null || player.ticksExisted % 19 == 0) {
+            if (this.hasHatRelatedItemInHand(player) && player.getEffect(Effects.UNLUCK) == null) {
+                if (player.getEffect(Effects.LUCK) == null || player.tickCount % 19 == 0) {
                     this.addEffect(player, Effects.LUCK, LUCK_DURATION, luckAmplifier);
                 }
             } else {

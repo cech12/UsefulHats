@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[33,)"
+loaderVersion="[36,)"
 issueTrackerURL="https://github.com/cech12/UsefulHats/issues"
 license="The MIT License (MIT)"
 [[mods]]
@@ -15,24 +15,24 @@ license="The MIT License (MIT)"
 [[dependencies.usefulhats]]
     modId="forge"
     mandatory=true
-    versionRange="[33.0.5,)"
+    versionRange="[36.1.0,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.usefulhats]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.16.2,)"
+    versionRange="[1.16.5,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.usefulhats]]
     modId="curios"
     mandatory=false
-    versionRange="[1.16.2-4.0.0.0,)"
+    versionRange="[1.16.5-4.0.4.0,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.usefulhats]]
     modId="baubles"
     mandatory=false
-    versionRange="[1.8.3,)"
+    versionRange="[1.8.7.1,)"
     ordering="NONE"
     side="BOTH"

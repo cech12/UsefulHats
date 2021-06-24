@@ -38,10 +38,10 @@ public class ChoppingHatItem extends AbstractMiningHatItem {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void addInformation(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
-        super.addInformation(stack, worldIn, tooltip, flagIn);
+    public void appendHoverText(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
+        super.appendHoverText(stack, worldIn, tooltip, flagIn);
         int value = (int) (this.getEnchantmentValue(stack, this.getSpeedConfig()) * 100);
-        this.addTextLineToTooltip(tooltip, new TranslationTextComponent("item.usefulhats.chopping_hat.desc.chopping_speed", value).mergeStyle(TextFormatting.BLUE));
+        this.addTextLineToTooltip(tooltip, new TranslationTextComponent("item.usefulhats.chopping_hat.desc.chopping_speed", value).withStyle(TextFormatting.BLUE));
     }
 
     @Override

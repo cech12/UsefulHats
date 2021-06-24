@@ -48,7 +48,7 @@ public class AbstractHatItemCurioCapability implements ICurio {
     public void curioTick(String identifier, int index, LivingEntity livingEntity) {
         if (Config.CURIOS_ENABLED.getValue() && livingEntity instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity) livingEntity;
-            this.stack.getItem().onArmorTick(this.stack, player.world, player);
+            this.stack.getItem().onArmorTick(this.stack, player.level, player);
         }
     }
 
@@ -69,10 +69,10 @@ public class AbstractHatItemCurioCapability implements ICurio {
         ArmorItem item = (ArmorItem) this.stack.getItem();
         String locationString;
         if (item instanceof IUsefulHatModelOwner) {
-            locationString = item.getArmorTexture(this.stack, this.stack.getAttachedEntity(), this.stack.getEquipmentSlot(), type);
+            locationString = item.getArmorTexture(this.stack, this.stack.getEntityRepresentation(), this.stack.getEquipmentSlot(), type);
         } else {
             //mostly copied from BipedArmorLayer class
-            String texture = item.getArmorMaterial().getName();
+            String texture = item.getMaterial().getName();
             String domain = "minecraft";
             int idx = texture.indexOf(':');
             if (idx != -1) {
@@ -100,12 +100,12 @@ public class AbstractHatItemCurioCapability implements ICurio {
     public void render(String identifier, int index, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int light, LivingEntity entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         Item item = this.stack.getItem();
         BipedModel<LivingEntity> model = this.getModel();
-        model.setRotationAngles(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-        model.setLivingAnimations(entity, limbSwing, limbSwingAmount, partialTicks);
+        model.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+        model.prepareMobModel(entity, limbSwing, limbSwingAmount, partialTicks);
         RenderHelper.followBodyRotations(entity, model);
         //mostly copied from UsefulHatLayer
-        model.setModelAttributes(model);
-        boolean flag1 = this.stack.hasEffect();
+        model.copyPropertiesTo(model);
+        boolean flag1 = this.stack.hasFoil();
         int i = ((net.minecraft.item.IDyeableArmorItem)item).getColor(this.stack);
         float f = (float)(i >> 16 & 255) / 255.0F;
         float f1 = (float)(i >> 8 & 255) / 255.0F;
@@ -117,8 +117,8 @@ public class AbstractHatItemCurioCapability implements ICurio {
     @OnlyIn(Dist.CLIENT)
     private void renderLayer(MatrixStack p_241738_1_, IRenderTypeBuffer p_241738_2_, int p_241738_3_, boolean p_241738_5_, BipedModel<LivingEntity> p_241738_6_, float p_241738_8_, float p_241738_9_, float p_241738_10_, ResourceLocation armorResource) {
         //mostly copied from UsefulHatLayer
-        IVertexBuilder ivertexbuilder = ItemRenderer.getBuffer(p_241738_2_, p_241738_6_.getRenderType(armorResource), false, p_241738_5_);
-        p_241738_6_.render(p_241738_1_, ivertexbuilder, p_241738_3_, OverlayTexture.NO_OVERLAY, p_241738_8_, p_241738_9_, p_241738_10_, 1.0F);
+        IVertexBuilder ivertexbuilder = ItemRenderer.getFoilBuffer(p_241738_2_, p_241738_6_.renderType(armorResource), false, p_241738_5_);
+        p_241738_6_.renderToBuffer(p_241738_1_, ivertexbuilder, p_241738_3_, OverlayTexture.NO_OVERLAY, p_241738_8_, p_241738_9_, p_241738_10_, 1.0F);
     }
 
 }

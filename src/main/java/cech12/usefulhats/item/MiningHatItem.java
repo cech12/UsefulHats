@@ -44,29 +44,29 @@ public class MiningHatItem extends AbstractMiningHatItem implements IEquipmentCh
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void addInformation(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
-        super.addInformation(stack, worldIn, tooltip, flagIn);
+    public void appendHoverText(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
+        super.appendHoverText(stack, worldIn, tooltip, flagIn);
         int value = (int) (this.getEnchantmentValue(stack, this.getSpeedConfig()) * 100);
-        this.addTextLineToTooltip(tooltip, new TranslationTextComponent("item.usefulhats.mining_hat.desc.mining_speed", value).mergeStyle(TextFormatting.BLUE));
+        this.addTextLineToTooltip(tooltip, new TranslationTextComponent("item.usefulhats.mining_hat.desc.mining_speed", value).withStyle(TextFormatting.BLUE));
         if (Config.MINING_HAT_NIGHT_VISION_ENABLED.getValue()) {
-            this.addTextLineToTooltip(tooltip, new TranslationTextComponent("item.usefulhats.mining_hat.desc.night_vision").mergeStyle(TextFormatting.BLUE));
+            this.addTextLineToTooltip(tooltip, new TranslationTextComponent("item.usefulhats.mining_hat.desc.night_vision").withStyle(TextFormatting.BLUE));
         }
     }
 
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
-        if (!world.isRemote) {
+        if (!world.isClientSide) {
             if (!UsefulHatsUtils.getEquippedHatItemStacks(player).contains(stack)) return; //only one worn stack of this item should add its effect
             //When Night Vision effect is disabled in config, do nothing.
             if (!Config.MINING_HAT_NIGHT_VISION_ENABLED.getValue()) return;
             //When Night Vision effect is caused by another source, do nothing
             if (this.isEffectCausedByOtherSource(player, Effects.NIGHT_VISION, NIGHT_VISION_DURATION, NIGHT_VISION_AMPLIFIER))
                 return;
-            boolean isNightVisionActive = player.getActivePotionEffect(Effects.NIGHT_VISION) != null;
+            boolean isNightVisionActive = player.getEffect(Effects.NIGHT_VISION) != null;
             //support both hands
-            for (ItemStack item : player.getHeldEquipment()) {
-                if (item.getToolTypes().contains(ToolType.PICKAXE) && world.getLight(player.getPosition()) < 8) {
-                    if (!isNightVisionActive || player.ticksExisted % 19 == 0) {
+            for (ItemStack item : player.getHandSlots()) {
+                if (item.getToolTypes().contains(ToolType.PICKAXE) && world.getMaxLocalRawBrightness(player.blockPosition()) < 8) {
+                    if (!isNightVisionActive || player.tickCount % 19 == 0) {
                         this.addEffect(player, Effects.NIGHT_VISION, NIGHT_VISION_DURATION, NIGHT_VISION_AMPLIFIER);
                     }
                     if (random.nextInt(20) == 0) {
@@ -76,7 +76,7 @@ public class MiningHatItem extends AbstractMiningHatItem implements IEquipmentCh
                 }
             }
             //if not holding a pickaxe or not being in dark areas, remove the night vision effect
-            player.removePotionEffect(Effects.NIGHT_VISION);
+            player.removeEffect(Effects.NIGHT_VISION);
         }
     }
 
