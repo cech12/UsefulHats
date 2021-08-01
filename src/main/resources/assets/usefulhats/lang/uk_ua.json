@@ -1,0 +1,52 @@
+{
+  "itemGroup.usefulhats": "Корисні капелюхи",
+
+  "item.usefulhats.aquanaut_helmet": "Підводний шолом",
+  "item.usefulhats.aquanaut_helmet.desc.conduit_power": "Ви отримуєте §9ефект §2Морської сили §9на %s секунд.",
+
+  "item.usefulhats.bunny_ears": "Кролячі вушка",
+  "item.usefulhats.bunny_ears.desc.jump_boost": "Ви отримуєте §9ефект §2Стрибучості%s§9.",
+  "item.usefulhats.bunny_ears.desc.eating": "Ви їсте у §2%s§9 разів швидше.",
+
+  "item.usefulhats.chopping_hat": "Капелюх дроворуба",
+  "item.usefulhats.chopping_hat.desc.chopping_speed": "Рубка дерева сокирою у §2%s§9 разів швидше. (Сумісно з чарами та зіллям)",
+
+  "item.usefulhats.ender_helmet": "Шолом Ендера",
+  "item.usefulhats.ender_helmet.desc.define_teleport": "Натисніть Shift+ПКМ, тримаючи в руці, щоб встановити місце телепортації.",
+  "item.usefulhats.ender_helmet.desc.teleport": "Використовуйте перли Ендера для телепорту на встановлене місце.",
+  "item.usefulhats.ender_helmet.desc.teleport_position": "Позиція: X: %s, Y: %s, Z: %s",
+  "item.usefulhats.ender_helmet.message.position_saved": "Позицію збережено.",
+  "item.usefulhats.ender_helmet.message.position_obstructed": "Доступ до місця заблокований.",
+  "item.usefulhats.ender_helmet.message.wrong_dimension": "Неправильний вимір.",
+
+  "item.usefulhats.halo": "Ореол",
+  "item.usefulhats.halo.desc.no_attack": "Жоден моб, крім босів, не буде вас атакувати.",
+  "item.usefulhats.halo.desc.beware_of_nether": "Але остерігайтеся §4Пекла§c.",
+
+  "item.usefulhats.lucky_hat": "Щасливий капелюх",
+  "item.usefulhats.lucky_hat.desc.luck": "Тримаючи меч, сокиру або вудку, ви отримаєте §9ефект §2Удачі§9.",
+  "item.usefulhats.lucky_hat.desc.unluck": "Проте після виловлювання риби або вбивства моба ви отримаєте §cефект §2Невезіння§c на 10 секунд.",
+
+  "item.usefulhats.mining_hat": "Шахтарський капелюх",
+  "item.usefulhats.mining_hat.desc.mining_speed": "Копання киркою §9на §2%s%%§9 швидше. (Сумісно з чарами та зіллям)",
+  "item.usefulhats.mining_hat.desc.night_vision": "Тримаючи в руках кирку, ви отримаєте §9ефект §2Нічного зору§9 в темних місцях.",
+
+  "item.usefulhats.mushroom_hat": "Грибний капелюх",
+  "item.usefulhats.mushroom_hat.desc.feeding": "Коли ви голодний, ви трохи надкушуєте свій капелюх.",
+
+  "item.usefulhats.postman_hat": "Капелюх листоноші",
+  "item.usefulhats.postman_hat.desc.speed": "При бігу ви отримуєте §9ефект §2Швидкості%s§9.",
+  "item.usefulhats.postman_hat.desc.hunger": "Проте ви також отримаєте §cефект §6Голоду§c.",
+
+  "item.usefulhats.shulker_helmet": "Шолом шалкера",
+  "item.usefulhats.shulker_helmet.desc.levitation": "Ви отримуєте §9ефект §2Левітації%s§9.",
+
+  "item.usefulhats.stocking_cap": "В\'язана шапка",
+
+  "item.usefulhats.straw_hat": "Солом\'яний капелюх",
+  "item.usefulhats.straw_hat.desc.digging_speed": "Копання лопатою або мотикою §9на §2%s%%§9 швидше. (Сумісно з чарами та зіллям)",
+
+  "item.usefulhats.wing_helmet": "Крилатий шолом",
+  "item.usefulhats.wing_helmet.desc.slow_falling": "Падаючи, Ви отримуєте §9ефект §2Уповільненого падіння%s§9.",
+  "item.usefulhats.wing_helmet.desc.scared": "Іноді шолом лякається монстрів і летить геть."
+}
