@@ -4,10 +4,10 @@ import cech12.usefulhats.compat.BaublesMod;
 import cech12.usefulhats.compat.CuriosMod;
 import cech12.usefulhats.item.AbstractHatItem;
 import lazy.baubles.api.BaublesAPI;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ItemStack;
 import top.theillusivec4.curios.api.CuriosApi;
 
 import java.util.LinkedList;
@@ -43,7 +43,7 @@ public class UsefulHatsUtils {
     public static List<ItemStack> getEquippedHatItemStacks(LivingEntity entity) {
         List<ItemStack> stacks = new LinkedList<>();
         //vanilla head slot
-        ItemStack headItemStack = entity.getItemBySlot(EquipmentSlotType.HEAD);
+        ItemStack headItemStack = entity.getItemBySlot(EquipmentSlot.HEAD);
         if (headItemStack.getItem() instanceof AbstractHatItem) {
             stacks.add(headItemStack);
         }
@@ -59,9 +59,9 @@ public class UsefulHatsUtils {
                 }
             });
         }
-        if (BaublesMod.isLoaded() && entity instanceof PlayerEntity) {
+        if (BaublesMod.isLoaded() && entity instanceof Player) {
             //all baubles slots that contain an AbstractHatItem
-            BaublesAPI.getBaublesHandler((PlayerEntity)entity).ifPresent(itemHandler -> {
+            BaublesAPI.getBaublesHandler((Player)entity).ifPresent(itemHandler -> {
                 int slots = itemHandler.getSlots();
                 for (int i = 0; i < slots; i++) {
                     ItemStack stack = itemHandler.getStackInSlot(i);

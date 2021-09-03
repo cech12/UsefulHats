@@ -1,15 +1,12 @@
 package cech12.usefulhats.item;
 
 import cech12.usefulhats.config.ConfigType;
-import net.minecraft.block.BlockState;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.ToolType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
-
-import java.util.Set;
 
 public abstract class AbstractMiningHatItem extends AbstractHatItem implements IBreakSpeedChanger {
 
@@ -34,11 +31,11 @@ public abstract class AbstractMiningHatItem extends AbstractHatItem implements I
 
     protected abstract double[] getSpeedConfig();
 
-    protected abstract boolean isToolEffective(Set<ToolType> toolTypes, BlockState state);
+    protected abstract boolean isToolEffective(ItemStack tool, BlockState state);
 
     @Override
     public void onBreakSpeedEvent(PlayerEvent.BreakSpeed event, ItemStack headSlotItemStack) {
-        if (!event.isCanceled() && this.isToolEffective(event.getPlayer().getMainHandItem().getToolTypes(), event.getState())) {
+        if (!event.isCanceled() && this.isToolEffective(event.getPlayer().getMainHandItem(), event.getState())) {
             //use getNewSpeed() instead of getOriginalSpeed() to support other mods that are changing the break speed with this event.
             event.setNewSpeed((1.0F + (float) this.getEnchantmentValue(headSlotItemStack, this.getSpeedConfig())) * event.getNewSpeed());
         }
@@ -46,7 +43,7 @@ public abstract class AbstractMiningHatItem extends AbstractHatItem implements I
 
     @Override
     public void onBreakEvent(BlockEvent.BreakEvent event, ItemStack headSlotItemStack) {
-        if (!event.isCanceled() && this.isToolEffective(event.getPlayer().getMainHandItem().getToolTypes(), event.getState())) {
+        if (!event.isCanceled() && this.isToolEffective(event.getPlayer().getMainHandItem(), event.getState())) {
             this.damageHatItemByOne(headSlotItemStack, event.getPlayer());
         }
     }

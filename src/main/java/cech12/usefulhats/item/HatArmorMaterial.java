@@ -3,19 +3,19 @@ package cech12.usefulhats.item;
 import cech12.usefulhats.UsefulHatsTags;
 import cech12.usefulhats.config.Config;
 import cech12.usefulhats.config.ConfigType;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.IArmorMaterial;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nonnull;
 import java.util.function.Supplier;
 
-public enum HatArmorMaterial implements IArmorMaterial {
+public enum HatArmorMaterial implements ArmorMaterial {
 
     AQUANAUT("usefulhats:blank", Config.AQUANAUT_HELMET_DURABILITY, 15, SoundEvents.ARMOR_EQUIP_TURTLE, () -> {
         return Ingredient.of(Items.SCUTE);
@@ -72,12 +72,12 @@ public enum HatArmorMaterial implements IArmorMaterial {
     }
 
     @Override
-    public int getDurabilityForSlot(@Nonnull EquipmentSlotType slotIn) {
+    public int getDurabilityForSlot(@Nonnull EquipmentSlot slotIn) {
         return this.durabilityConfig.getValue();
     }
 
     @Override
-    public int getDefenseForSlot(@Nonnull EquipmentSlotType slotIn) {
+    public int getDefenseForSlot(@Nonnull EquipmentSlot slotIn) {
         return 0;
     }
 

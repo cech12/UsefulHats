@@ -9,33 +9,33 @@ import cech12.usefulhats.helper.IEnabled;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import lazy.baubles.api.bauble.IBauble;
-import lazy.baubles.api.cap.BaublesCapabilities;
-import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.attributes.Attribute;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.IDyeableArmorItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.potion.Effect;
-import net.minecraft.potion.EffectInstance;
+import lazy.baubles.api.cap.CapabilityBaubles;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.DyeableLeatherItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.stats.Stats;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
@@ -56,7 +56,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.function.Consumer;
 
-public abstract class AbstractHatItem extends ArmorItem implements IEnabled, IDyeableArmorItem {
+public abstract class AbstractHatItem extends ArmorItem implements IEnabled, DyeableLeatherItem {
 
     private static final boolean IS_CHRISTMAS = Calendar.getInstance().get(Calendar.MONTH) + 1 == 12;
     private static UsefulHatModel<LivingEntity> model;
@@ -70,7 +70,7 @@ public abstract class AbstractHatItem extends ArmorItem implements IEnabled, IDy
     private final ArrayList<Enchantment> forbiddenEnchantments = new ArrayList<>();
 
     public AbstractHatItem(String name, HatArmorMaterial material, int initColor, ConfigType.Boolean enabledConfig, ConfigType.Boolean enabledDamageConfig) {
-        super(material, EquipmentSlotType.HEAD, (new Properties()).tab(UsefulHatsMod.ITEM_GROUP));
+        super(material, EquipmentSlot.HEAD, (new Properties()).tab(UsefulHatsMod.ITEM_GROUP));
         this.setRegistryName(new ResourceLocation(UsefulHatsMod.MOD_ID, name));
         this.material = material;
         this.initColor = initColor;
@@ -100,21 +100,21 @@ public abstract class AbstractHatItem extends ArmorItem implements IEnabled, IDy
     @Override
     public int getMaxDamage(ItemStack stack) {
         //get durability from config because the config is not loaded in constructor
-        return this.material.getDurabilityForSlot(EquipmentSlotType.HEAD);
+        return this.material.getDurabilityForSlot(EquipmentSlot.HEAD);
     }
 
-    protected boolean isEffectCausedByOtherSource(LivingEntity entity, Effect effect, int maxDuration, int amplifier) {
+    protected boolean isEffectCausedByOtherSource(LivingEntity entity, MobEffect effect, int maxDuration, int amplifier) {
         //TODO detect effect source correctly
-        EffectInstance effectInstance = entity.getEffect(effect);
+        MobEffectInstance effectInstance = entity.getEffect(effect);
         return (effectInstance != null && (effectInstance.isAmbient() || effectInstance.getDuration() >= maxDuration || effectInstance.getAmplifier() != amplifier));
     }
 
-    protected void addEffect(LivingEntity entity, Effect effect, int duration, int amplifier) {
+    protected void addEffect(LivingEntity entity, MobEffect effect, int duration, int amplifier) {
         this.addEffect(entity, effect, duration, amplifier, false);
     }
 
-    protected void addEffect(LivingEntity entity, Effect effect, int duration, int amplifier, boolean showParticles) {
-        entity.addEffect(new EffectInstance(effect, duration, amplifier, false, showParticles, true));
+    protected void addEffect(LivingEntity entity, MobEffect effect, int duration, int amplifier, boolean showParticles) {
+        entity.addEffect(new MobEffectInstance(effect, duration, amplifier, false, showParticles, true));
     }
 
     /**
@@ -124,8 +124,8 @@ public abstract class AbstractHatItem extends ArmorItem implements IEnabled, IDy
      * @param maxDuration maximal effect duration
      * @param amplifier effect amplifier
      */
-    protected void removeEffect(LivingEntity entity, Effect effect, int maxDuration, int amplifier) {
-        EffectInstance effectInstance = entity.getEffect(effect);
+    protected void removeEffect(LivingEntity entity, MobEffect effect, int maxDuration, int amplifier) {
+        MobEffectInstance effectInstance = entity.getEffect(effect);
         if (effectInstance != null && !effectInstance.isAmbient() && effectInstance.getDuration() <= maxDuration && effectInstance.getAmplifier() == amplifier) {
             entity.removeEffect(effect);
         }
@@ -154,7 +154,7 @@ public abstract class AbstractHatItem extends ArmorItem implements IEnabled, IDy
 
     @Override
     public int getColor(ItemStack stack) {
-        CompoundNBT compoundnbt = stack.getTagElement("display");
+        CompoundTag compoundnbt = stack.getTagElement("display");
         return compoundnbt != null && compoundnbt.contains("color", 99) ? compoundnbt.getInt("color") : this.initColor;
     }
 
@@ -187,13 +187,13 @@ public abstract class AbstractHatItem extends ArmorItem implements IEnabled, IDy
      * Copy of {@link ItemStack#hurtAndBreak(int, LivingEntity, Consumer)} to enable own damaging of hat items.
      * Added config value to disable damage.
      */
-    protected void damageHatItemByOne(ItemStack stack, PlayerEntity entity) {
+    protected void damageHatItemByOne(ItemStack stack, Player entity) {
         if (!this.enabledDamageConfig.getValue()) return;
 
-        if (!entity.level.isClientSide && !entity.abilities.instabuild) {
+        if (!entity.level.isClientSide && !entity.getAbilities().instabuild) {
             if (this.canBeDepleted()) {
-                if (stack.hurt(1, entity.getRandom(), entity instanceof ServerPlayerEntity ? (ServerPlayerEntity)entity : null)) {
-                    entity.broadcastBreakEvent(EquipmentSlotType.HEAD);
+                if (stack.hurt(1, entity.getRandom(), entity instanceof ServerPlayer ? (ServerPlayer)entity : null)) {
+                    entity.broadcastBreakEvent(EquipmentSlot.HEAD);
                     stack.shrink(1);
                     entity.awardStat(Stats.ITEM_BROKEN.get(this));
                     stack.setDamageValue(0);
@@ -215,7 +215,7 @@ public abstract class AbstractHatItem extends ArmorItem implements IEnabled, IDy
      * Disables "When on head" line of ArmorItem Tooltip
      */
     @Override
-    public @Nonnull Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(@Nonnull EquipmentSlotType equipmentSlot) {
+    public @Nonnull Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(@Nonnull EquipmentSlot equipmentSlot) {
         return HashMultimap.create();
     }
 
@@ -225,17 +225,17 @@ public abstract class AbstractHatItem extends ArmorItem implements IEnabled, IDy
      */
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void appendHoverText(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
+    public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level worldIn, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         //tooltip.add(new StringTextComponent("Durability: " + (stack.getMaxDamage() - stack.getDamage()) + "/" + stack.getMaxDamage()).mergeStyle(TextFormatting.RED));
-        tooltip.add(new StringTextComponent(""));
-        tooltip.add((new TranslationTextComponent("item.modifiers." + EquipmentSlotType.HEAD.getName())).withStyle(TextFormatting.GRAY));
+        tooltip.add(new TextComponent(""));
+        tooltip.add((new TranslatableComponent("item.modifiers." + EquipmentSlot.HEAD.getName())).withStyle(ChatFormatting.GRAY));
     }
 
     @OnlyIn(Dist.CLIENT)
     @Nullable
     @Override
-    public <A extends BipedModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, A _default) {
+    public <A extends HumanoidModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, A _default) {
         if (this instanceof IUsefulHatModelOwner) {
             if (model == null) {
                 model = new UsefulHatModel<>();
@@ -247,7 +247,7 @@ public abstract class AbstractHatItem extends ArmorItem implements IEnabled, IDy
 
     @Nullable
     @Override
-    public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
+    public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
         if (this instanceof IUsefulHatModelOwner) {
             ResourceLocation resourceLocation = stack.getItem().getRegistryName();
             if (resourceLocation != null) {
@@ -294,7 +294,7 @@ public abstract class AbstractHatItem extends ArmorItem implements IEnabled, IDy
                 @Nonnull
                 @Override
                 public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-                    return BaublesCapabilities.ITEM_BAUBLE.orEmpty(cap, bauble);
+                    return CapabilityBaubles.ITEM_BAUBLE.orEmpty(cap, bauble);
                 }
             });
         }

@@ -5,13 +5,13 @@ import cech12.usefulhats.compat.CuriosMod;
 import cech12.usefulhats.item.*;
 import cech12.usefulhats.UsefulHatsMod;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.color.ItemColors;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.IDyeableArmorItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.client.color.item.ItemColors;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.DyeableLeatherItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ColorHandlerEvent;
@@ -68,7 +68,7 @@ public class ModItems {
         ItemColors itemcolors = event.getItemColors();
         for (Item item : ModItems.items) {
             //if (item instanceof IDyeableArmorItem) {
-            itemcolors.register((itemStack, layer) -> layer > 0 ? -1 : ((IDyeableArmorItem)itemStack.getItem()).getColor(itemStack), item);
+            itemcolors.register((itemStack, layer) -> layer > 0 ? -1 : ((DyeableLeatherItem)itemStack.getItem()).getColor(itemStack), item);
             //}
         }
     }
@@ -122,8 +122,8 @@ public class ModItems {
     }
 
     private static void onEntityJoinWorldEvent(EntityJoinWorldEvent event) {
-        if (event.getEntity() instanceof MobEntity) {
-            MobEntity entity = (MobEntity) event.getEntity();
+        if (event.getEntity() instanceof Mob) {
+            Mob entity = (Mob) event.getEntity();
             for (Item item : ModItems.items) {
                 if (item instanceof IMobEntityChanger) {
                     ((IMobEntityChanger) item).onEntityJoinWorldEvent(entity, event);
@@ -143,8 +143,8 @@ public class ModItems {
     }
 
     private static void onLivingDropsEvent(LivingDropsEvent event) {
-        if (event.getSource().getDirectEntity() instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity) event.getSource().getDirectEntity();
+        if (event.getSource().getDirectEntity() instanceof Player) {
+            Player player = (Player) event.getSource().getDirectEntity();
             for (ItemStack headSlotItemStack : UsefulHatsUtils.getEquippedHatItemStacks(player)) {
                 for (Item item : ModItems.items) {
                     if (item instanceof ILivingDropsListener && item == headSlotItemStack.getItem()) {
@@ -156,8 +156,8 @@ public class ModItems {
     }
 
     private static void onLivingUseItemEvent(LivingEntityUseItemEvent event) {
-        if (event.getEntityLiving() instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity) event.getEntityLiving();
+        if (event.getEntityLiving() instanceof Player) {
+            Player player = (Player) event.getEntityLiving();
             for (ItemStack headSlotItemStack : UsefulHatsUtils.getEquippedHatItemStacks(player)) {
                 for (Item item : ModItems.items) {
                     if (item instanceof IItemUseListener && item == headSlotItemStack.getItem()) {
@@ -169,7 +169,7 @@ public class ModItems {
     }
 
     private static void onLivingEquipmentChangeEvent(LivingEquipmentChangeEvent event) {
-        if (event.getSlot() == EquipmentSlotType.HEAD) {
+        if (event.getSlot() == EquipmentSlot.HEAD) {
             ItemStack fromItemStack = event.getFrom();
             Item fromItem = fromItemStack.getItem();
             ItemStack toItemStack = event.getTo();
@@ -210,9 +210,9 @@ public class ModItems {
     }
 
     private static void onLivingSetAttackTargetEvent(LivingSetAttackTargetEvent event) {
-        if (event.getEntity() instanceof MobEntity && event.getTarget() instanceof PlayerEntity) {
-            MobEntity mob = (MobEntity) event.getEntity();
-            PlayerEntity player = (PlayerEntity) event.getTarget();
+        if (event.getEntity() instanceof Mob && event.getTarget() instanceof Player) {
+            Mob mob = (Mob) event.getEntity();
+            Player player = (Player) event.getTarget();
             for (ItemStack headSlotItemStack : UsefulHatsUtils.getEquippedHatItemStacks(player)) {
                 for (Item item : ModItems.items) {
                     if (item instanceof IAttackTargetChanger && item == headSlotItemStack.getItem()) {
@@ -224,7 +224,7 @@ public class ModItems {
     }
 
     private static void onRightClickItemEvent(PlayerInteractEvent.RightClickItem event) {
-        PlayerEntity player = event.getPlayer();
+        Player player = event.getPlayer();
         for (ItemStack headSlotItemStack : UsefulHatsUtils.getEquippedHatItemStacks(player)) {
             for (Item item : ModItems.items) {
                 if (item instanceof IRightClickListener && item == headSlotItemStack.getItem()) {

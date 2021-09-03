@@ -1,6 +1,6 @@
 package cech12.usefulhats.compat;
 
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.fml.ModList;
 
 public class BaublesMod {

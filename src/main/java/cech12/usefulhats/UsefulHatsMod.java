@@ -4,8 +4,8 @@ import cech12.usefulhats.compat.CuriosMod;
 import cech12.usefulhats.config.Config;
 import cech12.usefulhats.helper.UsefulHatsRecipeSerializers;
 import cech12.usefulhats.init.ModItems;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -24,7 +24,7 @@ public class UsefulHatsMod {
 
     public static final String MOD_ID = "usefulhats";
 
-    public static final ItemGroup ITEM_GROUP = new ItemGroup("usefulhats") {
+    public static final CreativeModeTab ITEM_GROUP = new CreativeModeTab("usefulhats") {
         @Override
         public ItemStack makeIcon() {
             return new ItemStack(ModItems.STOCKING_CAP);

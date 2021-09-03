@@ -5,22 +5,22 @@ import cech12.usefulhats.UsefulHatsUtils;
 import cech12.usefulhats.config.Config;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Effects;
+import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.Tesselator;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.Component;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -53,25 +53,25 @@ public class AquanautHelmetItem extends AbstractHatItem implements IEquipmentCha
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void appendHoverText(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
+    public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level worldIn, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         int effectTime = this.getEffectTimeConfig(EnchantmentHelper.getItemEnchantmentLevel(Enchantments.RESPIRATION, stack));
-        tooltip.add(new TranslationTextComponent("item.usefulhats.aquanaut_helmet.desc.conduit_power", effectTime).withStyle(TextFormatting.BLUE));
+        tooltip.add(new TranslatableComponent("item.usefulhats.aquanaut_helmet.desc.conduit_power", effectTime).withStyle(ChatFormatting.BLUE));
     }
 
     @Override
-    public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
-        if (!world.isClientSide) {
+    public void onArmorTick(ItemStack stack, Level level, Player player) {
+        if (!level.isClientSide) {
             if (!UsefulHatsUtils.getEquippedHatItemStacks(player).contains(stack)) return; //only one worn stack of this item should add its effect
             int maxDuration = this.getConduitPowerDuration(stack);
             //When Conduit Power effect is caused by another source, do nothing
-            if (this.isEffectCausedByOtherSource(player, Effects.CONDUIT_POWER, maxDuration, 0))
+            if (this.isEffectCausedByOtherSource(player, MobEffects.CONDUIT_POWER, maxDuration, 0))
                 return;
 
             if (!player.isEyeInFluid(FluidTags.WATER)) {
-                this.addEffect(player, Effects.CONDUIT_POWER, maxDuration, 0);
+                this.addEffect(player, MobEffects.CONDUIT_POWER, maxDuration, 0);
             } else {
-                if (player.getEffect(Effects.CONDUIT_POWER) != null && random.nextInt(20) == 0) {
+                if (player.getEffect(MobEffects.CONDUIT_POWER) != null && level.random.nextInt(20) == 0) {
                     this.damageHatItemByOne(stack, player);
                 }
             }
@@ -81,7 +81,7 @@ public class AquanautHelmetItem extends AbstractHatItem implements IEquipmentCha
     @Override
     public void onUnequippedHatItem(LivingEntity entity, ItemStack oldStack) {
         // disable effects when hat is removed from slot
-        this.removeEffect(entity, Effects.CONDUIT_POWER, this.getConduitPowerDuration(oldStack), 0);
+        this.removeEffect(entity, MobEffects.CONDUIT_POWER, this.getConduitPowerDuration(oldStack), 0);
     }
 
     //to support other apis do not use this method
@@ -97,9 +97,9 @@ public class AquanautHelmetItem extends AbstractHatItem implements IEquipmentCha
         //GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         //GlStateManager.disableAlphaTest();
         Minecraft.getInstance().getTextureManager().bind(AQUANAUT_GUI_TEX_PATH);
-        Tessellator tessellator = Tessellator.getInstance();
+        Tesselator tessellator = Tesselator.getInstance();
         BufferBuilder bufferbuilder = tessellator.getBuilder();
-        bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
+        bufferbuilder.begin(7, DefaultVertexFormat.POSITION_TEX);
         bufferbuilder.vertex(0.0D, height, -90.0D).uv(0.0f, 1.0f).endVertex();
         bufferbuilder.vertex(width, height, -90.0D).uv(1.0f, 1.0f).endVertex();
         bufferbuilder.vertex(width, 0.0D, -90.0D).uv(1.0f, 0.0f).endVertex();

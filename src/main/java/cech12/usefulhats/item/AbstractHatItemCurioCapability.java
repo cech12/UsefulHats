@@ -3,18 +3,18 @@ package cech12.usefulhats.item;
 import cech12.usefulhats.client.UsefulHatModel;
 import cech12.usefulhats.config.Config;
 import com.google.common.collect.Maps;
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.ItemRenderer;
-import net.minecraft.client.renderer.entity.model.BipedModel;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import top.theillusivec4.curios.api.type.capability.ICurio;
@@ -45,23 +45,30 @@ public class AbstractHatItemCurioCapability implements ICurio {
     }
 
     @Override
+    public ItemStack getStack() {
+        return stack;
+    }
+
+    @Override
     public void curioTick(String identifier, int index, LivingEntity livingEntity) {
-        if (Config.CURIOS_ENABLED.getValue() && livingEntity instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity) livingEntity;
+        if (Config.CURIOS_ENABLED.getValue() && livingEntity instanceof Player) {
+            Player player = (Player) livingEntity;
             this.stack.getItem().onArmorTick(this.stack, player.level, player);
         }
     }
 
+    /* TODO see https://github.com/TheIllusiveC4/Curios/wiki/1.16.5-to-1.17:-Updates-and-Changes#rendering-system
+
     @OnlyIn(Dist.CLIENT)
-    private BipedModel<LivingEntity> getModel() {
+    private HumanoidModel<LivingEntity> getModel() {
         if (model == null) {
             if (this.stack.getItem() instanceof IUsefulHatModelOwner) {
                 model = new UsefulHatModel<>();
             } else {
-                model = new BipedModel<>(0.5F);
+                model = new HumanoidModel<>(0.5F);
             }
         }
-        return (BipedModel<LivingEntity>) model;
+        return (HumanoidModel<LivingEntity>) model;
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -97,16 +104,16 @@ public class AbstractHatItemCurioCapability implements ICurio {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void render(String identifier, int index, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int light, LivingEntity entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void render(String identifier, int index, PoseStack matrixStack, MultiBufferSource renderTypeBuffer, int light, LivingEntity entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         Item item = this.stack.getItem();
-        BipedModel<LivingEntity> model = this.getModel();
+        HumanoidModel<LivingEntity> model = this.getModel();
         model.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
         model.prepareMobModel(entity, limbSwing, limbSwingAmount, partialTicks);
         RenderHelper.followBodyRotations(entity, model);
         //mostly copied from UsefulHatLayer
         model.copyPropertiesTo(model);
         boolean flag1 = this.stack.hasFoil();
-        int i = ((net.minecraft.item.IDyeableArmorItem)item).getColor(this.stack);
+        int i = ((net.minecraft.world.item.DyeableLeatherItem)item).getColor(this.stack);
         float f = (float)(i >> 16 & 255) / 255.0F;
         float f1 = (float)(i >> 8 & 255) / 255.0F;
         float f2 = (float)(i & 255) / 255.0F;
@@ -115,10 +122,12 @@ public class AbstractHatItemCurioCapability implements ICurio {
     }
 
     @OnlyIn(Dist.CLIENT)
-    private void renderLayer(MatrixStack p_241738_1_, IRenderTypeBuffer p_241738_2_, int p_241738_3_, boolean p_241738_5_, BipedModel<LivingEntity> p_241738_6_, float p_241738_8_, float p_241738_9_, float p_241738_10_, ResourceLocation armorResource) {
+    private void renderLayer(PoseStack p_241738_1_, MultiBufferSource p_241738_2_, int p_241738_3_, boolean p_241738_5_, HumanoidModel<LivingEntity> p_241738_6_, float p_241738_8_, float p_241738_9_, float p_241738_10_, ResourceLocation armorResource) {
         //mostly copied from UsefulHatLayer
-        IVertexBuilder ivertexbuilder = ItemRenderer.getFoilBuffer(p_241738_2_, p_241738_6_.renderType(armorResource), false, p_241738_5_);
+        VertexConsumer ivertexbuilder = ItemRenderer.getFoilBuffer(p_241738_2_, p_241738_6_.renderType(armorResource), false, p_241738_5_);
         p_241738_6_.renderToBuffer(p_241738_1_, ivertexbuilder, p_241738_3_, OverlayTexture.NO_OVERLAY, p_241738_8_, p_241738_9_, p_241738_10_, 1.0F);
     }
+
+     */
 
 }

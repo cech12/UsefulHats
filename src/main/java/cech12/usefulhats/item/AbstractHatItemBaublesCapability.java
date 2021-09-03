@@ -3,10 +3,10 @@ package cech12.usefulhats.item;
 import cech12.usefulhats.config.Config;
 import lazy.baubles.api.bauble.BaubleType;
 import lazy.baubles.api.bauble.IBauble;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
 /**
  * This class is a capability for the Baubles API.
@@ -28,8 +28,8 @@ public class AbstractHatItemBaublesCapability implements IBauble {
 
     @Override
     public void onWornTick(LivingEntity livingEntity, ItemStack stack) {
-        if (Config.BAUBLES_ENABLED.getValue() && livingEntity instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity) livingEntity;
+        if (Config.BAUBLES_ENABLED.getValue() && livingEntity instanceof Player) {
+            Player player = (Player) livingEntity;
             this.item.onArmorTick(this.stack, player.level, player);
         }
     }
