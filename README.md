@@ -1,6 +1,12 @@
-# UsefulHats [![Curseforge](http://cf.way2muchnoise.eu/full_useful-hats_downloads(0D0D0D-F16436-fff-010101-fff).svg)](https://www.curseforge.com/minecraft/mc-mods/useful-hats) [![Curseforge](http://cf.way2muchnoise.eu/versions/For%20MC_useful-hats_all(0D0D0D-F16436-fff-010101).svg)](https://www.curseforge.com/minecraft/mc-mods/useful-hats/files)  [![](https://img.shields.io/discord/752506676719910963.svg?style=flat&color=informational&logo=discord&label=Discord)](https://discord.gg/gRUFH5t) [![License](https://img.shields.io/github/license/cech12/UsefulHats)](http://opensource.org/licenses/MIT)
+# UsefulHats
 
-This is a **Minecraft Forge** mod for versions 1.14.4, 1.15.2, 1.16.2, 1.16.3, 1.16.4. **Useful Hats** adds some useful and configurable hats to the game. 
+[![Curseforge](http://cf.way2muchnoise.eu/full_useful-hats_downloads(0D0D0D-F16436-fff-010101-fff).svg)](https://www.curseforge.com/minecraft/mc-mods/useful-hats)
+[![Curseforge](http://cf.way2muchnoise.eu/versions/For%20MC_useful-hats_all(0D0D0D-F16436-fff-010101).svg)](https://www.curseforge.com/minecraft/mc-mods/useful-hats/files)
+[![Build](https://github.com/cech12/UsefulHats/actions/workflows/build.yml/badge.svg)](https://github.com/cech12/UsefulHats/actions/workflows/build.yml)
+[![License](https://img.shields.io/github/license/cech12/UsefulHats)](http://opensource.org/licenses/MIT)
+[![](https://img.shields.io/discord/752506676719910963.svg?style=flat&color=informational&logo=discord&label=Discord)](https://discord.gg/gRUFH5t)
+
+This is a **Minecraft Forge** mod and adds some useful and configurable hats to the game. 
 
 ![All Hats](https://raw.githubusercontent.com/cech12/UsefulHats/material/material/wiki/all_hats.png)
 
