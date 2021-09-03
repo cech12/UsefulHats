@@ -17,44 +17,44 @@ import java.util.function.Supplier;
 
 public enum HatArmorMaterial implements IArmorMaterial {
 
-    AQUANAUT("usefulhats:blank", Config.AQUANAUT_HELMET_DURABILITY, 15, SoundEvents.ITEM_ARMOR_EQUIP_TURTLE, () -> {
-        return Ingredient.fromItems(Items.SCUTE);
+    AQUANAUT("usefulhats:blank", Config.AQUANAUT_HELMET_DURABILITY, 15, SoundEvents.ARMOR_EQUIP_TURTLE, () -> {
+        return Ingredient.of(Items.SCUTE);
     }),
-    BUNNY("usefulhats:blank", Config.BUNNY_EARS_DURABILITY, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
-        return Ingredient.fromItems(Items.RABBIT_HIDE, Items.CARROT);
+    BUNNY("usefulhats:blank", Config.BUNNY_EARS_DURABILITY, 15, SoundEvents.ARMOR_EQUIP_LEATHER, () -> {
+        return Ingredient.of(Items.RABBIT_HIDE, Items.CARROT);
     }),
-    CHOPPING("usefulhats:chopping", Config.CHOPPING_HAT_DURABILITY, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
-        return Ingredient.fromItems(Items.RABBIT_HIDE);
+    CHOPPING("usefulhats:chopping", Config.CHOPPING_HAT_DURABILITY, 15, SoundEvents.ARMOR_EQUIP_LEATHER, () -> {
+        return Ingredient.of(Items.RABBIT_HIDE);
     }),
-    ENDER("usefulhats:ender", Config.ENDER_HELMET_DURABILITY, 15, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> {
-        return Ingredient.fromItems(Items.ENDER_PEARL);
+    ENDER("usefulhats:ender", Config.ENDER_HELMET_DURABILITY, 15, SoundEvents.ARMOR_EQUIP_IRON, () -> {
+        return Ingredient.of(Items.ENDER_PEARL);
     }),
-    HALO("usefulhats:halo", Config.HALO_DURABILITY, 15, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, () -> {
-        return Ingredient.fromItems(Items.GLOWSTONE_DUST);
+    HALO("usefulhats:halo", Config.HALO_DURABILITY, 15, SoundEvents.ARMOR_EQUIP_GOLD, () -> {
+        return Ingredient.of(Items.GLOWSTONE_DUST);
     }),
-    LUCKY("usefulhats:blank", Config.LUCKY_HAT_DURABILITY, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
-        return Ingredient.fromItems(Items.RABBIT_FOOT);
+    LUCKY("usefulhats:blank", Config.LUCKY_HAT_DURABILITY, 15, SoundEvents.ARMOR_EQUIP_LEATHER, () -> {
+        return Ingredient.of(Items.RABBIT_FOOT);
     }),
-    MINING("usefulhats:blank", Config.MINING_HAT_DURABILITY, 15, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, () -> {
-        return Ingredient.fromItems(Items.GOLD_INGOT);
+    MINING("usefulhats:blank", Config.MINING_HAT_DURABILITY, 15, SoundEvents.ARMOR_EQUIP_GOLD, () -> {
+        return Ingredient.of(Items.GOLD_INGOT);
     }),
-    MUSHROOM("usefulhats:blank", Config.MUSHROOM_HAT_DURABILITY, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
-        return Ingredient.fromTag(UsefulHatsTags.Items.MUSHROOM_CAPS);
+    MUSHROOM("usefulhats:blank", Config.MUSHROOM_HAT_DURABILITY, 15, SoundEvents.ARMOR_EQUIP_LEATHER, () -> {
+        return Ingredient.of(UsefulHatsTags.Items.MUSHROOM_CAPS);
     }),
-    POSTMAN("usefulhats:blank", Config.POSTMAN_HAT_DURABILITY, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
-        return Ingredient.fromItems(Items.LAPIS_LAZULI);
+    POSTMAN("usefulhats:blank", Config.POSTMAN_HAT_DURABILITY, 15, SoundEvents.ARMOR_EQUIP_LEATHER, () -> {
+        return Ingredient.of(Items.LAPIS_LAZULI);
     }),
-    SHULKER("usefulhats:shulker", Config.SHULKER_HELMET_DURABILITY, 15, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> {
-        return Ingredient.fromItems(Items.SHULKER_SHELL, Items.PHANTOM_MEMBRANE);
+    SHULKER("usefulhats:shulker", Config.SHULKER_HELMET_DURABILITY, 15, SoundEvents.ARMOR_EQUIP_IRON, () -> {
+        return Ingredient.of(Items.SHULKER_SHELL, Items.PHANTOM_MEMBRANE);
     }),
-    STOCKING("usefulhats:blank", Config.STOCKING_CAP_DURABILITY, 25, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
-        return Ingredient.fromItems(Items.STRING);
+    STOCKING("usefulhats:blank", Config.STOCKING_CAP_DURABILITY, 25, SoundEvents.ARMOR_EQUIP_LEATHER, () -> {
+        return Ingredient.of(Items.STRING);
     }),
-    STRAW("usefulhats:blank", Config.STRAW_HAT_DURABILITY, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> {
-        return Ingredient.fromItems(Items.WHEAT);
+    STRAW("usefulhats:blank", Config.STRAW_HAT_DURABILITY, 15, SoundEvents.ARMOR_EQUIP_LEATHER, () -> {
+        return Ingredient.of(Items.WHEAT);
     }),
-    WING("usefulhats:wing", Config.WING_HELMET_DURABILITY, 15, SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> {
-        return Ingredient.fromItems(Items.FEATHER, Items.PHANTOM_MEMBRANE);
+    WING("usefulhats:wing", Config.WING_HELMET_DURABILITY, 15, SoundEvents.ARMOR_EQUIP_IRON, () -> {
+        return Ingredient.of(Items.FEATHER, Items.PHANTOM_MEMBRANE);
     });
 
     private final String name;
@@ -72,29 +72,29 @@ public enum HatArmorMaterial implements IArmorMaterial {
     }
 
     @Override
-    public int getDurability(@Nonnull EquipmentSlotType slotIn) {
+    public int getDurabilityForSlot(@Nonnull EquipmentSlotType slotIn) {
         return this.durabilityConfig.getValue();
     }
 
     @Override
-    public int getDamageReductionAmount(@Nonnull EquipmentSlotType slotIn) {
+    public int getDefenseForSlot(@Nonnull EquipmentSlotType slotIn) {
         return 0;
     }
 
     @Override
-    public int getEnchantability() {
+    public int getEnchantmentValue() {
         return this.enchantability;
     }
 
     @Override
     @Nonnull
-    public SoundEvent getSoundEvent() {
+    public SoundEvent getEquipSound() {
         return this.soundEvent;
     }
 
     @Override
     @Nonnull
-    public Ingredient getRepairMaterial() {
+    public Ingredient getRepairIngredient() {
         return this.repairMaterial.get();
     }
 

@@ -26,24 +26,24 @@ public class ShulkerHelmetItem extends AbstractHatItem implements IEquipmentChan
 
     public ShulkerHelmetItem() {
         super("shulker_helmet", HatArmorMaterial.SHULKER, rawColorFromRGB(150, 105, 150), Config.SHULKER_HELMET_ENABLED, Config.SHULKER_HELMET_DAMAGE_ENABLED);
-        this.addAllowedEnchantment(Enchantments.EFFICIENCY);
+        this.addAllowedEnchantment(Enchantments.BLOCK_EFFICIENCY);
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void addInformation(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
-        super.addInformation(stack, worldIn, tooltip, flagIn);
-        int enchantmentLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.EFFICIENCY, stack) + 1;
-        this.addTextLineToTooltip(tooltip, new TranslationTextComponent("item.usefulhats.shulker_helmet.desc.levitation", UsefulHatsUtils.getRomanNumber(enchantmentLevel, false)).mergeStyle(TextFormatting.BLUE));
+    public void appendHoverText(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
+        super.appendHoverText(stack, worldIn, tooltip, flagIn);
+        int enchantmentLevel = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY, stack) + 1;
+        tooltip.add(new TranslationTextComponent("item.usefulhats.shulker_helmet.desc.levitation", UsefulHatsUtils.getRomanNumber(enchantmentLevel, false)).withStyle(TextFormatting.BLUE));
     }
 
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
-        if (!world.isRemote) {
+        if (!world.isClientSide) {
             if (!UsefulHatsUtils.getEquippedHatItemStacks(player).contains(stack)) return; //only one worn stack of this item should add its effect
-            int levitationAmplifier = EnchantmentHelper.getEnchantmentLevel(Enchantments.EFFICIENCY, stack);
+            int levitationAmplifier = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY, stack);
             if (!this.isEffectCausedByOtherSource(player, Effects.LEVITATION, LEVITATION_DURATION, levitationAmplifier)) {
-                if (player.getActivePotionEffect(Effects.LEVITATION) == null || player.ticksExisted % 19 == 0) {
+                if (player.getEffect(Effects.LEVITATION) == null || player.tickCount % 19 == 0) {
                     this.addEffect(player, Effects.LEVITATION, LEVITATION_DURATION, levitationAmplifier);
                 }
                 //calculate damage if levitation is caused by this item
@@ -57,7 +57,7 @@ public class ShulkerHelmetItem extends AbstractHatItem implements IEquipmentChan
     @Override
     public void onUnequippedHatItem(LivingEntity entity, ItemStack oldStack) {
         // disable effects when hat is removed from slot
-        int levitationAmplifier = EnchantmentHelper.getEnchantmentLevel(Enchantments.EFFICIENCY, oldStack);
+        int levitationAmplifier = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY, oldStack);
         this.removeEffect(entity, Effects.LEVITATION, LEVITATION_DURATION, levitationAmplifier);
     }
 

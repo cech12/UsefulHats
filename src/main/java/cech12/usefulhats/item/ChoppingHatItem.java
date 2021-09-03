@@ -4,7 +4,6 @@ import cech12.usefulhats.config.Config;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -38,18 +37,14 @@ public class ChoppingHatItem extends AbstractMiningHatItem {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void addInformation(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
-        super.addInformation(stack, worldIn, tooltip, flagIn);
+    public void appendHoverText(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
+        super.appendHoverText(stack, worldIn, tooltip, flagIn);
         int value = (int) (this.getEnchantmentValue(stack, this.getSpeedConfig()) * 100);
-        this.addTextLineToTooltip(tooltip, new TranslationTextComponent("item.usefulhats.chopping_hat.desc.chopping_speed", value).mergeStyle(TextFormatting.BLUE));
+        tooltip.add(new TranslationTextComponent("item.usefulhats.chopping_hat.desc.chopping_speed", value).withStyle(TextFormatting.BLUE));
     }
 
     @Override
     protected boolean isToolEffective(Set<ToolType> toolTypes, BlockState state) {
-        return toolTypes.contains(ToolType.AXE) && (state.isToolEffective(ToolType.AXE)
-                //in 1.16 there is a problem in checking the effective tool for axe tool type & vanilla blocks.
-                //So, add a diamond axe speed check as work around.
-                //TODO remove workaround after building against Forge 1.16.3-34.1.1 or later (see PR #7351)
-                || (new ItemStack((Items.DIAMOND_AXE)).getDestroySpeed(state)) > 1.0);
+        return toolTypes.contains(ToolType.AXE) && state.isToolEffective(ToolType.AXE);
     }
 }

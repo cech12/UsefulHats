@@ -48,30 +48,30 @@ public class AquanautHelmetItem extends AbstractHatItem implements IEquipmentCha
     }
 
     private int getConduitPowerDuration(ItemStack stack) {
-        return this.getEffectTimeConfig(EnchantmentHelper.getEnchantmentLevel(Enchantments.RESPIRATION, stack)) * 20;
+        return this.getEffectTimeConfig(EnchantmentHelper.getItemEnchantmentLevel(Enchantments.RESPIRATION, stack)) * 20;
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void addInformation(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
-        super.addInformation(stack, worldIn, tooltip, flagIn);
-        int effectTime = this.getEffectTimeConfig(EnchantmentHelper.getEnchantmentLevel(Enchantments.RESPIRATION, stack));
-        this.addTextLineToTooltip(tooltip, new TranslationTextComponent("item.usefulhats.aquanaut_helmet.desc.conduit_power", effectTime).mergeStyle(TextFormatting.BLUE));
+    public void appendHoverText(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
+        super.appendHoverText(stack, worldIn, tooltip, flagIn);
+        int effectTime = this.getEffectTimeConfig(EnchantmentHelper.getItemEnchantmentLevel(Enchantments.RESPIRATION, stack));
+        tooltip.add(new TranslationTextComponent("item.usefulhats.aquanaut_helmet.desc.conduit_power", effectTime).withStyle(TextFormatting.BLUE));
     }
 
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
-        if (!world.isRemote) {
+        if (!world.isClientSide) {
             if (!UsefulHatsUtils.getEquippedHatItemStacks(player).contains(stack)) return; //only one worn stack of this item should add its effect
             int maxDuration = this.getConduitPowerDuration(stack);
             //When Conduit Power effect is caused by another source, do nothing
             if (this.isEffectCausedByOtherSource(player, Effects.CONDUIT_POWER, maxDuration, 0))
                 return;
 
-            if (!player.areEyesInFluid(FluidTags.WATER)) {
+            if (!player.isEyeInFluid(FluidTags.WATER)) {
                 this.addEffect(player, Effects.CONDUIT_POWER, maxDuration, 0);
             } else {
-                if (player.getActivePotionEffect(Effects.CONDUIT_POWER) != null && random.nextInt(20) == 0) {
+                if (player.getEffect(Effects.CONDUIT_POWER) != null && random.nextInt(20) == 0) {
                     this.damageHatItemByOne(stack, player);
                 }
             }
@@ -91,22 +91,22 @@ public class AquanautHelmetItem extends AbstractHatItem implements IEquipmentCha
     @OnlyIn(Dist.CLIENT)
     @Override
     public void onRenderGameOverlay(int width, int height, float partialTicks) {
-        GlStateManager.disableDepthTest();
-        GlStateManager.depthMask(false);
-        GlStateManager.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA.param, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA.param, GlStateManager.SourceFactor.ONE.param, GlStateManager.DestFactor.ZERO.param);
+        GlStateManager._disableDepthTest();
+        GlStateManager._depthMask(false);
+        GlStateManager._blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA.value, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA.value, GlStateManager.SourceFactor.ONE.value, GlStateManager.DestFactor.ZERO.value);
         //GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         //GlStateManager.disableAlphaTest();
-        Minecraft.getInstance().getTextureManager().bindTexture(AQUANAUT_GUI_TEX_PATH);
+        Minecraft.getInstance().getTextureManager().bind(AQUANAUT_GUI_TEX_PATH);
         Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder bufferbuilder = tessellator.getBuffer();
+        BufferBuilder bufferbuilder = tessellator.getBuilder();
         bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-        bufferbuilder.pos(0.0D, height, -90.0D).tex(0.0f, 1.0f).endVertex();
-        bufferbuilder.pos(width, height, -90.0D).tex(1.0f, 1.0f).endVertex();
-        bufferbuilder.pos(width, 0.0D, -90.0D).tex(1.0f, 0.0f).endVertex();
-        bufferbuilder.pos(0.0D, 0.0D, -90.0D).tex(0.0f, 0.0f).endVertex();
-        tessellator.draw();
-        GlStateManager.depthMask(true);
-        GlStateManager.enableDepthTest();
+        bufferbuilder.vertex(0.0D, height, -90.0D).uv(0.0f, 1.0f).endVertex();
+        bufferbuilder.vertex(width, height, -90.0D).uv(1.0f, 1.0f).endVertex();
+        bufferbuilder.vertex(width, 0.0D, -90.0D).uv(1.0f, 0.0f).endVertex();
+        bufferbuilder.vertex(0.0D, 0.0D, -90.0D).uv(0.0f, 0.0f).endVertex();
+        tessellator.end();
+        GlStateManager._depthMask(true);
+        GlStateManager._enableDepthTest();
         //GlStateManager.enableAlphaTest();
         //GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
     }

@@ -143,8 +143,8 @@ public class ModItems {
     }
 
     private static void onLivingDropsEvent(LivingDropsEvent event) {
-        if (event.getSource().getImmediateSource() instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity) event.getSource().getImmediateSource();
+        if (event.getSource().getDirectEntity() instanceof PlayerEntity) {
+            PlayerEntity player = (PlayerEntity) event.getSource().getDirectEntity();
             for (ItemStack headSlotItemStack : UsefulHatsUtils.getEquippedHatItemStacks(player)) {
                 for (Item item : ModItems.items) {
                     if (item instanceof ILivingDropsListener && item == headSlotItemStack.getItem()) {
@@ -238,11 +238,11 @@ public class ModItems {
     private static void onRenderGameOverlayEvent(RenderGameOverlayEvent.Pre event) {
         if (!event.isCanceled() && event.getType() == RenderGameOverlayEvent.ElementType.HELMET) {
             Minecraft mc = Minecraft.getInstance();
-            if (mc.player != null && mc.gameSettings.func_243230_g().func_243192_a()) { //isNotThirdPerson
+            if (mc.player != null && mc.options.getCameraType().isFirstPerson()) { //isNotThirdPerson
                 for (ItemStack headSlotItemStack : UsefulHatsUtils.getEquippedHatItemStacks(mc.player)) {
                     for (Item item : ModItems.items) {
                         if (item instanceof IGameOverlayRenderer && item == headSlotItemStack.getItem()) {
-                            ((IGameOverlayRenderer) item).onRenderGameOverlay(mc.getMainWindow().getScaledWidth(), mc.getMainWindow().getScaledHeight(), event.getPartialTicks());
+                            ((IGameOverlayRenderer) item).onRenderGameOverlay(mc.getWindow().getGuiScaledWidth(), mc.getWindow().getGuiScaledHeight(), event.getPartialTicks());
                         }
                     }
                 }

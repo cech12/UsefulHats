@@ -3,7 +3,7 @@ package cech12.usefulhats;
 import cech12.usefulhats.compat.BaublesMod;
 import cech12.usefulhats.compat.CuriosMod;
 import cech12.usefulhats.item.AbstractHatItem;
-import com.lazy.baubles.api.BaublesAPI;
+import lazy.baubles.api.BaublesAPI;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -43,7 +43,7 @@ public class UsefulHatsUtils {
     public static List<ItemStack> getEquippedHatItemStacks(LivingEntity entity) {
         List<ItemStack> stacks = new LinkedList<>();
         //vanilla head slot
-        ItemStack headItemStack = entity.getItemStackFromSlot(EquipmentSlotType.HEAD);
+        ItemStack headItemStack = entity.getItemBySlot(EquipmentSlotType.HEAD);
         if (headItemStack.getItem() instanceof AbstractHatItem) {
             stacks.add(headItemStack);
         }

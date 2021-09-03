@@ -40,26 +40,26 @@ public class EnderHelmetItem extends AbstractHatItem implements IRightClickListe
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void addInformation(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
-        this.addTextLineToTooltip(tooltip, new TranslationTextComponent("item.usefulhats.ender_helmet.desc.define_teleport").mergeStyle(TextFormatting.BLUE));
+    public void appendHoverText(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
+        tooltip.add(new TranslationTextComponent("item.usefulhats.ender_helmet.desc.define_teleport").withStyle(TextFormatting.BLUE));
         if (hasPosition(stack)) {
-            super.addInformation(stack, worldIn, tooltip, flagIn);
+            super.appendHoverText(stack, worldIn, tooltip, flagIn);
             BlockPos pos = getPosition(stack);
-            this.addTextLineToTooltip(tooltip, new TranslationTextComponent("item.usefulhats.ender_helmet.desc.teleport").mergeStyle(TextFormatting.BLUE));
-            this.addTextLineToTooltip(tooltip, new TranslationTextComponent("item.usefulhats.ender_helmet.desc.teleport_position", pos.getX(), pos.getY(), pos.getZ()).mergeStyle(TextFormatting.BLUE));
-            this.addTextLineToTooltip(tooltip, new StringTextComponent(getDimensionString(stack)).mergeStyle(TextFormatting.BLUE));
+            tooltip.add(new TranslationTextComponent("item.usefulhats.ender_helmet.desc.teleport").withStyle(TextFormatting.BLUE));
+            tooltip.add(new TranslationTextComponent("item.usefulhats.ender_helmet.desc.teleport_position", pos.getX(), pos.getY(), pos.getZ()).withStyle(TextFormatting.BLUE));
+            tooltip.add(new StringTextComponent(getDimensionString(stack)).withStyle(TextFormatting.BLUE));
         }
     }
 
     private static void setPosition(@Nonnull ItemStack stack, @Nonnull World world, @Nonnull PlayerEntity player) {
         CompoundNBT nbt = stack.getOrCreateTag().copy();
         CompoundNBT positionNBT = new CompoundNBT();
-        BlockPos pos = player.getPosition();
+        BlockPos pos = player.blockPosition();
         positionNBT.putInt("X", pos.getX());
         positionNBT.putInt("Y", pos.getY());
         positionNBT.putInt("Z", pos.getZ());
-        positionNBT.putString("dimKey", world.func_234923_W_().getRegistryName().toString()); //dimension registry key
-        positionNBT.putString("dimName", world.func_234923_W_().func_240901_a_().toString()); //dimension name
+        positionNBT.putString("dimKey", world.dimension().getRegistryName().toString()); //dimension registry key
+        positionNBT.putString("dimName", world.dimension().location().toString()); //dimension name
         nbt.put(TELEPORT_POSITION_ID, positionNBT);
         stack.setTag(nbt);
     }
@@ -87,14 +87,14 @@ public class EnderHelmetItem extends AbstractHatItem implements IRightClickListe
 
     private static boolean equalsWorldAndNBT(World world, CompoundNBT positionNBT) {
         return (!positionNBT.contains("dimKey")  //to be compatible with older versions
-                || world.func_234923_W_().getRegistryName().toString().equals(positionNBT.getString("dimKey")))
-                && world.func_234923_W_().func_240901_a_().toString().equals(positionNBT.getString("dimName"));
+                || world.dimension().getRegistryName().toString().equals(positionNBT.getString("dimKey")))
+                && world.dimension().location().toString().equals(positionNBT.getString("dimName"));
     }
 
     private ServerWorld getWorld(@Nonnull MinecraftServer server, @Nonnull ItemStack stack) {
         if (hasPosition(stack)) {
             CompoundNBT positionNBT = stack.getOrCreateTag().getCompound(TELEPORT_POSITION_ID);
-            for (ServerWorld world : server.getWorlds()) {
+            for (ServerWorld world : server.getAllLevels()) {
                 if (equalsWorldAndNBT(world, positionNBT)) {
                     return world;
                 }
@@ -113,24 +113,24 @@ public class EnderHelmetItem extends AbstractHatItem implements IRightClickListe
     }
 
     private static boolean canTeleportToPosition(@Nonnull World world, @Nonnull BlockPos pos) {
-        return !world.getBlockState(pos).isSolid()
-                && !world.getBlockState(pos.up()).isSolid();
+        return !world.getBlockState(pos).canOcclude()
+                && !world.getBlockState(pos.above()).canOcclude();
     }
 
     @Nonnull
     @Override
-    public ActionResult<ItemStack> onItemRightClick(@Nonnull World worldIn, @Nonnull PlayerEntity playerIn, @Nonnull Hand handIn) {
-        ItemStack stack = playerIn.getHeldItem(handIn);
-        if (playerIn.isSneaking() && !stack.isEmpty()) { //shift right click
-            if (!worldIn.isRemote) {
+    public ActionResult<ItemStack> use(@Nonnull World worldIn, @Nonnull PlayerEntity playerIn, @Nonnull Hand handIn) {
+        ItemStack stack = playerIn.getItemInHand(handIn);
+        if (playerIn.isShiftKeyDown() && !stack.isEmpty()) { //shift right click
+            if (!worldIn.isClientSide) {
                 //save position on item stack
                 setPosition(stack, worldIn, playerIn);
                 //inform player about saved position
-                ((ServerPlayerEntity) playerIn).connection.sendPacket(new STitlePacket(STitlePacket.Type.ACTIONBAR, new TranslationTextComponent("item.usefulhats.ender_helmet.message.position_saved"), 10, 60, 10));
+                ((ServerPlayerEntity) playerIn).connection.send(new STitlePacket(STitlePacket.Type.ACTIONBAR, new TranslationTextComponent("item.usefulhats.ender_helmet.message.position_saved"), 10, 60, 10));
             }
-            return ActionResult.func_233538_a_(stack, worldIn.isRemote());
+            return ActionResult.sidedSuccess(stack, worldIn.isClientSide());
         }
-        return super.onItemRightClick(worldIn, playerIn, handIn);
+        return super.use(worldIn, playerIn, handIn);
     }
 
     @Override
@@ -141,9 +141,9 @@ public class EnderHelmetItem extends AbstractHatItem implements IRightClickListe
         ItemStack usedStack = event.getItemStack();
         //only do teleportation when using an ender pearl and the hat item has a stored position
         if (usedStack.getItem() == Items.ENDER_PEARL && hasPosition(headSlotItemStack)) {
-            player.swingArm(event.getHand());
+            player.swing(event.getHand());
 
-            if (!world.isRemote) {
+            if (!world.isClientSide) {
                 //check for correct dimension
                 if (Config.ENDER_HELMET_INTERDIMENSIONAL_ENABLED.getValue() || isRightDimension(world, headSlotItemStack)) {
                     ServerWorld destinationWorld = getWorld(player.getServer(), headSlotItemStack);
@@ -151,28 +151,28 @@ public class EnderHelmetItem extends AbstractHatItem implements IRightClickListe
                     //check for correct position
                     if (destinationPos != null && destinationWorld != null && canTeleportToPosition(destinationWorld, destinationPos)) {
                         //set cooldown for ender pearls
-                        player.getCooldownTracker().setCooldown(usedStack.getItem(), 20);
+                        player.getCooldowns().addCooldown(usedStack.getItem(), 20);
                         //teleport player
                         player.fallDistance = 0;
-                        player.playSound(SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1F, 1F);
-                        if (player.world != destinationWorld) {
-                            ((ServerPlayerEntity) player).teleport(destinationWorld, destinationPos.getX() + 0.5, destinationPos.getY(), destinationPos.getZ() + 0.5, player.rotationYaw, player.rotationPitch);
+                        player.playNotifySound(SoundEvents.ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1F, 1F);
+                        if (player.level != destinationWorld) {
+                            ((ServerPlayerEntity) player).teleportTo(destinationWorld, destinationPos.getX() + 0.5, destinationPos.getY(), destinationPos.getZ() + 0.5, player.yRot, player.xRot);
                         } else {
-                            player.setPositionAndUpdate(destinationPos.getX() + 0.5, destinationPos.getY(), destinationPos.getZ() + 0.5);
+                            player.teleportTo(destinationPos.getX() + 0.5, destinationPos.getY(), destinationPos.getZ() + 0.5);
                         }
-                        player.playSound(SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1F, 1F);
+                        player.playNotifySound(SoundEvents.ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1F, 1F);
                         //remove one ender pearl
-                        player.addStat(Stats.ITEM_USED.get(usedStack.getItem()));
-                        if (!player.abilities.isCreativeMode) {
+                        player.awardStat(Stats.ITEM_USED.get(usedStack.getItem()));
+                        if (!player.abilities.instabuild) {
                             usedStack.shrink(1);
                         }
                         //damage hat item
                         this.damageHatItemByOne(headSlotItemStack, player);
                     } else {
-                        ((ServerPlayerEntity) player).connection.sendPacket(new STitlePacket(STitlePacket.Type.ACTIONBAR, new TranslationTextComponent("item.usefulhats.ender_helmet.message.position_obstructed"), 10, 60, 10));
+                        ((ServerPlayerEntity) player).connection.send(new STitlePacket(STitlePacket.Type.ACTIONBAR, new TranslationTextComponent("item.usefulhats.ender_helmet.message.position_obstructed"), 10, 60, 10));
                     }
                 } else {
-                    ((ServerPlayerEntity) player).connection.sendPacket(new STitlePacket(STitlePacket.Type.ACTIONBAR, new TranslationTextComponent("item.usefulhats.ender_helmet.message.wrong_dimension"), 10, 60, 10));
+                    ((ServerPlayerEntity) player).connection.send(new STitlePacket(STitlePacket.Type.ACTIONBAR, new TranslationTextComponent("item.usefulhats.ender_helmet.message.wrong_dimension"), 10, 60, 10));
                 }
             }
             //cancel other right click operations

@@ -11,7 +11,7 @@ public class UsefulHatsTags {
     }
 
     private static ITag.INamedTag<Item> tag(final String name) {
-        return ItemTags.makeWrapperTag(name);
+        return ItemTags.bind(name);
     }
 
 }

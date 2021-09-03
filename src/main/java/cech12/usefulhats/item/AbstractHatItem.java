@@ -8,10 +8,8 @@ import cech12.usefulhats.config.ConfigType;
 import cech12.usefulhats.helper.IEnabled;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import com.lazy.baubles.api.bauble.IBauble;
-import com.lazy.baubles.api.cap.BaublesCapabilities;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
+import lazy.baubles.api.bauble.IBauble;
+import lazy.baubles.api.cap.BaublesCapabilities;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.Enchantment;
@@ -34,9 +32,7 @@ import net.minecraft.stats.Stats;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.ITextProperties;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
@@ -74,7 +70,7 @@ public abstract class AbstractHatItem extends ArmorItem implements IEnabled, IDy
     private final ArrayList<Enchantment> forbiddenEnchantments = new ArrayList<>();
 
     public AbstractHatItem(String name, HatArmorMaterial material, int initColor, ConfigType.Boolean enabledConfig, ConfigType.Boolean enabledDamageConfig) {
-        super(material, EquipmentSlotType.HEAD, (new Properties()).group(UsefulHatsMod.ITEM_GROUP));
+        super(material, EquipmentSlotType.HEAD, (new Properties()).tab(UsefulHatsMod.ITEM_GROUP));
         this.setRegistryName(new ResourceLocation(UsefulHatsMod.MOD_ID, name));
         this.material = material;
         this.initColor = initColor;
@@ -83,7 +79,7 @@ public abstract class AbstractHatItem extends ArmorItem implements IEnabled, IDy
         this.addForbiddenEnchantment(Enchantments.FIRE_PROTECTION);
         this.addForbiddenEnchantment(Enchantments.PROJECTILE_PROTECTION);
         this.addForbiddenEnchantment(Enchantments.BLAST_PROTECTION);
-        this.addForbiddenEnchantment(Enchantments.PROTECTION);
+        this.addForbiddenEnchantment(Enchantments.ALL_DAMAGE_PROTECTION);
         //for other apis
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
         eventBus.addListener(this::setup);
@@ -104,12 +100,12 @@ public abstract class AbstractHatItem extends ArmorItem implements IEnabled, IDy
     @Override
     public int getMaxDamage(ItemStack stack) {
         //get durability from config because the config is not loaded in constructor
-        return this.material.getDurability(EquipmentSlotType.HEAD);
+        return this.material.getDurabilityForSlot(EquipmentSlotType.HEAD);
     }
 
     protected boolean isEffectCausedByOtherSource(LivingEntity entity, Effect effect, int maxDuration, int amplifier) {
         //TODO detect effect source correctly
-        EffectInstance effectInstance = entity.getActivePotionEffect(effect);
+        EffectInstance effectInstance = entity.getEffect(effect);
         return (effectInstance != null && (effectInstance.isAmbient() || effectInstance.getDuration() >= maxDuration || effectInstance.getAmplifier() != amplifier));
     }
 
@@ -118,7 +114,7 @@ public abstract class AbstractHatItem extends ArmorItem implements IEnabled, IDy
     }
 
     protected void addEffect(LivingEntity entity, Effect effect, int duration, int amplifier, boolean showParticles) {
-        entity.addPotionEffect(new EffectInstance(effect, duration, amplifier, false, showParticles, true));
+        entity.addEffect(new EffectInstance(effect, duration, amplifier, false, showParticles, true));
     }
 
     /**
@@ -129,9 +125,9 @@ public abstract class AbstractHatItem extends ArmorItem implements IEnabled, IDy
      * @param amplifier effect amplifier
      */
     protected void removeEffect(LivingEntity entity, Effect effect, int maxDuration, int amplifier) {
-        EffectInstance effectInstance = entity.getActivePotionEffect(effect);
+        EffectInstance effectInstance = entity.getEffect(effect);
         if (effectInstance != null && !effectInstance.isAmbient() && effectInstance.getDuration() <= maxDuration && effectInstance.getAmplifier() == amplifier) {
-            entity.removePotionEffect(effect);
+            entity.removeEffect(effect);
         }
     }
 
@@ -158,7 +154,7 @@ public abstract class AbstractHatItem extends ArmorItem implements IEnabled, IDy
 
     @Override
     public int getColor(ItemStack stack) {
-        CompoundNBT compoundnbt = stack.getChildTag("display");
+        CompoundNBT compoundnbt = stack.getTagElement("display");
         return compoundnbt != null && compoundnbt.contains("color", 99) ? compoundnbt.getInt("color") : this.initColor;
     }
 
@@ -188,19 +184,19 @@ public abstract class AbstractHatItem extends ArmorItem implements IEnabled, IDy
     }
 
     /**
-     * Copy of {@link ItemStack#damageItem(int, LivingEntity, Consumer)} to enable own damaging of hat items.
+     * Copy of {@link ItemStack#hurtAndBreak(int, LivingEntity, Consumer)} to enable own damaging of hat items.
      * Added config value to disable damage.
      */
     protected void damageHatItemByOne(ItemStack stack, PlayerEntity entity) {
         if (!this.enabledDamageConfig.getValue()) return;
 
-        if (!entity.world.isRemote && !entity.abilities.isCreativeMode) {
-            if (this.isDamageable()) {
-                if (stack.attemptDamageItem(1, entity.getRNG(), entity instanceof ServerPlayerEntity ? (ServerPlayerEntity)entity : null)) {
-                    entity.sendBreakAnimation(EquipmentSlotType.HEAD);
+        if (!entity.level.isClientSide && !entity.abilities.instabuild) {
+            if (this.canBeDepleted()) {
+                if (stack.hurt(1, entity.getRandom(), entity instanceof ServerPlayerEntity ? (ServerPlayerEntity)entity : null)) {
+                    entity.broadcastBreakEvent(EquipmentSlotType.HEAD);
                     stack.shrink(1);
-                    entity.addStat(Stats.ITEM_BROKEN.get(this));
-                    stack.setDamage(0);
+                    entity.awardStat(Stats.ITEM_BROKEN.get(this));
+                    stack.setDamageValue(0);
                 }
             }
         }
@@ -219,31 +215,8 @@ public abstract class AbstractHatItem extends ArmorItem implements IEnabled, IDy
      * Disables "When on head" line of ArmorItem Tooltip
      */
     @Override
-    public @Nonnull Multimap<Attribute, AttributeModifier> getAttributeModifiers(@Nonnull EquipmentSlotType equipmentSlot) {
+    public @Nonnull Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(@Nonnull EquipmentSlotType equipmentSlot) {
         return HashMultimap.create();
-    }
-
-    private static final int MAX_TEXT_LINE_WIDTH = 180;
-
-    /**
-     * Workaround for 1.16.2+
-     * Forge removed {@link net.minecraftforge.fml.client.gui.GuiUtils::drawHoveringText} call
-     * from {@link net.minecraft.client.gui.screen.Screen} class. So, all long texts are not reordered.
-     * Reordering by myself.
-     * //TODO could be removed when building against Forge 1.16.3-34.1.11 or later
-     */
-    @OnlyIn(Dist.CLIENT)
-    protected void addTextLineToTooltip(@Nonnull List<ITextComponent> tooltip, @Nonnull ITextComponent textLine) {
-        FontRenderer font = Minecraft.getInstance().fontRenderer;
-        int textLineWidth = font.func_238414_a_(textLine);
-        if (textLineWidth > MAX_TEXT_LINE_WIDTH) {
-            List<ITextProperties> wrappedLine = font.func_238420_b_().func_238362_b_(textLine, MAX_TEXT_LINE_WIDTH, Style.EMPTY);
-            for (ITextProperties line : wrappedLine) {
-                tooltip.add(new StringTextComponent(line.getString()).mergeStyle(textLine.getStyle()));
-            }
-        } else {
-            tooltip.add(textLine);
-        }
     }
 
     /**
@@ -252,11 +225,11 @@ public abstract class AbstractHatItem extends ArmorItem implements IEnabled, IDy
      */
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void addInformation(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
-        super.addInformation(stack, worldIn, tooltip, flagIn);
+    public void appendHoverText(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
+        super.appendHoverText(stack, worldIn, tooltip, flagIn);
         //tooltip.add(new StringTextComponent("Durability: " + (stack.getMaxDamage() - stack.getDamage()) + "/" + stack.getMaxDamage()).mergeStyle(TextFormatting.RED));
         tooltip.add(new StringTextComponent(""));
-        tooltip.add((new TranslationTextComponent("item.modifiers." + EquipmentSlotType.HEAD.getName())).mergeStyle(TextFormatting.GRAY));
+        tooltip.add((new TranslationTextComponent("item.modifiers." + EquipmentSlotType.HEAD.getName())).withStyle(TextFormatting.GRAY));
     }
 
     @OnlyIn(Dist.CLIENT)

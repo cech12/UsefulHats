@@ -32,26 +32,26 @@ public class HaloItem extends AbstractHatItem implements IAttackTargetChanger, I
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void addInformation(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
-        super.addInformation(stack, worldIn, tooltip, flagIn);
-        this.addTextLineToTooltip(tooltip, new TranslationTextComponent("item.usefulhats.halo.desc.no_attack").mergeStyle(TextFormatting.BLUE));
-        this.addTextLineToTooltip(tooltip, new TranslationTextComponent("item.usefulhats.halo.desc.beware_of_nether").mergeStyle(TextFormatting.RED));
+    public void appendHoverText(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
+        super.appendHoverText(stack, worldIn, tooltip, flagIn);
+        tooltip.add(new TranslationTextComponent("item.usefulhats.halo.desc.no_attack").withStyle(TextFormatting.BLUE));
+        tooltip.add(new TranslationTextComponent("item.usefulhats.halo.desc.beware_of_nether").withStyle(TextFormatting.RED));
     }
 
     private static boolean isEntityInNether(Entity entity) {
-        return entity.world.func_230315_m_().func_241511_k_();
+        return entity.level.dimensionType().respawnAnchorWorks();
     }
 
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
-        if (!world.isRemote) {
+        if (!world.isClientSide) {
             if (!UsefulHatsUtils.getEquippedHatItemStacks(player).contains(stack)) return; //only one worn stack of this item should add its effect
             // Looses durability outside the nether when non-boss mobs are in range (X blocks)
             if (!isEntityInNether(player)) {
-                Vector3d playerPos = player.getPositionVec();
+                Vector3d playerPos = player.position();
                 int range = Config.HALO_DETECTING_RANGE.getValue();
-                AxisAlignedBB radius = new AxisAlignedBB(playerPos.getX()-range, playerPos.getY()-range, playerPos.getZ()-range, playerPos.getX()+range, playerPos.getY()+range, playerPos.getZ()+range);
-                List<MobEntity> mobsInRange = player.world.getEntitiesWithinAABB(MobEntity.class, radius, (Predicate<Entity>) entity -> entity instanceof MobEntity && entity.isNonBoss());
+                AxisAlignedBB radius = new AxisAlignedBB(playerPos.x()-range, playerPos.y()-range, playerPos.z()-range, playerPos.x()+range, playerPos.y()+range, playerPos.z()+range);
+                List<MobEntity> mobsInRange = player.level.getEntitiesOfClass(MobEntity.class, radius, (Predicate<Entity>) entity -> entity instanceof MobEntity && entity.canChangeDimensions());
                 if (!mobsInRange.isEmpty() && random.nextInt(20) == 0) {
                     this.damageHatItemByOne(stack, player);
                 }
@@ -76,8 +76,8 @@ public class HaloItem extends AbstractHatItem implements IAttackTargetChanger, I
     @Override
     public void onLivingSetAttackTarget(MobEntity entity, PlayerEntity targetPlayer) {
         // avoid to get attacked from non-boss mob entities outside the nether
-        if (entity.isNonBoss() && !isEntityInNether(targetPlayer)) {
-            entity.setAttackTarget(null);
+        if (entity.canChangeDimensions() && !isEntityInNether(targetPlayer)) {
+            entity.setTarget(null);
         }
     }
 

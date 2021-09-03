@@ -32,29 +32,29 @@ public class WingHelmetItem extends AbstractHatItem implements IEquipmentChangeL
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void addInformation(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
-        super.addInformation(stack, worldIn, tooltip, flagIn);
-        this.addTextLineToTooltip(tooltip, new TranslationTextComponent("item.usefulhats.wing_helmet.desc.slow_falling").mergeStyle(TextFormatting.BLUE));
+    public void appendHoverText(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
+        super.appendHoverText(stack, worldIn, tooltip, flagIn);
+        tooltip.add(new TranslationTextComponent("item.usefulhats.wing_helmet.desc.slow_falling").withStyle(TextFormatting.BLUE));
         if (Config.WING_HELMET_LEVITATION_ENABLED.getValue()) {
-            this.addTextLineToTooltip(tooltip, new TranslationTextComponent("item.usefulhats.wing_helmet.desc.scared").mergeStyle(TextFormatting.RED));
+            tooltip.add(new TranslationTextComponent("item.usefulhats.wing_helmet.desc.scared").withStyle(TextFormatting.RED));
         }
     }
 
     private boolean isPlayerFalling(PlayerEntity player) {
-        return !player.isOnGround() && player.getMotion().getY() < 0 //not on ground & motion downwards
-                && !player.abilities.isFlying && !player.isElytraFlying() //not (elytra) flying
+        return !player.isOnGround() && player.getDeltaMovement().y() < 0 //not on ground & motion downwards
+                && !player.abilities.flying && !player.isFallFlying() //not (elytra) flying
                 && !player.isInWater() && !player.isInLava(); //not in fluid
     }
 
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
-        if (!world.isRemote) {
+        if (!world.isClientSide) {
             if (!UsefulHatsUtils.getEquippedHatItemStacks(player).contains(stack)) return; //only one worn stack of this item should add its effect
             //Sometimes the helmet is afraid of monsters and flies away
             boolean isLevitationFromOtherSource = this.isEffectCausedByOtherSource(player, Effects.LEVITATION, LEVITATION_DURATION, LEVITATION_AMPLIFIER);
-            boolean isLevitationEffectActive = player.getActivePotionEffect(Effects.LEVITATION) != null;
+            boolean isLevitationEffectActive = player.getEffect(Effects.LEVITATION) != null;
             if (!isLevitationEffectActive && Config.WING_HELMET_LEVITATION_ENABLED.getValue()) {
-                if (player.getLastDamageSource() != null && player.getLastDamageSource().getTrueSource() instanceof LivingEntity) {
+                if (player.getLastDamageSource() != null && player.getLastDamageSource().getEntity() instanceof LivingEntity) {
                     if (random.nextInt(100) == 0) {
                         this.removeEffect(player, Effects.SLOW_FALLING, SLOW_FALLING_DURATION, SLOW_FALLING_AMPLIFIER);
                         this.addEffect(player, Effects.LEVITATION, LEVITATION_DURATION, LEVITATION_AMPLIFIER, true);
@@ -64,11 +64,11 @@ public class WingHelmetItem extends AbstractHatItem implements IEquipmentChangeL
             }
             //slow falling effect
             boolean isSlowFallingFromOtherSource = this.isEffectCausedByOtherSource(player, Effects.SLOW_FALLING, SLOW_FALLING_DURATION, SLOW_FALLING_AMPLIFIER);
-            boolean isSlowFallingEffectActive = player.getActivePotionEffect(Effects.SLOW_FALLING) != null;
+            boolean isSlowFallingEffectActive = player.getEffect(Effects.SLOW_FALLING) != null;
             if (this.isPlayerFalling(player)) {
                 if (!isLevitationEffectActive && !isSlowFallingFromOtherSource) {
                     //only add slow falling effect when no levitation effect an no slow falling effect is active (other sources like potions)
-                    if (!isSlowFallingEffectActive || player.ticksExisted % 19 == 0) {
+                    if (!isSlowFallingEffectActive || player.tickCount % 19 == 0) {
                         this.addEffect(player, Effects.SLOW_FALLING, SLOW_FALLING_DURATION, SLOW_FALLING_AMPLIFIER);
                         isSlowFallingEffectActive = true;
                     }
