@@ -2,13 +2,13 @@ package cech12.usefulhats.item;
 
 import cech12.usefulhats.UsefulHatsUtils;
 import cech12.usefulhats.config.Config;
+import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.game.ClientboundSetTitlesPacket;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionResultHolder;
@@ -126,7 +126,7 @@ public class EnderHelmetItem extends AbstractHatItem implements IRightClickListe
                 //save position on item stack
                 setPosition(stack, worldIn, playerIn);
                 //inform player about saved position
-                ((ServerPlayer) playerIn).connection.send(new ClientboundSetTitlesPacket(ClientboundSetTitlesPacket.Type.ACTIONBAR, new TranslatableComponent("item.usefulhats.ender_helmet.message.position_saved"), 10, 60, 10));
+                ((ServerPlayer) playerIn).connection.send(new ClientboundSetActionBarTextPacket(new TranslatableComponent("item.usefulhats.ender_helmet.message.position_saved")));
             }
             return InteractionResultHolder.sidedSuccess(stack, worldIn.isClientSide());
         }
@@ -156,7 +156,7 @@ public class EnderHelmetItem extends AbstractHatItem implements IRightClickListe
                         player.fallDistance = 0;
                         player.playNotifySound(SoundEvents.ENDERMAN_TELEPORT, SoundSource.PLAYERS, 1F, 1F);
                         if (player.level != destinationWorld) {
-                            ((ServerPlayer) player).teleportTo(destinationWorld, destinationPos.getX() + 0.5, destinationPos.getY(), destinationPos.getZ() + 0.5, player.yRot, player.xRot);
+                            ((ServerPlayer) player).teleportTo(destinationWorld, destinationPos.getX() + 0.5, destinationPos.getY(), destinationPos.getZ() + 0.5, player.yRotO, player.xRotO);
                         } else {
                             player.teleportTo(destinationPos.getX() + 0.5, destinationPos.getY(), destinationPos.getZ() + 0.5);
                         }
@@ -169,10 +169,10 @@ public class EnderHelmetItem extends AbstractHatItem implements IRightClickListe
                         //damage hat item
                         this.damageHatItemByOne(headSlotItemStack, player);
                     } else {
-                        ((ServerPlayer) player).connection.send(new ClientboundSetTitlesPacket(ClientboundSetTitlesPacket.Type.ACTIONBAR, new TranslatableComponent("item.usefulhats.ender_helmet.message.position_obstructed"), 10, 60, 10));
+                        ((ServerPlayer) player).connection.send(new ClientboundSetActionBarTextPacket(new TranslatableComponent("item.usefulhats.ender_helmet.message.position_obstructed")));
                     }
                 } else {
-                    ((ServerPlayer) player).connection.send(new ClientboundSetTitlesPacket(ClientboundSetTitlesPacket.Type.ACTIONBAR, new TranslatableComponent("item.usefulhats.ender_helmet.message.wrong_dimension"), 10, 60, 10));
+                    ((ServerPlayer) player).connection.send(new ClientboundSetActionBarTextPacket(new TranslatableComponent("item.usefulhats.ender_helmet.message.wrong_dimension")));
                 }
             }
             //cancel other right click operations

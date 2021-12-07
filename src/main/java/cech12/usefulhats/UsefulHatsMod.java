@@ -1,5 +1,6 @@
 package cech12.usefulhats;
 
+import cech12.usefulhats.client.UsefulHatLayers;
 import cech12.usefulhats.compat.CuriosMod;
 import cech12.usefulhats.config.Config;
 import cech12.usefulhats.helper.UsefulHatsRecipeSerializers;
@@ -9,6 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -36,6 +38,12 @@ public class UsefulHatsMod {
         //Configs
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON, "usefulhats-legacy-common.toml");
         FMLJavaModLoadingContext.get().getModEventBus().register(new UsefulHatsRecipeSerializers());
+        //register render layers & models
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
+            FMLJavaModLoadingContext.get().getModEventBus().addListener(UsefulHatLayers::initLayers);
+            FMLJavaModLoadingContext.get().getModEventBus().addListener(UsefulHatLayers::initModels);
+        });
+
     }
 
     @SubscribeEvent
@@ -46,8 +54,7 @@ public class UsefulHatsMod {
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void onClientRegister(FMLClientSetupEvent event) {
-        //register client event listeners
-        ModItems.addClientEventListeners();
+        ModItems.setupClient();
     }
 
 }

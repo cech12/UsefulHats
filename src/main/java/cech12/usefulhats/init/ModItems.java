@@ -15,7 +15,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ColorHandlerEvent;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.client.gui.ForgeIngameGui;
+import net.minecraftforge.client.gui.OverlayRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -97,8 +98,24 @@ public class ModItems {
      * Called at mod initialization. (client side)
      */
     @OnlyIn(Dist.CLIENT)
-    public static void addClientEventListeners() {
-        MinecraftForge.EVENT_BUS.addListener(ModItems::onRenderGameOverlayEvent);
+    public static void setupClient() {
+        //register overlay
+        OverlayRegistry.registerOverlayAbove(ForgeIngameGui.HELMET_ELEMENT, "UsefulHats_Overlay", (gui, mStack, partialTicks, screenWidth, screenHeight) -> {
+            if (Minecraft.useFancyGraphics())
+            {
+                gui.setupOverlayRenderState(true, false);
+                Minecraft mc = Minecraft.getInstance();
+                if (mc.player != null && mc.options.getCameraType().isFirstPerson()) {
+                    for (ItemStack headSlotItemStack : UsefulHatsUtils.getEquippedHatItemStacks(mc.player)) {
+                        for (Item item : ModItems.items) {
+                            if (item instanceof IGameOverlayRenderer && item == headSlotItemStack.getItem()) {
+                                ((IGameOverlayRenderer) item).onRenderGameOverlay(screenWidth, screenHeight, partialTicks);
+                            }
+                        }
+                    }
+                }
+            }
+        });
     }
 
     private static void onBreakSpeedEvent(PlayerEvent.BreakSpeed event) {
@@ -229,22 +246,6 @@ public class ModItems {
             for (Item item : ModItems.items) {
                 if (item instanceof IRightClickListener && item == headSlotItemStack.getItem()) {
                     ((IRightClickListener) item).onRightClickItemEvent(event, headSlotItemStack);
-                }
-            }
-        }
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    private static void onRenderGameOverlayEvent(RenderGameOverlayEvent.Pre event) {
-        if (!event.isCanceled() && event.getType() == RenderGameOverlayEvent.ElementType.HELMET) {
-            Minecraft mc = Minecraft.getInstance();
-            if (mc.player != null && mc.options.getCameraType().isFirstPerson()) { //isNotThirdPerson
-                for (ItemStack headSlotItemStack : UsefulHatsUtils.getEquippedHatItemStacks(mc.player)) {
-                    for (Item item : ModItems.items) {
-                        if (item instanceof IGameOverlayRenderer && item == headSlotItemStack.getItem()) {
-                            ((IGameOverlayRenderer) item).onRenderGameOverlay(mc.getWindow().getGuiScaledWidth(), mc.getWindow().getGuiScaledHeight(), event.getPartialTicks());
-                        }
-                    }
                 }
             }
         }

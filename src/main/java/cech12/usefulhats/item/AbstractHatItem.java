@@ -1,6 +1,7 @@
 package cech12.usefulhats.item;
 
 import cech12.usefulhats.UsefulHatsMod;
+import cech12.usefulhats.client.UsefulHatLayers;
 import cech12.usefulhats.client.UsefulHatModel;
 import cech12.usefulhats.compat.BaublesMod;
 import cech12.usefulhats.compat.CuriosMod;
@@ -38,6 +39,7 @@ import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.IItemRenderProperties;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -233,16 +235,25 @@ public abstract class AbstractHatItem extends ArmorItem implements IEnabled, Dye
     }
 
     @OnlyIn(Dist.CLIENT)
-    @Nullable
     @Override
-    public <A extends HumanoidModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, A _default) {
+    public void initializeClient(@Nonnull Consumer<IItemRenderProperties> consumer) {
         if (this instanceof IUsefulHatModelOwner) {
-            if (model == null) {
-                model = new UsefulHatModel<>();
-            }
-            return (A) model;
+            consumer.accept(Rendering.INSTANCE);
         }
-        return super.getArmorModel(entityLiving, itemStack, armorSlot, _default);
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    private static final class Rendering implements IItemRenderProperties {
+
+        private static final Rendering INSTANCE = new Rendering();
+
+        private Rendering() {
+        }
+
+        @Override
+        public <A extends HumanoidModel<?>> A getArmorModel(LivingEntity wearer, ItemStack item, EquipmentSlot slot, A defaultModel) {
+            return (A) UsefulHatLayers.usefulHatModel;
+        }
     }
 
     @Nullable
