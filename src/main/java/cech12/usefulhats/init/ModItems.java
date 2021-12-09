@@ -1,6 +1,7 @@
 package cech12.usefulhats.init;
 
 import cech12.usefulhats.UsefulHatsUtils;
+import cech12.usefulhats.client.CurioRenderer;
 import cech12.usefulhats.compat.CuriosMod;
 import cech12.usefulhats.item.*;
 import cech12.usefulhats.UsefulHatsMod;
@@ -31,6 +32,7 @@ import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
 import top.theillusivec4.curios.api.event.CurioChangeEvent;
 
 @Mod.EventBusSubscriber(modid= UsefulHatsMod.MOD_ID, bus= Mod.EventBusSubscriber.Bus.MOD)
@@ -99,6 +101,12 @@ public class ModItems {
      */
     @OnlyIn(Dist.CLIENT)
     public static void setupClient() {
+        //curio rendering
+        if (CuriosMod.isLoaded()) {
+            for (Item item : ModItems.items) {
+                CuriosRendererRegistry.register(item, CurioRenderer::getInstance);
+            }
+        }
         //register overlay
         OverlayRegistry.registerOverlayAbove(ForgeIngameGui.HELMET_ELEMENT, "UsefulHats_Overlay", (gui, mStack, partialTicks, screenWidth, screenHeight) -> {
             if (Minecraft.useFancyGraphics())

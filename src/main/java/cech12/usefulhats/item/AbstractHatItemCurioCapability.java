@@ -1,35 +1,17 @@
 package cech12.usefulhats.item;
 
-import cech12.usefulhats.client.UsefulHatModel;
 import cech12.usefulhats.config.Config;
-import com.google.common.collect.Maps;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.entity.ItemRenderer;
-import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurio;
-
-import java.util.Map;
 
 /**
  * This class is a capability for the Curios API.
  */
 public class AbstractHatItemCurioCapability implements ICurio {
 
-    private static final Map<String, ResourceLocation> ARMOR_TEXTURE_RES_MAP = Maps.newHashMap();
-
     private final ItemStack stack;
-    private Object model;
 
     public AbstractHatItemCurioCapability(ItemStack stack) {
         this.stack = stack;
@@ -40,7 +22,7 @@ public class AbstractHatItemCurioCapability implements ICurio {
     //public void onUnequip(String identifier, int index, LivingEntity livingEntity) {}
 
     @Override
-    public boolean canEquip(String identifier, LivingEntity livingEntity) {
+    public boolean canEquip(SlotContext slotContext) {
         return Config.CURIOS_ENABLED.getValue();
     }
 
@@ -50,84 +32,10 @@ public class AbstractHatItemCurioCapability implements ICurio {
     }
 
     @Override
-    public void curioTick(String identifier, int index, LivingEntity livingEntity) {
-        if (Config.CURIOS_ENABLED.getValue() && livingEntity instanceof Player) {
-            Player player = (Player) livingEntity;
+    public void curioTick(SlotContext slotContext) {
+        if (Config.CURIOS_ENABLED.getValue() && slotContext.entity() instanceof Player player) {
             this.stack.getItem().onArmorTick(this.stack, player.level, player);
         }
     }
-
-    /* TODO see https://github.com/TheIllusiveC4/Curios/wiki/1.16.5-to-1.17:-Updates-and-Changes#rendering-system
-
-    @OnlyIn(Dist.CLIENT)
-    private HumanoidModel<LivingEntity> getModel() {
-        if (model == null) {
-            if (this.stack.getItem() instanceof IUsefulHatModelOwner) {
-                model = new UsefulHatModel<>();
-            } else {
-                model = new HumanoidModel<>(0.5F);
-            }
-        }
-        return (HumanoidModel<LivingEntity>) model;
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    private ResourceLocation getTexture(String type) {
-        ArmorItem item = (ArmorItem) this.stack.getItem();
-        String locationString;
-        if (item instanceof IUsefulHatModelOwner) {
-            locationString = item.getArmorTexture(this.stack, this.stack.getEntityRepresentation(), this.stack.getEquipmentSlot(), type);
-        } else {
-            //mostly copied from BipedArmorLayer class
-            String texture = item.getMaterial().getName();
-            String domain = "minecraft";
-            int idx = texture.indexOf(':');
-            if (idx != -1) {
-                domain = texture.substring(0, idx);
-                texture = texture.substring(idx + 1);
-            }
-            locationString = String.format("%s:textures/models/armor/%s_layer_%d%s.png", domain, texture, 1, type == null ? "" : String.format("_%s", type));
-        }
-        ResourceLocation location = ARMOR_TEXTURE_RES_MAP.get(locationString);
-        if (location == null && locationString != null) {
-            location = new ResourceLocation(locationString);
-            ARMOR_TEXTURE_RES_MAP.put(locationString, location);
-        }
-        return location;
-    }
-
-    @Override
-    @OnlyIn(Dist.CLIENT)
-    public boolean canRender(String identifier, int index, LivingEntity livingEntity) {
-        return true;
-    }
-
-    @Override
-    @OnlyIn(Dist.CLIENT)
-    public void render(String identifier, int index, PoseStack matrixStack, MultiBufferSource renderTypeBuffer, int light, LivingEntity entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-        Item item = this.stack.getItem();
-        HumanoidModel<LivingEntity> model = this.getModel();
-        model.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-        model.prepareMobModel(entity, limbSwing, limbSwingAmount, partialTicks);
-        RenderHelper.followBodyRotations(entity, model);
-        //mostly copied from UsefulHatLayer
-        model.copyPropertiesTo(model);
-        boolean flag1 = this.stack.hasFoil();
-        int i = ((net.minecraft.world.item.DyeableLeatherItem)item).getColor(this.stack);
-        float f = (float)(i >> 16 & 255) / 255.0F;
-        float f1 = (float)(i >> 8 & 255) / 255.0F;
-        float f2 = (float)(i & 255) / 255.0F;
-        this.renderLayer(matrixStack, renderTypeBuffer, light, flag1, model, f, f1, f2, this.getTexture(null));
-        this.renderLayer(matrixStack, renderTypeBuffer, light, flag1, model, 1.0F, 1.0F, 1.0F, this.getTexture("overlay"));
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    private void renderLayer(PoseStack p_241738_1_, MultiBufferSource p_241738_2_, int p_241738_3_, boolean p_241738_5_, HumanoidModel<LivingEntity> p_241738_6_, float p_241738_8_, float p_241738_9_, float p_241738_10_, ResourceLocation armorResource) {
-        //mostly copied from UsefulHatLayer
-        VertexConsumer ivertexbuilder = ItemRenderer.getFoilBuffer(p_241738_2_, p_241738_6_.renderType(armorResource), false, p_241738_5_);
-        p_241738_6_.renderToBuffer(p_241738_1_, ivertexbuilder, p_241738_3_, OverlayTexture.NO_OVERLAY, p_241738_8_, p_241738_9_, p_241738_10_, 1.0F);
-    }
-
-     */
 
 }
