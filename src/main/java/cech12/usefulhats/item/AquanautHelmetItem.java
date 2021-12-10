@@ -2,7 +2,7 @@ package cech12.usefulhats.item;
 
 import cech12.usefulhats.UsefulHatsMod;
 import cech12.usefulhats.UsefulHatsUtils;
-import cech12.usefulhats.config.Config;
+import cech12.usefulhats.config.ServerConfig;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.blaze3d.vertex.BufferBuilder;
@@ -34,17 +34,17 @@ public class AquanautHelmetItem extends AbstractHatItem implements IEquipmentCha
     private static final ResourceLocation AQUANAUT_GUI_TEX_PATH = new ResourceLocation(UsefulHatsMod.MOD_ID, "textures/misc/aquanautblur.png");
 
     public AquanautHelmetItem() {
-        super("aquanaut_helmet", HatArmorMaterial.AQUANAUT, rawColorFromRGB(71, 191, 74), Config.AQUANAUT_HELMET_ENABLED, Config.AQUANAUT_HELMET_DAMAGE_ENABLED);
+        super("aquanaut_helmet", HatArmorMaterial.AQUANAUT, rawColorFromRGB(71, 191, 74), ServerConfig.AQUANAUT_HELMET_DAMAGE_ENABLED);
     }
 
     private int getEffectTimeConfig(final int enchantmentLevel) {
         if (enchantmentLevel <= 0) {
-            return Config.AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_0.getValue();
+            return ServerConfig.AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_0.get();
         }
         switch (enchantmentLevel) {
-            case 1: return Config.AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_1.getValue();
-            case 2: return Config.AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_2.getValue();
-            default: return Config.AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_3.getValue();
+            case 1: return ServerConfig.AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_1.get();
+            case 2: return ServerConfig.AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_2.get();
+            default: return ServerConfig.AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_3.get();
         }
     }
 

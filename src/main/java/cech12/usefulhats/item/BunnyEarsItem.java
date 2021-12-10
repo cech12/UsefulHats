@@ -1,7 +1,7 @@
 package cech12.usefulhats.item;
 
 import cech12.usefulhats.UsefulHatsUtils;
-import cech12.usefulhats.config.Config;
+import cech12.usefulhats.config.ServerConfig;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -26,7 +26,7 @@ public class BunnyEarsItem extends AbstractHatItem implements IEquipmentChangeLi
     private static final int JUMP_BOOST_DURATION = 219;
 
     public BunnyEarsItem() {
-        super("bunny_ears", HatArmorMaterial.BUNNY, rawColorFromRGB(142, 120, 94), Config.BUNNY_EARS_ENABLED, Config.BUNNY_EARS_DAMAGE_ENABLED);
+        super("bunny_ears", HatArmorMaterial.BUNNY, rawColorFromRGB(142, 120, 94), ServerConfig.BUNNY_EARS_DAMAGE_ENABLED);
         this.addAllowedEnchantment(Enchantments.BLOCK_EFFICIENCY);
     }
 

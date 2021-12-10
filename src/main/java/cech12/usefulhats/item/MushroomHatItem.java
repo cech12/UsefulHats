@@ -1,7 +1,7 @@
 package cech12.usefulhats.item;
 
 import cech12.usefulhats.UsefulHatsUtils;
-import cech12.usefulhats.config.Config;
+import cech12.usefulhats.config.ServerConfig;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -22,7 +22,7 @@ import java.util.List;
 public class MushroomHatItem extends AbstractHatItem implements IUsefulHatModelOwner {
 
     public MushroomHatItem() {
-        super("mushroom_hat", HatArmorMaterial.MUSHROOM, rawColorFromRGB(197, 35, 35), Config.MUSHROOM_HAT_ENABLED, Config.MUSHROOM_HAT_DAMAGE_ENABLED);
+        super("mushroom_hat", HatArmorMaterial.MUSHROOM, rawColorFromRGB(197, 35, 35), ServerConfig.MUSHROOM_HAT_DAMAGE_ENABLED);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class MushroomHatItem extends AbstractHatItem implements IUsefulHatModelO
             if (!UsefulHatsUtils.getEquippedHatItemStacks(player).contains(stack)) return; //only one worn stack of this item should add its effect
             //eat every 3 seconds until no food is needed
             FoodData foodStats = player.getFoodData();
-            if (foodStats.needsFood() && player.tickCount % Config.MUSHROOM_HAT_EAT_INTERVAL.getValue() == 0) {
+            if (foodStats.needsFood() && player.tickCount % ServerConfig.MUSHROOM_HAT_EAT_INTERVAL.get() == 0) {
                 foodStats.eat(1, 0.5F);
                 world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.PLAYER_BURP, SoundSource.PLAYERS, 0.5F, world.random.nextFloat() * 0.1F + 0.9F);
                 this.damageHatItemByOne(stack, player);

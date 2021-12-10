@@ -1,7 +1,7 @@
 package cech12.usefulhats.item;
 
 import cech12.usefulhats.UsefulHatsUtils;
-import cech12.usefulhats.config.Config;
+import cech12.usefulhats.config.ServerConfig;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -25,7 +25,7 @@ public class ShulkerHelmetItem extends AbstractHatItem implements IEquipmentChan
     private static final int LEVITATION_DURATION = 219;
 
     public ShulkerHelmetItem() {
-        super("shulker_helmet", HatArmorMaterial.SHULKER, rawColorFromRGB(150, 105, 150), Config.SHULKER_HELMET_ENABLED, Config.SHULKER_HELMET_DAMAGE_ENABLED);
+        super("shulker_helmet", HatArmorMaterial.SHULKER, rawColorFromRGB(150, 105, 150), ServerConfig.SHULKER_HELMET_DAMAGE_ENABLED);
         this.addAllowedEnchantment(Enchantments.BLOCK_EFFICIENCY);
     }
 

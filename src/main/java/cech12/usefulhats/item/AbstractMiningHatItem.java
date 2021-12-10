@@ -1,17 +1,17 @@
 package cech12.usefulhats.item;
 
-import cech12.usefulhats.config.ConfigType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
 
 public abstract class AbstractMiningHatItem extends AbstractHatItem implements IBreakSpeedChanger {
 
-    AbstractMiningHatItem(String name, HatArmorMaterial material, int initColor, ConfigType.Boolean enabledConfig, ConfigType.Boolean enabledDamageConfig) {
-        super(name, material, initColor, enabledConfig, enabledDamageConfig);
+    AbstractMiningHatItem(String name, HatArmorMaterial material, int initColor, ForgeConfigSpec.BooleanValue enabledDamageConfig) {
+        super(name, material, initColor, enabledDamageConfig);
         this.addAllowedEnchantment(Enchantments.BLOCK_EFFICIENCY);
     }
 

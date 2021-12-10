@@ -1,6 +1,6 @@
 package cech12.usefulhats.item;
 
-import cech12.usefulhats.config.Config;
+import cech12.usefulhats.config.ServerConfig;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import top.theillusivec4.curios.api.SlotContext;
@@ -23,7 +23,7 @@ public class AbstractHatItemCurioCapability implements ICurio {
 
     @Override
     public boolean canEquip(SlotContext slotContext) {
-        return Config.CURIOS_ENABLED.getValue();
+        return ServerConfig.CURIOS_ENABLED.get();
     }
 
     @Override
@@ -33,7 +33,7 @@ public class AbstractHatItemCurioCapability implements ICurio {
 
     @Override
     public void curioTick(SlotContext slotContext) {
-        if (Config.CURIOS_ENABLED.getValue() && slotContext.entity() instanceof Player player) {
+        if (ServerConfig.CURIOS_ENABLED.get() && slotContext.entity() instanceof Player player) {
             this.stack.getItem().onArmorTick(this.stack, player.level, player);
         }
     }
