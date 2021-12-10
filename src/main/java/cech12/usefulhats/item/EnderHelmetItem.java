@@ -1,7 +1,7 @@
 package cech12.usefulhats.item;
 
 import cech12.usefulhats.UsefulHatsUtils;
-import cech12.usefulhats.config.Config;
+import cech12.usefulhats.config.ServerConfig;
 import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.entity.player.Player;
@@ -35,7 +35,7 @@ public class EnderHelmetItem extends AbstractHatItem implements IRightClickListe
     public static final String TELEPORT_POSITION_ID = "TeleportPosition";
 
     public EnderHelmetItem() {
-        super("ender_helmet", HatArmorMaterial.ENDER, rawColorFromRGB(43, 203, 175), Config.ENDER_HELMET_ENABLED, Config.ENDER_HELMET_DAMAGE_ENABLED);
+        super("ender_helmet", HatArmorMaterial.ENDER, rawColorFromRGB(43, 203, 175), ServerConfig.ENDER_HELMET_DAMAGE_ENABLED);
     }
 
     @Override
@@ -145,7 +145,7 @@ public class EnderHelmetItem extends AbstractHatItem implements IRightClickListe
 
             if (!world.isClientSide) {
                 //check for correct dimension
-                if (Config.ENDER_HELMET_INTERDIMENSIONAL_ENABLED.getValue() || isRightDimension(world, headSlotItemStack)) {
+                if (ServerConfig.ENDER_HELMET_INTERDIMENSIONAL_ENABLED.get() || isRightDimension(world, headSlotItemStack)) {
                     ServerLevel destinationWorld = getWorld(player.getServer(), headSlotItemStack);
                     BlockPos destinationPos = getPosition(headSlotItemStack);
                     //check for correct position

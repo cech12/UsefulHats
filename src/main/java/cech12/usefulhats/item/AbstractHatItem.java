@@ -2,11 +2,8 @@ package cech12.usefulhats.item;
 
 import cech12.usefulhats.UsefulHatsMod;
 import cech12.usefulhats.client.UsefulHatLayers;
-import cech12.usefulhats.client.UsefulHatModel;
 import cech12.usefulhats.compat.BaublesMod;
 import cech12.usefulhats.compat.CuriosMod;
-import cech12.usefulhats.config.ConfigType;
-import cech12.usefulhats.helper.IEnabled;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import lazy.baubles.api.bauble.IBauble;
@@ -40,6 +37,7 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.IItemRenderProperties;
+import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -58,25 +56,22 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.function.Consumer;
 
-public abstract class AbstractHatItem extends ArmorItem implements IEnabled, DyeableLeatherItem {
+public abstract class AbstractHatItem extends ArmorItem implements DyeableLeatherItem {
 
     private static final boolean IS_CHRISTMAS = Calendar.getInstance().get(Calendar.MONTH) + 1 == 12;
-    private static UsefulHatModel<LivingEntity> model;
 
     private final HatArmorMaterial material;
     private final int initColor;
-    private final ConfigType.Boolean enabledConfig;
-    private final ConfigType.Boolean enabledDamageConfig;
+    private final ForgeConfigSpec.BooleanValue enabledDamageConfig;
 
     private final ArrayList<Enchantment> allowedEnchantments = new ArrayList<>();
     private final ArrayList<Enchantment> forbiddenEnchantments = new ArrayList<>();
 
-    public AbstractHatItem(String name, HatArmorMaterial material, int initColor, ConfigType.Boolean enabledConfig, ConfigType.Boolean enabledDamageConfig) {
+    public AbstractHatItem(String name, HatArmorMaterial material, int initColor, ForgeConfigSpec.BooleanValue enabledDamageConfig) {
         super(material, EquipmentSlot.HEAD, (new Properties()).tab(UsefulHatsMod.ITEM_GROUP));
         this.setRegistryName(new ResourceLocation(UsefulHatsMod.MOD_ID, name));
         this.material = material;
         this.initColor = initColor;
-        this.enabledConfig = enabledConfig;
         this.enabledDamageConfig = enabledDamageConfig;
         this.addForbiddenEnchantment(Enchantments.FIRE_PROTECTION);
         this.addForbiddenEnchantment(Enchantments.PROJECTILE_PROTECTION);
@@ -92,11 +87,6 @@ public abstract class AbstractHatItem extends ArmorItem implements IEnabled, Dye
         rgb = (rgb << 8) + Math.max(Math.min(0xFF, green), 0);
         rgb = (rgb << 8) + Math.max(Math.min(0xFF, blue), 0);
         return rgb;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return this.enabledConfig.getValue();
     }
 
     @Override
@@ -179,7 +169,7 @@ public abstract class AbstractHatItem extends ArmorItem implements IEnabled, Dye
             return false;
         }
         //disable UNBREAKING & MENDING if damage is disabled
-        if (!this.enabledDamageConfig.getValue() && (enchantment == Enchantments.UNBREAKING || enchantment == Enchantments.MENDING)) {
+        if (!this.enabledDamageConfig.get() && (enchantment == Enchantments.UNBREAKING || enchantment == Enchantments.MENDING)) {
             return false;
         }
         return super.canApplyAtEnchantingTable(stack, enchantment);
@@ -190,7 +180,7 @@ public abstract class AbstractHatItem extends ArmorItem implements IEnabled, Dye
      * Added config value to disable damage.
      */
     protected void damageHatItemByOne(ItemStack stack, Player entity) {
-        if (!this.enabledDamageConfig.getValue()) return;
+        if (!this.enabledDamageConfig.get()) return;
 
         if (!entity.level.isClientSide && !entity.getAbilities().instabuild) {
             if (this.canBeDepleted()) {
@@ -229,7 +219,7 @@ public abstract class AbstractHatItem extends ArmorItem implements IEnabled, Dye
     @OnlyIn(Dist.CLIENT)
     public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level worldIn, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
-        //tooltip.add(new StringTextComponent("Durability: " + (stack.getMaxDamage() - stack.getDamage()) + "/" + stack.getMaxDamage()).mergeStyle(TextFormatting.RED));
+        //tooltip.add(new TextComponent("Durability: " + (stack.getMaxDamage() - stack.getDamageValue()) + "/" + stack.getMaxDamage()).withStyle(ChatFormatting.RED));
         tooltip.add(new TextComponent(""));
         tooltip.add((new TranslatableComponent("item.modifiers." + EquipmentSlot.HEAD.getName())).withStyle(ChatFormatting.GRAY));
     }

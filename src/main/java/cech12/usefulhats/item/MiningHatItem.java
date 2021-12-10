@@ -1,7 +1,7 @@
 package cech12.usefulhats.item;
 
 import cech12.usefulhats.UsefulHatsUtils;
-import cech12.usefulhats.config.Config;
+import cech12.usefulhats.config.ServerConfig;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.item.TooltipFlag;
@@ -27,18 +27,18 @@ public class MiningHatItem extends AbstractMiningHatItem implements IEquipmentCh
     private static final int NIGHT_VISION_AMPLIFIER = 0;
 
     public MiningHatItem() {
-        super("mining_hat", HatArmorMaterial.MINING, rawColorFromRGB(255, 216, 0), Config.MINING_HAT_ENABLED, Config.MINING_HAT_DAMAGE_ENABLED);
+        super("mining_hat", HatArmorMaterial.MINING, rawColorFromRGB(255, 216, 0), ServerConfig.MINING_HAT_DAMAGE_ENABLED);
     }
 
     @Override
     protected double[] getSpeedConfig() {
         double[] speedConfig = new double[6];
-        speedConfig[0] = Config.MINING_HAT_SPEED_WITH_EFFICIENCY_0.getValue();
-        speedConfig[1] = Config.MINING_HAT_SPEED_WITH_EFFICIENCY_1.getValue();
-        speedConfig[2] = Config.MINING_HAT_SPEED_WITH_EFFICIENCY_2.getValue();
-        speedConfig[3] = Config.MINING_HAT_SPEED_WITH_EFFICIENCY_3.getValue();
-        speedConfig[4] = Config.MINING_HAT_SPEED_WITH_EFFICIENCY_4.getValue();
-        speedConfig[5] = Config.MINING_HAT_SPEED_WITH_EFFICIENCY_5.getValue();
+        speedConfig[0] = ServerConfig.MINING_HAT_SPEED_WITH_EFFICIENCY_0.get();
+        speedConfig[1] = ServerConfig.MINING_HAT_SPEED_WITH_EFFICIENCY_1.get();
+        speedConfig[2] = ServerConfig.MINING_HAT_SPEED_WITH_EFFICIENCY_2.get();
+        speedConfig[3] = ServerConfig.MINING_HAT_SPEED_WITH_EFFICIENCY_3.get();
+        speedConfig[4] = ServerConfig.MINING_HAT_SPEED_WITH_EFFICIENCY_4.get();
+        speedConfig[5] = ServerConfig.MINING_HAT_SPEED_WITH_EFFICIENCY_5.get();
         return speedConfig;
     }
 
@@ -48,7 +48,7 @@ public class MiningHatItem extends AbstractMiningHatItem implements IEquipmentCh
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         int value = (int) (this.getEnchantmentValue(stack, this.getSpeedConfig()) * 100);
         tooltip.add(new TranslatableComponent("item.usefulhats.mining_hat.desc.mining_speed", value).withStyle(ChatFormatting.BLUE));
-        if (Config.MINING_HAT_NIGHT_VISION_ENABLED.getValue()) {
+        if (ServerConfig.MINING_HAT_NIGHT_VISION_ENABLED.get()) {
             tooltip.add(new TranslatableComponent("item.usefulhats.mining_hat.desc.night_vision").withStyle(ChatFormatting.BLUE));
         }
     }
@@ -58,7 +58,7 @@ public class MiningHatItem extends AbstractMiningHatItem implements IEquipmentCh
         if (!level.isClientSide) {
             if (!UsefulHatsUtils.getEquippedHatItemStacks(player).contains(stack)) return; //only one worn stack of this item should add its effect
             //When Night Vision effect is disabled in config, do nothing.
-            if (!Config.MINING_HAT_NIGHT_VISION_ENABLED.getValue()) return;
+            if (!ServerConfig.MINING_HAT_NIGHT_VISION_ENABLED.get()) return;
             //When Night Vision effect is caused by another source, do nothing
             if (this.isEffectCausedByOtherSource(player, MobEffects.NIGHT_VISION, NIGHT_VISION_DURATION, NIGHT_VISION_AMPLIFIER))
                 return;
@@ -93,6 +93,6 @@ public class MiningHatItem extends AbstractMiningHatItem implements IEquipmentCh
 
     @Override
     public boolean makesPiglinsNeutral(ItemStack stack, LivingEntity wearer) {
-        return Config.MINING_HAT_MAKE_PIGLINS_NEUTRAL_ENABLED.getValue();
+        return ServerConfig.MINING_HAT_MAKE_PIGLINS_NEUTRAL_ENABLED.get();
     }
 }

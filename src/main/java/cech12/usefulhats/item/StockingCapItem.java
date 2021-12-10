@@ -1,7 +1,7 @@
 package cech12.usefulhats.item;
 
 import cech12.usefulhats.UsefulHatsUtils;
-import cech12.usefulhats.config.Config;
+import cech12.usefulhats.config.ServerConfig;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -17,7 +17,7 @@ import java.util.List;
 public class StockingCapItem extends AbstractHatItem implements IUsefulHatModelOwner {
 
     public StockingCapItem() {
-        super("stocking_cap", HatArmorMaterial.STOCKING, rawColorFromRGB(204, 0, 23), Config.STOCKING_CAP_ENABLED, Config.STOCKING_CAP_DAMAGE_ENABLED);
+        super("stocking_cap", HatArmorMaterial.STOCKING, rawColorFromRGB(204, 0, 23), ServerConfig.STOCKING_CAP_DAMAGE_ENABLED);
     }
 
     @Override

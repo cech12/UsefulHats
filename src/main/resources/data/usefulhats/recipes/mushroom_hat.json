@@ -1,11 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "conditions": [
-    {
-      "type": "usefulhats:is_enabled",
-      "item": "usefulhats:mushroom_hat"
-    }
-  ],
   "pattern": [
     "###",
     "# #"

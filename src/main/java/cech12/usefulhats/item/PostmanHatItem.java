@@ -1,7 +1,7 @@
 package cech12.usefulhats.item;
 
 import cech12.usefulhats.UsefulHatsUtils;
-import cech12.usefulhats.config.Config;
+import cech12.usefulhats.config.ServerConfig;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -27,7 +27,7 @@ public class PostmanHatItem extends AbstractHatItem implements IEquipmentChangeL
     private static final int SPEED_DURATION = 219;
 
     public PostmanHatItem() {
-        super("postman_hat", HatArmorMaterial.POSTMAN, rawColorFromRGB(57, 99, 150), Config.POSTMAN_HAT_ENABLED, Config.POSTMAN_HAT_DAMAGE_ENABLED);
+        super("postman_hat", HatArmorMaterial.POSTMAN, rawColorFromRGB(57, 99, 150), ServerConfig.POSTMAN_HAT_DAMAGE_ENABLED);
         this.addAllowedEnchantment(Enchantments.BLOCK_EFFICIENCY);
     }
 
@@ -37,7 +37,7 @@ public class PostmanHatItem extends AbstractHatItem implements IEquipmentChangeL
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         int enchantmentLevel = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY, stack) + 1;
         tooltip.add(new TranslatableComponent("item.usefulhats.postman_hat.desc.speed", UsefulHatsUtils.getRomanNumber(enchantmentLevel, false)).withStyle(ChatFormatting.BLUE));
-        if (Config.POSTMAN_HAT_HUNGER_ENABLED.getValue()) {
+        if (ServerConfig.POSTMAN_HAT_HUNGER_ENABLED.get()) {
             tooltip.add(new TranslatableComponent("item.usefulhats.postman_hat.desc.hunger").withStyle(ChatFormatting.RED));
         }
     }
@@ -54,7 +54,7 @@ public class PostmanHatItem extends AbstractHatItem implements IEquipmentChangeL
                 if (player.getEffect(MobEffects.MOVEMENT_SPEED) == null || player.tickCount % 19 == 0) {
                     this.addEffect(player, MobEffects.MOVEMENT_SPEED, SPEED_DURATION, speedAmplifier);
                 }
-                if (Config.POSTMAN_HAT_HUNGER_ENABLED.getValue()) {
+                if (ServerConfig.POSTMAN_HAT_HUNGER_ENABLED.get()) {
                     if (!this.isEffectCausedByOtherSource(player, MobEffects.HUNGER, HUNGER_DURATION, HUNGER_AMPLIFIER)) {
                         if (player.getEffect(MobEffects.HUNGER) == null || player.tickCount % 19 == 0) {
                             this.addEffect(player, MobEffects.HUNGER, HUNGER_DURATION, HUNGER_AMPLIFIER);
@@ -66,7 +66,7 @@ public class PostmanHatItem extends AbstractHatItem implements IEquipmentChangeL
                 }
             } else {
                 this.removeEffect(player, MobEffects.MOVEMENT_SPEED, SPEED_DURATION, speedAmplifier);
-                if (Config.POSTMAN_HAT_HUNGER_ENABLED.getValue()) {
+                if (ServerConfig.POSTMAN_HAT_HUNGER_ENABLED.get()) {
                     this.removeEffect(player, MobEffects.HUNGER, HUNGER_DURATION, HUNGER_AMPLIFIER);
                 }
             }
@@ -78,7 +78,7 @@ public class PostmanHatItem extends AbstractHatItem implements IEquipmentChangeL
         // disable effects when hat is removed from slot
         int speedAmplifier = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY, oldStack);
         this.removeEffect(entity, MobEffects.MOVEMENT_SPEED, SPEED_DURATION, speedAmplifier);
-        if (Config.POSTMAN_HAT_HUNGER_ENABLED.getValue()) {
+        if (ServerConfig.POSTMAN_HAT_HUNGER_ENABLED.get()) {
             this.removeEffect(entity, MobEffects.HUNGER, HUNGER_DURATION, HUNGER_AMPLIFIER);
         }
     }

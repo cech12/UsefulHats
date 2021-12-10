@@ -1,6 +1,6 @@
 package cech12.usefulhats.item;
 
-import cech12.usefulhats.config.Config;
+import cech12.usefulhats.config.ServerConfig;
 import lazy.baubles.api.bauble.BaubleType;
 import lazy.baubles.api.bauble.IBauble;
 import net.minecraft.world.entity.LivingEntity;
@@ -28,7 +28,7 @@ public class AbstractHatItemBaublesCapability implements IBauble {
 
     @Override
     public void onWornTick(LivingEntity livingEntity, ItemStack stack) {
-        if (Config.BAUBLES_ENABLED.getValue() && livingEntity instanceof Player) {
+        if (ServerConfig.BAUBLES_ENABLED.get() && livingEntity instanceof Player) {
             Player player = (Player) livingEntity;
             this.item.onArmorTick(this.stack, player.level, player);
         }
@@ -50,7 +50,7 @@ public class AbstractHatItemBaublesCapability implements IBauble {
 
     @Override
     public boolean canEquip(LivingEntity player) {
-        return Config.BAUBLES_ENABLED.getValue();
+        return ServerConfig.BAUBLES_ENABLED.get();
     }
 
     @Override

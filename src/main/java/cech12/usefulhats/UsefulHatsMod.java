@@ -2,8 +2,7 @@ package cech12.usefulhats;
 
 import cech12.usefulhats.client.UsefulHatLayers;
 import cech12.usefulhats.compat.CuriosMod;
-import cech12.usefulhats.config.Config;
-import cech12.usefulhats.helper.UsefulHatsRecipeSerializers;
+import cech12.usefulhats.config.ServerConfig;
 import cech12.usefulhats.init.ModItems;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
@@ -17,6 +16,8 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLConfig;
+import net.minecraftforge.fml.loading.FMLPaths;
 
 import static cech12.usefulhats.UsefulHatsMod.MOD_ID;
 
@@ -36,8 +37,8 @@ public class UsefulHatsMod {
     public UsefulHatsMod() {
         ModItems.addEventListeners();
         //Configs
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON, "usefulhats-legacy-common.toml");
-        FMLJavaModLoadingContext.get().getModEventBus().register(new UsefulHatsRecipeSerializers());
+        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ServerConfig.SERVER_CONFIG);
+        ServerConfig.loadConfig(ServerConfig.SERVER_CONFIG, FMLPaths.GAMEDIR.get().resolve(FMLConfig.defaultConfigPath()).resolve(MOD_ID + "-server.toml"));
         //register render layers & models
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
             FMLJavaModLoadingContext.get().getModEventBus().addListener(UsefulHatLayers::initLayers);

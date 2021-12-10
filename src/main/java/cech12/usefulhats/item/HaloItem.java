@@ -1,7 +1,7 @@
 package cech12.usefulhats.item;
 
 import cech12.usefulhats.UsefulHatsUtils;
-import cech12.usefulhats.config.Config;
+import cech12.usefulhats.config.ServerConfig;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
@@ -27,7 +27,7 @@ import java.util.function.Predicate;
 public class HaloItem extends AbstractHatItem implements IAttackTargetChanger, IMobEntityChanger {
 
     public HaloItem() {
-        super("halo", HatArmorMaterial.HALO, rawColorFromRGB(255, 236, 142), Config.HALO_ENABLED, Config.HALO_DAMAGE_ENABLED);
+        super("halo", HatArmorMaterial.HALO, rawColorFromRGB(255, 236, 142), ServerConfig.HALO_DAMAGE_ENABLED);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class HaloItem extends AbstractHatItem implements IAttackTargetChanger, I
             // Looses durability outside the nether when non-boss mobs are in range (X blocks)
             if (!isEntityInNether(player)) {
                 Vec3 playerPos = player.position();
-                int range = Config.HALO_DETECTING_RANGE.getValue();
+                int range = ServerConfig.HALO_DETECTING_RANGE.get();
                 AABB radius = new AABB(playerPos.x()-range, playerPos.y()-range, playerPos.z()-range, playerPos.x()+range, playerPos.y()+range, playerPos.z()+range);
                 List<Mob> mobsInRange = player.level.getEntitiesOfClass(Mob.class, radius, (Predicate<Entity>) entity -> entity instanceof Mob && entity.canChangeDimensions());
                 if (!mobsInRange.isEmpty() && level.random.nextInt(20) == 0) {

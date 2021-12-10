@@ -1,7 +1,7 @@
 package cech12.usefulhats.item;
 
 import cech12.usefulhats.UsefulHatsUtils;
-import cech12.usefulhats.config.Config;
+import cech12.usefulhats.config.ServerConfig;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -27,7 +27,7 @@ public class WingHelmetItem extends AbstractHatItem implements IEquipmentChangeL
     private static final int LEVITATION_DURATION = 200;
 
     public WingHelmetItem() {
-        super("wing_helmet", HatArmorMaterial.WING, rawColorFromRGB(255, 255, 255), Config.WING_HELMET_ENABLED, Config.WING_HELMET_DAMAGE_ENABLED);
+        super("wing_helmet", HatArmorMaterial.WING, rawColorFromRGB(255, 255, 255), ServerConfig.WING_HELMET_DAMAGE_ENABLED);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class WingHelmetItem extends AbstractHatItem implements IEquipmentChangeL
     public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level worldIn, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         tooltip.add(new TranslatableComponent("item.usefulhats.wing_helmet.desc.slow_falling").withStyle(ChatFormatting.BLUE));
-        if (Config.WING_HELMET_LEVITATION_ENABLED.getValue()) {
+        if (ServerConfig.WING_HELMET_LEVITATION_ENABLED.get()) {
             tooltip.add(new TranslatableComponent("item.usefulhats.wing_helmet.desc.scared").withStyle(ChatFormatting.RED));
         }
     }
@@ -53,7 +53,7 @@ public class WingHelmetItem extends AbstractHatItem implements IEquipmentChangeL
             //Sometimes the helmet is afraid of monsters and flies away
             boolean isLevitationFromOtherSource = this.isEffectCausedByOtherSource(player, MobEffects.LEVITATION, LEVITATION_DURATION, LEVITATION_AMPLIFIER);
             boolean isLevitationEffectActive = player.getEffect(MobEffects.LEVITATION) != null;
-            if (!isLevitationEffectActive && Config.WING_HELMET_LEVITATION_ENABLED.getValue()) {
+            if (!isLevitationEffectActive && ServerConfig.WING_HELMET_LEVITATION_ENABLED.get()) {
                 if (player.getLastDamageSource() != null && player.getLastDamageSource().getEntity() instanceof LivingEntity) {
                     if (level.random.nextInt(100) == 0) {
                         this.removeEffect(player, MobEffects.SLOW_FALLING, SLOW_FALLING_DURATION, SLOW_FALLING_AMPLIFIER);
@@ -79,7 +79,7 @@ public class WingHelmetItem extends AbstractHatItem implements IEquipmentChangeL
             }
             //calculate damage if slow falling or levitation is caused by this item
             if ((isSlowFallingEffectActive && !isSlowFallingFromOtherSource) ||
-                    (isLevitationEffectActive && !isLevitationFromOtherSource && Config.WING_HELMET_LEVITATION_ENABLED.getValue())) {
+                    (isLevitationEffectActive && !isLevitationFromOtherSource && ServerConfig.WING_HELMET_LEVITATION_ENABLED.get())) {
                 if (level.random.nextInt(20) == 0) {
                     this.damageHatItemByOne(stack, player);
                 }
@@ -91,7 +91,7 @@ public class WingHelmetItem extends AbstractHatItem implements IEquipmentChangeL
     public void onUnequippedHatItem(LivingEntity entity, ItemStack oldStack) {
         // disable effects when hat is removed from slot
         this.removeEffect(entity, MobEffects.SLOW_FALLING, SLOW_FALLING_DURATION, SLOW_FALLING_AMPLIFIER);
-        if (Config.WING_HELMET_LEVITATION_ENABLED.getValue()) {
+        if (ServerConfig.WING_HELMET_LEVITATION_ENABLED.get()) {
             this.removeEffect(entity, MobEffects.LEVITATION, LEVITATION_DURATION, LEVITATION_AMPLIFIER);
         }
     }

@@ -1,7 +1,7 @@
 package cech12.usefulhats.item;
 
 import cech12.usefulhats.UsefulHatsUtils;
-import cech12.usefulhats.config.Config;
+import cech12.usefulhats.config.ServerConfig;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -31,7 +31,7 @@ public class LuckyHatItem extends AbstractHatItem implements IItemFishedListener
     private static final int UNLUCK_DURATION = 200;
 
     public LuckyHatItem() {
-        super("lucky_hat", HatArmorMaterial.LUCKY, rawColorFromRGB(72, 242, 0), Config.LUCKY_HAT_ENABLED, Config.LUCKY_HAT_DAMAGE_ENABLED);
+        super("lucky_hat", HatArmorMaterial.LUCKY, rawColorFromRGB(72, 242, 0), ServerConfig.LUCKY_HAT_DAMAGE_ENABLED);
         this.addAllowedEnchantment(Enchantments.FISHING_LUCK);
         this.addAllowedEnchantment(Enchantments.MOB_LOOTING);
     }
@@ -68,7 +68,7 @@ public class LuckyHatItem extends AbstractHatItem implements IItemFishedListener
     public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level worldIn, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         tooltip.add(new TranslatableComponent("item.usefulhats.lucky_hat.desc.luck", UsefulHatsUtils.getRomanNumber(getEffectLevel(stack), false)).withStyle(ChatFormatting.BLUE));
-        if (Config.LUCKY_HAT_UNLUCK_ENABLED.getValue()) {
+        if (ServerConfig.LUCKY_HAT_UNLUCK_ENABLED.get()) {
             tooltip.add(new TranslatableComponent("item.usefulhats.lucky_hat.desc.unluck").withStyle(ChatFormatting.RED));
         }
     }
@@ -99,7 +99,7 @@ public class LuckyHatItem extends AbstractHatItem implements IItemFishedListener
         //damage item after fishing
         if (!event.isCanceled() && this.hasHatRelatedItemInHand(event.getPlayer())) {
             this.damageHatItemByOne(headSlotItemStack, event.getPlayer());
-            if (Config.LUCKY_HAT_UNLUCK_ENABLED.getValue()) {
+            if (ServerConfig.LUCKY_HAT_UNLUCK_ENABLED.get()) {
                 this.removeEffect(player, MobEffects.LUCK, LUCK_DURATION, this.getLuckAmplifier(headSlotItemStack));
                 this.addEffect(player, MobEffects.UNLUCK, UNLUCK_DURATION, UNLUCK_AMPLIFIER);
             }
@@ -113,7 +113,7 @@ public class LuckyHatItem extends AbstractHatItem implements IItemFishedListener
         //damage item after killing a mob
         if (!event.isCanceled() && this.hasHatRelatedItemInHand(dropReason)) {
             this.damageHatItemByOne(headSlotItemStack, dropReason);
-            if (Config.LUCKY_HAT_UNLUCK_ENABLED.getValue()) {
+            if (ServerConfig.LUCKY_HAT_UNLUCK_ENABLED.get()) {
                 this.removeEffect(dropReason, MobEffects.LUCK, LUCK_DURATION, this.getLuckAmplifier(headSlotItemStack));
                 this.addEffect(dropReason, MobEffects.UNLUCK, UNLUCK_DURATION, UNLUCK_AMPLIFIER);
             }

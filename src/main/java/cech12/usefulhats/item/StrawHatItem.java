@@ -1,6 +1,6 @@
 package cech12.usefulhats.item;
 
-import cech12.usefulhats.config.Config;
+import cech12.usefulhats.config.ServerConfig;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.item.TooltipFlag;
@@ -20,18 +20,18 @@ import java.util.List;
 public class StrawHatItem extends AbstractMiningHatItem implements IBreakSpeedChanger, IUsefulHatModelOwner {
 
     public StrawHatItem() {
-        super("straw_hat", HatArmorMaterial.STRAW, rawColorFromRGB(226,189,0), Config.STRAW_HAT_ENABLED, Config.STRAW_HAT_DAMAGE_ENABLED);
+        super("straw_hat", HatArmorMaterial.STRAW, rawColorFromRGB(226,189,0), ServerConfig.STRAW_HAT_DAMAGE_ENABLED);
     }
 
     @Override
     protected double[] getSpeedConfig() {
         double[] speedConfig = new double[6];
-        speedConfig[0] = Config.STRAW_HAT_SPEED_WITH_EFFICIENCY_0.getValue();
-        speedConfig[1] = Config.STRAW_HAT_SPEED_WITH_EFFICIENCY_1.getValue();
-        speedConfig[2] = Config.STRAW_HAT_SPEED_WITH_EFFICIENCY_2.getValue();
-        speedConfig[3] = Config.STRAW_HAT_SPEED_WITH_EFFICIENCY_3.getValue();
-        speedConfig[4] = Config.STRAW_HAT_SPEED_WITH_EFFICIENCY_4.getValue();
-        speedConfig[5] = Config.STRAW_HAT_SPEED_WITH_EFFICIENCY_5.getValue();
+        speedConfig[0] = ServerConfig.STRAW_HAT_SPEED_WITH_EFFICIENCY_0.get();
+        speedConfig[1] = ServerConfig.STRAW_HAT_SPEED_WITH_EFFICIENCY_1.get();
+        speedConfig[2] = ServerConfig.STRAW_HAT_SPEED_WITH_EFFICIENCY_2.get();
+        speedConfig[3] = ServerConfig.STRAW_HAT_SPEED_WITH_EFFICIENCY_3.get();
+        speedConfig[4] = ServerConfig.STRAW_HAT_SPEED_WITH_EFFICIENCY_4.get();
+        speedConfig[5] = ServerConfig.STRAW_HAT_SPEED_WITH_EFFICIENCY_5.get();
         return speedConfig;
     }
 

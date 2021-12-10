@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Forge Recommended Versioning](https://mcforge.readthedocs.io/en/latest/conventions/versioning/).
 
+## [1.17.1-2.0.0.0] - 2021-12-10
+### Changed
+- Update mod to Forge 1.17.1-37.1.1 (fix Log4J security issue)
+- Moved mod settings file to server (defaultconfigs directory or serverconfig directory of savegame)
+- removed settings to enable/disable single hats, because it does not work with server config (could be done by datapack or CraftTweaker)
+
 ## [1.17.1-1.10.0.1] - 2021-12-07
 ### Fixed
 - Curios rendering fixed
