@@ -85,7 +85,7 @@ public class ServerConfig {
     static {
         final ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
 
-        builder.comment("Some configs in relation to other mods.").push("Compatibility option");
+        builder.comment("Some configs in relation to other mods.").push("CompatibilityOptions");
         BAUBLES_ENABLED = builder
                 .comment("Whether or not hats from this mod should be placeable in Baubles head slot if Baubles is installed.")
                 .define("baublesEnabled", true);
@@ -97,9 +97,9 @@ public class ServerConfig {
                 .define("curiosAddHeadSlot", false);
         builder.pop();
 
-        builder.comment("Various options that affect individual hats.").push("Balance Options");
+        builder.comment("Various options that affect individual hats.").push("BalanceOptions");
 
-        builder.push("Aquanaut Helmet");
+        builder.push("AquanautHelmet");
         AQUANAUT_HELMET_DAMAGE_ENABLED = builder
                 .comment("Whether or not damaging of Aquanaut Helmet should be enabled.")
                 .define("aquanautHelmetDamageEnabled", true);
@@ -120,7 +120,7 @@ public class ServerConfig {
                 .defineInRange("aquanautHelmetEffectTimeWithRespiration3", 240, 10, 300);
         builder.pop();
 
-        builder.push("Bunny Ears");
+        builder.push("BunnyEars");
         BUNNY_EARS_DAMAGE_ENABLED = builder
                 .comment("Whether or not damaging of Bunny Ears should be enabled.")
                 .define("bunnyEarsDamageEnabled", true);
@@ -129,7 +129,7 @@ public class ServerConfig {
                 .defineInRange("bunnyEarsDurability", 600, 1, 10000);
         builder.pop();
 
-        builder.push("Chopping Hat");
+        builder.push("ChoppingHat");
         CHOPPING_HAT_DAMAGE_ENABLED = builder
                 .comment("Whether or not damaging of Chopping Hat should be enabled.")
                 .define("choppingHatDamageEnabled", true);
@@ -156,7 +156,7 @@ public class ServerConfig {
                 .defineInRange("choppingHatSpeedWithEfficiency5", 1.5, 0.0, 5.0);
         builder.pop();
 
-        builder.push("Ender Helmet");
+        builder.push("EnderHelmet");
         ENDER_HELMET_DAMAGE_ENABLED = builder
                 .comment("Whether or not damaging of Ender Helmet should be enabled.")
                 .define("enderHelmetDamageEnabled", true);
@@ -180,7 +180,7 @@ public class ServerConfig {
                 .defineInRange("haloDetectingRange", 16, 1, 100);
         builder.pop();
 
-        builder.push("Lucky Hat");
+        builder.push("LuckyHat");
         LUCKY_HAT_DAMAGE_ENABLED = builder
                 .comment("Whether or not damaging of Lucky Hat should be enabled.")
                 .define("luckyHatDamageEnabled", true);
@@ -192,7 +192,7 @@ public class ServerConfig {
                 .define("luckyHatUnluckEnabled", true);
         builder.pop();
 
-        builder.push("Mining Hat");
+        builder.push("MiningHat");
         MINING_HAT_DAMAGE_ENABLED = builder
                 .comment("Whether or not damaging of Mining Hat should be enabled.")
                 .define("miningHatDamageEnabled", true);
@@ -225,7 +225,7 @@ public class ServerConfig {
                 .defineInRange("miningHatSpeedWithEfficiency5", 1.5, 0.0, 5.0);
         builder.pop();
 
-        builder.push("Mushroom Hat");
+        builder.push("MushroomHat");
         MUSHROOM_HAT_DAMAGE_ENABLED = builder
                 .comment("Whether or not damaging of Mushroom Hat should be enabled.")
                 .define("mushroomHatDamageEnabled", true);
@@ -237,7 +237,7 @@ public class ServerConfig {
                 .defineInRange("mushroomHatEatInterval", 60, 1, 10000);
         builder.pop();
 
-        builder.push("Postman Hat");
+        builder.push("PostmanHat");
         POSTMAN_HAT_DAMAGE_ENABLED = builder
                 .comment("Whether or not damaging of Postman Hat should be enabled.")
                 .define("postmanHatDamageEnabled", true);
@@ -249,7 +249,7 @@ public class ServerConfig {
                 .define("postmanHatHungerEnabled", true);
         builder.pop();
 
-        builder.push("Shulker Helmet");
+        builder.push("ShulkerHelmet");
         SHULKER_HELMET_DAMAGE_ENABLED = builder
                 .comment("Whether or not damaging of Shulker Helmet should be enabled.")
                 .define("shulkerHelmetDamageEnabled", true);
@@ -258,7 +258,7 @@ public class ServerConfig {
                 .defineInRange("shulkerHelmetDurability", 600, 1, 10000);
         builder.pop();
 
-        builder.push("Stocking Cap");
+        builder.push("StockingCap");
         STOCKING_CAP_DAMAGE_ENABLED = builder
                 .comment("Whether or not damaging of Stocking Cap should be enabled.")
                 .define("stockingCapDamageEnabled", true);
@@ -267,7 +267,7 @@ public class ServerConfig {
                 .defineInRange("stockingCapDurability", 600, 1, 10000);
         builder.pop();
 
-        builder.push("Straw Hat");
+        builder.push("StrawHat");
         STRAW_HAT_DAMAGE_ENABLED = builder
                 .comment("Whether or not damaging of Straw Hat should be enabled.")
                 .define("strawHatDamageEnabled", true);
@@ -294,7 +294,7 @@ public class ServerConfig {
                 .defineInRange("strawHatSpeedWithEfficiency5", 1.5, 0.0, 5.0);
         builder.pop();
 
-        builder.push("Wing Helmet");
+        builder.push("WingHelmet");
         WING_HELMET_DAMAGE_ENABLED = builder
                 .comment("Whether or not damaging of Wing Helmet should be enabled.")
                 .define("wingHelmetDamageEnabled", true);
