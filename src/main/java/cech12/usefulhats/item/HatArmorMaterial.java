@@ -17,45 +17,19 @@ import java.util.function.Supplier;
 
 public enum HatArmorMaterial implements ArmorMaterial {
 
-    AQUANAUT("usefulhats:blank", ServerConfig.AQUANAUT_HELMET_DURABILITY, 15, SoundEvents.ARMOR_EQUIP_TURTLE, () -> {
-        return Ingredient.of(Items.SCUTE);
-    }),
-    BUNNY("usefulhats:blank", ServerConfig.BUNNY_EARS_DURABILITY, 15, SoundEvents.ARMOR_EQUIP_LEATHER, () -> {
-        return Ingredient.of(Items.RABBIT_HIDE, Items.CARROT);
-    }),
-    CHOPPING("usefulhats:chopping", ServerConfig.CHOPPING_HAT_DURABILITY, 15, SoundEvents.ARMOR_EQUIP_LEATHER, () -> {
-        return Ingredient.of(Items.RABBIT_HIDE);
-    }),
-    ENDER("usefulhats:ender", ServerConfig.ENDER_HELMET_DURABILITY, 15, SoundEvents.ARMOR_EQUIP_IRON, () -> {
-        return Ingredient.of(Items.ENDER_PEARL);
-    }),
-    HALO("usefulhats:halo", ServerConfig.HALO_DURABILITY, 15, SoundEvents.ARMOR_EQUIP_GOLD, () -> {
-        return Ingredient.of(Items.GLOWSTONE_DUST);
-    }),
-    LUCKY("usefulhats:blank", ServerConfig.LUCKY_HAT_DURABILITY, 15, SoundEvents.ARMOR_EQUIP_LEATHER, () -> {
-        return Ingredient.of(Items.RABBIT_FOOT);
-    }),
-    MINING("usefulhats:blank", ServerConfig.MINING_HAT_DURABILITY, 15, SoundEvents.ARMOR_EQUIP_GOLD, () -> {
-        return Ingredient.of(Items.GOLD_INGOT);
-    }),
-    MUSHROOM("usefulhats:blank", ServerConfig.MUSHROOM_HAT_DURABILITY, 15, SoundEvents.ARMOR_EQUIP_LEATHER, () -> {
-        return Ingredient.of(UsefulHatsTags.Items.MUSHROOM_CAPS);
-    }),
-    POSTMAN("usefulhats:blank", ServerConfig.POSTMAN_HAT_DURABILITY, 15, SoundEvents.ARMOR_EQUIP_LEATHER, () -> {
-        return Ingredient.of(Items.LAPIS_LAZULI);
-    }),
-    SHULKER("usefulhats:shulker", ServerConfig.SHULKER_HELMET_DURABILITY, 15, SoundEvents.ARMOR_EQUIP_IRON, () -> {
-        return Ingredient.of(Items.SHULKER_SHELL, Items.PHANTOM_MEMBRANE);
-    }),
-    STOCKING("usefulhats:blank", ServerConfig.STOCKING_CAP_DURABILITY, 25, SoundEvents.ARMOR_EQUIP_LEATHER, () -> {
-        return Ingredient.of(Items.STRING);
-    }),
-    STRAW("usefulhats:blank", ServerConfig.STRAW_HAT_DURABILITY, 15, SoundEvents.ARMOR_EQUIP_LEATHER, () -> {
-        return Ingredient.of(Items.WHEAT);
-    }),
-    WING("usefulhats:wing", ServerConfig.WING_HELMET_DURABILITY, 15, SoundEvents.ARMOR_EQUIP_IRON, () -> {
-        return Ingredient.of(Items.FEATHER, Items.PHANTOM_MEMBRANE);
-    });
+    AQUANAUT("usefulhats:blank", ServerConfig.AQUANAUT_HELMET_DURABILITY, 15, SoundEvents.ARMOR_EQUIP_TURTLE, () -> Ingredient.of(Items.SCUTE)),
+    BUNNY("usefulhats:blank", ServerConfig.BUNNY_EARS_DURABILITY, 15, SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.of(Items.RABBIT_HIDE, Items.CARROT)),
+    CHOPPING("usefulhats:chopping", ServerConfig.CHOPPING_HAT_DURABILITY, 15, SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.of(Items.RABBIT_HIDE)),
+    ENDER("usefulhats:ender", ServerConfig.ENDER_HELMET_DURABILITY, 15, SoundEvents.ARMOR_EQUIP_IRON, () -> Ingredient.of(Items.ENDER_PEARL)),
+    HALO("usefulhats:halo", ServerConfig.HALO_DURABILITY, 15, SoundEvents.ARMOR_EQUIP_GOLD, () -> Ingredient.of(Items.GLOWSTONE_DUST)),
+    LUCKY("usefulhats:blank", ServerConfig.LUCKY_HAT_DURABILITY, 15, SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.of(Items.RABBIT_FOOT)),
+    MINING("usefulhats:blank", ServerConfig.MINING_HAT_DURABILITY, 15, SoundEvents.ARMOR_EQUIP_GOLD, () -> Ingredient.of(Items.GOLD_INGOT)),
+    MUSHROOM("usefulhats:blank", ServerConfig.MUSHROOM_HAT_DURABILITY, 15, SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.of(UsefulHatsTags.Items.MUSHROOM_CAPS)),
+    POSTMAN("usefulhats:blank", ServerConfig.POSTMAN_HAT_DURABILITY, 15, SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.of(Items.LAPIS_LAZULI)),
+    SHULKER("usefulhats:shulker", ServerConfig.SHULKER_HELMET_DURABILITY, 15, SoundEvents.ARMOR_EQUIP_IRON, () -> Ingredient.of(Items.SHULKER_SHELL, Items.PHANTOM_MEMBRANE)),
+    STOCKING("usefulhats:blank", ServerConfig.STOCKING_CAP_DURABILITY, 25, SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.of(Items.STRING)),
+    STRAW("usefulhats:blank", ServerConfig.STRAW_HAT_DURABILITY, 15, SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.of(Items.WHEAT)),
+    WING("usefulhats:wing", ServerConfig.WING_HELMET_DURABILITY, 15, SoundEvents.ARMOR_EQUIP_IRON, () -> Ingredient.of(Items.FEATHER, Items.PHANTOM_MEMBRANE));
 
     private final String name;
     private final ForgeConfigSpec.IntValue durabilityConfig;
