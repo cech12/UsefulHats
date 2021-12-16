@@ -5,11 +5,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ## [1.18.1-2.1.0.0] - ????-??-??
 ### Changed
-- Update mod to Forge 1.18.1-39.0.0 (fix Log4J security issue)
+- Update mod to Forge 1.18.1-39.0.0
 
 ## [1.18-2.0.0.0] - 2021-12-10
 ### Changed
-- Update mod to Forge 1.18-38.0.17
+- Update mod to Forge 1.18-38.0.17 (fix Log4J security issue)
 - Moved mod settings file to server (defaultconfigs directory or serverconfig directory of savegame)
 - removed settings to enable/disable single hats, because it does not work with server config (could be done by datapack or CraftTweaker)
 
