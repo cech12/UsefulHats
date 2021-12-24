@@ -11,7 +11,6 @@ public class ServerConfig {
 
     public static final ForgeConfigSpec.BooleanValue BAUBLES_ENABLED;
     public static final ForgeConfigSpec.BooleanValue CURIOS_ENABLED;
-    public static final ForgeConfigSpec.BooleanValue CURIOS_ADD_HEAD_SLOT;
 
     public static final ForgeConfigSpec.BooleanValue AQUANAUT_HELMET_DAMAGE_ENABLED;
     public static final ForgeConfigSpec.IntValue AQUANAUT_HELMET_DURABILITY;
@@ -92,9 +91,6 @@ public class ServerConfig {
         CURIOS_ENABLED = builder
                 .comment("Whether or not hats from this mod should be placeable in Curios head slots if Curios is installed.")
                 .define("curiosEnabled", true);
-        CURIOS_ADD_HEAD_SLOT = builder
-                .comment("Whether or not a Curios head slot should be added if Curios is installed.")
-                .define("curiosAddHeadSlot", false);
         builder.pop();
 
         builder.comment("Various options that affect individual hats.").push("BalanceOptions");

@@ -2,6 +2,7 @@ package cech12.usefulhats;
 
 import cech12.usefulhats.client.UsefulHatLayers;
 import cech12.usefulhats.compat.CuriosMod;
+import cech12.usefulhats.config.CommonConfig;
 import cech12.usefulhats.config.ServerConfig;
 import cech12.usefulhats.init.ModItems;
 import net.minecraft.world.item.CreativeModeTab;
@@ -18,6 +19,7 @@ import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLConfig;
 import net.minecraftforge.fml.loading.FMLPaths;
+import org.jetbrains.annotations.NotNull;
 
 import static cech12.usefulhats.UsefulHatsMod.MOD_ID;
 
@@ -29,6 +31,7 @@ public class UsefulHatsMod {
 
     public static final CreativeModeTab ITEM_GROUP = new CreativeModeTab("usefulhats") {
         @Override
+        @NotNull
         public ItemStack makeIcon() {
             return new ItemStack(ModItems.STOCKING_CAP);
         }
@@ -37,6 +40,7 @@ public class UsefulHatsMod {
     public UsefulHatsMod() {
         ModItems.addEventListeners();
         //Configs
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CommonConfig.COMMON_CONFIG);
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ServerConfig.SERVER_CONFIG);
         ServerConfig.loadConfig(ServerConfig.SERVER_CONFIG, FMLPaths.GAMEDIR.get().resolve(FMLConfig.defaultConfigPath()).resolve(MOD_ID + "-server.toml"));
         //register render layers & models
@@ -44,7 +48,6 @@ public class UsefulHatsMod {
             FMLJavaModLoadingContext.get().getModEventBus().addListener(UsefulHatLayers::initLayers);
             FMLJavaModLoadingContext.get().getModEventBus().addListener(UsefulHatLayers::initModels);
         });
-
     }
 
     @SubscribeEvent
