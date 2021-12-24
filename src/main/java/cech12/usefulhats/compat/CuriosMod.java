@@ -1,6 +1,6 @@
 package cech12.usefulhats.compat;
 
-import cech12.usefulhats.config.ServerConfig;
+import cech12.usefulhats.config.CommonConfig;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.ModList;
 import top.theillusivec4.curios.api.SlotTypeMessage;
@@ -17,7 +17,7 @@ public class CuriosMod {
     }
 
     public static void addHeadSlot() {
-        if (isLoaded() && ServerConfig.CURIOS_ADD_HEAD_SLOT.get()) {
+        if (isLoaded() && CommonConfig.CURIOS_ADD_HEAD_SLOT.get()) {
             InterModComms.sendTo(CURIOS_ID, SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.HEAD.getMessageBuilder().build());
         }
     }

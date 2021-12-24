@@ -2,6 +2,7 @@ package cech12.usefulhats;
 
 import cech12.usefulhats.client.UsefulHatLayers;
 import cech12.usefulhats.compat.CuriosMod;
+import cech12.usefulhats.config.CommonConfig;
 import cech12.usefulhats.config.ServerConfig;
 import cech12.usefulhats.init.ModItems;
 import net.minecraft.world.item.CreativeModeTab;
@@ -37,6 +38,7 @@ public class UsefulHatsMod {
     public UsefulHatsMod() {
         ModItems.addEventListeners();
         //Configs
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CommonConfig.COMMON_CONFIG);
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ServerConfig.SERVER_CONFIG);
         ServerConfig.loadConfig(ServerConfig.SERVER_CONFIG, FMLPaths.GAMEDIR.get().resolve(FMLConfig.defaultConfigPath()).resolve(MOD_ID + "-server.toml"));
         //register render layers & models
@@ -44,7 +46,6 @@ public class UsefulHatsMod {
             FMLJavaModLoadingContext.get().getModEventBus().addListener(UsefulHatLayers::initLayers);
             FMLJavaModLoadingContext.get().getModEventBus().addListener(UsefulHatLayers::initModels);
         });
-
     }
 
     @SubscribeEvent
