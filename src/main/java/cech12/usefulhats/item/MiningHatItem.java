@@ -27,7 +27,7 @@ public class MiningHatItem extends AbstractMiningHatItem implements IEquipmentCh
     private static final int NIGHT_VISION_AMPLIFIER = 0;
 
     public MiningHatItem() {
-        super("mining_hat", HatArmorMaterial.MINING, rawColorFromRGB(255, 216, 0), ServerConfig.MINING_HAT_DAMAGE_ENABLED);
+        super(HatArmorMaterial.MINING, rawColorFromRGB(255, 216, 0), ServerConfig.MINING_HAT_DAMAGE_ENABLED);
     }
 
     @Override

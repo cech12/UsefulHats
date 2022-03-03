@@ -22,7 +22,7 @@ import java.util.List;
 public class MushroomHatItem extends AbstractHatItem implements IUsefulHatModelOwner {
 
     public MushroomHatItem() {
-        super("mushroom_hat", HatArmorMaterial.MUSHROOM, rawColorFromRGB(197, 35, 35), ServerConfig.MUSHROOM_HAT_DAMAGE_ENABLED);
+        super(HatArmorMaterial.MUSHROOM, rawColorFromRGB(197, 35, 35), ServerConfig.MUSHROOM_HAT_DAMAGE_ENABLED);
     }
 
     @Override

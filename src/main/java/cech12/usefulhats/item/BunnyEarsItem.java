@@ -26,7 +26,7 @@ public class BunnyEarsItem extends AbstractHatItem implements IEquipmentChangeLi
     private static final int JUMP_BOOST_DURATION = 219;
 
     public BunnyEarsItem() {
-        super("bunny_ears", HatArmorMaterial.BUNNY, rawColorFromRGB(142, 120, 94), ServerConfig.BUNNY_EARS_DAMAGE_ENABLED);
+        super(HatArmorMaterial.BUNNY, rawColorFromRGB(142, 120, 94), ServerConfig.BUNNY_EARS_DAMAGE_ENABLED);
         this.addAllowedEnchantment(Enchantments.BLOCK_EFFICIENCY);
     }
 

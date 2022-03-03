@@ -27,7 +27,7 @@ public class WingHelmetItem extends AbstractHatItem implements IEquipmentChangeL
     private static final int LEVITATION_DURATION = 200;
 
     public WingHelmetItem() {
-        super("wing_helmet", HatArmorMaterial.WING, rawColorFromRGB(255, 255, 255), ServerConfig.WING_HELMET_DAMAGE_ENABLED);
+        super(HatArmorMaterial.WING, rawColorFromRGB(255, 255, 255), ServerConfig.WING_HELMET_DAMAGE_ENABLED);
     }
 
     @Override

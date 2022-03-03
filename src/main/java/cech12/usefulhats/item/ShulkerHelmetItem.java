@@ -25,7 +25,7 @@ public class ShulkerHelmetItem extends AbstractHatItem implements IEquipmentChan
     private static final int LEVITATION_DURATION = 219;
 
     public ShulkerHelmetItem() {
-        super("shulker_helmet", HatArmorMaterial.SHULKER, rawColorFromRGB(150, 105, 150), ServerConfig.SHULKER_HELMET_DAMAGE_ENABLED);
+        super(HatArmorMaterial.SHULKER, rawColorFromRGB(150, 105, 150), ServerConfig.SHULKER_HELMET_DAMAGE_ENABLED);
         this.addAllowedEnchantment(Enchantments.BLOCK_EFFICIENCY);
     }
 

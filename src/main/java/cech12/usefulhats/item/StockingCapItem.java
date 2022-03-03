@@ -17,7 +17,7 @@ import java.util.List;
 public class StockingCapItem extends AbstractHatItem implements IUsefulHatModelOwner {
 
     public StockingCapItem() {
-        super("stocking_cap", HatArmorMaterial.STOCKING, rawColorFromRGB(204, 0, 23), ServerConfig.STOCKING_CAP_DAMAGE_ENABLED);
+        super(HatArmorMaterial.STOCKING, rawColorFromRGB(204, 0, 23), ServerConfig.STOCKING_CAP_DAMAGE_ENABLED);
     }
 
     @Override

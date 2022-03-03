@@ -34,7 +34,7 @@ public class AquanautHelmetItem extends AbstractHatItem implements IEquipmentCha
     private static final ResourceLocation AQUANAUT_GUI_TEX_PATH = new ResourceLocation(UsefulHatsMod.MOD_ID, "textures/misc/aquanautblur.png");
 
     public AquanautHelmetItem() {
-        super("aquanaut_helmet", HatArmorMaterial.AQUANAUT, rawColorFromRGB(71, 191, 74), ServerConfig.AQUANAUT_HELMET_DAMAGE_ENABLED);
+        super(HatArmorMaterial.AQUANAUT, rawColorFromRGB(71, 191, 74), ServerConfig.AQUANAUT_HELMET_DAMAGE_ENABLED);
     }
 
     private int getEffectTimeConfig(final int enchantmentLevel) {

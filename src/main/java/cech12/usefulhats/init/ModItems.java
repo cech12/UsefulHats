@@ -19,7 +19,6 @@ import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.gui.ForgeIngameGui;
 import net.minecraftforge.client.gui.OverlayRegistry;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
@@ -32,46 +31,39 @@ import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
 import top.theillusivec4.curios.api.event.CurioChangeEvent;
 
 @Mod.EventBusSubscriber(modid= UsefulHatsMod.MOD_ID, bus= Mod.EventBusSubscriber.Bus.MOD)
 public class ModItems {
 
-    public static final StockingCapItem STOCKING_CAP = new StockingCapItem();
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, UsefulHatsMod.MOD_ID);
 
-    private static final Item[] items = {
-            new AquanautHelmetItem(),
-            new BunnyEarsItem(),
-            new ChoppingHatItem(),
-            new EnderHelmetItem(),
-            new HaloItem(),
-            new LuckyHatItem(),
-            new MiningHatItem(),
-            new MushroomHatItem(),
-            new PostmanHatItem(),
-            new ShulkerHelmetItem(),
-            STOCKING_CAP,
-            new StrawHatItem(),
-            new WingHelmetItem()
-    };
-
-    @SuppressWarnings("unused")
-    @SubscribeEvent
-    public static void registerItems(RegistryEvent.Register<Item> event) {
-        for (Item item : ModItems.items) {
-            event.getRegistry().register(item);
-        }
-    }
+    public static final RegistryObject<Item> AQUANAUT_HELMET = ITEMS.register("aquanaut_helmet", AquanautHelmetItem::new);
+    public static final RegistryObject<Item> BUNNY_EARS = ITEMS.register("bunny_ears", BunnyEarsItem::new);
+    public static final RegistryObject<Item> CHOPPING_HAT = ITEMS.register("chopping_hat", ChoppingHatItem::new);
+    public static final RegistryObject<Item> ENDER_HELMET = ITEMS.register("ender_helmet", EnderHelmetItem::new);
+    public static final RegistryObject<Item> HALO = ITEMS.register("halo", HaloItem::new);
+    public static final RegistryObject<Item> LUCKY_HAT = ITEMS.register("lucky_hat", LuckyHatItem::new);
+    public static final RegistryObject<Item> MINING_HAT = ITEMS.register("mining_hat", MiningHatItem::new);
+    public static final RegistryObject<Item> MUSHROOM_HAT = ITEMS.register("mushroom_hat", MushroomHatItem::new);
+    public static final RegistryObject<Item> POSTMAN_HAT = ITEMS.register("postman_hat", PostmanHatItem::new);
+    public static final RegistryObject<Item> SHULKER_HELMET = ITEMS.register("shulker_helmet", ShulkerHelmetItem::new);
+    public static final RegistryObject<Item> STOCKING_CAP = ITEMS.register("stocking_cap", StockingCapItem::new);
+    public static final RegistryObject<Item> STRAW_HAT = ITEMS.register("straw_hat", StrawHatItem::new);
+    public static final RegistryObject<Item> WING_HELMET = ITEMS.register("wing_helmet", WingHelmetItem::new);
 
     @SuppressWarnings("unused")
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void registerColors(ColorHandlerEvent.Item event) {
         ItemColors itemcolors = event.getItemColors();
-        for (Item item : ModItems.items) {
+        for (RegistryObject<Item> item : ITEMS.getEntries()) {
             //if (item instanceof IDyeableArmorItem) {
-            itemcolors.register((itemStack, layer) -> layer > 0 ? -1 : ((DyeableLeatherItem)itemStack.getItem()).getColor(itemStack), item);
+            itemcolors.register((itemStack, layer) -> layer > 0 ? -1 : ((DyeableLeatherItem)itemStack.getItem()).getColor(itemStack), item.get());
             //}
         }
     }
@@ -103,8 +95,8 @@ public class ModItems {
     public static void setupClient() {
         //curio rendering
         if (CuriosMod.isLoaded()) {
-            for (Item item : ModItems.items) {
-                CuriosRendererRegistry.register(item, CurioRenderer::getInstance);
+            for (RegistryObject<Item> item : ITEMS.getEntries()) {
+                CuriosRendererRegistry.register(item.get(), CurioRenderer::getInstance);
             }
         }
         //register overlay
@@ -115,7 +107,8 @@ public class ModItems {
                 Minecraft mc = Minecraft.getInstance();
                 if (mc.player != null && mc.options.getCameraType().isFirstPerson()) {
                     for (ItemStack headSlotItemStack : UsefulHatsUtils.getEquippedHatItemStacks(mc.player)) {
-                        for (Item item : ModItems.items) {
+                        for (RegistryObject<Item> itemRegistryObject : ITEMS.getEntries()) {
+                            Item item = itemRegistryObject.get();
                             if (item instanceof IGameOverlayRenderer && item == headSlotItemStack.getItem()) {
                                 ((IGameOverlayRenderer) item).onRenderGameOverlay(screenWidth, screenHeight, partialTicks);
                             }
@@ -128,7 +121,8 @@ public class ModItems {
 
     private static void onBreakSpeedEvent(PlayerEvent.BreakSpeed event) {
         for (ItemStack headSlotItemStack : UsefulHatsUtils.getEquippedHatItemStacks(event.getPlayer())) {
-            for (Item item : ModItems.items) {
+            for (RegistryObject<Item> itemRegistryObject : ITEMS.getEntries()) {
+                Item item = itemRegistryObject.get();
                 if (item instanceof IBreakSpeedChanger && headSlotItemStack.getItem() == item) {
                     ((IBreakSpeedChanger) item).onBreakSpeedEvent(event, headSlotItemStack);
                 }
@@ -138,7 +132,8 @@ public class ModItems {
 
     private static void onBreakEvent(BlockEvent.BreakEvent event) {
         for (ItemStack headSlotItemStack : UsefulHatsUtils.getEquippedHatItemStacks(event.getPlayer())) {
-            for (Item item : ModItems.items) {
+            for (RegistryObject<Item> itemRegistryObject : ITEMS.getEntries()) {
+                Item item = itemRegistryObject.get();
                 if (item instanceof IBreakSpeedChanger && headSlotItemStack.getItem() == item) {
                     ((IBreakSpeedChanger) item).onBreakEvent(event, headSlotItemStack);
                 }
@@ -149,7 +144,8 @@ public class ModItems {
     private static void onEntityJoinWorldEvent(EntityJoinWorldEvent event) {
         if (event.getEntity() instanceof Mob) {
             Mob entity = (Mob) event.getEntity();
-            for (Item item : ModItems.items) {
+            for (RegistryObject<Item> itemRegistryObject : ITEMS.getEntries()) {
+                Item item = itemRegistryObject.get();
                 if (item instanceof IMobEntityChanger) {
                     ((IMobEntityChanger) item).onEntityJoinWorldEvent(entity, event);
                 }
@@ -159,7 +155,8 @@ public class ModItems {
 
     private static void onItemFishedEvent(ItemFishedEvent event) {
         for (ItemStack headSlotItemStack : UsefulHatsUtils.getEquippedHatItemStacks(event.getPlayer())) {
-            for (Item item : ModItems.items) {
+            for (RegistryObject<Item> itemRegistryObject : ITEMS.getEntries()) {
+                Item item = itemRegistryObject.get();
                 if (item instanceof IItemFishedListener && headSlotItemStack.getItem() == item) {
                     ((IItemFishedListener) item).onItemFishedListener(event, headSlotItemStack);
                 }
@@ -171,7 +168,8 @@ public class ModItems {
         if (event.getSource().getDirectEntity() instanceof Player) {
             Player player = (Player) event.getSource().getDirectEntity();
             for (ItemStack headSlotItemStack : UsefulHatsUtils.getEquippedHatItemStacks(player)) {
-                for (Item item : ModItems.items) {
+                for (RegistryObject<Item> itemRegistryObject : ITEMS.getEntries()) {
+                    Item item = itemRegistryObject.get();
                     if (item instanceof ILivingDropsListener && item == headSlotItemStack.getItem()) {
                         ((ILivingDropsListener) item).onLivingDropsEvent(event, player, headSlotItemStack);
                     }
@@ -184,7 +182,8 @@ public class ModItems {
         if (event.getEntityLiving() instanceof Player) {
             Player player = (Player) event.getEntityLiving();
             for (ItemStack headSlotItemStack : UsefulHatsUtils.getEquippedHatItemStacks(player)) {
-                for (Item item : ModItems.items) {
+                for (RegistryObject<Item> itemRegistryObject : ITEMS.getEntries()) {
+                    Item item = itemRegistryObject.get();
                     if (item instanceof IItemUseListener && item == headSlotItemStack.getItem()) {
                         ((IItemUseListener) item).onItemUseEvent(event, player, headSlotItemStack);
                     }
@@ -200,7 +199,8 @@ public class ModItems {
             ItemStack toItemStack = event.getTo();
             Item toItem = toItemStack.getItem();
             if (fromItem != toItem && (fromItem instanceof IEquipmentChangeListener || toItem instanceof IEquipmentChangeListener)) {
-                for (Item item : ModItems.items) {
+                for (RegistryObject<Item> itemRegistryObject : ITEMS.getEntries()) {
+                    Item item = itemRegistryObject.get();
                     if (item instanceof IEquipmentChangeListener) {
                         if (fromItem == item) {
                             ((IEquipmentChangeListener) item).onUnequippedHatItem(event.getEntityLiving(), fromItemStack);
@@ -222,7 +222,8 @@ public class ModItems {
         ItemStack toItemStack = event.getTo();
         Item toItem = toItemStack.getItem();
         if (fromItem != toItem && (fromItem instanceof IEquipmentChangeListener || toItem instanceof IEquipmentChangeListener)) {
-            for (Item item : ModItems.items) {
+            for (RegistryObject<Item> itemRegistryObject : ITEMS.getEntries()) {
+                Item item = itemRegistryObject.get();
                 if (item instanceof IEquipmentChangeListener) {
                     if (fromItem == item) {
                         ((IEquipmentChangeListener) item).onUnequippedHatItem(event.getEntityLiving(), fromItemStack);
@@ -239,7 +240,8 @@ public class ModItems {
             Mob mob = (Mob) event.getEntity();
             Player player = (Player) event.getTarget();
             for (ItemStack headSlotItemStack : UsefulHatsUtils.getEquippedHatItemStacks(player)) {
-                for (Item item : ModItems.items) {
+                for (RegistryObject<Item> itemRegistryObject : ITEMS.getEntries()) {
+                    Item item = itemRegistryObject.get();
                     if (item instanceof IAttackTargetChanger && item == headSlotItemStack.getItem()) {
                         ((IAttackTargetChanger) item).onLivingSetAttackTarget(mob, player);
                     }
@@ -251,7 +253,8 @@ public class ModItems {
     private static void onRightClickItemEvent(PlayerInteractEvent.RightClickItem event) {
         Player player = event.getPlayer();
         for (ItemStack headSlotItemStack : UsefulHatsUtils.getEquippedHatItemStacks(player)) {
-            for (Item item : ModItems.items) {
+            for (RegistryObject<Item> itemRegistryObject : ITEMS.getEntries()) {
+                Item item = itemRegistryObject.get();
                 if (item instanceof IRightClickListener && item == headSlotItemStack.getItem()) {
                     ((IRightClickListener) item).onRightClickItemEvent(event, headSlotItemStack);
                 }

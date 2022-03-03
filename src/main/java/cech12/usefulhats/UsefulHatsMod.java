@@ -9,6 +9,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -33,11 +34,13 @@ public class UsefulHatsMod {
         @Override
         @NotNull
         public ItemStack makeIcon() {
-            return new ItemStack(ModItems.STOCKING_CAP);
+            return new ItemStack(ModItems.STOCKING_CAP.get());
         }
     };
 
     public UsefulHatsMod() {
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        ModItems.ITEMS.register(modEventBus);
         ModItems.addEventListeners();
         //Configs
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CommonConfig.COMMON_CONFIG);

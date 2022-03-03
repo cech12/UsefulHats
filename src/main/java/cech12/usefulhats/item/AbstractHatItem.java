@@ -67,9 +67,8 @@ public abstract class AbstractHatItem extends ArmorItem implements DyeableLeathe
     private final ArrayList<Enchantment> allowedEnchantments = new ArrayList<>();
     private final ArrayList<Enchantment> forbiddenEnchantments = new ArrayList<>();
 
-    public AbstractHatItem(String name, HatArmorMaterial material, int initColor, ForgeConfigSpec.BooleanValue enabledDamageConfig) {
+    public AbstractHatItem(HatArmorMaterial material, int initColor, ForgeConfigSpec.BooleanValue enabledDamageConfig) {
         super(material, EquipmentSlot.HEAD, (new Properties()).tab(UsefulHatsMod.ITEM_GROUP));
-        this.setRegistryName(new ResourceLocation(UsefulHatsMod.MOD_ID, name));
         this.material = material;
         this.initColor = initColor;
         this.enabledDamageConfig = enabledDamageConfig;
@@ -241,8 +240,8 @@ public abstract class AbstractHatItem extends ArmorItem implements DyeableLeathe
         }
 
         @Override
-        public <A extends HumanoidModel<?>> A getArmorModel(LivingEntity wearer, ItemStack item, EquipmentSlot slot, A defaultModel) {
-            return (A) UsefulHatLayers.usefulHatModel;
+        public HumanoidModel<?> getArmorModel(LivingEntity wearer, ItemStack item, EquipmentSlot slot, HumanoidModel<?> defaultModel) {
+            return UsefulHatLayers.usefulHatModel;
         }
     }
 

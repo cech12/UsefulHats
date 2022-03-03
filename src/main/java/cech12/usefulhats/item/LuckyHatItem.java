@@ -31,7 +31,7 @@ public class LuckyHatItem extends AbstractHatItem implements IItemFishedListener
     private static final int UNLUCK_DURATION = 200;
 
     public LuckyHatItem() {
-        super("lucky_hat", HatArmorMaterial.LUCKY, rawColorFromRGB(72, 242, 0), ServerConfig.LUCKY_HAT_DAMAGE_ENABLED);
+        super(HatArmorMaterial.LUCKY, rawColorFromRGB(72, 242, 0), ServerConfig.LUCKY_HAT_DAMAGE_ENABLED);
         this.addAllowedEnchantment(Enchantments.FISHING_LUCK);
         this.addAllowedEnchantment(Enchantments.MOB_LOOTING);
     }

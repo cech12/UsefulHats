@@ -10,8 +10,8 @@ import net.minecraftforge.event.world.BlockEvent;
 
 public abstract class AbstractMiningHatItem extends AbstractHatItem implements IBreakSpeedChanger {
 
-    AbstractMiningHatItem(String name, HatArmorMaterial material, int initColor, ForgeConfigSpec.BooleanValue enabledDamageConfig) {
-        super(name, material, initColor, enabledDamageConfig);
+    AbstractMiningHatItem(HatArmorMaterial material, int initColor, ForgeConfigSpec.BooleanValue enabledDamageConfig) {
+        super(material, initColor, enabledDamageConfig);
         this.addAllowedEnchantment(Enchantments.BLOCK_EFFICIENCY);
     }
 

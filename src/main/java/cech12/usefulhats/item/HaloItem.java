@@ -27,7 +27,7 @@ import java.util.function.Predicate;
 public class HaloItem extends AbstractHatItem implements IAttackTargetChanger, IMobEntityChanger {
 
     public HaloItem() {
-        super("halo", HatArmorMaterial.HALO, rawColorFromRGB(255, 236, 142), ServerConfig.HALO_DAMAGE_ENABLED);
+        super(HatArmorMaterial.HALO, rawColorFromRGB(255, 236, 142), ServerConfig.HALO_DAMAGE_ENABLED);
     }
 
     @Override

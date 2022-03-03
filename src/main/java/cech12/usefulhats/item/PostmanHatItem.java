@@ -27,7 +27,7 @@ public class PostmanHatItem extends AbstractHatItem implements IEquipmentChangeL
     private static final int SPEED_DURATION = 219;
 
     public PostmanHatItem() {
-        super("postman_hat", HatArmorMaterial.POSTMAN, rawColorFromRGB(57, 99, 150), ServerConfig.POSTMAN_HAT_DAMAGE_ENABLED);
+        super(HatArmorMaterial.POSTMAN, rawColorFromRGB(57, 99, 150), ServerConfig.POSTMAN_HAT_DAMAGE_ENABLED);
         this.addAllowedEnchantment(Enchantments.BLOCK_EFFICIENCY);
     }
 

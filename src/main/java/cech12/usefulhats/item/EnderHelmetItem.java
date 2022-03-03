@@ -35,7 +35,7 @@ public class EnderHelmetItem extends AbstractHatItem implements IRightClickListe
     public static final String TELEPORT_POSITION_ID = "TeleportPosition";
 
     public EnderHelmetItem() {
-        super("ender_helmet", HatArmorMaterial.ENDER, rawColorFromRGB(43, 203, 175), ServerConfig.ENDER_HELMET_DAMAGE_ENABLED);
+        super(HatArmorMaterial.ENDER, rawColorFromRGB(43, 203, 175), ServerConfig.ENDER_HELMET_DAMAGE_ENABLED);
     }
 
     @Override

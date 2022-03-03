@@ -20,7 +20,7 @@ import java.util.List;
 public class StrawHatItem extends AbstractMiningHatItem implements IBreakSpeedChanger, IUsefulHatModelOwner {
 
     public StrawHatItem() {
-        super("straw_hat", HatArmorMaterial.STRAW, rawColorFromRGB(226,189,0), ServerConfig.STRAW_HAT_DAMAGE_ENABLED);
+        super(HatArmorMaterial.STRAW, rawColorFromRGB(226,189,0), ServerConfig.STRAW_HAT_DAMAGE_ENABLED);
     }
 
     @Override
