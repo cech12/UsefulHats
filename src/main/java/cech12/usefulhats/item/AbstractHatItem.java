@@ -95,7 +95,7 @@ public abstract class AbstractHatItem extends ArmorItem implements DyeableLeathe
     }
 
     protected boolean isEffectCausedByOtherSource(LivingEntity entity, MobEffect effect, int maxDuration, int amplifier) {
-        //TODO detect effect source correctly
+        //Effect source is not detected correctly here. Maybe later there is another possibility to detect it.
         MobEffectInstance effectInstance = entity.getEffect(effect);
         return (effectInstance != null && (effectInstance.isAmbient() || effectInstance.getDuration() >= maxDuration || effectInstance.getAmplifier() != amplifier));
     }

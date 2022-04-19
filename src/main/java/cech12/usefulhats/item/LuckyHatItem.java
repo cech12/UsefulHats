@@ -44,7 +44,7 @@ public class LuckyHatItem extends AbstractHatItem implements IItemFishedListener
     private boolean hasHatRelatedItemInHand(Player player) {
         //support both hands
         for (ItemStack item : player.getHandSlots()) {
-            if (item.canPerformAction(ToolActions.AXE_DIG) /*TODO Axe swing?!*/ ||
+            if (item.canPerformAction(ToolActions.AXE_DIG) || //Something like AXE_SWING would be better, but does not exist
                     item.getItem() instanceof FishingRodItem ||
                     item.canPerformAction(ToolActions.SWORD_SWEEP)) {
                 return true;

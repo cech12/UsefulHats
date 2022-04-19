@@ -7,6 +7,7 @@ import cech12.usefulhats.item.*;
 import cech12.usefulhats.UsefulHatsMod;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.item.ItemColors;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -142,8 +143,7 @@ public class ModItems {
     }
 
     private static void onEntityJoinWorldEvent(EntityJoinWorldEvent event) {
-        if (event.getEntity() instanceof Mob) {
-            Mob entity = (Mob) event.getEntity();
+        if (event.getEntity() instanceof Mob entity) {
             for (RegistryObject<Item> itemRegistryObject : ITEMS.getEntries()) {
                 Item item = itemRegistryObject.get();
                 if (item instanceof IMobEntityChanger) {
@@ -165,8 +165,7 @@ public class ModItems {
     }
 
     private static void onLivingDropsEvent(LivingDropsEvent event) {
-        if (event.getSource().getDirectEntity() instanceof Player) {
-            Player player = (Player) event.getSource().getDirectEntity();
+        if (event.getSource().getDirectEntity() instanceof Player player) {
             for (ItemStack headSlotItemStack : UsefulHatsUtils.getEquippedHatItemStacks(player)) {
                 for (RegistryObject<Item> itemRegistryObject : ITEMS.getEntries()) {
                     Item item = itemRegistryObject.get();
@@ -179,8 +178,7 @@ public class ModItems {
     }
 
     private static void onLivingUseItemEvent(LivingEntityUseItemEvent event) {
-        if (event.getEntityLiving() instanceof Player) {
-            Player player = (Player) event.getEntityLiving();
+        if (event.getEntityLiving() instanceof Player player) {
             for (ItemStack headSlotItemStack : UsefulHatsUtils.getEquippedHatItemStacks(player)) {
                 for (RegistryObject<Item> itemRegistryObject : ITEMS.getEntries()) {
                     Item item = itemRegistryObject.get();
@@ -192,24 +190,26 @@ public class ModItems {
         }
     }
 
-    private static void onLivingEquipmentChangeEvent(LivingEquipmentChangeEvent event) {
-        if (event.getSlot() == EquipmentSlot.HEAD) {
-            ItemStack fromItemStack = event.getFrom();
-            Item fromItem = fromItemStack.getItem();
-            ItemStack toItemStack = event.getTo();
-            Item toItem = toItemStack.getItem();
-            if (fromItem != toItem && (fromItem instanceof IEquipmentChangeListener || toItem instanceof IEquipmentChangeListener)) {
-                for (RegistryObject<Item> itemRegistryObject : ITEMS.getEntries()) {
-                    Item item = itemRegistryObject.get();
-                    if (item instanceof IEquipmentChangeListener) {
-                        if (fromItem == item) {
-                            ((IEquipmentChangeListener) item).onUnequippedHatItem(event.getEntityLiving(), fromItemStack);
-                        } else if (toItem == item) {
-                            ((IEquipmentChangeListener) item).onEquippedHatItem(event.getEntityLiving(), toItemStack);
-                        }
+    private static void onEquipmentChanged(LivingEntity entity, ItemStack fromItemStack, ItemStack toItemStack) {
+        Item fromItem = fromItemStack.getItem();
+        Item toItem = toItemStack.getItem();
+        if (fromItem != toItem && (fromItem instanceof IEquipmentChangeListener || toItem instanceof IEquipmentChangeListener)) {
+            for (RegistryObject<Item> itemRegistryObject : ITEMS.getEntries()) {
+                Item item = itemRegistryObject.get();
+                if (item instanceof IEquipmentChangeListener) {
+                    if (fromItem == item) {
+                        ((IEquipmentChangeListener) item).onUnequippedHatItem(entity, fromItemStack);
+                    } else if (toItem == item) {
+                        ((IEquipmentChangeListener) item).onEquippedHatItem(entity, toItemStack);
                     }
                 }
             }
+        }
+    }
+
+    private static void onLivingEquipmentChangeEvent(LivingEquipmentChangeEvent event) {
+        if (event.getSlot() == EquipmentSlot.HEAD) {
+            onEquipmentChanged(event.getEntityLiving(), event.getFrom(), event.getTo());
         }
     }
 
@@ -217,28 +217,11 @@ public class ModItems {
      * equipment change event of curios mod
      */
     private static void onCuriosEquipmentChangeEvent(CurioChangeEvent event) {
-        ItemStack fromItemStack = event.getFrom();
-        Item fromItem = fromItemStack.getItem();
-        ItemStack toItemStack = event.getTo();
-        Item toItem = toItemStack.getItem();
-        if (fromItem != toItem && (fromItem instanceof IEquipmentChangeListener || toItem instanceof IEquipmentChangeListener)) {
-            for (RegistryObject<Item> itemRegistryObject : ITEMS.getEntries()) {
-                Item item = itemRegistryObject.get();
-                if (item instanceof IEquipmentChangeListener) {
-                    if (fromItem == item) {
-                        ((IEquipmentChangeListener) item).onUnequippedHatItem(event.getEntityLiving(), fromItemStack);
-                    } else if (toItem == item) {
-                        ((IEquipmentChangeListener) item).onEquippedHatItem(event.getEntityLiving(), toItemStack);
-                    }
-                }
-            }
-        }
+        onEquipmentChanged(event.getEntityLiving(), event.getFrom(), event.getTo());
     }
 
     private static void onLivingSetAttackTargetEvent(LivingSetAttackTargetEvent event) {
-        if (event.getEntity() instanceof Mob && event.getTarget() instanceof Player) {
-            Mob mob = (Mob) event.getEntity();
-            Player player = (Player) event.getTarget();
+        if (event.getEntity() instanceof Mob mob && event.getTarget() instanceof Player player) {
             for (ItemStack headSlotItemStack : UsefulHatsUtils.getEquippedHatItemStacks(player)) {
                 for (RegistryObject<Item> itemRegistryObject : ITEMS.getEntries()) {
                     Item item = itemRegistryObject.get();
