@@ -1,4 +1,4 @@
-# UsefulHats
+# Useful Hats
 
 [![Curseforge](http://cf.way2muchnoise.eu/full_347337_downloads(0D0D0D-F16436-fff-010101-fff).svg)](https://www.curseforge.com/minecraft/mc-mods/useful-hats)
 [![Curseforge](http://cf.way2muchnoise.eu/versions/For%20MC_347337_all(0D0D0D-F16436-fff-010101).svg)](https://www.curseforge.com/minecraft/mc-mods/useful-hats/files)
