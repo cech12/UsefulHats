@@ -8,6 +8,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Update mod to Forge 1.16.5-36.2.20 (fix Log4J security issue)
 - TODO: move settings to server!
 
+### Fixed
+- fixed compatibility with Baubles Reborn mod (thanks to SyluxXIV for the report)
+
 ## [1.16.5-1.10.0.0] - 2021-09-03
 ### Added
 - Russian and Ukrainian translation (thanks to vstannumdum aka DMHYT) #42
