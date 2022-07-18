@@ -13,7 +13,6 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.network.chat.Component;
 import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -34,8 +33,8 @@ public class HaloItem extends AbstractHatItem implements IAttackTargetChanger, I
     @OnlyIn(Dist.CLIENT)
     public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level worldIn, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new TranslatableComponent("item.usefulhats.halo.desc.no_attack").withStyle(ChatFormatting.BLUE));
-        tooltip.add(new TranslatableComponent("item.usefulhats.halo.desc.beware_of_nether").withStyle(ChatFormatting.RED));
+        tooltip.add(Component.translatable("item.usefulhats.halo.desc.no_attack").withStyle(ChatFormatting.BLUE));
+        tooltip.add(Component.translatable("item.usefulhats.halo.desc.beware_of_nether").withStyle(ChatFormatting.RED));
     }
 
     private static boolean isEntityInNether(Entity entity) {

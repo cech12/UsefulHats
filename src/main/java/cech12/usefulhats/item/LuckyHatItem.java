@@ -12,7 +12,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.network.chat.Component;
 import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -67,9 +66,9 @@ public class LuckyHatItem extends AbstractHatItem implements IItemFishedListener
     @OnlyIn(Dist.CLIENT)
     public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level worldIn, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new TranslatableComponent("item.usefulhats.lucky_hat.desc.luck", UsefulHatsUtils.getRomanNumber(getEffectLevel(stack), false)).withStyle(ChatFormatting.BLUE));
+        tooltip.add(Component.translatable("item.usefulhats.lucky_hat.desc.luck", UsefulHatsUtils.getRomanNumber(getEffectLevel(stack), false)).withStyle(ChatFormatting.BLUE));
         if (ServerConfig.LUCKY_HAT_UNLUCK_ENABLED.get()) {
-            tooltip.add(new TranslatableComponent("item.usefulhats.lucky_hat.desc.unluck").withStyle(ChatFormatting.RED));
+            tooltip.add(Component.translatable("item.usefulhats.lucky_hat.desc.unluck").withStyle(ChatFormatting.RED));
         }
     }
 

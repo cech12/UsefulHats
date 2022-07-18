@@ -2,12 +2,9 @@ package cech12.usefulhats.item;
 
 import cech12.usefulhats.UsefulHatsMod;
 import cech12.usefulhats.client.UsefulHatLayers;
-import cech12.usefulhats.compat.BaublesMod;
 import cech12.usefulhats.compat.CuriosMod;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import lazy.baubles.api.bauble.IBauble;
-import lazy.baubles.api.cap.CapabilityBaubles;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -30,9 +27,7 @@ import net.minecraft.stats.Stats;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -46,6 +41,7 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.ForgeRegistries;
 import top.theillusivec4.curios.api.CuriosCapability;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 
@@ -219,8 +215,8 @@ public abstract class AbstractHatItem extends ArmorItem implements DyeableLeathe
     public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level worldIn, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         //tooltip.add(new TextComponent("Durability: " + (stack.getMaxDamage() - stack.getDamageValue()) + "/" + stack.getMaxDamage()).withStyle(ChatFormatting.RED));
-        tooltip.add(new TextComponent(""));
-        tooltip.add((new TranslatableComponent("item.modifiers." + EquipmentSlot.HEAD.getName())).withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.literal(""));
+        tooltip.add((Component.translatable("item.modifiers." + EquipmentSlot.HEAD.getName())).withStyle(ChatFormatting.GRAY));
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -249,7 +245,7 @@ public abstract class AbstractHatItem extends ArmorItem implements DyeableLeathe
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
         if (this instanceof IUsefulHatModelOwner) {
-            ResourceLocation resourceLocation = stack.getItem().getRegistryName();
+            ResourceLocation resourceLocation = ForgeRegistries.ITEMS.getKey(stack.getItem());
             if (resourceLocation != null) {
                 String texture = resourceLocation.getPath();
                 String domain = resourceLocation.getNamespace();
@@ -282,19 +278,6 @@ public abstract class AbstractHatItem extends ArmorItem implements DyeableLeathe
                 @Override
                 public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
                     return CuriosCapability.ITEM.orEmpty(cap, curio);
-                }
-            });
-        }
-        //for baubles
-        if (BaublesMod.isLoaded()) {
-            AbstractHatItemBaublesCapability cap = new AbstractHatItemBaublesCapability(stack);
-            evt.addCapability(BaublesMod.BAUBLES_ITEM_ID, new ICapabilityProvider() {
-                final LazyOptional<IBauble> bauble = LazyOptional.of(() -> cap);
-
-                @Nonnull
-                @Override
-                public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-                    return CapabilityBaubles.ITEM_BAUBLE.orEmpty(cap, bauble);
                 }
             });
         }

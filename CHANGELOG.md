@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Forge Recommended Versioning](https://mcforge.readthedocs.io/en/latest/conventions/versioning/).
 
+## [1.19-3.0.0.0] - 2022-07-18
+### Changed
+- Update mod to Forge 1.19-41.0.96
+
+### Removed
+- Support for Baubles Reborn mod (seems to be discontinued)
+
 ## [1.18.2-2.0.2.0] - 2022-03-03
 ### Changed
 - Update mod to Forge 1.18.2-40.0.2

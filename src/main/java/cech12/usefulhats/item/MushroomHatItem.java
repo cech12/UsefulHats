@@ -10,7 +10,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -29,7 +28,7 @@ public class MushroomHatItem extends AbstractHatItem implements IUsefulHatModelO
     @OnlyIn(Dist.CLIENT)
     public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level worldIn, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new TranslatableComponent("item.usefulhats.mushroom_hat.desc.feeding").withStyle(ChatFormatting.BLUE));
+        tooltip.add(Component.translatable("item.usefulhats.mushroom_hat.desc.feeding").withStyle(ChatFormatting.BLUE));
     }
 
     @Override

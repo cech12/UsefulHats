@@ -11,7 +11,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.network.chat.Component;
 import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -34,16 +33,16 @@ public class BunnyEarsItem extends AbstractHatItem implements IEquipmentChangeLi
     @OnlyIn(Dist.CLIENT)
     public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level worldIn, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
-        int enchantmentLevel = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY, stack) + 1;
-        tooltip.add(new TranslatableComponent("item.usefulhats.bunny_ears.desc.jump_boost", UsefulHatsUtils.getRomanNumber(enchantmentLevel, false)).withStyle(ChatFormatting.BLUE));
-        tooltip.add(new TranslatableComponent("item.usefulhats.bunny_ears.desc.eating", enchantmentLevel + 1).withStyle(ChatFormatting.BLUE));
+        int enchantmentLevel = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY, stack) + 1;
+        tooltip.add(Component.translatable("item.usefulhats.bunny_ears.desc.jump_boost", UsefulHatsUtils.getRomanNumber(enchantmentLevel, false)).withStyle(ChatFormatting.BLUE));
+        tooltip.add(Component.translatable("item.usefulhats.bunny_ears.desc.eating", enchantmentLevel + 1).withStyle(ChatFormatting.BLUE));
     }
 
     @Override
     public void onArmorTick(ItemStack stack, Level level, Player player) {
         if (!level.isClientSide) {
             if (!UsefulHatsUtils.getEquippedHatItemStacks(player).contains(stack)) return; //only one worn stack of this item should add its effect
-            int amplifier = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY, stack);
+            int amplifier = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY, stack);
             if (!this.isEffectCausedByOtherSource(player, MobEffects.JUMP, JUMP_BOOST_DURATION, amplifier)) {
                 if (player.getEffect(MobEffects.JUMP) == null || player.tickCount % 19 == 0) {
                     this.addEffect(player, MobEffects.JUMP, JUMP_BOOST_DURATION, amplifier);
@@ -61,7 +60,7 @@ public class BunnyEarsItem extends AbstractHatItem implements IEquipmentChangeLi
         if (event instanceof LivingEntityUseItemEvent.Start) {
             ItemStack usedStack = event.getItem();
             if (usedStack.getItem().isEdible()) {
-                int amplifier = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY, headSlotItemStack) + 2;
+                int amplifier = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY, headSlotItemStack) + 2;
                 event.setDuration(event.getDuration() / amplifier);
                 this.damageHatItemByOne(headSlotItemStack, player);
             }
@@ -71,7 +70,7 @@ public class BunnyEarsItem extends AbstractHatItem implements IEquipmentChangeLi
     @Override
     public void onUnequippedHatItem(LivingEntity entity, ItemStack oldStack) {
         // disable effects when hat is removed from slot
-        int amplifier = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY, oldStack);
+        int amplifier = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY, oldStack);
         this.removeEffect(entity, MobEffects.JUMP, JUMP_BOOST_DURATION, amplifier);
     }
 }

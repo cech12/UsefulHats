@@ -9,7 +9,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.network.chat.Component;
 import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -34,9 +33,9 @@ public class WingHelmetItem extends AbstractHatItem implements IEquipmentChangeL
     @OnlyIn(Dist.CLIENT)
     public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level worldIn, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new TranslatableComponent("item.usefulhats.wing_helmet.desc.slow_falling").withStyle(ChatFormatting.BLUE));
+        tooltip.add(Component.translatable("item.usefulhats.wing_helmet.desc.slow_falling").withStyle(ChatFormatting.BLUE));
         if (ServerConfig.WING_HELMET_LEVITATION_ENABLED.get()) {
-            tooltip.add(new TranslatableComponent("item.usefulhats.wing_helmet.desc.scared").withStyle(ChatFormatting.RED));
+            tooltip.add(Component.translatable("item.usefulhats.wing_helmet.desc.scared").withStyle(ChatFormatting.RED));
         }
     }
 

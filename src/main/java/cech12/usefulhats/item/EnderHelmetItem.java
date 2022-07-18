@@ -17,9 +17,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.level.Level;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.api.distmarker.Dist;
@@ -41,25 +39,25 @@ public class EnderHelmetItem extends AbstractHatItem implements IRightClickListe
     @Override
     @OnlyIn(Dist.CLIENT)
     public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level worldIn, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flagIn) {
-        tooltip.add(new TranslatableComponent("item.usefulhats.ender_helmet.desc.define_teleport").withStyle(ChatFormatting.BLUE));
+        tooltip.add(Component.translatable("item.usefulhats.ender_helmet.desc.define_teleport").withStyle(ChatFormatting.BLUE));
         if (hasPosition(stack)) {
             super.appendHoverText(stack, worldIn, tooltip, flagIn);
             BlockPos pos = getPosition(stack);
-            tooltip.add(new TranslatableComponent("item.usefulhats.ender_helmet.desc.teleport").withStyle(ChatFormatting.BLUE));
-            tooltip.add(new TranslatableComponent("item.usefulhats.ender_helmet.desc.teleport_position", pos.getX(), pos.getY(), pos.getZ()).withStyle(ChatFormatting.BLUE));
-            tooltip.add(new TextComponent(getDimensionString(stack)).withStyle(ChatFormatting.BLUE));
+            tooltip.add(Component.translatable("item.usefulhats.ender_helmet.desc.teleport").withStyle(ChatFormatting.BLUE));
+            tooltip.add(Component.translatable("item.usefulhats.ender_helmet.desc.teleport_position", pos.getX(), pos.getY(), pos.getZ()).withStyle(ChatFormatting.BLUE));
+            tooltip.add(Component.literal(getDimensionString(stack)).withStyle(ChatFormatting.BLUE));
         }
     }
 
-    private static void setPosition(@Nonnull ItemStack stack, @Nonnull Level world, @Nonnull Player player) {
+    private static void setPosition(@Nonnull ItemStack stack, @Nonnull Level level, @Nonnull Player player) {
         CompoundTag nbt = stack.getOrCreateTag().copy();
         CompoundTag positionNBT = new CompoundTag();
         BlockPos pos = player.blockPosition();
         positionNBT.putInt("X", pos.getX());
         positionNBT.putInt("Y", pos.getY());
         positionNBT.putInt("Z", pos.getZ());
-        positionNBT.putString("dimKey", world.dimension().getRegistryName().toString()); //dimension registry key
-        positionNBT.putString("dimName", world.dimension().location().toString()); //dimension name
+        positionNBT.putString("dimKey", level.dimension().registry().toString()); //dimension registry key
+        positionNBT.putString("dimName", level.dimension().location().toString()); //dimension name
         nbt.put(TELEPORT_POSITION_ID, positionNBT);
         stack.setTag(nbt);
     }
@@ -87,11 +85,11 @@ public class EnderHelmetItem extends AbstractHatItem implements IRightClickListe
 
     private static boolean equalsWorldAndNBT(Level world, CompoundTag positionNBT) {
         return (!positionNBT.contains("dimKey")  //to be compatible with older versions
-                || world.dimension().getRegistryName().toString().equals(positionNBT.getString("dimKey")))
+                || world.dimension().registry().toString().equals(positionNBT.getString("dimKey")))
                 && world.dimension().location().toString().equals(positionNBT.getString("dimName"));
     }
 
-    private ServerLevel getWorld(@Nonnull MinecraftServer server, @Nonnull ItemStack stack) {
+    private ServerLevel getLevel(@Nonnull MinecraftServer server, @Nonnull ItemStack stack) {
         if (hasPosition(stack)) {
             CompoundTag positionNBT = stack.getOrCreateTag().getCompound(TELEPORT_POSITION_ID);
             for (ServerLevel world : server.getAllLevels()) {
@@ -126,7 +124,7 @@ public class EnderHelmetItem extends AbstractHatItem implements IRightClickListe
                 //save position on item stack
                 setPosition(stack, worldIn, playerIn);
                 //inform player about saved position
-                ((ServerPlayer) playerIn).connection.send(new ClientboundSetActionBarTextPacket(new TranslatableComponent("item.usefulhats.ender_helmet.message.position_saved")));
+                ((ServerPlayer) playerIn).connection.send(new ClientboundSetActionBarTextPacket(Component.translatable("item.usefulhats.ender_helmet.message.position_saved")));
             }
             return InteractionResultHolder.sidedSuccess(stack, worldIn.isClientSide());
         }
@@ -146,7 +144,7 @@ public class EnderHelmetItem extends AbstractHatItem implements IRightClickListe
             if (!world.isClientSide) {
                 //check for correct dimension
                 if (ServerConfig.ENDER_HELMET_INTERDIMENSIONAL_ENABLED.get() || isRightDimension(world, headSlotItemStack)) {
-                    ServerLevel destinationWorld = getWorld(player.getServer(), headSlotItemStack);
+                    ServerLevel destinationWorld = getLevel(player.getServer(), headSlotItemStack);
                     BlockPos destinationPos = getPosition(headSlotItemStack);
                     //check for correct position
                     if (destinationPos != null && destinationWorld != null && canTeleportToPosition(destinationWorld, destinationPos)) {
@@ -169,10 +167,10 @@ public class EnderHelmetItem extends AbstractHatItem implements IRightClickListe
                         //damage hat item
                         this.damageHatItemByOne(headSlotItemStack, player);
                     } else {
-                        ((ServerPlayer) player).connection.send(new ClientboundSetActionBarTextPacket(new TranslatableComponent("item.usefulhats.ender_helmet.message.position_obstructed")));
+                        ((ServerPlayer) player).connection.send(new ClientboundSetActionBarTextPacket(Component.translatable("item.usefulhats.ender_helmet.message.position_obstructed")));
                     }
                 } else {
-                    ((ServerPlayer) player).connection.send(new ClientboundSetActionBarTextPacket(new TranslatableComponent("item.usefulhats.ender_helmet.message.wrong_dimension")));
+                    ((ServerPlayer) player).connection.send(new ClientboundSetActionBarTextPacket(Component.translatable("item.usefulhats.ender_helmet.message.wrong_dimension")));
                 }
             }
             //cancel other right click operations

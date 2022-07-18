@@ -16,14 +16,13 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.chat.Component;
 import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.ForgeMod;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -41,23 +40,23 @@ public class AquanautHelmetItem extends AbstractHatItem implements IEquipmentCha
         if (enchantmentLevel <= 0) {
             return ServerConfig.AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_0.get();
         }
-        switch (enchantmentLevel) {
-            case 1: return ServerConfig.AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_1.get();
-            case 2: return ServerConfig.AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_2.get();
-            default: return ServerConfig.AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_3.get();
-        }
+        return switch (enchantmentLevel) {
+            case 1 -> ServerConfig.AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_1.get();
+            case 2 -> ServerConfig.AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_2.get();
+            default -> ServerConfig.AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_3.get();
+        };
     }
 
     private int getConduitPowerDuration(ItemStack stack) {
-        return this.getEffectTimeConfig(EnchantmentHelper.getItemEnchantmentLevel(Enchantments.RESPIRATION, stack)) * 20;
+        return this.getEffectTimeConfig(EnchantmentHelper.getTagEnchantmentLevel(Enchantments.RESPIRATION, stack)) * 20;
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
     public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level worldIn, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
-        int effectTime = this.getEffectTimeConfig(EnchantmentHelper.getItemEnchantmentLevel(Enchantments.RESPIRATION, stack));
-        tooltip.add(new TranslatableComponent("item.usefulhats.aquanaut_helmet.desc.conduit_power", effectTime).withStyle(ChatFormatting.BLUE));
+        int effectTime = this.getEffectTimeConfig(EnchantmentHelper.getTagEnchantmentLevel(Enchantments.RESPIRATION, stack));
+        tooltip.add(Component.translatable("item.usefulhats.aquanaut_helmet.desc.conduit_power", effectTime).withStyle(ChatFormatting.BLUE));
     }
 
     @Override
@@ -69,7 +68,7 @@ public class AquanautHelmetItem extends AbstractHatItem implements IEquipmentCha
             if (this.isEffectCausedByOtherSource(player, MobEffects.CONDUIT_POWER, maxDuration, 0))
                 return;
 
-            if (!player.isEyeInFluid(FluidTags.WATER)) {
+            if (!player.isEyeInFluidType(ForgeMod.WATER_TYPE.get())) {
                 this.addEffect(player, MobEffects.CONDUIT_POWER, maxDuration, 0);
             } else {
                 if (player.getEffect(MobEffects.CONDUIT_POWER) != null && level.random.nextInt(20) == 0) {
