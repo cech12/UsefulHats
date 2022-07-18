@@ -6,7 +6,7 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.event.level.BlockEvent;
 
 public abstract class AbstractMiningHatItem extends AbstractHatItem implements IBreakSpeedChanger {
 
@@ -35,7 +35,7 @@ public abstract class AbstractMiningHatItem extends AbstractHatItem implements I
 
     @Override
     public void onBreakSpeedEvent(PlayerEvent.BreakSpeed event, ItemStack headSlotItemStack) {
-        if (!event.isCanceled() && this.isToolEffective(event.getPlayer().getMainHandItem(), event.getState())) {
+        if (!event.isCanceled() && this.isToolEffective(event.getEntity().getMainHandItem(), event.getState())) {
             //use getNewSpeed() instead of getOriginalSpeed() to support other mods that are changing the break speed with this event.
             event.setNewSpeed((1.0F + (float) this.getEnchantmentValue(headSlotItemStack, this.getSpeedConfig())) * event.getNewSpeed());
         }

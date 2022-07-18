@@ -54,8 +54,8 @@ public class LuckyHatItem extends AbstractHatItem implements IItemFishedListener
 
     private int getEffectLevel(ItemStack stack) {
         //looting and luck of the sea raise the luck level
-        return 1 + EnchantmentHelper.getItemEnchantmentLevel(Enchantments.MOB_LOOTING, stack) +
-                EnchantmentHelper.getItemEnchantmentLevel(Enchantments.FISHING_LUCK, stack);
+        return 1 + EnchantmentHelper.getTagEnchantmentLevel(Enchantments.MOB_LOOTING, stack) +
+                EnchantmentHelper.getTagEnchantmentLevel(Enchantments.FISHING_LUCK, stack);
     }
 
     private int getLuckAmplifier(ItemStack stack) {
@@ -92,12 +92,12 @@ public class LuckyHatItem extends AbstractHatItem implements IItemFishedListener
 
     @Override
     public void onItemFishedListener(ItemFishedEvent event, ItemStack headSlotItemStack) {
-        Player player = event.getPlayer();
+        Player player = event.getEntity();
         //when luck or unluck is active (potions), do nothing
         if (this.isLuckOrUnluckCausedByOtherSource(player, headSlotItemStack)) return;
         //damage item after fishing
-        if (!event.isCanceled() && this.hasHatRelatedItemInHand(event.getPlayer())) {
-            this.damageHatItemByOne(headSlotItemStack, event.getPlayer());
+        if (!event.isCanceled() && this.hasHatRelatedItemInHand(event.getEntity())) {
+            this.damageHatItemByOne(headSlotItemStack, event.getEntity());
             if (ServerConfig.LUCKY_HAT_UNLUCK_ENABLED.get()) {
                 this.removeEffect(player, MobEffects.LUCK, LUCK_DURATION, this.getLuckAmplifier(headSlotItemStack));
                 this.addEffect(player, MobEffects.UNLUCK, UNLUCK_DURATION, UNLUCK_AMPLIFIER);

@@ -31,7 +31,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.IItemRenderProperties;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
@@ -221,14 +221,14 @@ public abstract class AbstractHatItem extends ArmorItem implements DyeableLeathe
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void initializeClient(@Nonnull Consumer<IItemRenderProperties> consumer) {
+    public void initializeClient(@Nonnull Consumer<IClientItemExtensions> consumer) {
         if (this instanceof IUsefulHatModelOwner) {
             consumer.accept(Rendering.INSTANCE);
         }
     }
 
     @OnlyIn(Dist.CLIENT)
-    private static final class Rendering implements IItemRenderProperties {
+    private static final class Rendering implements IClientItemExtensions {
 
         private static final Rendering INSTANCE = new Rendering();
 
@@ -236,7 +236,8 @@ public abstract class AbstractHatItem extends ArmorItem implements DyeableLeathe
         }
 
         @Override
-        public HumanoidModel<?> getArmorModel(LivingEntity wearer, ItemStack item, EquipmentSlot slot, HumanoidModel<?> defaultModel) {
+        @Nonnull
+        public HumanoidModel<?> getHumanoidArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
             return UsefulHatLayers.usefulHatModel;
         }
     }

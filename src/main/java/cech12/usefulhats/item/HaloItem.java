@@ -16,7 +16,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -59,7 +59,7 @@ public class HaloItem extends AbstractHatItem implements IAttackTargetChanger, I
     }
 
     @Override
-    public void onEntityJoinWorldEvent(Mob entity, EntityJoinWorldEvent event) {
+    public void onEntityJoinWorldEvent(Mob entity, EntityJoinLevelEvent event) {
         // add attack goal to all neutral nether mobs against players with halo on (only in nether)
         // 1.15: (outdated)
         // - Zombie Pigman

@@ -133,9 +133,9 @@ public class EnderHelmetItem extends AbstractHatItem implements IRightClickListe
 
     @Override
     public void onRightClickItemEvent(PlayerInteractEvent.RightClickItem event, ItemStack headSlotItemStack) {
-        Player player = event.getPlayer();
+        Player player = event.getEntity();
         if (!UsefulHatsUtils.getEquippedHatItemStacks(player).contains(headSlotItemStack)) return; //only one worn stack of this item should add its effect
-        Level world = event.getWorld();
+        Level world = event.getLevel();
         ItemStack usedStack = event.getItemStack();
         //only do teleportation when using an ender pearl and the hat item has a stored position
         if (usedStack.getItem() == Items.ENDER_PEARL && hasPosition(headSlotItemStack)) {

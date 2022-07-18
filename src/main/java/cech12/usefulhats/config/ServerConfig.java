@@ -9,7 +9,6 @@ import java.nio.file.Path;
 public class ServerConfig {
     public static ForgeConfigSpec SERVER_CONFIG;
 
-    public static final ForgeConfigSpec.BooleanValue BAUBLES_ENABLED;
     public static final ForgeConfigSpec.BooleanValue CURIOS_ENABLED;
 
     public static final ForgeConfigSpec.BooleanValue AQUANAUT_HELMET_DAMAGE_ENABLED;
@@ -85,9 +84,6 @@ public class ServerConfig {
         final ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
 
         builder.comment("Some configs in relation to other mods.").push("CompatibilityOptions");
-        BAUBLES_ENABLED = builder
-                .comment("Whether or not hats from this mod should be placeable in Baubles head slot if Baubles is installed.")
-                .define("baublesEnabled", true);
         CURIOS_ENABLED = builder
                 .comment("Whether or not hats from this mod should be placeable in Curios head slots if Curios is installed.")
                 .define("curiosEnabled", true);

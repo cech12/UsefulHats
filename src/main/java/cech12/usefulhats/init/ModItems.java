@@ -16,11 +16,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.ColorHandlerEvent;
-import net.minecraftforge.client.gui.ForgeIngameGui;
-import net.minecraftforge.client.gui.OverlayRegistry;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
+import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
@@ -28,7 +27,7 @@ import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent;
 import net.minecraftforge.event.entity.player.ItemFishedEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -60,7 +59,7 @@ public class ModItems {
     @SuppressWarnings("unused")
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
-    public static void registerColors(ColorHandlerEvent.Item event) {
+    public static void registerColors(RegisterColorHandlersEvent.Item event) {
         ItemColors itemcolors = event.getItemColors();
         for (RegistryObject<Item> item : ITEMS.getEntries()) {
             //if (item instanceof IDyeableArmorItem) {
@@ -100,10 +99,13 @@ public class ModItems {
                 CuriosRendererRegistry.register(item.get(), CurioRenderer::getInstance);
             }
         }
-        //register overlay
-        OverlayRegistry.registerOverlayAbove(ForgeIngameGui.HELMET_ELEMENT, "UsefulHats_Overlay", (gui, mStack, partialTicks, screenWidth, screenHeight) -> {
-            if (Minecraft.useFancyGraphics())
-            {
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    @SubscribeEvent
+    public static void registerOverlays(RegisterGuiOverlaysEvent event) {
+        event.registerAboveAll("aquanaut_helmet_overlay", (gui, mStack, partialTicks, screenWidth, screenHeight) -> {
+            if (Minecraft.useFancyGraphics()) {
                 gui.setupOverlayRenderState(true, false);
                 Minecraft mc = Minecraft.getInstance();
                 if (mc.player != null && mc.options.getCameraType().isFirstPerson()) {
@@ -121,7 +123,7 @@ public class ModItems {
     }
 
     private static void onBreakSpeedEvent(PlayerEvent.BreakSpeed event) {
-        for (ItemStack headSlotItemStack : UsefulHatsUtils.getEquippedHatItemStacks(event.getPlayer())) {
+        for (ItemStack headSlotItemStack : UsefulHatsUtils.getEquippedHatItemStacks(event.getEntity())) {
             for (RegistryObject<Item> itemRegistryObject : ITEMS.getEntries()) {
                 Item item = itemRegistryObject.get();
                 if (item instanceof IBreakSpeedChanger && headSlotItemStack.getItem() == item) {
@@ -142,7 +144,7 @@ public class ModItems {
         }
     }
 
-    private static void onEntityJoinWorldEvent(EntityJoinWorldEvent event) {
+    private static void onEntityJoinWorldEvent(EntityJoinLevelEvent event) {
         if (event.getEntity() instanceof Mob entity) {
             for (RegistryObject<Item> itemRegistryObject : ITEMS.getEntries()) {
                 Item item = itemRegistryObject.get();
@@ -154,7 +156,7 @@ public class ModItems {
     }
 
     private static void onItemFishedEvent(ItemFishedEvent event) {
-        for (ItemStack headSlotItemStack : UsefulHatsUtils.getEquippedHatItemStacks(event.getPlayer())) {
+        for (ItemStack headSlotItemStack : UsefulHatsUtils.getEquippedHatItemStacks(event.getEntity())) {
             for (RegistryObject<Item> itemRegistryObject : ITEMS.getEntries()) {
                 Item item = itemRegistryObject.get();
                 if (item instanceof IItemFishedListener && headSlotItemStack.getItem() == item) {
@@ -178,7 +180,7 @@ public class ModItems {
     }
 
     private static void onLivingUseItemEvent(LivingEntityUseItemEvent event) {
-        if (event.getEntityLiving() instanceof Player player) {
+        if (event.getEntity() instanceof Player player) {
             for (ItemStack headSlotItemStack : UsefulHatsUtils.getEquippedHatItemStacks(player)) {
                 for (RegistryObject<Item> itemRegistryObject : ITEMS.getEntries()) {
                     Item item = itemRegistryObject.get();
@@ -209,7 +211,7 @@ public class ModItems {
 
     private static void onLivingEquipmentChangeEvent(LivingEquipmentChangeEvent event) {
         if (event.getSlot() == EquipmentSlot.HEAD) {
-            onEquipmentChanged(event.getEntityLiving(), event.getFrom(), event.getTo());
+            onEquipmentChanged(event.getEntity(), event.getFrom(), event.getTo());
         }
     }
 
@@ -217,7 +219,7 @@ public class ModItems {
      * equipment change event of curios mod
      */
     private static void onCuriosEquipmentChangeEvent(CurioChangeEvent event) {
-        onEquipmentChanged(event.getEntityLiving(), event.getFrom(), event.getTo());
+        onEquipmentChanged(event.getEntity(), event.getFrom(), event.getTo());
     }
 
     private static void onLivingSetAttackTargetEvent(LivingSetAttackTargetEvent event) {
@@ -234,7 +236,7 @@ public class ModItems {
     }
 
     private static void onRightClickItemEvent(PlayerInteractEvent.RightClickItem event) {
-        Player player = event.getPlayer();
+        Player player = event.getEntity();
         for (ItemStack headSlotItemStack : UsefulHatsUtils.getEquippedHatItemStacks(player)) {
             for (RegistryObject<Item> itemRegistryObject : ITEMS.getEntries()) {
                 Item item = itemRegistryObject.get();
