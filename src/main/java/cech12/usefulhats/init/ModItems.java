@@ -20,10 +20,10 @@ import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
+import net.minecraftforge.event.entity.living.LivingChangeTargetEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
-import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent;
 import net.minecraftforge.event.entity.player.ItemFishedEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -79,7 +79,7 @@ public class ModItems {
         MinecraftForge.EVENT_BUS.addListener(ModItems::onItemFishedEvent);
         MinecraftForge.EVENT_BUS.addListener(ModItems::onLivingDropsEvent);
         MinecraftForge.EVENT_BUS.addListener(ModItems::onLivingEquipmentChangeEvent);
-        MinecraftForge.EVENT_BUS.addListener(ModItems::onLivingSetAttackTargetEvent);
+        MinecraftForge.EVENT_BUS.addListener(ModItems::onLivingChangeTargetEvent);
         MinecraftForge.EVENT_BUS.addListener(ModItems::onLivingUseItemEvent);
         MinecraftForge.EVENT_BUS.addListener(ModItems::onRightClickItemEvent);
         //curios events
@@ -222,13 +222,16 @@ public class ModItems {
         onEquipmentChanged(event.getEntity(), event.getFrom(), event.getTo());
     }
 
-    private static void onLivingSetAttackTargetEvent(LivingSetAttackTargetEvent event) {
-        if (event.getEntity() instanceof Mob mob && event.getTarget() instanceof Player player) {
+    private static void onLivingChangeTargetEvent(LivingChangeTargetEvent event) {
+        if (event.getEntity() instanceof Mob mob && event.getNewTarget() instanceof Player player) {
             for (ItemStack headSlotItemStack : UsefulHatsUtils.getEquippedHatItemStacks(player)) {
                 for (RegistryObject<Item> itemRegistryObject : ITEMS.getEntries()) {
                     Item item = itemRegistryObject.get();
                     if (item instanceof IAttackTargetChanger && item == headSlotItemStack.getItem()) {
-                        ((IAttackTargetChanger) item).onLivingSetAttackTarget(mob, player);
+                        if (((IAttackTargetChanger) item).avoidMobChangingTarget(headSlotItemStack, mob, player)) {
+                            event.setCanceled(true);
+                            return;
+                        }
                     }
                 }
             }
