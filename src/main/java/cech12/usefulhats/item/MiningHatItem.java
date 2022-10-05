@@ -1,7 +1,9 @@
 package cech12.usefulhats.item;
 
 import cech12.usefulhats.UsefulHatsUtils;
+import cech12.usefulhats.compat.LucentMod;
 import cech12.usefulhats.config.ServerConfig;
+import cech12.usefulhats.init.ModItems;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.item.TooltipFlag;
@@ -19,6 +21,7 @@ import net.minecraftforge.common.ToolActions;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.stream.StreamSupport;
 
 public class MiningHatItem extends AbstractMiningHatItem implements IEquipmentChangeListener, IUsefulHatModelOwner {
 
@@ -27,6 +30,14 @@ public class MiningHatItem extends AbstractMiningHatItem implements IEquipmentCh
 
     public MiningHatItem() {
         super(HatArmorMaterial.MINING, rawColorFromRGB(255, 216, 0), ServerConfig.MINING_HAT_DAMAGE_ENABLED);
+    }
+
+    public static boolean isLightEnabled(Player player) {
+        return ServerConfig.MINING_HAT_NIGHT_VISION_ENABLED.get()
+                && UsefulHatsUtils.getEquippedHatItemStacks(player).stream().anyMatch(stack -> stack.getItem() == ModItems.MINING_HAT.get())
+                && StreamSupport.stream(player.getHandSlots().spliterator(), false).anyMatch(stack -> stack.canPerformAction(ToolActions.PICKAXE_DIG))
+                && player.getEffect(MobEffects.NIGHT_VISION) == null
+                && player.level.getMaxLocalRawBrightness(player.blockPosition()) < 8;
     }
 
     @Override
@@ -48,7 +59,11 @@ public class MiningHatItem extends AbstractMiningHatItem implements IEquipmentCh
         int value = (int) (this.getEnchantmentValue(stack, this.getSpeedConfig()) * 100);
         tooltip.add(Component.translatable("item.usefulhats.mining_hat.desc.mining_speed", value).withStyle(ChatFormatting.BLUE));
         if (ServerConfig.MINING_HAT_NIGHT_VISION_ENABLED.get()) {
-            tooltip.add(Component.translatable("item.usefulhats.mining_hat.desc.night_vision").withStyle(ChatFormatting.BLUE));
+            if (LucentMod.isLoaded()) {
+                tooltip.add(Component.translatable("item.usefulhats.mining_hat.desc.lucent").withStyle(ChatFormatting.BLUE));
+            } else {
+                tooltip.add(Component.translatable("item.usefulhats.mining_hat.desc.night_vision").withStyle(ChatFormatting.BLUE));
+            }
         }
     }
 
@@ -58,24 +73,28 @@ public class MiningHatItem extends AbstractMiningHatItem implements IEquipmentCh
             if (!UsefulHatsUtils.getEquippedHatItemStacks(player).contains(stack)) return; //only one worn stack of this item should add its effect
             //When Night Vision effect is disabled in config, do nothing.
             if (!ServerConfig.MINING_HAT_NIGHT_VISION_ENABLED.get()) return;
+            //lucent mod replaces night vision effect
+            if (LucentMod.isLoaded()) {
+                if (isLightEnabled(player) && player.tickCount % 20 == 0) {
+                    this.damageHatItemByOne(stack, player);
+                }
+                return;
+            }
             //When Night Vision effect is caused by another source, do nothing
             if (this.isEffectCausedByOtherSource(player, MobEffects.NIGHT_VISION, NIGHT_VISION_DURATION, NIGHT_VISION_AMPLIFIER))
                 return;
-            boolean isNightVisionActive = player.getEffect(MobEffects.NIGHT_VISION) != null;
-            //support both hands
-            for (ItemStack item : player.getHandSlots()) {
-                if (item.canPerformAction(ToolActions.PICKAXE_DIG) && level.getMaxLocalRawBrightness(player.blockPosition()) < 8) {
-                    if (!isNightVisionActive || player.tickCount % 19 == 0) {
-                        this.addEffect(player, MobEffects.NIGHT_VISION, NIGHT_VISION_DURATION, NIGHT_VISION_AMPLIFIER);
-                    }
-                    if (level.random.nextInt(20) == 0) {
-                        this.damageHatItemByOne(stack, player);
-                    }
-                    return;
+            //when holding a pickaxe or being in dark areas, add the night vision effect - else remove it
+            if (StreamSupport.stream(player.getHandSlots().spliterator(), false).anyMatch(handStack -> handStack.canPerformAction(ToolActions.PICKAXE_DIG))
+                    && player.level.getMaxLocalRawBrightness(player.blockPosition()) < 8) {
+                if (player.getEffect(MobEffects.NIGHT_VISION) == null || player.tickCount % 19 == 0) {
+                    this.addEffect(player, MobEffects.NIGHT_VISION, NIGHT_VISION_DURATION, NIGHT_VISION_AMPLIFIER);
                 }
+                if (player.tickCount % 20 == 0) {
+                    this.damageHatItemByOne(stack, player);
+                }
+            } else {
+                player.removeEffect(MobEffects.NIGHT_VISION);
             }
-            //if not holding a pickaxe or not being in dark areas, remove the night vision effect
-            player.removeEffect(MobEffects.NIGHT_VISION);
         }
     }
 
