@@ -2,6 +2,7 @@
 
 [![Curseforge](http://cf.way2muchnoise.eu/full_347337_downloads(0D0D0D-F16436-fff-010101-fff).svg)](https://www.curseforge.com/minecraft/mc-mods/useful-hats)
 [![Curseforge](http://cf.way2muchnoise.eu/versions/For%20MC_347337_all(0D0D0D-F16436-fff-010101).svg)](https://www.curseforge.com/minecraft/mc-mods/useful-hats/files)
+[![Modrinth](https://modrinth-utils.vercel.app/api/badge/downloads?id=OzlEq4Ya&logo=true)](https://modrinth.com/mod/useful-hats)
 [![CI/CD](https://github.com/cech12/UsefulHats/actions/workflows/cicd-workflow.yml/badge.svg)](https://github.com/cech12/UsefulHats/actions/workflows/cicd-workflow.yml)
 [![CodeFactor](https://www.codefactor.io/repository/github/cech12/usefulhats/badge)](https://www.codefactor.io/repository/github/cech12/usefulhats)
 [![gitlocalized ](https://gitlocalize.com/repo/8147/whole_project/badge.svg)](https://gitlocalize.com/repo/8147/?utm_source=badge)
