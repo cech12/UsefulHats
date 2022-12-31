@@ -1,6 +1,5 @@
 package cech12.usefulhats.item;
 
-import cech12.usefulhats.UsefulHatsMod;
 import cech12.usefulhats.client.UsefulHatLayers;
 import cech12.usefulhats.compat.CuriosMod;
 import com.google.common.collect.HashMultimap;
@@ -64,7 +63,7 @@ public abstract class AbstractHatItem extends ArmorItem implements DyeableLeathe
     private final ArrayList<Enchantment> forbiddenEnchantments = new ArrayList<>();
 
     public AbstractHatItem(HatArmorMaterial material, int initColor, ForgeConfigSpec.BooleanValue enabledDamageConfig) {
-        super(material, EquipmentSlot.HEAD, (new Properties()).tab(UsefulHatsMod.ITEM_GROUP));
+        super(material, EquipmentSlot.HEAD, new Properties());
         this.material = material;
         this.initColor = initColor;
         this.enabledDamageConfig = enabledDamageConfig;

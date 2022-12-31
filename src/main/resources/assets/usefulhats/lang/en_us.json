@@ -1,5 +1,5 @@
 {
-  "itemGroup.usefulhats": "Useful Hats",
+  "tabs.usefulhats.main_tab": "Useful Hats",
 
   "item.usefulhats.aquanaut_helmet": "Aquanaut Helmet",
   "item.usefulhats.aquanaut_helmet.desc.conduit_power": "You get §2Conduit Power§9 effect for %s seconds.",

@@ -1,5 +1,5 @@
 {
-  "itemGroup.usefulhats": "Useful Hats",
+  "tabs.usefulhats.main_tab": "Useful Hats",
 
   "item.usefulhats.aquanaut_helmet": "潛水頭盔",
   "item.usefulhats.aquanaut_helmet.desc.conduit_power": "可獲得 %s 秒的 §2海靈祝福§9 效果.",

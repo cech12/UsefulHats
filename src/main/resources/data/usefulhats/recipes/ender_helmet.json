@@ -1,12 +1,13 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "equipment",
   "pattern": [
     "###",
     "# #"
   ],
   "key": {
     "#": {
-      "item": "minecraft:ender_pearl"
+      "tag": "forge:ender_pearls"
     }
   },
   "result": {

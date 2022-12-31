@@ -1,5 +1,5 @@
 {
-  "itemGroup.usefulhats": "Useful Hats",
+  "tabs.usefulhats.main_tab": "Useful Hats",
 
   "item.usefulhats.aquanaut_helmet": "Taucherhelm",
   "item.usefulhats.aquanaut_helmet.desc.conduit_power": "Du bekommst den §2Meereskraft§9 Effekt für %s Sekunden.",

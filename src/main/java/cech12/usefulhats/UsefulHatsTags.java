@@ -4,6 +4,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class UsefulHatsTags {
 
@@ -12,7 +13,7 @@ public class UsefulHatsTags {
     }
 
     private static TagKey<Item> tag(final String name) {
-        return TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(name));
+        return TagKey.create(ForgeRegistries.ITEMS.getRegistryKey(), new ResourceLocation(name));
     }
 
 }

@@ -1,5 +1,5 @@
 {
-  "itemGroup.usefulhats": "Корисні капелюхи",
+  "tabs.usefulhats.main_tab": "Корисні капелюхи",
 
   "item.usefulhats.aquanaut_helmet": "Підводний шолом",
   "item.usefulhats.aquanaut_helmet.desc.conduit_power": "Ви отримуєте §9ефект §2Морської сили §9на %s секунд.",

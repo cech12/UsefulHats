@@ -1,5 +1,5 @@
 {
-  "itemGroup.usefulhats": "Полезные шляпы",
+  "tabs.usefulhats.main_tab": "Полезные шляпы",
 
   "item.usefulhats.aquanaut_helmet": "Шлем подводника",
   "item.usefulhats.aquanaut_helmet.desc.conduit_power": "Вы получаете §9эффект §2Морской силы §9на %s секунд.",

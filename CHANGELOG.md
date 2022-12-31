@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Forge Recommended Versioning](https://mcforge.readthedocs.io/en/latest/conventions/versioning/).
 
+## [1.19.3-3.1.0.0] - 2022-12-31
+### Changed
+- Update mod to Forge 1.19.3-44.0.41
+- Changed recipes to use more forge tags
+- Update compat with Curios to 1.19.3-5.1.1.2 and Lucent to 1.19.3-v1.5.0
+
 ## [1.19.2-3.0.2.0] - 2022-10-05
 ### Added
 - Lucent mod support for Mining Hat (if Lucent is installed, the night vision effect is replaced by the Lucent light effect)

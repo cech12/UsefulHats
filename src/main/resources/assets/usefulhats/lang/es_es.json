@@ -1,5 +1,5 @@
 {
-  "itemGroup.usefulhats": "Useful Hats",
+  "tabs.usefulhats.main_tab": "Useful Hats",
 
   "item.usefulhats.aquanaut_helmet": "Casco de acuanauta",
   "item.usefulhats.aquanaut_helmet.desc.conduit_power": "Recibes el efecto de §2Canalización§9 por %s segundos.",
