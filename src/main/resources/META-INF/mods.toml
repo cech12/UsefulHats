@@ -28,11 +28,13 @@ license="The MIT License (MIT)"
     modId="curios"
     mandatory=false
     versionRange="[1.19.2-5.1.1.2,)"
+    referralUrl="https://github.com/TheIllusiveC4/Curios"
     ordering="NONE"
     side="BOTH"
 [[dependencies.usefulhats]]
     modId="lucent"
     mandatory=false
     versionRange="[1.5.0,)"
+    referralUrl="https://www.curseforge.com/minecraft/mc-mods/lucent"
     ordering="NONE"
     side="BOTH"
