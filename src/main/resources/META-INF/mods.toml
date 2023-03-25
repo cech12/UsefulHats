@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[44,)"
+loaderVersion="[45,)"
 issueTrackerURL="https://github.com/cech12/UsefulHats/issues"
 license="The MIT License (MIT)"
 [[mods]]
@@ -15,26 +15,26 @@ license="The MIT License (MIT)"
 [[dependencies.usefulhats]]
     modId="forge"
     mandatory=true
-    versionRange="[44.0.41,)"
+    versionRange="[45.0.24,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.usefulhats]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.19.3,1.20)"
+    versionRange="[1.19.4,1.20)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.usefulhats]]
     modId="curios"
     mandatory=false
-    versionRange="[1.19.2-5.1.1.2,)"
+    versionRange="[1.19.4-5.1.4.2,)"
     referralUrl="https://github.com/TheIllusiveC4/Curios"
     ordering="NONE"
     side="BOTH"
 [[dependencies.usefulhats]]
     modId="lucent"
     mandatory=false
-    versionRange="[1.5.0,)"
+    versionRange="[1.5.2,)"
     referralUrl="https://www.curseforge.com/minecraft/mc-mods/lucent"
     ordering="NONE"
     side="BOTH"

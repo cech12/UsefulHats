@@ -2,7 +2,7 @@ package cech12.usefulhats.item;
 
 import cech12.usefulhats.UsefulHatsTags;
 import cech12.usefulhats.config.ServerConfig;
-import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -46,12 +46,12 @@ public enum HatArmorMaterial implements ArmorMaterial {
     }
 
     @Override
-    public int getDurabilityForSlot(@Nonnull EquipmentSlot slotIn) {
+    public int getDurabilityForType(@Nonnull ArmorItem.Type type) {
         return this.durabilityConfig.get();
     }
 
     @Override
-    public int getDefenseForSlot(@Nonnull EquipmentSlot slotIn) {
+    public int getDefenseForType(@Nonnull ArmorItem.Type type) {
         return 0;
     }
 

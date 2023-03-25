@@ -63,7 +63,7 @@ public abstract class AbstractHatItem extends ArmorItem implements DyeableLeathe
     private final ArrayList<Enchantment> forbiddenEnchantments = new ArrayList<>();
 
     public AbstractHatItem(HatArmorMaterial material, int initColor, ForgeConfigSpec.BooleanValue enabledDamageConfig) {
-        super(material, EquipmentSlot.HEAD, new Properties());
+        super(material, Type.HELMET, new Properties());
         this.material = material;
         this.initColor = initColor;
         this.enabledDamageConfig = enabledDamageConfig;
@@ -86,7 +86,7 @@ public abstract class AbstractHatItem extends ArmorItem implements DyeableLeathe
     @Override
     public int getMaxDamage(ItemStack stack) {
         //get durability from config because the config is not loaded in constructor
-        return this.material.getDurabilityForSlot(EquipmentSlot.HEAD);
+        return this.material.getDurabilityForType(Type.HELMET);
     }
 
     protected boolean isEffectCausedByOtherSource(LivingEntity entity, MobEffect effect, int maxDuration, int amplifier) {

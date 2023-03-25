@@ -23,7 +23,6 @@ import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLConfig;
 import net.minecraftforge.fml.loading.FMLPaths;
-import org.jetbrains.annotations.NotNull;
 
 import static cech12.usefulhats.UsefulHatsMod.MOD_ID;
 
@@ -66,7 +65,7 @@ public class UsefulHatsMod {
         ITEM_GROUP = event.registerCreativeModeTab(new ResourceLocation(MOD_ID, "main_tab"), builder -> builder
                 .icon(() -> new ItemStack(ModItems.STOCKING_CAP.get()))
                 .title(Component.translatable("tabs.usefulhats.main_tab"))
-                .displayItems((featureFlags, output, hasOp) -> {
+                .displayItems((featureFlags, output) -> {
                     ModItems.ITEMS.getEntries().forEach(itemRegistryObject -> output.accept(itemRegistryObject.get()));
                 })
         );
