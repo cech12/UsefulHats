@@ -15,7 +15,7 @@ license="The MIT License (MIT)"
 [[dependencies.usefulhats]]
     modId="forge"
     mandatory=true
-    versionRange="[40.0.2,)"
+    versionRange="[40.2.7,41)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.usefulhats]]

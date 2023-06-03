@@ -62,7 +62,7 @@ public abstract class AbstractHatItem extends ArmorItem implements DyeableLeathe
 
     private final HatArmorMaterial material;
     private final int initColor;
-    private final ForgeConfigSpec.BooleanValue enabledDamageConfig;
+    protected final ForgeConfigSpec.BooleanValue enabledDamageConfig;
 
     private final ArrayList<Enchantment> allowedEnchantments = new ArrayList<>();
     private final ArrayList<Enchantment> forbiddenEnchantments = new ArrayList<>();

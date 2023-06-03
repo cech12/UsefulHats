@@ -37,7 +37,6 @@ public class ServerConfig {
 
     public static final ForgeConfigSpec.BooleanValue HALO_DAMAGE_ENABLED;
     public static final ForgeConfigSpec.IntValue HALO_DURABILITY;
-    public static final ForgeConfigSpec.IntValue HALO_DETECTING_RANGE;
 
     public static final ForgeConfigSpec.BooleanValue LUCKY_HAT_DAMAGE_ENABLED;
     public static final ForgeConfigSpec.IntValue LUCKY_HAT_DURABILITY;
@@ -171,9 +170,6 @@ public class ServerConfig {
         HALO_DURABILITY = builder
                 .comment("Halo durability.")
                 .defineInRange("haloDurability", 600, 1, 10000);
-        HALO_DETECTING_RANGE = builder
-                .comment("Detecting range of Halo for damage calculation. (in blocks)")
-                .defineInRange("haloDetectingRange", 16, 1, 100);
         builder.pop();
 
         builder.push("LuckyHat");
