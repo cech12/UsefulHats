@@ -40,7 +40,7 @@ public class WingHelmetItem extends AbstractHatItem implements IEquipmentChangeL
     }
 
     private boolean isPlayerFalling(Player player) {
-        return !player.isOnGround() && player.getDeltaMovement().y() < 0 //not on ground & motion downwards
+        return !player.onGround() && player.getDeltaMovement().y() < 0 //not on ground & motion downwards
                 && !player.getAbilities().flying && !player.isFallFlying() //not (elytra) flying
                 && !player.isInWater() && !player.isInLava(); //not in fluid
     }

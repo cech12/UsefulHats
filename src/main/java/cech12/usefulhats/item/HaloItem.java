@@ -43,7 +43,7 @@ public class HaloItem extends AbstractHatItem implements IAttackTargetChanger, I
     }
 
     private static boolean isEntityInNether(Entity entity) {
-        return entity.level.dimensionType().respawnAnchorWorks();
+        return entity.level().dimensionType().respawnAnchorWorks();
     }
 
     @Override
@@ -79,7 +79,7 @@ public class HaloItem extends AbstractHatItem implements IAttackTargetChanger, I
         Vec3 playerPos = entity.position();
         int range = 32;
         AABB radius = new AABB(playerPos.x()-range, playerPos.y()-range, playerPos.z()-range, playerPos.x()+range, playerPos.y()+range, playerPos.z()+range);
-        entity.level.getEntitiesOfClass(Mob.class, radius, mob -> mob.getTarget() == entity && !mob.getType().is(Tags.EntityTypes.BOSSES))
+        entity.level().getEntitiesOfClass(Mob.class, radius, mob -> mob.getTarget() == entity && !mob.getType().is(Tags.EntityTypes.BOSSES))
                 .forEach(mob -> mob.setTarget(null));
     }
 

@@ -34,7 +34,7 @@ public class AbstractHatItemCurioCapability implements ICurio {
     @Override
     public void curioTick(SlotContext slotContext) {
         if (ServerConfig.CURIOS_ENABLED.get() && slotContext.entity() instanceof Player player) {
-            this.stack.getItem().onArmorTick(this.stack, player.level, player);
+            this.stack.getItem().onArmorTick(this.stack, player.level(), player);
         }
     }
 

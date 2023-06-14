@@ -1,5 +1,5 @@
 package cech12.usefulhats.client.compat;
-
+/* TODO re-add Lucent
 import cech12.usefulhats.UsefulHatsMod;
 import cech12.usefulhats.item.MiningHatItem;
 import com.legacy.lucent.api.plugin.ILucentPlugin;
@@ -24,3 +24,4 @@ public class LucentPlugin implements ILucentPlugin {
     }
 
 }
+ */

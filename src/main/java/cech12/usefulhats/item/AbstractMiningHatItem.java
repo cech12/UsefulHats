@@ -19,7 +19,7 @@ public abstract class AbstractMiningHatItem extends AbstractHatItem implements I
         if (speedConfig == null || speedConfig.length == 0) {
             return 0.0;
         }
-        int enchantmentLevel = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY, stack);
+        int enchantmentLevel = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY, stack);
         if (enchantmentLevel >= speedConfig.length) {
             return speedConfig[speedConfig.length - 1];
         }

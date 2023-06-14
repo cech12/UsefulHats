@@ -37,7 +37,7 @@ public class MiningHatItem extends AbstractMiningHatItem implements IEquipmentCh
                 && UsefulHatsUtils.getEquippedHatItemStacks(player).stream().anyMatch(stack -> stack.getItem() == ModItems.MINING_HAT.get())
                 && StreamSupport.stream(player.getHandSlots().spliterator(), false).anyMatch(stack -> stack.canPerformAction(ToolActions.PICKAXE_DIG))
                 && player.getEffect(MobEffects.NIGHT_VISION) == null
-                && player.level.getMaxLocalRawBrightness(player.blockPosition()) < 8;
+                && player.level().getMaxLocalRawBrightness(player.blockPosition()) < 8;
     }
 
     @Override
@@ -85,7 +85,7 @@ public class MiningHatItem extends AbstractMiningHatItem implements IEquipmentCh
                 return;
             //when holding a pickaxe or being in dark areas, add the night vision effect - else remove it
             if (StreamSupport.stream(player.getHandSlots().spliterator(), false).anyMatch(handStack -> handStack.canPerformAction(ToolActions.PICKAXE_DIG))
-                    && player.level.getMaxLocalRawBrightness(player.blockPosition()) < 8) {
+                    && player.level().getMaxLocalRawBrightness(player.blockPosition()) < 8) {
                 if (player.getEffect(MobEffects.NIGHT_VISION) == null || player.tickCount % 19 == 0) {
                     this.addEffect(player, MobEffects.NIGHT_VISION, NIGHT_VISION_DURATION, NIGHT_VISION_AMPLIFIER);
                 }

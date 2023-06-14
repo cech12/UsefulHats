@@ -176,7 +176,7 @@ public abstract class AbstractHatItem extends ArmorItem implements DyeableLeathe
     protected void damageHatItemByOne(ItemStack stack, Player entity) {
         if (!this.enabledDamageConfig.get()) return;
 
-        if (!entity.level.isClientSide && !entity.getAbilities().instabuild) {
+        if (!entity.level().isClientSide && !entity.getAbilities().instabuild) {
             if (this.canBeDepleted()) {
                 if (stack.hurt(1, entity.getRandom(), entity instanceof ServerPlayer ? (ServerPlayer)entity : null)) {
                     entity.broadcastBreakEvent(EquipmentSlot.HEAD);

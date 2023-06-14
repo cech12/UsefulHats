@@ -4,14 +4,10 @@ import cech12.usefulhats.client.UsefulHatLayers;
 import cech12.usefulhats.compat.CuriosMod;
 import cech12.usefulhats.config.CommonConfig;
 import cech12.usefulhats.config.ServerConfig;
+import cech12.usefulhats.init.ModCreativeTabs;
 import cech12.usefulhats.init.ModItems;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
@@ -32,12 +28,11 @@ public class UsefulHatsMod {
 
     public static final String MOD_ID = "usefulhats";
 
-    public static CreativeModeTab ITEM_GROUP;
-
     public UsefulHatsMod() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         ModItems.ITEMS.register(modEventBus);
         ModItems.addEventListeners();
+        ModCreativeTabs.TABS.register(modEventBus);
         //Configs
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CommonConfig.COMMON_CONFIG);
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ServerConfig.SERVER_CONFIG);
@@ -60,14 +55,4 @@ public class UsefulHatsMod {
         ModItems.setupClient();
     }
 
-    @SubscribeEvent
-    public static void registerTabs(CreativeModeTabEvent.Register event) {
-        ITEM_GROUP = event.registerCreativeModeTab(new ResourceLocation(MOD_ID, "main_tab"), builder -> builder
-                .icon(() -> new ItemStack(ModItems.STOCKING_CAP.get()))
-                .title(Component.translatable("tabs.usefulhats.main_tab"))
-                .displayItems((featureFlags, output) -> {
-                    ModItems.ITEMS.getEntries().forEach(itemRegistryObject -> output.accept(itemRegistryObject.get()));
-                })
-        );
-    }
 }

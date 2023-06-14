@@ -153,7 +153,7 @@ public class EnderHelmetItem extends AbstractHatItem implements IRightClickListe
                         //teleport player
                         player.fallDistance = 0;
                         player.playNotifySound(SoundEvents.ENDERMAN_TELEPORT, SoundSource.PLAYERS, 1F, 1F);
-                        if (player.level != destinationWorld) {
+                        if (player.level() != destinationWorld) {
                             ((ServerPlayer) player).teleportTo(destinationWorld, destinationPos.getX() + 0.5, destinationPos.getY(), destinationPos.getZ() + 0.5, player.yRotO, player.xRotO);
                         } else {
                             player.teleportTo(destinationPos.getX() + 0.5, destinationPos.getY(), destinationPos.getZ() + 0.5);
