@@ -1,40 +1,38 @@
 modLoader="javafml"
-loaderVersion="[47,)"
-issueTrackerURL="https://github.com/cech12/UsefulHats/issues"
-license="The MIT License (MIT)"
+loaderVersion="${loader_version_range}"
+issueTrackerURL="${mod_issue_tracker}"
+license="${mod_license}"
 [[mods]]
-    modId="usefulhats"
-    version="${file.jarVersion}"
-    displayName="Useful Hats"
-    displayURL="https://github.com/cech12/UsefulHats"
+    modId="${mod_id}"
+    version="${minecraft_version}-${mod_version}"
+    displayName="${mod_name}"
+    displayURL="${mod_url}"
     logoFile="logo.png"
-    authors="Cech12"
-    description='''
-    A mod which adds some useful hats.
-    '''
-[[dependencies.usefulhats]]
+    authors="${mod_authors}"
+    description='''${mod_description}'''
+[[dependencies.${mod_id}]]
     modId="forge"
     mandatory=true
-    versionRange="[47.0.1,)"
+    versionRange="${forge_version_range}"
     ordering="NONE"
     side="BOTH"
-[[dependencies.usefulhats]]
+[[dependencies.${mod_id}]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.20.1,)"
+    versionRange="${minecraft_version_range}"
     ordering="NONE"
     side="BOTH"
-[[dependencies.usefulhats]]
+[[dependencies.${mod_id}]]
     modId="curios"
     mandatory=false
-    versionRange="[1.20.1-5.2.0,)"
+    versionRange="${curios_version_range}"
     referralUrl="https://github.com/TheIllusiveC4/Curios"
     ordering="NONE"
     side="BOTH"
-[[dependencies.usefulhats]]
+[[dependencies.${mod_id}]]
     modId="lucent"
     mandatory=false
-    versionRange="[1.5.2,)"
+    versionRange="${lucent_version_range}"
     referralUrl="https://www.curseforge.com/minecraft/mc-mods/lucent"
     ordering="NONE"
     side="BOTH"
