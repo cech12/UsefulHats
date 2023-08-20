@@ -9,8 +9,7 @@ public class LucentMod {
     private LucentMod() {}
 
     public static boolean isLoaded() {
-        return false; //TODO re-add Lucent
-        //return ModList.get().isLoaded(MOD_ID);
+        return ModList.get().isLoaded(MOD_ID);
     }
 
 }
