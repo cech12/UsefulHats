@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "de.cech12.usefulhats.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "usefulhats.refmap.json",
+  "mixins": [
+    "CommonItemMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "minVersion": "0.8"
+}

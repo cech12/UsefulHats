@@ -3,6 +3,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Forge Recommended Versioning](https://mcforge.readthedocs.io/en/latest/conventions/versioning/).
 
+## [1.20.4-5.0.0.0] - 2024-03-15
+### Changed
+- updated to Minecraft 1.20.4 (Forge 49.0.31, Neoforge 20.4.200)
+- updated compat with Curios to 1.20.4-7.3.0+ (Forge & Neoforge)
+- updated compat with Lucent to 1.20.4-1.6.0+ (Neoforge)
+
+### Removed
+- config option "isCuriosEnabled" (always enabled)
+
 ## [1.20.1-4.2.0.0] - 2023-08-20
 ### Changed
 - Re-added Lucent 1.20.1-1.5.3 support #50
