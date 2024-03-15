@@ -75,16 +75,9 @@ tasks.withType(JavaCompile).configureEach {
 //tasks.named("sourcesJar", Jar) {
 //    from(project(":common").sourceSets.main.allSource)
 //}
-tasks.named("apiJar", Jar) {
-    from(project(":common").sourceSets.main.allSource)
-}
 
 processResources {
     from project(":common").sourceSets.main.resources
-}
-
-artifacts {
-    archives apiJar
 }
 
 jar.finalizedBy('reobfJar')

@@ -35,12 +35,6 @@ subprojects {
     //    from(rootProject.file("LICENSE"))
     //}
 
-    tasks.register('apiJar', Jar) {
-        archiveClassifier.set('api')
-        include project.group.replace('.', '/') + '/api/**/*'
-        from sourceSets.main.allSource
-    }
-
     repositories {
         mavenCentral()
         maven {
