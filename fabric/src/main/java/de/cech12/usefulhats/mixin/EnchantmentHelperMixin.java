@@ -23,7 +23,7 @@ import java.util.List;
 public class EnchantmentHelperMixin {
 
     @Inject(method = "getAvailableEnchantmentResults", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/enchantment/Enchantment;isDiscoverable()Z", shift = At.Shift.AFTER))
-    private static void getAvailableEnchantmentResultsProxy(int i, ItemStack itemStack, boolean bl, CallbackInfoReturnable<List<EnchantmentInstance>> cir, @Local(name = "bl2") LocalBooleanRef bl2, @Local LocalRef<Enchantment> enchantment) {
+    private static void getAvailableEnchantmentResultsProxy(int i, ItemStack itemStack, boolean bl, CallbackInfoReturnable<List<EnchantmentInstance>> cir, @Local(ordinal = 1) LocalBooleanRef bl2, @Local LocalRef<Enchantment> enchantment) {
         if (itemStack.getItem() instanceof AbstractHatItem hatItem) {
             if (hatItem.canApplyAtEnchantingTable(itemStack, enchantment.get())) {
                 bl2.set(true);
