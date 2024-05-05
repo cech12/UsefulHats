@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "###",
+    "# #"
+  ],
+  "key": {
+    "#": {
+      "tag": "forge:ender_pearls"
+    }
+  },
+  "result": {
+    "item": "usefulhats:ender_helmet"
+  }
+}

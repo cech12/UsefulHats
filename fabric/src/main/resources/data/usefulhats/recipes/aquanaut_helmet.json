@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "#O#",
+    "#G#"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:scute"
+    },
+    "O": {
+      "item": "minecraft:turtle_helmet"
+    },
+    "G": {
+      "tag": "c:glass_panes"
+    }
+  },
+  "result": {
+    "item": "usefulhats:aquanaut_helmet"
+  }
+}

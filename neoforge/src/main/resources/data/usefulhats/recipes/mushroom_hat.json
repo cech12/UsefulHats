@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "###",
+    "# #"
+  ],
+  "key": {
+    "#": {
+      "tag": "forge:mushroom_caps"
+    }
+  },
+  "result": {
+    "item": "usefulhats:mushroom_hat"
+  }
+}

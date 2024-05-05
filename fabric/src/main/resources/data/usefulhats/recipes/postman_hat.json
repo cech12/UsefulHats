@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "#O#",
+    "# #"
+  ],
+  "key": {
+    "#": {
+      "tag": "c:lapis"
+    },
+    "O": {
+      "item": "minecraft:gold_nugget"
+    }
+  },
+  "result": {
+    "item": "usefulhats:postman_hat"
+  }
+}

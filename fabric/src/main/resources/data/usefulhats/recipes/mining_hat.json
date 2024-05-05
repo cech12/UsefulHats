@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "#O#",
+    "# #"
+  ],
+  "key": {
+    "#": {
+      "tag": "c:gold_ingots"
+    },
+    "O": {
+      "item": "minecraft:glowstone_dust"
+    }
+  },
+  "result": {
+    "item": "usefulhats:mining_hat"
+  }
+}
