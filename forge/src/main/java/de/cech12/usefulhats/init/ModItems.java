@@ -1,7 +1,7 @@
 package de.cech12.usefulhats.init;
 
 import de.cech12.usefulhats.Constants;
-import de.cech12.usefulhats.client.compat.CurioRenderer;
+import de.cech12.usefulhats.compat.CuriosMod;
 import de.cech12.usefulhats.item.*;
 import de.cech12.usefulhats.platform.Services;
 import net.minecraft.client.Minecraft;
@@ -33,8 +33,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
-import top.theillusivec4.curios.api.event.CurioChangeEvent;
 
 @Mod.EventBusSubscriber(modid= Constants.MOD_ID, bus= Mod.EventBusSubscriber.Bus.MOD)
 public class ModItems {
@@ -83,7 +81,7 @@ public class ModItems {
         MinecraftForge.EVENT_BUS.addListener(ModItems::onRightClickItemEvent);
         //curios events
         if (Services.PLATFORM.isModLoaded(Constants.CURIOS_MOD_ID)) {
-            MinecraftForge.EVENT_BUS.addListener(ModItems::onCuriosEquipmentChangeEvent);
+            MinecraftForge.EVENT_BUS.addListener(CuriosMod::onCuriosEquipmentChangeEvent);
         }
     }
 
@@ -94,9 +92,7 @@ public class ModItems {
     public static void setupClient() {
         //curio rendering
         if (Services.PLATFORM.isModLoaded(Constants.CURIOS_MOD_ID)) {
-            for (RegistryObject<Item> item : ITEMS.getEntries()) {
-                CuriosRendererRegistry.register(item.get(), CurioRenderer::getInstance);
-            }
+            CuriosMod.setupClient();
         }
     }
 
@@ -215,7 +211,7 @@ public class ModItems {
         }
     }
 
-    private static void onEquipmentChanged(LivingEntity entity, ItemStack fromItemStack, ItemStack toItemStack) {
+    public static void onEquipmentChanged(LivingEntity entity, ItemStack fromItemStack, ItemStack toItemStack) {
         Item fromItem = fromItemStack.getItem();
         Item toItem = toItemStack.getItem();
         if (fromItem != toItem && (fromItem instanceof IEquipmentChangeListener || toItem instanceof IEquipmentChangeListener)) {
@@ -239,16 +235,6 @@ public class ModItems {
         if (event.getSlot() == EquipmentSlot.HEAD) {
             onEquipmentChanged(event.getEntity(), event.getFrom(), event.getTo());
         }
-    }
-
-    /**
-     * equipment change event of curios mod
-     */
-    private static void onCuriosEquipmentChangeEvent(CurioChangeEvent event) {
-        if (event.isCanceled()) {
-            return;
-        }
-        onEquipmentChanged(event.getEntity(), event.getFrom(), event.getTo());
     }
 
     private static void onLivingChangeTargetEvent(LivingChangeTargetEvent event) {

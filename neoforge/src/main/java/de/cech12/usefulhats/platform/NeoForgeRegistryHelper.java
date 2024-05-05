@@ -1,6 +1,7 @@
 package de.cech12.usefulhats.platform;
 
 import de.cech12.usefulhats.Constants;
+import de.cech12.usefulhats.compat.CuriosMod;
 import de.cech12.usefulhats.item.AbstractHatItem;
 import de.cech12.usefulhats.platform.services.IRegistryHelper;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -13,7 +14,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.ToolActions;
-import top.theillusivec4.curios.api.CuriosApi;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -44,16 +44,7 @@ public class NeoForgeRegistryHelper implements IRegistryHelper {
             stacks.add(headItemStack);
         }
         if (Services.PLATFORM.isModLoaded(Constants.CURIOS_MOD_ID)) {
-            //all curios slots that contain an AbstractHatItem
-            CuriosApi.getCuriosHelper().getEquippedCurios(entity).ifPresent(itemHandler -> {
-                int slots = itemHandler.getSlots();
-                for (int i = 0; i < slots; i++) {
-                    ItemStack stack = itemHandler.getStackInSlot(i);
-                    if (!stack.isEmpty() && stack.getItem() instanceof AbstractHatItem && stacks.stream().noneMatch(s -> s.getItem() == stack.getItem())) {
-                        stacks.add(stack);
-                    }
-                }
-            });
+            CuriosMod.addHatsToList(entity, stacks);
         }
         return stacks;
     }

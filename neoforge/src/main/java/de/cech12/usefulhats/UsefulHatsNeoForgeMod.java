@@ -4,6 +4,7 @@ import de.cech12.usefulhats.client.UsefulHatLayers;
 import de.cech12.usefulhats.compat.CuriosMod;
 import de.cech12.usefulhats.init.ModCreativeTabs;
 import de.cech12.usefulhats.init.ModItems;
+import de.cech12.usefulhats.platform.Services;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.IEventBus;
@@ -33,7 +34,9 @@ public class UsefulHatsNeoForgeMod {
 
     @SubscribeEvent
     public static void sendImc(InterModEnqueueEvent evt) {
-        CuriosMod.addHeadSlot();
+        if (Services.PLATFORM.isModLoaded(Constants.CURIOS_MOD_ID)) {
+            CuriosMod.addHeadSlot();
+        }
     }
 
     @OnlyIn(Dist.CLIENT)

@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - add Fabric (>=0.96.11+1.20.4) support (Fabric, Quilt)
 
 ### Fixed
+- fixed startup crash if optional Curios mod is missing in Neoforge
 - removed Log-Spam in Neoforge
 
 ## [1.20.4-5.0.0.0] - 2024-03-15
