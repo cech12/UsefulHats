@@ -58,7 +58,7 @@ public class CurioRenderer implements ICurioRenderer {
         ArmorItem item = (ArmorItem) stack.getItem();
         String locationString;
         if (item instanceof IUsefulHatModelOwner) {
-            locationString = UsefulHatsClientUtils.getArmorTexture(stack, type);
+            locationString = UsefulHatsClientUtils.getArmorTexture(item, type);
         } else {
             //mostly copied from BipedArmorLayer class
             String texture = item.getMaterial().getName();

@@ -9,7 +9,19 @@
 [![License](https://img.shields.io/github/license/cech12/UsefulHats)](http://opensource.org/licenses/MIT)
 [![](https://img.shields.io/discord/752506676719910963.svg?style=flat&color=informational&logo=discord&label=Discord)](https://discord.gg/gRUFH5t)
 
-This is a **Minecraft Forge** mod and adds some useful and configurable hats to the game. 
+This is a Minecraft mod that adds useful and configurable hats to the game. (Forge, NeoForge, Fabric, Quilt)
+
+## Dependencies
+
+The Fabric / Quilt version needs the following mods:
+* Fabric API ([Github](https://github.com/FabricMC/fabric), [Curseforge](https://www.curseforge.com/minecraft/mc-mods/fabric-api), [Modrinth](https://modrinth.com/mod/fabric-api))
+* Cloth Config API ([Github](https://github.com/shedaniel/cloth-config), [Curseforge](https://www.curseforge.com/minecraft/mc-mods/cloth-config), [Modrinth](https://modrinth.com/mod/cloth-config))
+
+This mod is compatible with:
+* Curios ([Github](https://github.com/TheIllusiveC4/Curios), [Curseforge](https://www.curseforge.com/minecraft/mc-mods/curios), [Modrinth](https://modrinth.com/mod/curios)) (since 1.7.0) 
+* Baubles Reborn ([Github](https://github.com/lazyMods/Baubles), [Curseforge](https://www.curseforge.com/minecraft/mc-mods/baubles-reborn)) (since 1.8.3 until Minecraft 1.18.1).
+
+## Features
 
 ![All Hats](https://raw.githubusercontent.com/cech12/UsefulHats/material/material/wiki/all_hats.png)
 
@@ -28,7 +40,5 @@ This is a **Minecraft Forge** mod and adds some useful and configurable hats to 
 * [Wing Helmet](https://github.com/cech12/UsefulHats/wiki/Wing-Helmet): Slow Falling effect while falling
 
 All included hats are dyable and configurable.
-
-This mod is compatible with [Curios](https://www.curseforge.com/minecraft/mc-mods/curios) (since 1.7.0) and [Baubles Reborn](https://www.curseforge.com/minecraft/mc-mods/baubles-reborn) (since 1.8.3).
 
 For more information check out the **Wiki**: https://github.com/cech12/UsefulHats/wiki

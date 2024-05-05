@@ -13,7 +13,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.client.model.HumanoidModel;
 
 /**
- * Hat model class, which adds an hat flat addition (like straw hat for villagers) .
+ * Hat model class, which adds a hat flat addition (like straw hat for villagers) .
  * The hat is a half pixel higher than a normal helmet.
  */
 public class UsefulHatModel<T extends LivingEntity> extends HumanoidModel<T> {

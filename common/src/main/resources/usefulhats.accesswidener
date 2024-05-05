@@ -1,0 +1,8 @@
+accessWidener v2 named
+accessible field net/minecraft/client/model/geom/builders/CubeDeformation growX F
+accessible field net/minecraft/client/model/geom/builders/CubeDeformation growY F
+accessible field net/minecraft/client/model/geom/builders/CubeDeformation growZ F
+
+accessible field net/minecraft/client/model/geom/LayerDefinitions INNER_ARMOR_DEFORMATION Lnet/minecraft/client/model/geom/builders/CubeDeformation;
+
+accessible field net/minecraft/world/entity/Mob targetSelector Lnet/minecraft/world/entity/ai/goal/GoalSelector;

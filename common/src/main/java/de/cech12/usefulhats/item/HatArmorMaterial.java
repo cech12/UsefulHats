@@ -14,18 +14,18 @@ import java.util.function.Supplier;
 
 public enum HatArmorMaterial implements ArmorMaterial {
 
-    AQUANAUT("usefulhats:blank", Services.CONFIG::getAquanautHelmetDurability, 15, SoundEvents.ARMOR_EQUIP_TURTLE, () -> Ingredient.of(Items.SCUTE)),
-    BUNNY("usefulhats:blank", Services.CONFIG::getBunnyEarsDurability, 15, SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.of(Items.RABBIT_HIDE, Items.CARROT)),
+    AQUANAUT("usefulhats:aquanaut_helmet", Services.CONFIG::getAquanautHelmetDurability, 15, SoundEvents.ARMOR_EQUIP_TURTLE, () -> Ingredient.of(Items.SCUTE)),
+    BUNNY("usefulhats:bunny_ears", Services.CONFIG::getBunnyEarsDurability, 15, SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.of(Items.RABBIT_HIDE, Items.CARROT)),
     CHOPPING("usefulhats:chopping", Services.CONFIG::getChoppingHatDurability, 15, SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.of(Items.RABBIT_HIDE)),
     ENDER("usefulhats:ender", Services.CONFIG::getEnderHelmetDurability, 15, SoundEvents.ARMOR_EQUIP_IRON, () -> Ingredient.of(Items.ENDER_PEARL)),
     HALO("usefulhats:halo", Services.CONFIG::getHaloDurability, 15, SoundEvents.ARMOR_EQUIP_GOLD, () -> Ingredient.of(Items.GLOWSTONE_DUST)),
-    LUCKY("usefulhats:blank", Services.CONFIG::getLuckyHatDurability, 15, SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.of(Items.RABBIT_FOOT)),
-    MINING("usefulhats:blank", Services.CONFIG::getMiningHatDurability, 15, SoundEvents.ARMOR_EQUIP_GOLD, () -> Ingredient.of(Items.GOLD_INGOT)),
-    MUSHROOM("usefulhats:blank", Services.CONFIG::getMushroomHatDurability, 15, SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.of(UsefulHatsTags.Items.MUSHROOM_CAPS)),
-    POSTMAN("usefulhats:blank", Services.CONFIG::getPostmanHatDurability, 15, SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.of(Items.LAPIS_LAZULI)),
+    LUCKY("usefulhats:lucky_hat", Services.CONFIG::getLuckyHatDurability, 15, SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.of(Items.RABBIT_FOOT)),
+    MINING("usefulhats:mining_hat", Services.CONFIG::getMiningHatDurability, 15, SoundEvents.ARMOR_EQUIP_GOLD, () -> Ingredient.of(Items.GOLD_INGOT)),
+    MUSHROOM("usefulhats:mushroom_hat", Services.CONFIG::getMushroomHatDurability, 15, SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.of(UsefulHatsTags.Items.MUSHROOM_CAPS)),
+    POSTMAN("usefulhats:postman_hat", Services.CONFIG::getPostmanHatDurability, 15, SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.of(Items.LAPIS_LAZULI)),
     SHULKER("usefulhats:shulker", Services.CONFIG::getShulkerHelmetDurability, 15, SoundEvents.ARMOR_EQUIP_IRON, () -> Ingredient.of(Items.SHULKER_SHELL, Items.PHANTOM_MEMBRANE)),
-    STOCKING("usefulhats:blank", Services.CONFIG::getStockingCapDurability, 25, SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.of(Items.STRING)),
-    STRAW("usefulhats:blank", Services.CONFIG::getStrawHatDurability, 15, SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.of(Items.WHEAT)),
+    STOCKING("usefulhats:stocking_cap", Services.CONFIG::getStockingCapDurability, 25, SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.of(Items.STRING)),
+    STRAW("usefulhats:straw_hat", Services.CONFIG::getStrawHatDurability, 15, SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.of(Items.WHEAT)),
     WING("usefulhats:wing", Services.CONFIG::getWingHelmetDurability, 15, SoundEvents.ARMOR_EQUIP_IRON, () -> Ingredient.of(Items.FEATHER, Items.PHANTOM_MEMBRANE));
 
     private final String name;

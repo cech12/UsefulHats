@@ -2,9 +2,10 @@ package de.cech12.usefulhats.item;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import de.cech12.usefulhats.Constants;
 import de.cech12.usefulhats.client.UsefulHatsClientUtils;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.DyeableArmorItem;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -15,8 +16,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.DyeableLeatherItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.effect.MobEffect;
@@ -33,7 +32,7 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public abstract class AbstractHatItem extends ArmorItem implements DyeableLeatherItem {
+public abstract class AbstractHatItem extends DyeableArmorItem {
 
     private final HatArmorMaterial material;
     private final int initColor;
@@ -162,7 +161,7 @@ public abstract class AbstractHatItem extends ArmorItem implements DyeableLeathe
      * FORGE & NEOFORGE SPECIFIC METHODS
      */
 
-    //@Override //overrides interface method of Forge & Neoforge
+    //@Override //overrides interface method of Forge & Neoforge //Fabric uses canApplyAtEnchantingTable in an Enchantment Mixin
     public boolean isBookEnchantable(ItemStack stack, ItemStack book) {
         for (Enchantment enchantment : EnchantmentHelper.getEnchantments(book).keySet()) {
             if (!this.canApplyAtEnchantingTable(stack, enchantment)) {
@@ -172,7 +171,7 @@ public abstract class AbstractHatItem extends ArmorItem implements DyeableLeathe
         return true;
     }
 
-    //@Override //overrides interface method of Forge & Neoforge
+    //@Override //overrides interface method of Forge & Neoforge //Fabric uses this method in Mixin
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
         if (this.allowedEnchantments.contains(enchantment)) {
             return true;
@@ -196,10 +195,9 @@ public abstract class AbstractHatItem extends ArmorItem implements DyeableLeathe
         return 0;
     }
 
-    //@Override //overrides interface method of Forge & Neoforge
+    //@Override //overrides interface method of Forge & Neoforge //Fabric has its own renderer
     public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-        Constants.LOG.error("AbstractHatItem::getArmorTexture");
-        return UsefulHatsClientUtils.getArmorTexture(stack, type);
+        return UsefulHatsClientUtils.getArmorTexture((ArmorItem) stack.getItem(), type);
     }
 
 }
