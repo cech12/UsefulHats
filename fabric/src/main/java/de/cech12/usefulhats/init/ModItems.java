@@ -41,18 +41,4 @@ public class ModItems {
         return hat;
     }
 
-    public static boolean onRightClickItemEvent(Level level, Player player, InteractionHand hand, ItemStack stack) {
-        for (ItemStack headSlotItemStack : Services.REGISTRY.getEquippedHatItemStacks(player)) {
-            for (Item item : ALL_HATS) {
-                if (item instanceof IRightClickListener rightClickListener && item == headSlotItemStack.getItem()) {
-                    boolean cancelEvent = rightClickListener.onRightClickItemEvent(level, player, stack, hand, headSlotItemStack);
-                    if (cancelEvent) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
 }

@@ -80,6 +80,7 @@ subprojects {
                 "mod_url": mod_url,
                 "mod_issue_tracker": mod_issue_tracker,
                 "mod_description": project.description,
+                "trinkets_version": trinkets_version,
                 "curios_version": curios_version,
                 "curios_version_range": curios_version_range,
                 "lucent_version": lucent_version,

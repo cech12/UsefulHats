@@ -1,12 +1,10 @@
 package de.cech12.usefulhats.mixin;
 
-import de.cech12.usefulhats.init.ModItems;
 import de.cech12.usefulhats.item.IGameOverlayRenderer;
 import de.cech12.usefulhats.platform.Services;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -24,10 +22,8 @@ public class GuiMixin {
         Minecraft mc = Minecraft.getInstance();
         if (mc.player != null && mc.options.getCameraType().isFirstPerson()) {
             for (ItemStack headSlotItemStack : Services.REGISTRY.getEquippedHatItemStacks(mc.player)) {
-                for (Item item : ModItems.ALL_HATS) {
-                    if (item instanceof IGameOverlayRenderer gameOverlayRenderer && item == headSlotItemStack.getItem()) {
-                        gameOverlayRenderer.onRenderGameOverlay(guiGraphics.guiWidth(), guiGraphics.guiHeight(), tickDelta);
-                    }
+                if (headSlotItemStack.getItem() instanceof IGameOverlayRenderer gameOverlayRenderer) {
+                    gameOverlayRenderer.onRenderGameOverlay(guiGraphics.guiWidth(), guiGraphics.guiHeight(), tickDelta);
                 }
             }
         }

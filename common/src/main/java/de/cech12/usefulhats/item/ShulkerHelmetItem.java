@@ -43,7 +43,7 @@ public class ShulkerHelmetItem extends AbstractHatItem implements IEquipmentChan
                     this.addEffect(player, MobEffects.LEVITATION, LEVITATION_DURATION, levitationAmplifier);
                 }
                 //calculate damage if levitation is caused by this item
-                if (level.random.nextInt(20) == 0) {
+                if (player.tickCount % 20 == 0) {
                     this.damageHatItemByOne(stack, player);
                 }
             }

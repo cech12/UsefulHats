@@ -4,8 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Forge Recommended Versioning](https://mcforge.readthedocs.io/en/latest/conventions/versioning/).
 
 ## [1.20.4-5.1.1.0] - 2024-05-06
+### Added
+- added Trinkets 3.8.1 mod support (Fabric, Quilt)
+
+### Changed
+- optimized event handling for better performance (all loaders)
+- some items are now damaged by time instead of a random factor (all loaders)
+
 ### Fixed
-- Fixed the ModMenu screen in Fabric / Quilt
+- fixed the ModMenu screen in Fabric / Quilt
+- fixed startup crash on dedicated servers (Forge, Neoforge)
 
 ## [1.20.4-5.1.0.0] - 2024-05-05
 ### Added

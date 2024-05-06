@@ -57,7 +57,7 @@ public class PostmanHatItem extends AbstractHatItem implements IEquipmentChangeL
                         }
                     }
                 }
-                if (level.random.nextInt(20) == 0) {
+                if (player.tickCount % 20 == 0) {
                     this.damageHatItemByOne(stack, player);
                 }
             } else {

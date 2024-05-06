@@ -76,7 +76,7 @@ public class WingHelmetItem extends AbstractHatItem implements IEquipmentChangeL
             //calculate damage if slow falling or levitation is caused by this item
             if ((isSlowFallingEffectActive && !isSlowFallingFromOtherSource) ||
                     (isLevitationEffectActive && !isLevitationFromOtherSource && Services.CONFIG.isWingHelmetLevitationEnabled())) {
-                if (level.random.nextInt(20) == 0) {
+                if (player.tickCount % 20 == 0) {
                     this.damageHatItemByOne(stack, player);
                 }
             }

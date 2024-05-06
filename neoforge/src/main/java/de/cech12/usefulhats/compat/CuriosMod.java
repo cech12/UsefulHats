@@ -1,6 +1,7 @@
 package de.cech12.usefulhats.compat;
 
 import de.cech12.usefulhats.Constants;
+import de.cech12.usefulhats.UsefulHatsEventUtils;
 import de.cech12.usefulhats.client.compat.CurioRenderer;
 import de.cech12.usefulhats.init.ModItems;
 import de.cech12.usefulhats.item.AbstractHatItem;
@@ -38,7 +39,8 @@ public class CuriosMod {
      * equipment change event of curios mod
      */
     public static void onCuriosEquipmentChangeEvent(CurioChangeEvent event) {
-        ModItems.onEquipmentChanged(event.getEntity(), event.getFrom(), event.getTo());
+        UsefulHatsEventUtils.onUnequip(event.getEntity(), event.getFrom());
+        UsefulHatsEventUtils.onEquip(event.getEntity(), event.getTo());
     }
 
     /**

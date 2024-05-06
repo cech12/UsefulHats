@@ -2,6 +2,7 @@ package de.cech12.usefulhats.platform;
 
 import de.cech12.usefulhats.Constants;
 import de.cech12.usefulhats.compat.CuriosMod;
+import de.cech12.usefulhats.init.ModItems;
 import de.cech12.usefulhats.item.AbstractHatItem;
 import de.cech12.usefulhats.platform.services.IRegistryHelper;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -33,6 +34,11 @@ public class NeoForgeRegistryHelper implements IRegistryHelper {
     @Override
     public boolean isBossEntity(LivingEntity entity) {
         return entity.getType().is(Tags.EntityTypes.BOSSES);
+    }
+
+    @Override
+    public List<Item> getAllHatItems() {
+        return ModItems.ITEMS.getEntries().stream().map(itemDeferredHolder -> (Item) itemDeferredHolder.get()).toList();
     }
 
     @Override

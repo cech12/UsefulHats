@@ -41,20 +41,20 @@ public class HaloItem extends AbstractHatItem implements IAttackTargetChanger, I
     }
 
     @Override
-    public void onEntityJoinWorldEvent(Mob entity) {
+    public void onEntityJoinWorldEvent(LivingEntity entity) {
         // add attack goal to all neutral nether mobs against players with halo on (only in nether)
         // - Hoglins/Zoglins (hostile) - nothing to do
         // - Piglins (hostile except golden armor) - TODO add the goal unrelated to golden armor - difficult because of its brain implementation
         // - Zombified Piglins (neutral) - add the goal
-        if (entity instanceof ZombifiedPiglin) {
-            Services.REGISTRY.addGoalToMob(entity, 1, new NearestHaloTargetGoal(entity, this));
+        if (entity instanceof ZombifiedPiglin zombifiedPiglin) {
+            Services.REGISTRY.addGoalToMob(zombifiedPiglin, 1, new NearestHaloTargetGoal(zombifiedPiglin, this));
         }
     }
 
     @Override
-    public boolean avoidMobChangingTarget(ItemStack stack, Mob mob, Player targetPlayer) {
+    public boolean avoidMobChangingTarget(ItemStack stack, LivingEntity entity, Player targetPlayer) {
         // avoid to get attacked from non-boss mob entities outside the nether
-        if (Services.REGISTRY.isBossEntity(mob) || isEntityInNether(targetPlayer)) return false;
+        if (Services.REGISTRY.isBossEntity(entity) || isEntityInNether(targetPlayer)) return false;
         if (this.enabledDamageConfig.get()) {
             //damage stack each second
             Integer previousDamageTick = PREVIOUS_DAMAGE_TICK_OF_PLAYER.get(targetPlayer);

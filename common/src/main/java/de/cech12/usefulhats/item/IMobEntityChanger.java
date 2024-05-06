@@ -1,9 +1,9 @@
 package de.cech12.usefulhats.item;
 
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.LivingEntity;
 
 public interface IMobEntityChanger {
 
-    void onEntityJoinWorldEvent(Mob entity);
+    void onEntityJoinWorldEvent(LivingEntity entity);
 
 }

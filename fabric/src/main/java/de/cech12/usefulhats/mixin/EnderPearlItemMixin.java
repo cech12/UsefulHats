@@ -1,6 +1,6 @@
 package de.cech12.usefulhats.mixin;
 
-import de.cech12.usefulhats.init.ModItems;
+import de.cech12.usefulhats.UsefulHatsEventUtils;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -20,8 +20,7 @@ public class EnderPearlItemMixin {
 
     @Inject(method = "use", at = @At("HEAD"), cancellable = true)
     public void dropAllDeathLootProxy(Level level, Player player, InteractionHand interactionHand, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> cir) {
-        boolean cancel = ModItems.onRightClickItemEvent(level, player, interactionHand, player.getItemInHand(interactionHand));
-        if (cancel) {
+        if (UsefulHatsEventUtils.shouldRightClickBeCancelled(level, player, player.getItemInHand(interactionHand), interactionHand)) {
             cir.setReturnValue(InteractionResultHolder.sidedSuccess(player.getItemInHand(interactionHand), level.isClientSide()));
         }
     }

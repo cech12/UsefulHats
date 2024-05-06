@@ -39,6 +39,7 @@
     "cloth-config": ">=${cloth_config_version}"
   },
   "recommends": {
-    "modmenu": ">=${mod_menu_version}"
+    "modmenu": ">=${mod_menu_version}",
+    "trinkets": ">=${trinkets_version}"
   }
 }

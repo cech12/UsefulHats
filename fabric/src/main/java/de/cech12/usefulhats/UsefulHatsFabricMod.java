@@ -1,7 +1,9 @@
 package de.cech12.usefulhats;
 
+import de.cech12.usefulhats.compat.TrinketsCompat;
 import de.cech12.usefulhats.init.ModCreativeTabs;
 import de.cech12.usefulhats.init.ModItems;
+import de.cech12.usefulhats.platform.Services;
 import net.fabricmc.api.ModInitializer;
 
 public class UsefulHatsFabricMod implements ModInitializer {
@@ -11,6 +13,10 @@ public class UsefulHatsFabricMod implements ModInitializer {
         CommonLoader.init();
         ModItems.init();
         ModCreativeTabs.init();
+
+        if (Services.PLATFORM.isModLoaded(TrinketsCompat.MOD_ID)) {
+            TrinketsCompat.register();
+        }
     }
 
 }

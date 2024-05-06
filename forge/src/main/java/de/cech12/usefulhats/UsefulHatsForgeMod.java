@@ -40,10 +40,4 @@ public class UsefulHatsForgeMod {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
-    @SubscribeEvent
-    public static void onClientRegister(FMLClientSetupEvent event) {
-        ModItems.setupClient();
-    }
-
 }

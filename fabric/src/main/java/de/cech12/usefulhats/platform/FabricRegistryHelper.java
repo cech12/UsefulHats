@@ -1,5 +1,7 @@
 package de.cech12.usefulhats.platform;
 
+import de.cech12.usefulhats.compat.TrinketsCompat;
+import de.cech12.usefulhats.init.ModItems;
 import de.cech12.usefulhats.item.AbstractHatItem;
 import de.cech12.usefulhats.platform.services.IRegistryHelper;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalEntityTypeTags;
@@ -35,12 +37,20 @@ public class FabricRegistryHelper implements IRegistryHelper {
     }
 
     @Override
+    public List<Item> getAllHatItems() {
+        return ModItems.ALL_HATS;
+    }
+
+    @Override
     public List<ItemStack> getEquippedHatItemStacks(LivingEntity entity) {
         List<ItemStack> stacks = new LinkedList<>();
         //vanilla head slot
         ItemStack headItemStack = entity.getItemBySlot(EquipmentSlot.HEAD);
         if (headItemStack.getItem() instanceof AbstractHatItem) {
             stacks.add(headItemStack);
+        }
+        if (Services.PLATFORM.isModLoaded(TrinketsCompat.MOD_ID)) {
+            TrinketsCompat.addEquippedHatsToList(entity, stacks);
         }
         return stacks;
     }

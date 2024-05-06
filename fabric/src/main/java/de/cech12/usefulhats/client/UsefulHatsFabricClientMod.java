@@ -1,8 +1,10 @@
 package de.cech12.usefulhats.client;
 
 import de.cech12.usefulhats.CommonLoader;
-import de.cech12.usefulhats.init.ModItems;
+import de.cech12.usefulhats.client.compat.TrinketsClientCompat;
+import de.cech12.usefulhats.compat.TrinketsCompat;
 import de.cech12.usefulhats.item.IUsefulHatModelOwner;
+import de.cech12.usefulhats.platform.Services;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
@@ -22,14 +24,18 @@ public class UsefulHatsFabricClientMod implements ClientModInitializer {
     public void onInitializeClient() {
         //register entity model layer
         EntityModelLayerRegistry.registerModelLayer(USEFUL_HAT_LAYER, () -> UsefulHatModel.createLayer(LayerDefinitions.INNER_ARMOR_DEFORMATION, 0));
-        ModItems.ALL_HATS.forEach(item -> {
+        UsefulHatsArmorRenderer renderer = new UsefulHatsArmorRenderer();
+        Services.REGISTRY.getAllHatItems().forEach(item -> {
             //register item colors
             ColorProviderRegistry.ITEM.register((itemStack, layer) -> layer > 0 ? -1 : ((DyeableLeatherItem)(itemStack.getItem())).getColor(itemStack), item);
             //register armor renderer
             if (item instanceof IUsefulHatModelOwner) {
-                ArmorRenderer.register(new UsefulHatsArmorRenderer(), item);
+                ArmorRenderer.register(renderer, item);
             }
         });
+        if (Services.PLATFORM.isModLoaded(TrinketsCompat.MOD_ID)) {
+            TrinketsClientCompat.register();
+        }
     }
 
     public static void resetUsefulHatModel() {

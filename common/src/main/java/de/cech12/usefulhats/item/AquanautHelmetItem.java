@@ -56,7 +56,7 @@ public class AquanautHelmetItem extends AbstractHatItem implements IEquipmentCha
             if (!player.isEyeInFluid(FluidTags.WATER)) {
                 this.addEffect(player, MobEffects.CONDUIT_POWER, maxDuration, 0);
             } else {
-                if (player.getEffect(MobEffects.CONDUIT_POWER) != null && level.random.nextInt(20) == 0) {
+                if (player.getEffect(MobEffects.CONDUIT_POWER) != null && player.tickCount % 20 == 0) {
                     this.damageHatItemByOne(stack, player);
                 }
             }

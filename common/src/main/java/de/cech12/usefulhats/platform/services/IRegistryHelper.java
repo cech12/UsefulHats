@@ -21,6 +21,11 @@ public interface IRegistryHelper {
     boolean isBossEntity(LivingEntity entity);
 
     /**
+     * @return Returns all available useful hats.
+     */
+    List<Item> getAllHatItems();
+
+    /**
      * Get all equipped item stacks of hat items of this mod. Some APIs like Curios enables to have more than one slot.
      * If two hats of the same item are worn, only one is in the list to avoid effect stacking.
      * @param entity entity

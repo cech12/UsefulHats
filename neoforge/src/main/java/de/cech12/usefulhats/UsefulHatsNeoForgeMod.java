@@ -6,12 +6,10 @@ import de.cech12.usefulhats.init.ModCreativeTabs;
 import de.cech12.usefulhats.init.ModItems;
 import de.cech12.usefulhats.platform.Services;
 import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.DistExecutor;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.InterModEnqueueEvent;
 import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
 
@@ -37,12 +35,6 @@ public class UsefulHatsNeoForgeMod {
         if (Services.PLATFORM.isModLoaded(Constants.CURIOS_MOD_ID)) {
             CuriosMod.addHeadSlot();
         }
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    @SubscribeEvent
-    public static void onClientRegister(FMLClientSetupEvent event) {
-        ModItems.setupClient();
     }
 
 }

@@ -1,9 +1,7 @@
 package de.cech12.usefulhats.mixin;
 
-import de.cech12.usefulhats.init.ModItems;
-import de.cech12.usefulhats.item.IMobEntityChanger;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.item.Item;
+import de.cech12.usefulhats.UsefulHatsEventUtils;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.entity.EntityAccess;
 import net.minecraft.world.level.entity.PersistentEntitySectionManager;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,12 +17,8 @@ public class PersistentEntitySectionManagerMixin<T extends EntityAccess> {
 
     @Inject(at = @At("HEAD"), method = "addEntity")
     public void addEntityProxy(T entityAccess, boolean bl, CallbackInfoReturnable<Boolean> cir) {
-        if (entityAccess instanceof Mob entity) {
-            for (Item item : ModItems.ALL_HATS) {
-                if (item instanceof IMobEntityChanger iMobEntityChanger) {
-                    iMobEntityChanger.onEntityJoinWorldEvent(entity);
-                }
-            }
+        if (entityAccess instanceof LivingEntity entity) {
+            UsefulHatsEventUtils.onEntityJoinWorld(entity);
         }
     }
 

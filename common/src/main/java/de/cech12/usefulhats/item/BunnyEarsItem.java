@@ -44,7 +44,7 @@ public class BunnyEarsItem extends AbstractHatItem implements IEquipmentChangeLi
                     this.addEffect(player, MobEffects.JUMP, JUMP_BOOST_DURATION, amplifier);
                 }
                 //calculate damage if effect is caused by this item
-                if (level.random.nextInt(20) == 0) {
+                if (player.tickCount % 20 == 0) {
                     this.damageHatItemByOne(stack, player); //TODO only when jumping
                 }
             }
