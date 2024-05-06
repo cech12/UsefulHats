@@ -2,7 +2,7 @@ package de.cech12.usefulhats.item;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import de.cech12.usefulhats.client.UsefulHatsClientUtils;
+import de.cech12.usefulhats.client.AbstractUsefulHatsRenderer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.DyeableArmorItem;
@@ -197,7 +197,7 @@ public abstract class AbstractHatItem extends DyeableArmorItem {
 
     //@Override //overrides interface method of Forge & Neoforge //Fabric has its own renderer
     public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-        return UsefulHatsClientUtils.getArmorTexture((ArmorItem) stack.getItem(), type);
+        return AbstractUsefulHatsRenderer.getArmorTexture((ArmorItem) stack.getItem(), type);
     }
 
 }

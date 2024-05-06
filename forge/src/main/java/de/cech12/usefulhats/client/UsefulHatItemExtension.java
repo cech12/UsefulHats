@@ -18,6 +18,6 @@ public class UsefulHatItemExtension implements IClientItemExtensions {
     @Override
     @Nonnull
     public HumanoidModel<?> getHumanoidArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
-        return UsefulHatLayers.usefulHatModel;
+        return UsefulHatsForgeClientEvents.usefulHatModel;
     }
 }

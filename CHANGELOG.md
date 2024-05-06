@@ -10,10 +10,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 ### Changed
 - optimized event handling for better performance (all loaders)
 - some items are now damaged by time instead of a random factor (all loaders)
+- internal rendering overhaul (all loaders)
 
 ### Fixed
 - fixed the ModMenu screen in Fabric / Quilt
 - fixed startup crash on dedicated servers (Forge, Neoforge)
+- enchanted glint shimmering was not rendered in Curios slots (Forge, Neoforge)
 
 ## [1.20.4-5.1.0.0] - 2024-05-05
 ### Added
