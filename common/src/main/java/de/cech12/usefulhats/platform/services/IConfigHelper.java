@@ -109,7 +109,7 @@ public interface IConfigHelper {
     int LUCKY_HAT_DURABILITY_MIN = 1;
     int LUCKY_HAT_DURABILITY_MAX = 10000;
 
-    String LUCKY_HAT_UNLUCK_ENABLED_DESCRIPTION = "Whether or not Hunger effect of Lucky Hat should be enabled while running.";
+    String LUCKY_HAT_UNLUCK_ENABLED_DESCRIPTION = "Whether or not Unluck effect of Lucky Hat should be enabled after fishing/killing.";
     boolean LUCKY_HAT_UNLUCK_ENABLED_DEFAULT = true;
 
     String MINING_HAT_DAMAGE_ENABLED_DESCRIPTION = "Whether or not damaging of Mining Hat should be enabled.";
