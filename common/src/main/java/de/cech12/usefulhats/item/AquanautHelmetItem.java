@@ -65,8 +65,11 @@ public class AquanautHelmetItem extends AbstractHatItem implements IEquipmentCha
 
     @Override
     public void onUnequippedHatItem(LivingEntity entity, ItemStack oldStack) {
-        // disable effects when hat is removed from slot
-        this.removeEffect(entity, MobEffects.CONDUIT_POWER, this.getConduitPowerDuration(oldStack), 0);
+        if (!entity.level().isClientSide && entity instanceof Player player) {
+            if (Services.REGISTRY.getEquippedHatItemStacks(player).stream().anyMatch(stack -> stack.getItem() == this)) return;
+            // disable effects when hat is removed from slot
+            this.removeEffect(entity, MobEffects.CONDUIT_POWER, this.getConduitPowerDuration(oldStack), 0);
+        }
     }
 
     //to support other apis do not use this method

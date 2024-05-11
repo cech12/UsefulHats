@@ -15,7 +15,7 @@ import java.util.function.Consumer;
 @Mixin(value = Item.class, remap = false)
 public class ItemMixin {
 
-    @Inject(at = @At("RETURN"), method = "initializeClient", cancellable = true)
+    @Inject(at = @At("RETURN"), method = "initializeClient")
     public void initializeClient(@Nonnull Consumer<IClientItemExtensions> consumer, CallbackInfo ci) {
         if (this instanceof IUsefulHatModelOwner) {
             consumer.accept(UsefulHatItemExtension.INSTANCE);

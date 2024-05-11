@@ -1,6 +1,6 @@
 {
   "required": true,
-  "package": "${group}.mixin",
+  "package": "de.cech12.usefulhats.mixin",
   "compatibilityLevel": "JAVA_17",
   "refmap": "${mod_id}.refmap.json",
   "mixins": [
@@ -19,7 +19,8 @@
     "GuiMixin"
   ],
   "injectors": {
-    "defaultRequire": 1
+    "defaultRequire": 1,
+    "maxShiftBy": 2
   },
   "minVersion": "0.8"
 }
