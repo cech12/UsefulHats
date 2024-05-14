@@ -40,4 +40,9 @@ public class LivingEntityMixin {
         }
     }
 
+    @Inject(method = "jumpFromGround", at = @At("RETURN"))
+    public void jumpFromGroundProxy(CallbackInfo ci) {
+        UsefulHatsEventUtils.onLivingJump((LivingEntity) (Object) this);
+    }
+
 }

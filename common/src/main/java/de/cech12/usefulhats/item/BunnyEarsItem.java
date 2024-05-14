@@ -17,7 +17,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class BunnyEarsItem extends AbstractHatItem implements IEquipmentChangeListener, IItemUseListener, IUsefulHatModelOwner {
+public class BunnyEarsItem extends AbstractHatItem implements IEquipmentChangeListener, IItemUseListener, ILivingJumpListener, IUsefulHatModelOwner {
 
     private static final int JUMP_BOOST_DURATION = 219;
 
@@ -36,16 +36,12 @@ public class BunnyEarsItem extends AbstractHatItem implements IEquipmentChangeLi
 
     @Override
     public void inventoryTick(@Nonnull ItemStack stack, Level level, @Nonnull Entity entity, int slot, boolean selectedIndex) {
-        if (!level.isClientSide && entity instanceof Player player) {
-            if (!Services.REGISTRY.getEquippedHatItemStacks(player).contains(stack)) return; //only one worn stack of this item should add its effect
+        if (!level.isClientSide && entity instanceof LivingEntity livingEntity) {
+            if (!Services.REGISTRY.getEquippedHatItemStacks(livingEntity).contains(stack)) return; //only one worn stack of this item should add its effect
             int amplifier = Services.PLATFORM.getEnchantmentLevel(stack, Enchantments.BLOCK_EFFICIENCY);
-            if (!this.isEffectCausedByOtherSource(player, MobEffects.JUMP, JUMP_BOOST_DURATION, amplifier)) {
-                if (player.getEffect(MobEffects.JUMP) == null || player.tickCount % 19 == 0) {
-                    this.addEffect(player, MobEffects.JUMP, JUMP_BOOST_DURATION, amplifier);
-                }
-                //calculate damage if effect is caused by this item
-                if (player.tickCount % 20 == 0) {
-                    this.damageHatItemByOne(stack, player); //TODO only when jumping
+            if (!this.isEffectCausedByOtherSource(livingEntity, MobEffects.JUMP, JUMP_BOOST_DURATION, amplifier)) {
+                if (livingEntity.getEffect(MobEffects.JUMP) == null || livingEntity.tickCount % 19 == 0) {
+                    this.addEffect(livingEntity, MobEffects.JUMP, JUMP_BOOST_DURATION, amplifier);
                 }
             }
         }
@@ -66,5 +62,10 @@ public class BunnyEarsItem extends AbstractHatItem implements IEquipmentChangeLi
         // disable effects when hat is removed from slot
         int amplifier = Services.PLATFORM.getEnchantmentLevel(oldStack, Enchantments.BLOCK_EFFICIENCY);
         this.removeEffect(entity, MobEffects.JUMP, JUMP_BOOST_DURATION, amplifier);
+    }
+
+    @Override
+    public void onLivingJumpEvent(LivingEntity jumpingEntity, ItemStack headSlotItemStack) {
+        this.damageHatItemByOne(headSlotItemStack, jumpingEntity);
     }
 }

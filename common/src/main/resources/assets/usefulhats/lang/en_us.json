@@ -102,7 +102,7 @@
 
   "text.autoconfig.usefulhats.option.BUNNY_EARS.DURABILITY": "Durability",
   "text.autoconfig.usefulhats.option.BUNNY_EARS.DURABILITY.@Tooltip[0]": "§6§lDurability",
-  "text.autoconfig.usefulhats.option.BUNNY_EARS.DURABILITY.@Tooltip[1]": "§7§oDefault: 600",
+  "text.autoconfig.usefulhats.option.BUNNY_EARS.DURABILITY.@Tooltip[1]": "§7§oDefault: 450",
 
   "text.autoconfig.usefulhats.option.CHOPPING_HAT": "Chopping Hat",
   "text.autoconfig.usefulhats.option.CHOPPING_HAT.@Tooltip[0]": "§6§lChopping Hat",

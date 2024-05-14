@@ -122,17 +122,20 @@ public abstract class AbstractHatItem extends DyeableArmorItem {
      * Copy of {@link ItemStack#hurtAndBreak(int, LivingEntity, Consumer)} to enable own damaging of hat items.
      * Added config value to disable damage.
      */
-    protected void damageHatItemByOne(ItemStack stack, Player entity) {
+    protected void damageHatItemByOne(ItemStack stack, LivingEntity entity) {
         if (!this.enabledDamageConfig.get()) return;
 
-        if (!entity.level().isClientSide && !entity.getAbilities().instabuild) {
-            if (this.canBeDepleted()) {
-                if (stack.hurt(1, entity.getRandom(), entity instanceof ServerPlayer ? (ServerPlayer)entity : null)) {
-                    entity.broadcastBreakEvent(EquipmentSlot.HEAD);
-                    stack.shrink(1);
-                    entity.awardStat(Stats.ITEM_BROKEN.get(this));
-                    stack.setDamageValue(0);
+        if (!entity.level().isClientSide
+                && !(entity instanceof ServerPlayer player && player.getAbilities().instabuild)
+                && this.canBeDepleted()
+        ) {
+            if (stack.hurt(1, entity.getRandom(), entity instanceof ServerPlayer ? (ServerPlayer)entity : null)) {
+                entity.broadcastBreakEvent(EquipmentSlot.HEAD);
+                stack.shrink(1);
+                if (entity instanceof ServerPlayer player) {
+                    player.awardStat(Stats.ITEM_BROKEN.get(this));
                 }
+                stack.setDamageValue(0);
             }
         }
     }

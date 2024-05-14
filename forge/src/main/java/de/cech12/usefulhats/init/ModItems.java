@@ -13,6 +13,7 @@ import net.minecraftforge.event.entity.living.LivingChangeTargetEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
+import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.ItemFishedEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -50,6 +51,7 @@ public class ModItems {
         MinecraftForge.EVENT_BUS.addListener(ModItems::onEntityJoinWorldEvent);
         MinecraftForge.EVENT_BUS.addListener(ModItems::onItemFishedEvent);
         MinecraftForge.EVENT_BUS.addListener(ModItems::onLivingDropsEvent);
+        MinecraftForge.EVENT_BUS.addListener(ModItems::onLivingJumpEvent);
         MinecraftForge.EVENT_BUS.addListener(ModItems::onLivingEquipmentChangeEvent);
         MinecraftForge.EVENT_BUS.addListener(ModItems::onLivingChangeTargetEvent);
         MinecraftForge.EVENT_BUS.addListener(ModItems::onLivingUseItemEventStart);
@@ -87,6 +89,12 @@ public class ModItems {
     private static void onLivingDropsEvent(LivingDropsEvent event) {
         if (!event.isCanceled()) {
             UsefulHatsEventUtils.onLivingDiesBecauseOf(event.getSource().getDirectEntity());
+        }
+    }
+
+    private static void onLivingJumpEvent(LivingEvent.LivingJumpEvent event) {
+        if (!event.isCanceled()) {
+            UsefulHatsEventUtils.onLivingJump(event.getEntity());
         }
     }
 

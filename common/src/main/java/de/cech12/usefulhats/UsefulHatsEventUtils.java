@@ -6,6 +6,7 @@ import de.cech12.usefulhats.item.IEquipmentChangeListener;
 import de.cech12.usefulhats.item.IItemFishedListener;
 import de.cech12.usefulhats.item.IItemUseListener;
 import de.cech12.usefulhats.item.ILivingDropsListener;
+import de.cech12.usefulhats.item.ILivingJumpListener;
 import de.cech12.usefulhats.item.IMobEntityChanger;
 import de.cech12.usefulhats.item.IRightClickListener;
 import de.cech12.usefulhats.platform.Services;
@@ -53,6 +54,12 @@ public class UsefulHatsEventUtils {
                     .filter(stack -> stack.getItem() instanceof ILivingDropsListener)
                     .forEach(stack -> ((ILivingDropsListener) stack.getItem()).onLivingDropsEvent(player, stack));
         }
+    }
+
+    public static void onLivingJump(LivingEntity entity) {
+        Services.REGISTRY.getEquippedHatItemStacks(entity).stream()
+                .filter(stack -> stack.getItem() instanceof ILivingJumpListener)
+                .forEach(stack -> ((ILivingJumpListener) stack.getItem()).onLivingJumpEvent(entity, stack));
     }
 
     public static int onLivingStartsUsingItem(LivingEntity entity, ItemStack usedStack, int actualDuration) {

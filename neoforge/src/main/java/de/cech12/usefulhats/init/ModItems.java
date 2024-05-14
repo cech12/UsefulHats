@@ -15,6 +15,7 @@ import net.neoforged.neoforge.event.entity.living.LivingChangeTargetEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEquipmentChangeEvent;
+import net.neoforged.neoforge.event.entity.living.LivingEvent;
 import net.neoforged.neoforge.event.entity.player.ItemFishedEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
@@ -50,6 +51,7 @@ public class ModItems {
         NeoForge.EVENT_BUS.addListener(ModItems::onEntityJoinWorldEvent);
         NeoForge.EVENT_BUS.addListener(ModItems::onItemFishedEvent);
         NeoForge.EVENT_BUS.addListener(ModItems::onLivingDropsEvent);
+        NeoForge.EVENT_BUS.addListener(ModItems::onLivingJumpEvent);
         NeoForge.EVENT_BUS.addListener(ModItems::onLivingEquipmentChangeEvent);
         NeoForge.EVENT_BUS.addListener(ModItems::onLivingChangeTargetEvent);
         NeoForge.EVENT_BUS.addListener(ModItems::onLivingUseItemEventStart);
@@ -88,6 +90,10 @@ public class ModItems {
         if (!event.isCanceled()) {
             UsefulHatsEventUtils.onLivingDiesBecauseOf(event.getSource().getEntity());
         }
+    }
+
+    private static void onLivingJumpEvent(LivingEvent.LivingJumpEvent event) {
+        UsefulHatsEventUtils.onLivingJump(event.getEntity());
     }
 
     private static void onLivingUseItemEventStart(LivingEntityUseItemEvent event) {

@@ -40,7 +40,7 @@ public interface IConfigHelper {
     boolean BUNNY_EARS_DAMAGE_ENABLED_DEFAULT = true;
 
     String BUNNY_EARS_DURABILITY_DESCRIPTION = "Bunny Ears durability.";
-    int BUNNY_EARS_DURABILITY_DEFAULT = 600;
+    int BUNNY_EARS_DURABILITY_DEFAULT = 450;
     int BUNNY_EARS_DURABILITY_MIN = 1;
     int BUNNY_EARS_DURABILITY_MAX = 10000;
 
