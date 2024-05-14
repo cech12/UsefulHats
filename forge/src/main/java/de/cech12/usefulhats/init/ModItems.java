@@ -100,7 +100,10 @@ public class ModItems {
 
     private static void onLivingUseItemEventStart(LivingEntityUseItemEvent event) {
         if (!event.isCanceled() && event instanceof LivingEntityUseItemEvent.Start) {
-            event.setDuration(UsefulHatsEventUtils.onLivingStartsUsingItem(event.getEntity(), event.getItem(), event.getDuration()));
+            Integer newDuration = UsefulHatsEventUtils.onLivingStartsUsingItem(event.getEntity(), event.getItem(), event.getDuration());
+            if (newDuration != null) {
+                event.setDuration(newDuration);
+            }
         }
     }
 
