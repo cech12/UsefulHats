@@ -66,6 +66,9 @@ public class BunnyEarsItem extends AbstractHatItem implements IEquipmentChangeLi
 
     @Override
     public void onLivingJumpEvent(LivingEntity jumpingEntity, ItemStack headSlotItemStack) {
-        this.damageHatItemByOne(headSlotItemStack, jumpingEntity);
+        int amplifier = Services.PLATFORM.getEnchantmentLevel(headSlotItemStack, Enchantments.BLOCK_EFFICIENCY);
+        if (!this.isEffectCausedByOtherSource(jumpingEntity, MobEffects.JUMP, JUMP_BOOST_DURATION, amplifier)) {
+            this.damageHatItemByOne(headSlotItemStack, jumpingEntity);
+        }
     }
 }
