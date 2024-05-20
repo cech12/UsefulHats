@@ -33,6 +33,13 @@ public interface IRegistryHelper {
      */
     List<ItemStack> getEquippedHatItemStacks(LivingEntity entity);
 
+    /**
+     * Checks if the eyes of the given entity are in a fluid, where it can drown.
+     * @param entity entity to check
+     * @return true, if the eyes of the given entity are in a drownable fluid, else false
+     */
+    boolean areEntityEyesInDrownableFluid(LivingEntity entity);
+
     boolean isAxe(ItemStack tool);
 
     boolean isHoe(ItemStack tool);

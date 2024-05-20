@@ -1,24 +1,23 @@
 package de.cech12.usefulhats.item;
 
-import de.cech12.usefulhats.Constants;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.blaze3d.vertex.BufferBuilder;
-import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.Tesselator;
+import com.mojang.blaze3d.vertex.VertexFormat;
+import de.cech12.usefulhats.Constants;
 import de.cech12.usefulhats.platform.Services;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.tags.FluidTags;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.network.chat.Component;
-import net.minecraft.ChatFormatting;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 
 import javax.annotation.Nonnull;
@@ -53,7 +52,7 @@ public class AquanautHelmetItem extends AbstractHatItem implements IEquipmentCha
             if (this.isEffectCausedByOtherSource(player, MobEffects.CONDUIT_POWER, maxDuration, 0))
                 return;
 
-            if (!player.isEyeInFluid(FluidTags.WATER)) {
+            if (!Services.REGISTRY.areEntityEyesInDrownableFluid(player)) {
                 this.addEffect(player, MobEffects.CONDUIT_POWER, maxDuration, 0);
             } else {
                 if (player.getEffect(MobEffects.CONDUIT_POWER) != null && player.tickCount % 20 == 0) {

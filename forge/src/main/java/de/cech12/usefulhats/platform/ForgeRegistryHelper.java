@@ -57,6 +57,11 @@ public class ForgeRegistryHelper implements IRegistryHelper {
     }
 
     @Override
+    public boolean areEntityEyesInDrownableFluid(LivingEntity entity) {
+        return entity.getEyeInFluidType().canDrownIn(entity);
+    }
+
+    @Override
     public boolean isAxe(ItemStack tool) {
         return tool.canPerformAction(ToolActions.AXE_DIG);
     }

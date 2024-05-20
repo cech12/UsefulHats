@@ -7,6 +7,7 @@ import de.cech12.usefulhats.platform.services.IRegistryHelper;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalEntityTypeTags;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -53,6 +54,11 @@ public class FabricRegistryHelper implements IRegistryHelper {
             TrinketsCompat.addEquippedHatsToList(entity, stacks);
         }
         return stacks;
+    }
+
+    @Override
+    public boolean areEntityEyesInDrownableFluid(LivingEntity entity) {
+        return entity.isEyeInFluid(FluidTags.WATER);
     }
 
     @Override
