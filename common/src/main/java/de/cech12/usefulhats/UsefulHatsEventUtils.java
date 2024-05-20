@@ -89,7 +89,7 @@ public class UsefulHatsEventUtils {
      * @return true, if the new target should be avoided, else false
      */
     public static boolean shouldEntityAvoidChangingTarget(LivingEntity entity, LivingEntity target) {
-        return Services.REGISTRY.getEquippedHatItemStacks(target).stream()
+        return target != null && Services.REGISTRY.getEquippedHatItemStacks(target).stream()
                 .filter(stack -> stack.getItem() instanceof IAttackTargetChanger)
                 .anyMatch(stack -> ((IAttackTargetChanger) stack.getItem()).avoidMobChangingTarget(stack, entity, target));
     }
