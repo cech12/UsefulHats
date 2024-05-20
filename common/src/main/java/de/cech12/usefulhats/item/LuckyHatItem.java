@@ -2,15 +2,15 @@ package de.cech12.usefulhats.item;
 
 import de.cech12.usefulhats.UsefulHatsUtils;
 import de.cech12.usefulhats.platform.Services;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.network.chat.Component;
-import net.minecraft.ChatFormatting;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 
 import javax.annotation.Nonnull;
@@ -29,14 +29,14 @@ public class LuckyHatItem extends AbstractHatItem implements IItemFishedListener
         this.addAllowedEnchantment(Enchantments.MOB_LOOTING);
     }
 
-    private boolean isLuckOrUnluckCausedByOtherSource(Player player, ItemStack stack) {
-        return this.isEffectCausedByOtherSource(player, MobEffects.LUCK, LUCK_DURATION, this.getLuckAmplifier(stack)) ||
-                this.isEffectCausedByOtherSource(player, MobEffects.UNLUCK, UNLUCK_DURATION, UNLUCK_AMPLIFIER);
+    private boolean isLuckOrUnluckCausedByOtherSource(LivingEntity entity, ItemStack stack) {
+        return this.isEffectCausedByOtherSource(entity, MobEffects.LUCK, LUCK_DURATION, this.getLuckAmplifier(stack)) ||
+                this.isEffectCausedByOtherSource(entity, MobEffects.UNLUCK, UNLUCK_DURATION, UNLUCK_AMPLIFIER);
     }
 
-    private boolean hasHatRelatedItemInHand(Player player) {
+    private boolean hasHatRelatedItemInHand(LivingEntity entity) {
         //support both hands
-        for (ItemStack item : player.getHandSlots()) {
+        for (ItemStack item : entity.getHandSlots()) {
             if (Services.REGISTRY.isAxe(item) || //Something like AXE_SWING would be better, but does not exist
                     Services.REGISTRY.isFishingRod(item) ||
                     Services.REGISTRY.isSword(item)) {
@@ -97,7 +97,7 @@ public class LuckyHatItem extends AbstractHatItem implements IItemFishedListener
     }
 
     @Override
-    public void onLivingDropsEvent(Player dropReason, ItemStack headSlotItemStack) {
+    public void onLivingDropsEvent(LivingEntity dropReason, ItemStack headSlotItemStack) {
         //when luck or unluck is active (potions), do nothing
         if (this.isLuckOrUnluckCausedByOtherSource(dropReason, headSlotItemStack)) return;
         //damage item after killing a mob

@@ -14,7 +14,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -45,18 +44,18 @@ public class AquanautHelmetItem extends AbstractHatItem implements IEquipmentCha
 
     @Override
     public void inventoryTick(@Nonnull ItemStack stack, Level level, @Nonnull Entity entity, int slot, boolean selectedIndex) {
-        if (!level.isClientSide && entity instanceof Player player) {
-            if (!Services.REGISTRY.getEquippedHatItemStacks(player).contains(stack)) return; //only one worn stack of this item should add its effect
+        if (!level.isClientSide && entity instanceof LivingEntity livingEntity) {
+            if (!Services.REGISTRY.getEquippedHatItemStacks(livingEntity).contains(stack)) return; //only one worn stack of this item should add its effect
             int maxDuration = this.getConduitPowerDuration(stack);
             //When Conduit Power effect is caused by another source, do nothing
-            if (this.isEffectCausedByOtherSource(player, MobEffects.CONDUIT_POWER, maxDuration, 0))
+            if (this.isEffectCausedByOtherSource(livingEntity, MobEffects.CONDUIT_POWER, maxDuration, 0))
                 return;
 
-            if (!Services.REGISTRY.areEntityEyesInDrownableFluid(player)) {
-                this.addEffect(player, MobEffects.CONDUIT_POWER, maxDuration, 0);
+            if (!Services.REGISTRY.areEntityEyesInDrownableFluid(livingEntity)) {
+                this.addEffect(livingEntity, MobEffects.CONDUIT_POWER, maxDuration, 0);
             } else {
-                if (player.getEffect(MobEffects.CONDUIT_POWER) != null && player.tickCount % 20 == 0) {
-                    this.damageHatItemByOne(stack, player);
+                if (livingEntity.getEffect(MobEffects.CONDUIT_POWER) != null && livingEntity.tickCount % 20 == 0) {
+                    this.damageHatItemByOne(stack, livingEntity);
                 }
             }
         }
@@ -64,8 +63,8 @@ public class AquanautHelmetItem extends AbstractHatItem implements IEquipmentCha
 
     @Override
     public void onUnequippedHatItem(LivingEntity entity, ItemStack oldStack) {
-        if (!entity.level().isClientSide && entity instanceof Player player) {
-            if (Services.REGISTRY.getEquippedHatItemStacks(player).stream().anyMatch(stack -> stack.getItem() == this)) return;
+        if (!entity.level().isClientSide) {
+            if (Services.REGISTRY.getEquippedHatItemStacks(entity).stream().anyMatch(stack -> stack.getItem() == this)) return;
             // disable effects when hat is removed from slot
             this.removeEffect(entity, MobEffects.CONDUIT_POWER, this.getConduitPowerDuration(oldStack), 0);
         }

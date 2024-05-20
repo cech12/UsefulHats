@@ -7,6 +7,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 ### Added
 - added support for diving in modded fluids with Aquanaut Helmet (Neoforge, Forge)
 
+### Changed
+- generalized some internal methods so that they can also be used by LivingEntities
+
 ### Fixed
 - Game crashed when breaking a block with a non-fitting tool when wearing Chopping Hat, Mining Helmet or Straw Hat. (all loaders)
 

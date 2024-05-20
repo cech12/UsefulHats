@@ -49,10 +49,10 @@ public class UsefulHatsEventUtils {
     }
 
     public static void onLivingDiesBecauseOf(Entity entity) {
-        if (entity instanceof Player player) {
-            Services.REGISTRY.getEquippedHatItemStacks(player).stream()
+        if (entity instanceof LivingEntity livingEntity) {
+            Services.REGISTRY.getEquippedHatItemStacks(livingEntity).stream()
                     .filter(stack -> stack.getItem() instanceof ILivingDropsListener)
-                    .forEach(stack -> ((ILivingDropsListener) stack.getItem()).onLivingDropsEvent(player, stack));
+                    .forEach(stack -> ((ILivingDropsListener) stack.getItem()).onLivingDropsEvent(livingEntity, stack));
         }
     }
 
@@ -64,11 +64,9 @@ public class UsefulHatsEventUtils {
 
     public static int onLivingStartsUsingItem(LivingEntity entity, ItemStack usedStack, int actualDuration) {
         final int[] newDuration = {actualDuration};
-        if (entity instanceof Player player) {
-            Services.REGISTRY.getEquippedHatItemStacks(player).stream()
-                    .filter(stack -> stack.getItem() instanceof IItemUseListener)
-                    .forEach(stack -> newDuration[0] = ((IItemUseListener) stack.getItem()).onItemUseEventStart(player, usedStack, newDuration[0], stack));
-        }
+        Services.REGISTRY.getEquippedHatItemStacks(entity).stream()
+                .filter(stack -> stack.getItem() instanceof IItemUseListener)
+                .forEach(stack -> newDuration[0] = ((IItemUseListener) stack.getItem()).onItemUseEventStart(entity, usedStack, newDuration[0], stack));
         return newDuration[0];
     }
 
@@ -91,12 +89,9 @@ public class UsefulHatsEventUtils {
      * @return true, if the new target should be avoided, else false
      */
     public static boolean shouldEntityAvoidChangingTarget(LivingEntity entity, LivingEntity target) {
-        if (target instanceof Player player) {
-            return Services.REGISTRY.getEquippedHatItemStacks(player).stream()
-                    .filter(stack -> stack.getItem() instanceof IAttackTargetChanger)
-                    .anyMatch(stack -> ((IAttackTargetChanger) stack.getItem()).avoidMobChangingTarget(stack, entity, player));
-        }
-        return false;
+        return Services.REGISTRY.getEquippedHatItemStacks(target).stream()
+                .filter(stack -> stack.getItem() instanceof IAttackTargetChanger)
+                .anyMatch(stack -> ((IAttackTargetChanger) stack.getItem()).avoidMobChangingTarget(stack, entity, target));
     }
 
     /**

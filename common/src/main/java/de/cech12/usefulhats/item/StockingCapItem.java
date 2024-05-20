@@ -1,11 +1,11 @@
 package de.cech12.usefulhats.item;
 
 import de.cech12.usefulhats.platform.Services;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
 import javax.annotation.Nonnull;
@@ -31,9 +31,9 @@ public class StockingCapItem extends AbstractHatItem implements IUsefulHatModelO
 
     @Override
     public void inventoryTick(@Nonnull ItemStack stack, Level level, @Nonnull Entity entity, int slot, boolean selectedIndex) {
-        if (!level.isClientSide && entity instanceof Player player && level.random.nextInt(1000) == 0) {
-            if (!Services.REGISTRY.getEquippedHatItemStacks(player).contains(stack)) return; //only one worn stack of this item should add its effect
-            this.damageHatItemByOne(stack, player);
+        if (!level.isClientSide && entity instanceof LivingEntity livingEntity && level.random.nextInt(1000) == 0) {
+            if (!Services.REGISTRY.getEquippedHatItemStacks(livingEntity).contains(stack)) return; //only one worn stack of this item should add its effect
+            this.damageHatItemByOne(stack, livingEntity);
         }
     }
 }
