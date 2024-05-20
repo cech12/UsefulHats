@@ -6,7 +6,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public interface IBreakSpeedChanger {
 
-    Float onBreakSpeedEvent(Player player, BlockState blockState, float newSpeed, ItemStack headSlotItemStack);
+    float onBreakSpeedEvent(Player player, BlockState blockState, float actualSpeed, ItemStack headSlotItemStack);
 
     void onBreakEvent(Player entity, BlockState blockState, ItemStack headSlotItemStack);
 

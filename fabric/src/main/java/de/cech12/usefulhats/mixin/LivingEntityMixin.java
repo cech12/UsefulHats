@@ -29,10 +29,7 @@ public class LivingEntityMixin {
     @Inject(method = "startUsingItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;getUseDuration()I", shift = At.Shift.BY, by = 2))
     public void startUsingItemProxy(InteractionHand interactionHand, CallbackInfo ci) {
         LivingEntity entity = (LivingEntity) (Object) this;
-        Integer newValue = UsefulHatsEventUtils.onLivingStartsUsingItem(entity, entity.getItemInHand(interactionHand), useItemRemaining);
-        if (newValue != null) {
-            useItemRemaining = newValue;
-        }
+        useItemRemaining = UsefulHatsEventUtils.onLivingStartsUsingItem(entity, entity.getItemInHand(interactionHand), useItemRemaining);
     }
 
     @Inject(method = "equipmentHasChanged", at = @At("RETURN"))

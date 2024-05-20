@@ -48,13 +48,13 @@ public class BunnyEarsItem extends AbstractHatItem implements IEquipmentChangeLi
     }
 
     @Override
-    public Integer onItemUseEventStart(Player player, ItemStack usedStack, int actualDuration, ItemStack headSlotItemStack) {
+    public int onItemUseEventStart(Player player, ItemStack usedStack, int actualDuration, ItemStack headSlotItemStack) {
         if (usedStack.getItem().isEdible()) {
             int amplifier = Services.PLATFORM.getEnchantmentLevel(headSlotItemStack, Enchantments.BLOCK_EFFICIENCY) + 2;
             this.damageHatItemByOne(headSlotItemStack, player);
             return actualDuration / amplifier;
         }
-        return null;
+        return actualDuration;
     }
 
     @Override

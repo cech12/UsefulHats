@@ -18,8 +18,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
-import java.util.concurrent.atomic.AtomicReference;
-
 public class UsefulHatsEventUtils {
 
     public static float onBreakSpeedCalculation(Player player, BlockState state, float actualSpeed) {
@@ -64,19 +62,14 @@ public class UsefulHatsEventUtils {
                 .forEach(stack -> ((ILivingJumpListener) stack.getItem()).onLivingJumpEvent(entity, stack));
     }
 
-    public static Integer onLivingStartsUsingItem(LivingEntity entity, ItemStack usedStack, int actualDuration) {
-        AtomicReference<Integer> newDuration = new AtomicReference<>(actualDuration);
+    public static int onLivingStartsUsingItem(LivingEntity entity, ItemStack usedStack, int actualDuration) {
+        final int[] newDuration = {actualDuration};
         if (entity instanceof Player player) {
             Services.REGISTRY.getEquippedHatItemStacks(player).stream()
                     .filter(stack -> stack.getItem() instanceof IItemUseListener)
-                    .forEach(stack -> {
-                        Integer calculatedDuration = ((IItemUseListener) stack.getItem()).onItemUseEventStart(player, usedStack, newDuration.get(), stack);
-                        if (calculatedDuration != null) {
-                            newDuration.set(calculatedDuration);
-                        }
-                    });
+                    .forEach(stack -> newDuration[0] = ((IItemUseListener) stack.getItem()).onItemUseEventStart(player, usedStack, newDuration[0], stack));
         }
-        return newDuration.get();
+        return newDuration[0];
     }
 
     public static void onEquip(LivingEntity entity, ItemStack stack) {

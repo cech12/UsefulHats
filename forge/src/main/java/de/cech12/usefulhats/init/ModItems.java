@@ -64,6 +64,7 @@ public class ModItems {
 
     private static void onBreakSpeedEvent(PlayerEvent.BreakSpeed event) {
         if (!event.isCanceled()) {
+            //use getNewSpeed() instead of getOriginalSpeed() to support other mods that are changing the break speed with this event.
             event.setNewSpeed(UsefulHatsEventUtils.onBreakSpeedCalculation(event.getEntity(), event.getState(), event.getNewSpeed()));
         }
     }

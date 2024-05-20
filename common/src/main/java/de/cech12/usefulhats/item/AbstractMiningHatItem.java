@@ -24,12 +24,11 @@ public abstract class AbstractMiningHatItem extends AbstractHatItem implements I
     protected abstract boolean isToolEffective(ItemStack tool, BlockState state);
 
     @Override
-    public Float onBreakSpeedEvent(Player player, BlockState blockState, float newSpeed, ItemStack headSlotItemStack) {
+    public float onBreakSpeedEvent(Player player, BlockState blockState, float actualSpeed, ItemStack headSlotItemStack) {
         if (this.isToolEffective(player.getMainHandItem(), blockState)) {
-            //use getNewSpeed() instead of getOriginalSpeed() to support other mods that are changing the break speed with this event.
-            return (1.0F + (float) this.getEnchantmentDoubleValue(headSlotItemStack) * newSpeed);
+            return (1.0F + (float) this.getEnchantmentDoubleValue(headSlotItemStack) * actualSpeed);
         }
-        return null;
+        return actualSpeed;
     }
 
     @Override
