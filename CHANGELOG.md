@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 ## [1.20.4-5.1.3.0] - 2024-05-20
 ### Added
 - added support for diving in modded fluids with Aquanaut Helmet (Neoforge, Forge)
+- Wing Helmet effect considers modded fluids (Neoforge, Forge)
 
 ### Changed
 - generalized some internal methods so that they can also be used by LivingEntities

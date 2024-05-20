@@ -40,6 +40,13 @@ public interface IRegistryHelper {
      */
     boolean areEntityEyesInDrownableFluid(LivingEntity entity);
 
+    /**
+     * Checks if the given entity is in a fluid.
+     * @param entity entity to check
+     * @return true, if the given entity is in a fluid, else false
+     */
+    boolean isEntityInFluid(LivingEntity entity);
+
     boolean isAxe(ItemStack tool);
 
     boolean isHoe(ItemStack tool);

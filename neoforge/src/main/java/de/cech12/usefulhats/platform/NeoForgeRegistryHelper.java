@@ -61,6 +61,11 @@ public class NeoForgeRegistryHelper implements IRegistryHelper {
     }
 
     @Override
+    public boolean isEntityInFluid(LivingEntity entity) {
+        return entity.isInFluidType();
+    }
+
+    @Override
     public boolean isAxe(ItemStack tool) {
         return tool.canPerformAction(ToolActions.AXE_DIG);
     }

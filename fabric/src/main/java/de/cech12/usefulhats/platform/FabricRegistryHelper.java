@@ -62,6 +62,11 @@ public class FabricRegistryHelper implements IRegistryHelper {
     }
 
     @Override
+    public boolean isEntityInFluid(LivingEntity entity) {
+        return entity.isInWater() || entity.isInLava();
+    }
+
+    @Override
     public boolean isAxe(ItemStack tool) {
         return tool.is(ItemTags.AXES);
     }
