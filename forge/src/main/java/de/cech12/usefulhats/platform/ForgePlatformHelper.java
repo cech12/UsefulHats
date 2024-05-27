@@ -34,7 +34,7 @@ public class ForgePlatformHelper implements IPlatformHelper {
 
     @Override
     public int getEnchantmentLevel(ItemStack stack, Enchantment enchantment) {
-        return EnchantmentHelper.getTagEnchantmentLevel(enchantment, stack);
+        return EnchantmentHelper.getItemEnchantmentLevel(enchantment, stack);
     }
 
 }

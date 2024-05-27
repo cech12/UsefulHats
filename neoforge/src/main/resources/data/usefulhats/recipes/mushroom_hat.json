@@ -7,10 +7,10 @@
   ],
   "key": {
     "#": {
-      "tag": "forge:mushroom_caps"
+      "tag": "c:mushroom_caps"
     }
   },
   "result": {
-    "item": "usefulhats:mushroom_hat"
+    "id": "usefulhats:mushroom_hat"
   }
 }

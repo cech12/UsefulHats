@@ -7,7 +7,7 @@
   ],
   "key": {
     "#": {
-      "item": "minecraft:scute"
+      "item": "minecraft:turtle_scute"
     },
     "O": {
       "item": "minecraft:turtle_helmet"
@@ -17,6 +17,6 @@
     }
   },
   "result": {
-    "item": "usefulhats:aquanaut_helmet"
+    "id": "usefulhats:aquanaut_helmet"
   }
 }

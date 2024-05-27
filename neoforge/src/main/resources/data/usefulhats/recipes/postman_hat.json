@@ -7,13 +7,13 @@
   ],
   "key": {
     "#": {
-      "tag": "forge:gems/lapis"
+      "tag": "c:lapis"
     },
     "O": {
-      "tag": "forge:nuggets/gold"
+      "tag": "c:nuggets/gold"
     }
   },
   "result": {
-    "item": "usefulhats:postman_hat"
+    "id": "usefulhats:postman_hat"
   }
 }

@@ -4,8 +4,6 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "${mod_id}.refmap.json",
   "mixins": [
-    "EnchantmentHelperMixin",
-    "EnchantmentMixin",
     "EnderPearlItemMixin",
     "FishingRodHookedTriggerMixin",
     "LivingEntityMixin",
@@ -15,8 +13,7 @@
     "ServerPlayerGameModeMixin"
   ],
   "client": [
-    "EntityRenderDispatcherMixin",
-    "GuiMixin"
+    "EntityRenderDispatcherMixin"
   ],
   "injectors": {
     "defaultRequire": 1,

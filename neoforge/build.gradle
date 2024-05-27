@@ -1,6 +1,6 @@
 plugins {
     id 'idea'
-    id 'net.neoforged.gradle.userdev' version '7.0.81'
+    id 'net.neoforged.gradle.userdev' version '[7.0.105,7.2)'
     id 'java-library'
 }
 base {
@@ -35,6 +35,14 @@ runs {
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
+repositories {
+    //for Lucent
+    maven {
+        name "Modding Legacy Maven"
+        url "https://maven.moddinglegacy.com/artifactory/modding-legacy/"
+    }
+}
+
 dependencies {
     implementation "net.neoforged:neoforge:${neoforge_version}"
     compileOnly project(":common")
@@ -43,8 +51,8 @@ dependencies {
     compileOnly("top.theillusivec4.curios:curios-neoforge:${project.curios_version}:api")
     runtimeOnly("top.theillusivec4.curios:curios-neoforge:${project.curios_version}")
 
-    compileOnly("com.legacy:lucent:${project.lucent_version}")
-    runtimeOnly("com.legacy:lucent:${project.lucent_version}")
+    //compileOnly("com.legacy:lucent:${project.lucent_version}")
+    //runtimeOnly("com.legacy:lucent:${project.lucent_version}")
 }
 
 // NeoGradle compiles the game, but we don't want to add our common code to the game's code

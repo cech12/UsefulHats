@@ -11,7 +11,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forge:mushroom_caps"
+            "items": "#c:mushroom_caps"
           }
         ]
       }
@@ -21,7 +21,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forge:mushrooms"
+            "items": "#c:mushrooms"
           }
         ]
       }

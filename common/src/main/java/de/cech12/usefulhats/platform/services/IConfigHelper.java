@@ -5,9 +5,6 @@ package de.cech12.usefulhats.platform.services;
  */
 public interface IConfigHelper {
 
-    String CURIOS_ADD_HEAD_SLOT_DESCRIPTION = "Whether or not a Curios head slot should be added if Curios is installed.";
-    boolean CURIOS_ADD_HEAD_SLOT_DEFAULT = false;
-
     String AQUANAUT_HELMET_DAMAGE_ENABLED_DESCRIPTION = "Whether or not damaging of Aquanaut Helmet should be enabled.";
     boolean AQUANAUT_HELMET_DAMAGE_ENABLED_DEFAULT = true;
 
@@ -16,25 +13,35 @@ public interface IConfigHelper {
     int AQUANAUT_HELMET_DURABILITY_MIN = 1;
     int AQUANAUT_HELMET_DURABILITY_MAX = 10000;
 
-    String AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_0_DESCRIPTION = "Aquanaut Helmet effect time of Conduit Power without Respiration enchantment. (in seconds)";
-    int AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_0_DEFAULT = 60;
-    int AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_0_MIN = 10;
-    int AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_0_MAX = 120;
+    String AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_0_DESCRIPTION = "Aquanaut Helmet effect time of Conduit Power without Efficiency enchantment. (in seconds)";
+    int AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_0_DEFAULT = 60;
+    int AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_0_MIN = 10;
+    int AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_0_MAX = 120;
 
-    String AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_1_DESCRIPTION = "Aquanaut Helmet effect time of Conduit Power with Respiration I. (in seconds)";
-    int AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_1_DEFAULT = 120;
-    int AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_1_MIN = 10;
-    int AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_1_MAX = 180;
+    String AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_1_DESCRIPTION = "Aquanaut Helmet effect time of Conduit Power with Efficiency I. (in seconds)";
+    int AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_1_DEFAULT = 120;
+    int AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_1_MIN = 10;
+    int AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_1_MAX = 180;
 
-    String AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_2_DESCRIPTION = "Aquanaut Helmet effect time of Conduit Power with Respiration II. (in seconds)";
-    int AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_2_DEFAULT = 180;
-    int AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_2_MIN = 10;
-    int AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_2_MAX = 240;
+    String AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_2_DESCRIPTION = "Aquanaut Helmet effect time of Conduit Power with Efficiency II. (in seconds)";
+    int AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_2_DEFAULT = 180;
+    int AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_2_MIN = 10;
+    int AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_2_MAX = 240;
 
-    String AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_3_DESCRIPTION = "Aquanaut Helmet effect time of Conduit Power with Respiration III. (in seconds)";
-    int AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_3_DEFAULT = 240;
-    int AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_3_MIN = 10;
-    int AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_3_MAX = 300;
+    String AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_3_DESCRIPTION = "Aquanaut Helmet effect time of Conduit Power with Efficiency III. (in seconds)";
+    int AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_3_DEFAULT = 240;
+    int AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_3_MIN = 10;
+    int AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_3_MAX = 300;
+
+    String AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_4_DESCRIPTION = "Aquanaut Helmet effect time of Conduit Power with Efficiency IV. (in seconds)";
+    int AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_4_DEFAULT = 300;
+    int AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_4_MIN = 10;
+    int AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_4_MAX = 360;
+
+    String AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_5_DESCRIPTION = "Aquanaut Helmet effect time of Conduit Power with Efficiency V. (in seconds)";
+    int AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_5_DEFAULT = 360;
+    int AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_5_MIN = 10;
+    int AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_5_MAX = 420;
 
     String BUNNY_EARS_DAMAGE_ENABLED_DESCRIPTION = "Whether or not damaging of Bunny Ears should be enabled.";
     boolean BUNNY_EARS_DAMAGE_ENABLED_DEFAULT = true;
@@ -250,11 +257,9 @@ public interface IConfigHelper {
      */
     void init();
 
-    boolean isCuriosAddHeadSlot();
-
     boolean isAquanautHelmetDamageEnabled();
     int getAquanautHelmetDurability();
-    int getAquanautHelmetEffectTimeWithRespiration(int enchantmentLevel);
+    int getAquanautHelmetEffectTimeWithEfficiency(int enchantmentLevel);
 
     boolean isBunnyEarsDamageEnabled();
     int getBunnyEarsDurability();

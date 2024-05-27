@@ -7,12 +7,12 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class WingHelmetItem extends AbstractHatItem implements IEquipmentChangeListener {
@@ -24,12 +24,12 @@ public class WingHelmetItem extends AbstractHatItem implements IEquipmentChangeL
     private static final int LEVITATION_DURATION = 200;
 
     public WingHelmetItem() {
-        super(HatArmorMaterial.WING, rawColorFromRGB(255, 255, 255), Services.CONFIG::isWingHelmetDamageEnabled);
+        super(HatArmorMaterials.WING, rawColorFromRGB(255, 255, 255), Services.CONFIG::getWingHelmetDurability, Services.CONFIG::isWingHelmetDamageEnabled);
     }
 
     @Override
-    public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level worldIn, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flagIn) {
-        super.appendHoverText(stack, worldIn, tooltip, flagIn);
+    public void appendHoverText(@Nonnull ItemStack stack, @Nonnull Item.TooltipContext context, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flagIn) {
+        super.appendHoverText(stack, context, tooltip, flagIn);
         tooltip.add(Component.translatable("item.usefulhats.wing_helmet.desc.slow_falling").withStyle(ChatFormatting.BLUE));
         if (Services.CONFIG.isWingHelmetLevitationEnabled()) {
             tooltip.add(Component.translatable("item.usefulhats.wing_helmet.desc.scared").withStyle(ChatFormatting.RED));

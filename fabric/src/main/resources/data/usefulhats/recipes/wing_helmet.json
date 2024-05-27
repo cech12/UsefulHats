@@ -10,10 +10,10 @@
       "item": "minecraft:phantom_membrane"
     },
     "F": {
-      "item": "minecraft:feather"
+      "tag": "c:feathers"
     }
   },
   "result": {
-    "item": "usefulhats:wing_helmet"
+    "id": "usefulhats:wing_helmet"
   }
 }

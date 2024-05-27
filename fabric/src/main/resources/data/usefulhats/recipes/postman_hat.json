@@ -10,10 +10,10 @@
       "tag": "c:lapis"
     },
     "O": {
-      "item": "minecraft:gold_nugget"
+      "tag": "c:nuggets/gold"
     }
   },
   "result": {
-    "item": "usefulhats:postman_hat"
+    "id": "usefulhats:postman_hat"
   }
 }

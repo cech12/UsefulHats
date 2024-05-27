@@ -7,10 +7,10 @@
   ],
   "key": {
     "#": {
-      "tag": "forge:string"
+      "tag": "c:strings"
     }
   },
   "result": {
-    "item": "usefulhats:stocking_cap"
+    "id": "usefulhats:stocking_cap"
   }
 }

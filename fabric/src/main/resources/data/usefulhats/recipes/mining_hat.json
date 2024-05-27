@@ -7,13 +7,13 @@
   ],
   "key": {
     "#": {
-      "tag": "c:gold_ingots"
+      "tag": "c:ingots/gold"
     },
     "O": {
-      "item": "minecraft:glowstone_dust"
+      "tag": "c:dusts/glowstone"
     }
   },
   "result": {
-    "item": "usefulhats:mining_hat"
+    "id": "usefulhats:mining_hat"
   }
 }

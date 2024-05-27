@@ -5,7 +5,6 @@ import de.cech12.usefulhats.compat.CuriosMod;
 import de.cech12.usefulhats.init.ModItems;
 import de.cech12.usefulhats.item.AbstractHatItem;
 import de.cech12.usefulhats.platform.services.IRegistryHelper;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -14,18 +13,12 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.ToolActions;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public class ForgeRegistryHelper implements IRegistryHelper {
-
-    @Override
-    public ResourceLocation getItemResourceLocation(Item item) {
-        return ForgeRegistries.ITEMS.getKey(item);
-    }
 
     @Override
     public void addGoalToMob(Mob mob, int position, Goal goal) {
@@ -77,11 +70,6 @@ public class ForgeRegistryHelper implements IRegistryHelper {
     }
 
     @Override
-    public boolean isFishingRod(ItemStack tool) {
-        return tool.canPerformAction(ToolActions.FISHING_ROD_CAST);
-    }
-
-    @Override
     public boolean isPickaxe(ItemStack tool) {
         return tool.canPerformAction(ToolActions.PICKAXE_DIG);
     }
@@ -89,11 +77,6 @@ public class ForgeRegistryHelper implements IRegistryHelper {
     @Override
     public boolean isShovel(ItemStack tool) {
         return tool.canPerformAction(ToolActions.SHOVEL_DIG);
-    }
-
-    @Override
-    public boolean isSword(ItemStack tool) {
-        return tool.canPerformAction(ToolActions.SWORD_SWEEP);
     }
 
 }

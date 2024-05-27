@@ -14,13 +14,13 @@ This is a Minecraft mod that adds useful and configurable hats to the game. (For
 ## Dependencies
 
 The Fabric / Quilt version needs the following mods:
-* Fabric API ([Github](https://github.com/FabricMC/fabric), [Curseforge](https://www.curseforge.com/minecraft/mc-mods/fabric-api), [Modrinth](https://modrinth.com/mod/fabric-api))
-* Cloth Config API ([Github](https://github.com/shedaniel/cloth-config), [Curseforge](https://www.curseforge.com/minecraft/mc-mods/cloth-config), [Modrinth](https://modrinth.com/mod/cloth-config))
+* Fabric API ([GitHub](https://github.com/FabricMC/fabric), [Curseforge](https://www.curseforge.com/minecraft/mc-mods/fabric-api), [Modrinth](https://modrinth.com/mod/fabric-api))
+* Cloth Config API ([GitHub](https://github.com/shedaniel/cloth-config), [Curseforge](https://www.curseforge.com/minecraft/mc-mods/cloth-config), [Modrinth](https://modrinth.com/mod/cloth-config))
 
 This mod is compatible with:
-* Trinkets ([Github](https://github.com/emilyploszaj/trinkets), [Curseforge](https://www.curseforge.com/minecraft/mc-mods/trinkets), [Modrinth](https://modrinth.com/mod/trinkets)) (since Useful Hats 5.1.1.0)
-* Curios ([Github](https://github.com/TheIllusiveC4/Curios), [Curseforge](https://www.curseforge.com/minecraft/mc-mods/curios), [Modrinth](https://modrinth.com/mod/curios)) (since Useful Hats 1.7.0) 
-* Baubles Reborn ([Github](https://github.com/lazyMods/Baubles), [Curseforge](https://www.curseforge.com/minecraft/mc-mods/baubles-reborn)) (since Useful Hats 1.8.3 until Minecraft 1.18.1).
+* Trinkets ([GitHub](https://github.com/emilyploszaj/trinkets), [Curseforge](https://www.curseforge.com/minecraft/mc-mods/trinkets), [Modrinth](https://modrinth.com/mod/trinkets)) (since Useful Hats 5.1.1.0)
+* Curios ([GitHub](https://github.com/TheIllusiveC4/Curios), [Curseforge](https://www.curseforge.com/minecraft/mc-mods/curios), [Modrinth](https://modrinth.com/mod/curios)) (since Useful Hats 1.7.0) 
+* Baubles Reborn ([GitHub](https://github.com/lazyMods/Baubles), [Curseforge](https://www.curseforge.com/minecraft/mc-mods/baubles-reborn)) (since Useful Hats 1.8.3 until Minecraft 1.18.1).
 
 ## Features
 

@@ -1,7 +1,7 @@
 package de.cech12.usefulhats.mixin;
 
 import de.cech12.usefulhats.client.UsefulHatItemExtension;
-import de.cech12.usefulhats.item.IUsefulHatModelOwner;
+import de.cech12.usefulhats.item.AbstractHatItem;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import org.spongepowered.asm.mixin.Mixin;
@@ -17,7 +17,7 @@ public class ItemMixin {
 
     @Inject(at = @At("RETURN"), method = "initializeClient")
     public void initializeClient(@Nonnull Consumer<IClientItemExtensions> consumer, CallbackInfo ci) {
-        if (this instanceof IUsefulHatModelOwner) {
+        if ((Object) this instanceof AbstractHatItem) {
             consumer.accept(UsefulHatItemExtension.INSTANCE);
         }
     }

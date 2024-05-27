@@ -1,7 +1,9 @@
 package de.cech12.usefulhats.item;
 
+import net.minecraft.client.gui.GuiGraphics;
+
 public interface IGameOverlayRenderer {
 
-    void onRenderGameOverlay(int width, int height, float partialTicks);
+    void onRenderGameOverlay(GuiGraphics guiGraphics, float partialTicks);
 
 }

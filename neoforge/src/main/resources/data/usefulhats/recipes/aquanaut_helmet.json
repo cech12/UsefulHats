@@ -7,16 +7,16 @@
   ],
   "key": {
     "#": {
-      "item": "minecraft:scute"
+      "item": "minecraft:turtle_scute"
     },
     "O": {
       "item": "minecraft:turtle_helmet"
     },
     "G": {
-      "tag": "forge:glass_panes"
+      "tag": "c:glass_panes"
     }
   },
   "result": {
-    "item": "usefulhats:aquanaut_helmet"
+    "id": "usefulhats:aquanaut_helmet"
   }
 }

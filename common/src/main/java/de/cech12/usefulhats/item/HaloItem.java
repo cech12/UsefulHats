@@ -8,14 +8,13 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.ZombifiedPiglin;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,12 +24,12 @@ public class HaloItem extends AbstractHatItem implements IAttackTargetChanger, I
     private static final Map<LivingEntity, Integer> PREVIOUS_DAMAGE_TICK_OF_ENTITY = new HashMap<>();
 
     public HaloItem() {
-        super(HatArmorMaterial.HALO, rawColorFromRGB(255, 236, 142), Services.CONFIG::isHaloDamageEnabled);
+        super(HatArmorMaterials.HALO, rawColorFromRGB(255, 236, 142), Services.CONFIG::getHaloDurability, Services.CONFIG::isHaloDamageEnabled);
     }
 
     @Override
-    public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level worldIn, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flagIn) {
-        super.appendHoverText(stack, worldIn, tooltip, flagIn);
+    public void appendHoverText(@Nonnull ItemStack stack, @Nonnull Item.TooltipContext context, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flagIn) {
+        super.appendHoverText(stack, context, tooltip, flagIn);
         tooltip.add(Component.translatable("item.usefulhats.halo.desc.no_attack").withStyle(ChatFormatting.BLUE));
         tooltip.add(Component.translatable("item.usefulhats.halo.desc.beware_of_nether").withStyle(ChatFormatting.RED));
     }

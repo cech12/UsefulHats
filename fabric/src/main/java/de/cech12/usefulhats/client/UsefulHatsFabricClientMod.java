@@ -3,7 +3,7 @@ package de.cech12.usefulhats.client;
 import de.cech12.usefulhats.CommonLoader;
 import de.cech12.usefulhats.client.compat.TrinketsClientCompat;
 import de.cech12.usefulhats.compat.TrinketsCompat;
-import de.cech12.usefulhats.item.IUsefulHatModelOwner;
+import de.cech12.usefulhats.item.AbstractHatItem;
 import de.cech12.usefulhats.platform.Services;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
@@ -12,7 +12,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.minecraft.client.model.geom.LayerDefinitions;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.DyeableLeatherItem;
+import net.minecraft.world.item.component.DyedItemColor;
 
 public class UsefulHatsFabricClientMod implements ClientModInitializer {
 
@@ -27,11 +27,9 @@ public class UsefulHatsFabricClientMod implements ClientModInitializer {
         UsefulHatsArmorRenderer renderer = new UsefulHatsArmorRenderer();
         Services.REGISTRY.getAllHatItems().forEach(item -> {
             //register item colors
-            ColorProviderRegistry.ITEM.register((itemStack, layer) -> layer > 0 ? -1 : ((DyeableLeatherItem)(itemStack.getItem())).getColor(itemStack), item);
+            ColorProviderRegistry.ITEM.register((itemStack, layer) -> layer > 0 ? -1 : DyedItemColor.getOrDefault(itemStack, ((AbstractHatItem)itemStack.getItem()).getDefaultColor()), item);
             //register armor renderer
-            if (item instanceof IUsefulHatModelOwner) {
-                ArmorRenderer.register(renderer, item);
-            }
+            ArmorRenderer.register(renderer, item);
         });
         if (Services.PLATFORM.isModLoaded(TrinketsCompat.MOD_ID)) {
             TrinketsClientCompat.register();

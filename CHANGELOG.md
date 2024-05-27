@@ -3,6 +3,24 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Forge Recommended Versioning](https://mcforge.readthedocs.io/en/latest/conventions/versioning/).
 
+## [1.20.6-5.2.0.0] - 2024-05-28
+### Changed
+- updated to Minecraft 1.20.6 (Fabric 0.99.0+1.20.6, Neoforge 20.6.88-beta, Forge 50.0.31)
+- updated Cloth Config support (14.0.126) (Fabric/Quilt)
+- updated ModMenu support (10.0.0-beta.1) (Fabric/Quilt)
+- updated Trinkets support (1.20.6-3.9.0) (Fabric/Quilt)
+- updated Curios support (1.20.6-8.0.0-beta.4) (Neoforge/Forge)
+- temporary removed Lucent support until it is ported to 1.20.6 (Neoforge)
+- changed advancements & recipes to match the reworked conventional tags (Fabric/Quilt & Neoforge)
+- changed the enchantments of Aquanaut Helmet from Respiration to Efficiency
+- changed the enchantments of Lucky Hat from Luck of the Sea/Looting to Efficiency
+- changed Lucky Hat to give Luck effect everytime without holding special items
+- changed rendering that all useful hats are using the same model
+
+### Removed
+- removed ability to enchant the useful hats with Thorns, Aqua Affinity, Respiration
+- "isCuriosEnabled" option was removed. One head slot is automatically added if Curios is installed (NeoForge/Forge)
+
 ## [1.20.4-5.1.3.0] - 2024-05-20
 ### Added
 - added support for diving in modded fluids with Aquanaut Helmet (Neoforge, Forge)

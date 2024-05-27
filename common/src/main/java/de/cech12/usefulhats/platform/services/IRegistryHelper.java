@@ -1,6 +1,5 @@
 package de.cech12.usefulhats.platform.services;
 
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -13,8 +12,6 @@ import java.util.List;
  * Common registry helper service interface.
  */
 public interface IRegistryHelper {
-
-    ResourceLocation getItemResourceLocation(Item item);
 
     void addGoalToMob(Mob mob, int position, Goal goal);
 
@@ -51,12 +48,8 @@ public interface IRegistryHelper {
 
     boolean isHoe(ItemStack tool);
 
-    boolean isFishingRod(ItemStack tool);
-
     boolean isPickaxe(ItemStack tool);
 
     boolean isShovel(ItemStack tool);
-
-    boolean isSword(ItemStack tool);
 
 }

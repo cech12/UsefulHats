@@ -17,13 +17,13 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "${group}.UsefulHatsFabricMod"
+      "de.cech12.usefulhats.UsefulHatsFabricMod"
     ],
     "client": [
-      "${group}.client.UsefulHatsFabricClientMod"
+      "de.cech12.usefulhats.client.UsefulHatsFabricClientMod"
     ],
     "modmenu": [
-      "${group}.compat.ModMenuCompat"
+      "de.cech12.usefulhats.compat.ModMenuCompat"
     ]
   },
   "accessWidener" : "${mod_id}.accesswidener",
@@ -32,7 +32,7 @@
     "${mod_id}.fabric.mixins.json"
   ],
   "depends": {
-    "java": ">=17",
+    "java": ">=${java_version}",
     "minecraft": ">=${minecraft_version}",
     "fabricloader": ">=${fabric_loader_version}",
     "fabric-api": ">=${fabric_version}",

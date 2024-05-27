@@ -4,21 +4,23 @@ import com.google.common.collect.Maps;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import de.cech12.usefulhats.CommonLoader;
-import de.cech12.usefulhats.item.IUsefulHatModelOwner;
+import de.cech12.usefulhats.item.AbstractHatItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.util.FastColor;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.item.component.DyedItemColor;
 
 import java.util.Calendar;
 import java.util.Map;
@@ -31,7 +33,6 @@ public abstract class AbstractUsefulHatsRenderer {
     private static final boolean IS_CHRISTMAS = Calendar.getInstance().get(Calendar.MONTH) + 1 == 12;
 
     private HumanoidModel<LivingEntity> usefulHatModel;
-    private HumanoidModel<LivingEntity> model;
 
     public void render(ItemStack stack, PoseStack matrices, MultiBufferSource vertexConsumers, int light, LivingEntity entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
         HumanoidModel<LivingEntity> model = this.getModel(stack);
@@ -49,12 +50,17 @@ public abstract class AbstractUsefulHatsRenderer {
         this.followBodyRotations(entity, model);
         model.copyPropertiesTo(model);
         boolean flag1 = stack.hasFoil();
-        int i = ((net.minecraft.world.item.DyeableLeatherItem)item).getColor(stack);
-        float f = (float)(i >> 16 & 255) / 255.0F;
-        float f1 = (float)(i >> 8 & 255) / 255.0F;
-        float f2 = (float)(i & 255) / 255.0F;
-        this.renderLayer(matrices, vertexConsumers, light, flag1, model, f, f1, f2, this.getTexture((ArmorItem) stack.getItem(), null));
-        this.renderLayer(matrices, vertexConsumers, light, flag1, model, 1.0F, 1.0F, 1.0F, this.getTexture((ArmorItem) stack.getItem(), "overlay"));
+        int i = stack.is(ItemTags.DYEABLE) ? DyedItemColor.getOrDefault(stack, ((AbstractHatItem)stack.getItem()).getDefaultColor()) : ((AbstractHatItem)stack.getItem()).getDefaultColor();
+        float f = (float) FastColor.ARGB32.red(i) / 255.0F;
+        float f1 = (float) FastColor.ARGB32.green(i) / 255.0F;
+        float f2 = (float) FastColor.ARGB32.blue(i) / 255.0F;
+        for (ArmorMaterial.Layer layer : ((ArmorItem) item).getMaterial().value().layers()) {
+            if (layer.dyeable()) {
+                this.renderLayer(matrices, vertexConsumers, light, flag1, model, f, f1, f2, this.getTexture((ArmorItem) stack.getItem(), layer));
+            } else {
+                this.renderLayer(matrices, vertexConsumers, light, flag1, model, 1.0F, 1.0F, 1.0F, this.getTexture((ArmorItem) stack.getItem(), layer));
+            }
+        }
         if (stack.hasFoil()) {
             this.renderGlint(matrices, vertexConsumers, light, model);
         }
@@ -72,44 +78,22 @@ public abstract class AbstractUsefulHatsRenderer {
     }
 
     private HumanoidModel<LivingEntity> getModel(ItemStack stack) {
-        if (stack.getItem() instanceof IUsefulHatModelOwner) {
-            if (usefulHatModel == null) {
-                usefulHatModel = new UsefulHatModel<>(Minecraft.getInstance().getEntityModels().bakeLayer(USEFUL_HAT_LAYER));
-            }
-            return usefulHatModel;
-        } else {
-            if (model == null) {
-                model = new HumanoidModel<>(Minecraft.getInstance().getEntityModels().bakeLayer(ModelLayers.PLAYER_OUTER_ARMOR));
-            }
-            return model;
+        if (usefulHatModel == null) {
+            usefulHatModel = new UsefulHatModel<>(Minecraft.getInstance().getEntityModels().bakeLayer(USEFUL_HAT_LAYER));
         }
+        return usefulHatModel;
     }
 
-    private ResourceLocation getTexture(ArmorItem armorItem, @Nullable String type) {
-        String location = getArmorTexture(armorItem, type);
-        ResourceLocation result = ARMOR_TEXTURE_RES_MAP.get(location);
-        if (result == null) {
-            result = new ResourceLocation(location);
-            ARMOR_TEXTURE_RES_MAP.put(location, result);
-        }
-        return result;
+    private ResourceLocation getTexture(ArmorItem armorItem, ArmorMaterial.Layer layer) {
+        ResourceLocation location = getArmorTexture(armorItem, layer);
+        return ARMOR_TEXTURE_RES_MAP.computeIfAbsent(location.toString(), k -> location);
     }
 
-    public static String getArmorTexture(ArmorItem armorItem, String type) {
-        String texture = armorItem.getMaterial().getName();
-        String domain = "minecraft";
-        int idx = texture.indexOf(':');
-        if (idx != -1) {
-            domain = texture.substring(0, idx);
-            texture = texture.substring(idx + 1);
-        }
-        if (armorItem instanceof IUsefulHatModelOwner usefulHatModelOwner) {
-            return String.format("%s:textures/models/usefulhats/%s%s%s.png", domain, texture,
-                    (IS_CHRISTMAS && usefulHatModelOwner.hasChristmasVariant()) ? "_xmas" : "",
-                    type == null ? "" : String.format("_%s", type));
-        }
-        return String.format("%s:textures/models/armor/%s_layer_%d%s.png", domain, texture,
-                1, type == null ? "" : String.format(java.util.Locale.ROOT, "_%s", type));
+    public static ResourceLocation getArmorTexture(ArmorItem armorItem, ArmorMaterial.Layer layer) {
+        ResourceLocation location = layer.texture(false);
+        return new ResourceLocation(location.getNamespace(), String.format("%s%s.png",
+                location.getPath().replace("_layer_1", "").replace(".png", ""),
+                (IS_CHRISTMAS && ((AbstractHatItem) armorItem).hasChristmasVariant()) ? "_xmas" : ""));
     }
 
 }

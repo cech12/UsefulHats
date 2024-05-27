@@ -24,7 +24,7 @@
   "item.usefulhats.halo.desc.beware_of_nether": "Pero cuidado con el §4Nether§c.",
 
   "item.usefulhats.lucky_hat": "Sombrero de suerte",
-  "item.usefulhats.lucky_hat.desc.luck": "Mientras sujetas una espada, un hacha o una caña de pescar, recibes el efecto de §2Suerte%s§9.",
+  "item.usefulhats.lucky_hat.desc.luck": "Recibes el efecto de §2Suerte%s§9.",
   "item.usefulhats.lucky_hat.desc.unluck": "Pero después de pescar o matar a una criatura, recibes el efecto de §6Mala Suerte§c por 10 segundos.",
 
   "item.usefulhats.mining_hat": "Sombrero de minería",

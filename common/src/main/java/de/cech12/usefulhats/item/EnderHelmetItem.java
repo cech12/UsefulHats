@@ -1,11 +1,16 @@
 package de.cech12.usefulhats.item;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import de.cech12.usefulhats.Constants;
 import de.cech12.usefulhats.platform.Services;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -22,73 +27,50 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class EnderHelmetItem extends AbstractHatItem implements IRightClickListener {
 
-    public static final String TELEPORT_POSITION_ID = "TeleportPosition";
-
     public EnderHelmetItem() {
-        super(HatArmorMaterial.ENDER, rawColorFromRGB(43, 203, 175), Services.CONFIG::isEnderHelmetDamageEnabled);
+        super(HatArmorMaterials.ENDER, rawColorFromRGB(43, 203, 175), Services.CONFIG::getEnderHelmetDurability, Services.CONFIG::isEnderHelmetDamageEnabled);
     }
 
     @Override
-    public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level worldIn, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flagIn) {
+    public void appendHoverText(@Nonnull ItemStack stack, @Nonnull TooltipContext context, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flagIn) {
         tooltip.add(Component.translatable("item.usefulhats.ender_helmet.desc.define_teleport").withStyle(ChatFormatting.BLUE));
-        if (hasPosition(stack)) {
-            super.appendHoverText(stack, worldIn, tooltip, flagIn);
-            BlockPos pos = getPosition(stack);
+        Position position = getPosition(stack);
+        if (position != null) {
+            super.appendHoverText(stack, context, tooltip, flagIn);
             tooltip.add(Component.translatable("item.usefulhats.ender_helmet.desc.teleport").withStyle(ChatFormatting.BLUE));
-            tooltip.add(Component.translatable("item.usefulhats.ender_helmet.desc.teleport_position", pos.getX(), pos.getY(), pos.getZ()).withStyle(ChatFormatting.BLUE));
-            tooltip.add(Component.literal(getDimensionString(stack)).withStyle(ChatFormatting.BLUE));
+            tooltip.add(Component.translatable("item.usefulhats.ender_helmet.desc.teleport_position", position.pos.getX(), position.pos.getY(), position.pos.getZ()).withStyle(ChatFormatting.BLUE));
+            tooltip.add(Component.literal(position.dimName.toString()).withStyle(ChatFormatting.BLUE));
         }
     }
 
     private static void setPosition(@Nonnull ItemStack stack, @Nonnull Level level, @Nonnull LivingEntity entity) {
-        CompoundTag nbt = stack.getOrCreateTag().copy();
-        CompoundTag positionNBT = new CompoundTag();
-        BlockPos pos = entity.blockPosition();
-        positionNBT.putInt("X", pos.getX());
-        positionNBT.putInt("Y", pos.getY());
-        positionNBT.putInt("Z", pos.getZ());
-        positionNBT.putString("dimKey", level.dimension().registry().toString()); //dimension registry key
-        positionNBT.putString("dimName", level.dimension().location().toString()); //dimension name
-        nbt.put(TELEPORT_POSITION_ID, positionNBT);
-        stack.setTag(nbt);
+        stack.set(Constants.ENDER_HELMET_POSITION.get(), new Position(level.dimension().registry(), level.dimension().location(), entity.blockPosition()));
     }
 
     private static boolean hasPosition(@Nonnull ItemStack stack) {
-        return stack.getOrCreateTag().contains(TELEPORT_POSITION_ID);
+        return stack.has(Constants.ENDER_HELMET_POSITION.get());
     }
 
-    private static BlockPos getPosition(@Nonnull ItemStack stack) {
+    private static Position getPosition(@Nonnull ItemStack stack) {
         if (hasPosition(stack)) {
-            CompoundTag nbt = stack.getOrCreateTag();
-            CompoundTag positionNBT = nbt.getCompound(TELEPORT_POSITION_ID);
-            return new BlockPos(positionNBT.getInt("X"), positionNBT.getInt("Y"), positionNBT.getInt("Z"));
+            return stack.get(Constants.ENDER_HELMET_POSITION.get());
         }
         return null;
     }
 
-    private String getDimensionString(@Nonnull ItemStack stack) {
-        if (hasPosition(stack)) {
-            return stack.getOrCreateTag().getCompound(TELEPORT_POSITION_ID).getString("dimName");
-        }
-        return "?";
-    }
-
-    private static boolean equalsWorldAndNBT(Level world, CompoundTag positionNBT) {
-        return (!positionNBT.contains("dimKey")  //to be compatible with older versions
-                || world.dimension().registry().toString().equals(positionNBT.getString("dimKey")))
-                && world.dimension().location().toString().equals(positionNBT.getString("dimName"));
+    private static boolean levelEqualsPosition(Level level, Position position) {
+        return level.dimension().registry().equals(position.dimKey) && level.dimension().location().equals(position.dimName);
     }
 
     private ServerLevel getLevel(@Nonnull MinecraftServer server, @Nonnull ItemStack stack) {
-        if (hasPosition(stack)) {
-            CompoundTag positionNBT = stack.getOrCreateTag().getCompound(TELEPORT_POSITION_ID);
+        Position position = getPosition(stack);
+        if (position != null) {
             for (ServerLevel world : server.getAllLevels()) {
-                if (equalsWorldAndNBT(world, positionNBT)) {
+                if (levelEqualsPosition(world, position)) {
                     return world;
                 }
             }
@@ -96,18 +78,8 @@ public class EnderHelmetItem extends AbstractHatItem implements IRightClickListe
         return null;
     }
 
-    private static boolean isRightDimension(@Nonnull Level world, @Nonnull ItemStack stack) {
-        CompoundTag nbt = stack.getOrCreateTag();
-        if (hasPosition(stack)) {
-            CompoundTag positionNBT = nbt.getCompound(TELEPORT_POSITION_ID);
-            return equalsWorldAndNBT(world, positionNBT);
-        }
-        return false;
-    }
-
-    private static boolean canTeleportToPosition(@Nonnull Level world, @Nonnull BlockPos pos) {
-        return !world.getBlockState(pos).canOcclude()
-                && !world.getBlockState(pos.above()).canOcclude();
+    private static boolean canTeleportToPosition(@Nonnull Level level, @Nonnull BlockPos pos) {
+        return !level.getBlockState(pos).canOcclude() && !level.getBlockState(pos.above()).canOcclude();
     }
 
     @Nonnull
@@ -136,9 +108,10 @@ public class EnderHelmetItem extends AbstractHatItem implements IRightClickListe
         player.swing(hand);
         if (!level.isClientSide) {
             //check for correct dimension
-            if (Services.CONFIG.isEnderHelmetInterdimensionalEnabled() || isRightDimension(level, headSlotItemStack)) {
+            Position position = getPosition(headSlotItemStack);
+            if (position != null && (Services.CONFIG.isEnderHelmetInterdimensionalEnabled() || levelEqualsPosition(level, position))) {
                 ServerLevel destinationWorld = getLevel(player.getServer(), headSlotItemStack);
-                BlockPos destinationPos = getPosition(headSlotItemStack);
+                BlockPos destinationPos = position.pos;
                 //check for correct position
                 if (destinationPos != null && destinationWorld != null && canTeleportToPosition(destinationWorld, destinationPos)) {
                     //set cooldown for ender pearls
@@ -169,4 +142,21 @@ public class EnderHelmetItem extends AbstractHatItem implements IRightClickListe
         //cancel other right click operations
         return true;
     }
+
+    public record Position(ResourceLocation dimKey, ResourceLocation dimName, BlockPos pos) {
+
+        public static final Codec<Position> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
+                ResourceLocation.CODEC.fieldOf("dimKey").forGetter(Position::dimKey),
+                ResourceLocation.CODEC.fieldOf("dimName").forGetter(Position::dimName),
+                BlockPos.CODEC.fieldOf("pos").forGetter(Position::pos)
+        ).apply(instance, Position::new));
+
+        public static final StreamCodec<RegistryFriendlyByteBuf, Position> STREAM_CODEC = StreamCodec.composite(
+                ResourceLocation.STREAM_CODEC, Position::dimKey,
+                ResourceLocation.STREAM_CODEC, Position::dimName,
+                BlockPos.STREAM_CODEC, Position::pos,
+                Position::new);
+
+    }
+
 }

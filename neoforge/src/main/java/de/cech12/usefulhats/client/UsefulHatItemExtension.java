@@ -17,7 +17,7 @@ public class UsefulHatItemExtension implements IClientItemExtensions {
 
     @Override
     @Nonnull
-    public HumanoidModel<?> getHumanoidArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
+    public HumanoidModel<?> getHumanoidArmorModel(@Nonnull LivingEntity livingEntity, @Nonnull ItemStack itemStack, @Nonnull EquipmentSlot equipmentSlot, @Nonnull HumanoidModel<?> original) {
         return UsefulHatsNeoForgeClientEvents.usefulHatModel;
     }
 }

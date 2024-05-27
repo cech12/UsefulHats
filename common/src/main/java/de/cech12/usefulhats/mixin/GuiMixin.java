@@ -17,13 +17,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Gui.class)
 public class GuiMixin {
 
-    @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Lnet/minecraft/world/item/Item;)Z"))
-    public void renderProxy(GuiGraphics guiGraphics, float tickDelta, CallbackInfo ci) {
+    @Inject(method = "renderCameraOverlays", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Lnet/minecraft/world/item/Item;)Z"))
+    public void renderCameraOverlaysProxy(GuiGraphics guiGraphics, float tickDelta, CallbackInfo ci) {
         Minecraft mc = Minecraft.getInstance();
         if (mc.player != null && mc.options.getCameraType().isFirstPerson()) {
             for (ItemStack headSlotItemStack : Services.REGISTRY.getEquippedHatItemStacks(mc.player)) {
                 if (headSlotItemStack.getItem() instanceof IGameOverlayRenderer gameOverlayRenderer) {
-                    gameOverlayRenderer.onRenderGameOverlay(guiGraphics.guiWidth(), guiGraphics.guiHeight(), tickDelta);
+                    gameOverlayRenderer.onRenderGameOverlay(guiGraphics, tickDelta);
                 }
             }
         }

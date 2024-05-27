@@ -1,7 +1,11 @@
 package de.cech12.usefulhats;
 
+import de.cech12.usefulhats.item.EnderHelmetItem;
+import net.minecraft.core.component.DataComponentType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.function.Supplier;
 
 /**
  * Class that contains all common constants.
@@ -17,6 +21,8 @@ public class Constants {
 
     public static final String CURIOS_MOD_ID = "curios";
     public static final String LUCENT_MOD_ID = "lucent";
+
+    public static Supplier<DataComponentType<EnderHelmetItem.Position>> ENDER_HELMET_POSITION;
 
     private Constants() {}
 

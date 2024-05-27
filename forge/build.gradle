@@ -1,6 +1,6 @@
 plugins {
     id 'idea'
-    id 'net.minecraftforge.gradle' version '[6.0.16,6.2)'
+    id 'net.minecraftforge.gradle' version '[6.0.24,6.2)'
     id 'org.spongepowered.mixin' version '0.7-SNAPSHOT'
 }
 base {
@@ -11,9 +11,11 @@ mixin {
     config("${mod_id}.mixins.json")
     config("${mod_id}.forge.mixins.json")
 }
+jar.manifest.attributes.putIfAbsent('MixinConfigs', "${mod_id}.mixins.json,${mod_id}.forge.mixins.json")
 
 minecraft {
     mappings channel: 'official', version: minecraft_version
+    reobf = false
 
     copyIdeResources = true //Calls processResources when in dev
 
@@ -57,12 +59,11 @@ dependencies {
     compileOnly project(":common")
     testCompileOnly project(":common")
     annotationProcessor("org.spongepowered:mixin:0.8.5-SNAPSHOT:processor")
+    //temporary necessary:
+    implementation('net.sf.jopt-simple:jopt-simple:5.0.4') { version { strictly '5.0.4' } }
 
-    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${project.curios_version}:api")
-    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${project.curios_version}")
-
-    //compileOnly fg.deobf("com.legacy:lucent:${project.lucent_version}")
-    //runtimeOnly fg.deobf("com.legacy:lucent:${project.lucent_version}")
+    compileOnly "top.theillusivec4.curios:curios-forge:${project.curios_version}:api"
+    runtimeOnly "top.theillusivec4.curios:curios-forge:${project.curios_version}"
 }
 
 tasks.withType(JavaCompile).configureEach {
@@ -79,8 +80,6 @@ tasks.withType(JavaCompile).configureEach {
 processResources {
     from project(":common").sourceSets.main.resources
 }
-
-jar.finalizedBy('reobfJar')
 
 // Merge the resources and classes into the same directory.
 // This is done because java expects modules to be in a single directory.

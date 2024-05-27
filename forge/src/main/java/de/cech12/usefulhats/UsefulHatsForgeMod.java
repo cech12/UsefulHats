@@ -17,6 +17,7 @@ public class UsefulHatsForgeMod {
     public UsefulHatsForgeMod() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         ModItems.ITEMS.register(modEventBus);
+        ModItems.DATA_COMPONENTS.register(modEventBus);
         ModItems.addEventListeners();
         ModCreativeTabs.TABS.register(modEventBus);
         //Configs

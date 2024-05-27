@@ -11,10 +11,10 @@
       "item": "minecraft:nether_star"
     },
     "#": {
-      "item": "minecraft:glowstone_dust"
+      "tag": "c:dusts/glowstone"
     }
   },
   "result": {
-    "item": "usefulhats:halo"
+    "id": "usefulhats:halo"
   }
 }

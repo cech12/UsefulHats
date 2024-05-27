@@ -3,7 +3,6 @@ package de.cech12.usefulhats.compat;
 import de.cech12.usefulhats.Constants;
 import de.cech12.usefulhats.UsefulHatsEventUtils;
 import de.cech12.usefulhats.item.AbstractHatItem;
-import de.cech12.usefulhats.platform.Services;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fml.InterModComms;
@@ -19,9 +18,7 @@ public class CuriosMod {
     private CuriosMod() {}
 
     public static void addHeadSlot() {
-        if (Services.CONFIG.isCuriosAddHeadSlot()) {
-            InterModComms.sendTo(Constants.CURIOS_MOD_ID, SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.HEAD.getMessageBuilder().build());
-        }
+        InterModComms.sendTo(Constants.CURIOS_MOD_ID, SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.HEAD.getMessageBuilder().build());
     }
 
     /**

@@ -1,22 +1,21 @@
 package de.cech12.usefulhats.item;
 
 import de.cech12.usefulhats.platform.Services;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.network.chat.Component;
 import net.minecraft.ChatFormatting;
-import net.minecraft.world.level.Level;
+import net.minecraft.network.chat.Component;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.List;
 
-public class StrawHatItem extends AbstractMiningHatItem implements IBreakSpeedChanger, IUsefulHatModelOwner {
+public class StrawHatItem extends AbstractMiningHatItem implements IBreakSpeedChanger {
 
     public StrawHatItem() {
-        super(HatArmorMaterial.STRAW, rawColorFromRGB(226,189,0), Services.CONFIG::isStrawHatDamageEnabled);
+        super(HatArmorMaterials.STRAW, rawColorFromRGB(226,189,0), Services.CONFIG::getStrawHatDurability, Services.CONFIG::isStrawHatDamageEnabled);
     }
 
     @Override
@@ -25,8 +24,8 @@ public class StrawHatItem extends AbstractMiningHatItem implements IBreakSpeedCh
     }
 
     @Override
-    public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level worldIn, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flagIn) {
-        super.appendHoverText(stack, worldIn, tooltip, flagIn);
+    public void appendHoverText(@Nonnull ItemStack stack, @Nonnull Item.TooltipContext context, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flagIn) {
+        super.appendHoverText(stack, context, tooltip, flagIn);
         int value = (int) (this.getEnchantmentDoubleValue(stack) * 100);
         tooltip.add(Component.translatable("item.usefulhats.straw_hat.desc.digging_speed", value).withStyle(ChatFormatting.BLUE));
     }

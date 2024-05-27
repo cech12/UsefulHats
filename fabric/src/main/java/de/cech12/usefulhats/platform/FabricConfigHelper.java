@@ -26,17 +26,23 @@ public class FabricConfigHelper implements ConfigData, IConfigHelper {
         @ConfigEntry.BoundedDiscrete(min = AQUANAUT_HELMET_DURABILITY_MIN, max = AQUANAUT_HELMET_DURABILITY_MAX)
         public long DURABILITY = AQUANAUT_HELMET_DURABILITY_DEFAULT;
         @ConfigEntry.Gui.Tooltip(count = 4)
-        @ConfigEntry.BoundedDiscrete(min = AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_0_MIN, max = AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_0_MAX)
-        public long EFFECT_TIME_WITH_RESPIRATION_0 = AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_0_DEFAULT;
+        @ConfigEntry.BoundedDiscrete(min = AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_0_MIN, max = AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_0_MAX)
+        public long EFFECT_TIME_WITH_EFFICIENCY_0 = AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_0_DEFAULT;
         @ConfigEntry.Gui.Tooltip(count = 4)
-        @ConfigEntry.BoundedDiscrete(min = AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_1_MIN, max = AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_1_MAX)
-        public long EFFECT_TIME_WITH_RESPIRATION_1 = AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_1_DEFAULT;
+        @ConfigEntry.BoundedDiscrete(min = AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_1_MIN, max = AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_1_MAX)
+        public long EFFECT_TIME_WITH_EFFICIENCY_1 = AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_1_DEFAULT;
         @ConfigEntry.Gui.Tooltip(count = 4)
-        @ConfigEntry.BoundedDiscrete(min = AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_2_MIN, max = AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_2_MAX)
-        public long EFFECT_TIME_WITH_RESPIRATION_2 = AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_2_DEFAULT;
+        @ConfigEntry.BoundedDiscrete(min = AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_2_MIN, max = AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_2_MAX)
+        public long EFFECT_TIME_WITH_EFFICIENCY_2 = AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_2_DEFAULT;
         @ConfigEntry.Gui.Tooltip(count = 4)
-        @ConfigEntry.BoundedDiscrete(min = AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_3_MIN, max = AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_3_MAX)
-        public long EFFECT_TIME_WITH_RESPIRATION_3 = AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_3_DEFAULT;
+        @ConfigEntry.BoundedDiscrete(min = AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_3_MIN, max = AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_3_MAX)
+        public long EFFECT_TIME_WITH_EFFICIENCY_3 = AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_3_DEFAULT;
+        @ConfigEntry.Gui.Tooltip(count = 4)
+        @ConfigEntry.BoundedDiscrete(min = AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_4_MIN, max = AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_4_MAX)
+        public long EFFECT_TIME_WITH_EFFICIENCY_4 = AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_4_DEFAULT;
+        @ConfigEntry.Gui.Tooltip(count = 4)
+        @ConfigEntry.BoundedDiscrete(min = AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_5_MIN, max = AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_5_MAX)
+        public long EFFECT_TIME_WITH_EFFICIENCY_5 = AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_5_DEFAULT;
 
         private AquanautHelmet() {}
     }
@@ -323,11 +329,6 @@ public class FabricConfigHelper implements ConfigData, IConfigHelper {
     }
 
     @Override
-    public boolean isCuriosAddHeadSlot() {
-        return false; //no curios available in Fabric
-    }
-
-    @Override
     public boolean isAquanautHelmetDamageEnabled() {
         return getConfig().AQUANAUT_HELMET.DAMAGE_ENABLED;
     }
@@ -338,15 +339,15 @@ public class FabricConfigHelper implements ConfigData, IConfigHelper {
     }
 
     @Override
-    public int getAquanautHelmetEffectTimeWithRespiration(int enchantmentLevel) {
+    public int getAquanautHelmetEffectTimeWithEfficiency(int enchantmentLevel) {
         FabricConfigHelper config = getConfig();
         return getEnchantmentInteger(enchantmentLevel,
-                config.AQUANAUT_HELMET.EFFECT_TIME_WITH_RESPIRATION_0,
-                config.AQUANAUT_HELMET.EFFECT_TIME_WITH_RESPIRATION_1,
-                config.AQUANAUT_HELMET.EFFECT_TIME_WITH_RESPIRATION_2,
-                config.AQUANAUT_HELMET.EFFECT_TIME_WITH_RESPIRATION_3,
-                config.AQUANAUT_HELMET.EFFECT_TIME_WITH_RESPIRATION_3,
-                config.AQUANAUT_HELMET.EFFECT_TIME_WITH_RESPIRATION_3
+                config.AQUANAUT_HELMET.EFFECT_TIME_WITH_EFFICIENCY_0,
+                config.AQUANAUT_HELMET.EFFECT_TIME_WITH_EFFICIENCY_1,
+                config.AQUANAUT_HELMET.EFFECT_TIME_WITH_EFFICIENCY_2,
+                config.AQUANAUT_HELMET.EFFECT_TIME_WITH_EFFICIENCY_3,
+                config.AQUANAUT_HELMET.EFFECT_TIME_WITH_EFFICIENCY_4,
+                config.AQUANAUT_HELMET.EFFECT_TIME_WITH_EFFICIENCY_5
         );
     }
 

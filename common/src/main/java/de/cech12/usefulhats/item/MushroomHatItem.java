@@ -1,30 +1,30 @@
 package de.cech12.usefulhats.item;
 
 import de.cech12.usefulhats.platform.Services;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.food.FoodData;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.network.chat.Component;
 import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.food.FoodData;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.List;
 
-public class MushroomHatItem extends AbstractHatItem implements IUsefulHatModelOwner {
+public class MushroomHatItem extends AbstractHatItem {
 
     public MushroomHatItem() {
-        super(HatArmorMaterial.MUSHROOM, rawColorFromRGB(197, 35, 35), Services.CONFIG::isMushroomHatDamageEnabled);
+        super(HatArmorMaterials.MUSHROOM, rawColorFromRGB(197, 35, 35), Services.CONFIG::getMushroomHatDurability, Services.CONFIG::isMushroomHatDamageEnabled);
     }
 
     @Override
-    public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level worldIn, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flagIn) {
-        super.appendHoverText(stack, worldIn, tooltip, flagIn);
+    public void appendHoverText(@Nonnull ItemStack stack, @Nonnull Item.TooltipContext context, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flagIn) {
+        super.appendHoverText(stack, context, tooltip, flagIn);
         tooltip.add(Component.translatable("item.usefulhats.mushroom_hat.desc.feeding").withStyle(ChatFormatting.BLUE));
     }
 

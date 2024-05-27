@@ -8,23 +8,23 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.stream.StreamSupport;
 
-public class MiningHatItem extends AbstractMiningHatItem implements IEquipmentChangeListener, IUsefulHatModelOwner {
+public class MiningHatItem extends AbstractMiningHatItem implements IEquipmentChangeListener {
 
     private static final int NIGHT_VISION_DURATION = 239;
     private static final int NIGHT_VISION_AMPLIFIER = 0;
 
     public MiningHatItem() {
-        super(HatArmorMaterial.MINING, rawColorFromRGB(255, 216, 0), Services.CONFIG::isMiningHatDamageEnabled);
+        super(HatArmorMaterials.MINING, rawColorFromRGB(255, 216, 0), Services.CONFIG::getMiningHatDurability, Services.CONFIG::isMiningHatDamageEnabled);
     }
 
     public static boolean isLightEnabled(LivingEntity entity) {
@@ -41,8 +41,8 @@ public class MiningHatItem extends AbstractMiningHatItem implements IEquipmentCh
     }
 
     @Override
-    public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level worldIn, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flagIn) {
-        super.appendHoverText(stack, worldIn, tooltip, flagIn);
+    public void appendHoverText(@Nonnull ItemStack stack, @Nonnull Item.TooltipContext context, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flagIn) {
+        super.appendHoverText(stack, context, tooltip, flagIn);
         int value = (int) (this.getEnchantmentDoubleValue(stack) * 100);
         tooltip.add(Component.translatable("item.usefulhats.mining_hat.desc.mining_speed", value).withStyle(ChatFormatting.BLUE));
         if (Services.CONFIG.isMiningHatNightVisionEnabled()) {

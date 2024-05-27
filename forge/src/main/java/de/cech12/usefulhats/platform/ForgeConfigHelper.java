@@ -17,17 +17,16 @@ import java.nio.file.Path;
  */
 public class ForgeConfigHelper implements IConfigHelper {
 
-    public static ForgeConfigSpec COMMON_CONFIG;
     public static ForgeConfigSpec SERVER_CONFIG;
-
-    public static final ForgeConfigSpec.BooleanValue CURIOS_ADD_HEAD_SLOT;
 
     public static final ForgeConfigSpec.BooleanValue AQUANAUT_HELMET_DAMAGE_ENABLED;
     public static final ForgeConfigSpec.IntValue AQUANAUT_HELMET_DURABILITY;
-    public static final ForgeConfigSpec.IntValue AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_0;
-    public static final ForgeConfigSpec.IntValue AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_1;
-    public static final ForgeConfigSpec.IntValue AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_2;
-    public static final ForgeConfigSpec.IntValue AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_3;
+    public static final ForgeConfigSpec.IntValue AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_0;
+    public static final ForgeConfigSpec.IntValue AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_1;
+    public static final ForgeConfigSpec.IntValue AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_2;
+    public static final ForgeConfigSpec.IntValue AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_3;
+    public static final ForgeConfigSpec.IntValue AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_4;
+    public static final ForgeConfigSpec.IntValue AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_5;
 
     public static final ForgeConfigSpec.BooleanValue BUNNY_EARS_DAMAGE_ENABLED;
     public static final ForgeConfigSpec.IntValue BUNNY_EARS_DURABILITY;
@@ -91,16 +90,6 @@ public class ForgeConfigHelper implements IConfigHelper {
     public static final ForgeConfigSpec.BooleanValue WING_HELMET_LEVITATION_ENABLED;
 
     static {
-        final ForgeConfigSpec.Builder commonBuilder = new ForgeConfigSpec.Builder();
-
-        commonBuilder.comment("Some configs in relation to other mods.").push("CompatibilityOptions");
-        CURIOS_ADD_HEAD_SLOT = commonBuilder
-                .comment(CURIOS_ADD_HEAD_SLOT_DESCRIPTION)
-                .define("curiosAddHeadSlot", CURIOS_ADD_HEAD_SLOT_DEFAULT);
-        commonBuilder.pop();
-
-        COMMON_CONFIG = commonBuilder.build();
-
         final ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
 
         builder.comment("Various options that affect individual hats.").push("BalanceOptions");
@@ -112,18 +101,24 @@ public class ForgeConfigHelper implements IConfigHelper {
         AQUANAUT_HELMET_DURABILITY = builder
                 .comment(AQUANAUT_HELMET_DURABILITY_DESCRIPTION)
                 .defineInRange("aquanautHelmetDurability", AQUANAUT_HELMET_DURABILITY_DEFAULT, AQUANAUT_HELMET_DURABILITY_MIN, AQUANAUT_HELMET_DURABILITY_MAX);
-        AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_0 = builder
-                .comment(AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_0_DESCRIPTION)
-                .defineInRange("aquanautHelmetEffectTimeWithRespiration0", AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_0_DEFAULT, AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_0_MIN, AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_0_MAX);
-        AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_1 = builder
-                .comment(AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_1_DESCRIPTION)
-                .defineInRange("aquanautHelmetEffectTimeWithRespiration1", AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_1_DEFAULT, AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_1_MIN, AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_1_MAX);
-        AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_2 = builder
-                .comment(AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_2_DESCRIPTION)
-                .defineInRange("aquanautHelmetEffectTimeWithRespiration2", AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_2_DEFAULT, AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_2_MIN, AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_2_MAX);
-        AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_3 = builder
-                .comment(AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_3_DESCRIPTION)
-                .defineInRange("aquanautHelmetEffectTimeWithRespiration3", AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_3_DEFAULT, AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_3_MIN, AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_3_MAX);
+        AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_0 = builder
+                .comment(AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_0_DESCRIPTION)
+                .defineInRange("aquanautHelmetEffectTimeWithEfficiency0", AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_0_DEFAULT, AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_0_MIN, AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_0_MAX);
+        AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_1 = builder
+                .comment(AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_1_DESCRIPTION)
+                .defineInRange("aquanautHelmetEffectTimeWithEfficiency1", AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_1_DEFAULT, AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_1_MIN, AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_1_MAX);
+        AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_2 = builder
+                .comment(AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_2_DESCRIPTION)
+                .defineInRange("aquanautHelmetEffectTimeWithEfficiency2", AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_2_DEFAULT, AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_2_MIN, AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_2_MAX);
+        AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_3 = builder
+                .comment(AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_3_DESCRIPTION)
+                .defineInRange("aquanautHelmetEffectTimeWithEfficiency3", AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_3_DEFAULT, AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_3_MIN, AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_3_MAX);
+        AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_4 = builder
+                .comment(AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_4_DESCRIPTION)
+                .defineInRange("aquanautHelmetEffectTimeWithEfficiency4", AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_4_DEFAULT, AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_4_MIN, AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_4_MAX);
+        AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_5 = builder
+                .comment(AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_5_DESCRIPTION)
+                .defineInRange("aquanautHelmetEffectTimeWithEfficiency5", AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_5_DEFAULT, AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_5_MIN, AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_5_MAX);
         builder.pop();
 
         builder.push("BunnyEars");
@@ -316,7 +311,6 @@ public class ForgeConfigHelper implements IConfigHelper {
 
     @Override
     public void init() {
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, COMMON_CONFIG);
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, SERVER_CONFIG);
         Path path = FMLPaths.GAMEDIR.get().resolve(FMLConfig.defaultConfigPath()).resolve(Constants.MOD_ID + "-server.toml");
         final CommentedFileConfig configData = CommentedFileConfig.builder(path).sync().autosave().writingMode(WritingMode.REPLACE).build();
@@ -377,11 +371,6 @@ public class ForgeConfigHelper implements IConfigHelper {
     }
 
     @Override
-    public boolean isCuriosAddHeadSlot() {
-        return getBoolean(CURIOS_ADD_HEAD_SLOT, CURIOS_ADD_HEAD_SLOT_DEFAULT);
-    }
-
-    @Override
     public boolean isAquanautHelmetDamageEnabled() {
         return getBoolean(AQUANAUT_HELMET_DAMAGE_ENABLED, AQUANAUT_HELMET_DAMAGE_ENABLED_DEFAULT);
     }
@@ -392,14 +381,14 @@ public class ForgeConfigHelper implements IConfigHelper {
     }
 
     @Override
-    public int getAquanautHelmetEffectTimeWithRespiration(int enchantmentLevel) {
+    public int getAquanautHelmetEffectTimeWithEfficiency(int enchantmentLevel) {
         return getEnchantmentInteger(enchantmentLevel,
-                AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_0, AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_0_DEFAULT,
-                AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_1, AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_1_DEFAULT,
-                AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_2, AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_2_DEFAULT,
-                AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_3, AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_3_DEFAULT,
-                AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_3, AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_3_DEFAULT,
-                AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_3, AQUANAUT_HELMET_EFFECT_TIME_WITH_RESPIRATION_3_DEFAULT
+                AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_0, AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_0_DEFAULT,
+                AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_1, AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_1_DEFAULT,
+                AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_2, AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_2_DEFAULT,
+                AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_3, AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_3_DEFAULT,
+                AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_3, AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_3_DEFAULT,
+                AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_3, AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_3_DEFAULT
         );
     }
 

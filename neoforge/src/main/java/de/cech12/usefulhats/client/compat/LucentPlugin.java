@@ -1,5 +1,5 @@
 package de.cech12.usefulhats.client.compat;
-
+/*
 import com.legacy.lucent.api.plugin.ILucentPlugin;
 import com.legacy.lucent.api.registry.EntityLightingRegistry;
 import de.cech12.usefulhats.Constants;
@@ -24,3 +24,4 @@ public class LucentPlugin implements ILucentPlugin {
     }
 
 }
+ */
