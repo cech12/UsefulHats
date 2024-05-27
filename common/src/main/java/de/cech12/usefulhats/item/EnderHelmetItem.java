@@ -25,8 +25,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.List;
 
 public class EnderHelmetItem extends AbstractHatItem implements IRightClickListener {
@@ -36,7 +36,7 @@ public class EnderHelmetItem extends AbstractHatItem implements IRightClickListe
     }
 
     @Override
-    public void appendHoverText(@Nonnull ItemStack stack, @Nonnull TooltipContext context, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flagIn) {
+    public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flagIn) {
         tooltip.add(Component.translatable("item.usefulhats.ender_helmet.desc.define_teleport").withStyle(ChatFormatting.BLUE));
         Position position = getPosition(stack);
         if (position != null) {
@@ -47,15 +47,15 @@ public class EnderHelmetItem extends AbstractHatItem implements IRightClickListe
         }
     }
 
-    private static void setPosition(@Nonnull ItemStack stack, @Nonnull Level level, @Nonnull LivingEntity entity) {
+    private static void setPosition(@NotNull ItemStack stack, @NotNull Level level, @NotNull LivingEntity entity) {
         stack.set(Constants.ENDER_HELMET_POSITION.get(), new Position(level.dimension().registry(), level.dimension().location(), entity.blockPosition()));
     }
 
-    private static boolean hasPosition(@Nonnull ItemStack stack) {
+    private static boolean hasPosition(@NotNull ItemStack stack) {
         return stack.has(Constants.ENDER_HELMET_POSITION.get());
     }
 
-    private static Position getPosition(@Nonnull ItemStack stack) {
+    private static Position getPosition(@NotNull ItemStack stack) {
         if (hasPosition(stack)) {
             return stack.get(Constants.ENDER_HELMET_POSITION.get());
         }
@@ -66,7 +66,7 @@ public class EnderHelmetItem extends AbstractHatItem implements IRightClickListe
         return level.dimension().registry().equals(position.dimKey) && level.dimension().location().equals(position.dimName);
     }
 
-    private ServerLevel getLevel(@Nonnull MinecraftServer server, @Nonnull ItemStack stack) {
+    private ServerLevel getLevel(@NotNull MinecraftServer server, @NotNull ItemStack stack) {
         Position position = getPosition(stack);
         if (position != null) {
             for (ServerLevel world : server.getAllLevels()) {
@@ -78,13 +78,13 @@ public class EnderHelmetItem extends AbstractHatItem implements IRightClickListe
         return null;
     }
 
-    private static boolean canTeleportToPosition(@Nonnull Level level, @Nonnull BlockPos pos) {
+    private static boolean canTeleportToPosition(@NotNull Level level, @NotNull BlockPos pos) {
         return !level.getBlockState(pos).canOcclude() && !level.getBlockState(pos.above()).canOcclude();
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public InteractionResultHolder<ItemStack> use(@Nonnull Level worldIn, @Nonnull Player playerIn, @Nonnull InteractionHand handIn) {
+    public InteractionResultHolder<ItemStack> use(@NotNull Level worldIn, @NotNull Player playerIn, @NotNull InteractionHand handIn) {
         ItemStack stack = playerIn.getItemInHand(handIn);
         if (playerIn.isShiftKeyDown() && !stack.isEmpty()) { //shift right click
             if (!worldIn.isClientSide) {

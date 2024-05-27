@@ -47,6 +47,10 @@ subprojects {
         }
     }
 
+    dependencies {
+        implementation 'org.jetbrains:annotations:24.1.0'
+    }
+
     processResources {
         def expandProps = [
                 "version": version,

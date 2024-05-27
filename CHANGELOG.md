@@ -5,7 +5,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ## [1.20.6-5.2.0.0] - 2024-05-28
 ### Changed
-- updated to Minecraft 1.20.6 (Fabric 0.99.0+1.20.6, Neoforge 20.6.88-beta, Forge 50.0.31)
+- updated to Minecraft 1.20.6 (Fabric 0.99.0+1.20.6, Neoforge 20.6.83-beta, Forge 50.0.31)
 - updated Cloth Config support (14.0.126) (Fabric/Quilt)
 - updated ModMenu support (10.0.0-beta.1) (Fabric/Quilt)
 - updated Trinkets support (1.20.6-3.9.0) (Fabric/Quilt)

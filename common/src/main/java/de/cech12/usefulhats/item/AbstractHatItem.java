@@ -19,8 +19,8 @@ import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -46,7 +46,7 @@ public abstract class AbstractHatItem extends ArmorItem {
     }
 
     @Override
-    public boolean isEnchantable(@Nonnull ItemStack stack) {
+    public boolean isEnchantable(@NotNull ItemStack stack) {
         return true;
     }
 
@@ -104,7 +104,7 @@ public abstract class AbstractHatItem extends ArmorItem {
      * Disables "When on head" line of ArmorItem Tooltip
      */
     @Override
-    @Nonnull
+    @NotNull
     public ItemAttributeModifiers getDefaultAttributeModifiers() {
         return ItemAttributeModifiers.EMPTY;
     }
@@ -114,7 +114,7 @@ public abstract class AbstractHatItem extends ArmorItem {
      * When hat item has no effect, override this method with an empty method.
      */
     @Override
-    public void appendHoverText(@Nonnull ItemStack stack, @Nonnull TooltipContext context, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flagIn) {
+    public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flagIn) {
         super.appendHoverText(stack, context, tooltip, flagIn);
         //tooltip.add(new TextComponent("Durability: " + (stack.getMaxDamage() - stack.getDamageValue()) + "/" + stack.getMaxDamage()).withStyle(ChatFormatting.RED));
         tooltip.add(Component.literal(""));

@@ -13,8 +13,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.List;
 
 public class BunnyEarsItem extends AbstractHatItem implements IEquipmentChangeListener, IItemUseListener, ILivingJumpListener {
@@ -26,7 +26,7 @@ public class BunnyEarsItem extends AbstractHatItem implements IEquipmentChangeLi
     }
 
     @Override
-    public void appendHoverText(@Nonnull ItemStack stack, @Nonnull Item.TooltipContext context, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flagIn) {
+    public void appendHoverText(@NotNull ItemStack stack, @NotNull Item.TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flagIn) {
         super.appendHoverText(stack, context, tooltip, flagIn);
         int enchantmentLevel = Services.PLATFORM.getEnchantmentLevel(stack, Enchantments.EFFICIENCY) + 1;
         tooltip.add(Component.translatable("item.usefulhats.bunny_ears.desc.jump_boost", UsefulHatsUtils.getRomanNumber(enchantmentLevel, false)).withStyle(ChatFormatting.BLUE));
@@ -34,7 +34,7 @@ public class BunnyEarsItem extends AbstractHatItem implements IEquipmentChangeLi
     }
 
     @Override
-    public void inventoryTick(@Nonnull ItemStack stack, Level level, @Nonnull Entity entity, int slot, boolean selectedIndex) {
+    public void inventoryTick(@NotNull ItemStack stack, Level level, @NotNull Entity entity, int slot, boolean selectedIndex) {
         if (!level.isClientSide && entity instanceof LivingEntity livingEntity) {
             if (!Services.REGISTRY.getEquippedHatItemStacks(livingEntity).contains(stack)) return; //only one worn stack of this item should add its effect
             int amplifier = Services.PLATFORM.getEnchantmentLevel(stack, Enchantments.EFFICIENCY);
