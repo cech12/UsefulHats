@@ -1,9 +1,11 @@
 package de.cech12.usefulhats.item;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import de.cech12.usefulhats.CommonLoader;
 import de.cech12.usefulhats.Constants;
 import de.cech12.usefulhats.platform.Services;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -21,20 +23,20 @@ import java.util.List;
 
 public class AquanautHelmetItem extends AbstractHatItem implements IEquipmentChangeListener, IGameOverlayRenderer {
 
-    private static final ResourceLocation AQUANAUT_GUI_TEX_PATH = new ResourceLocation(Constants.MOD_ID, "textures/misc/aquanautblur.png");
+    private static final ResourceLocation AQUANAUT_GUI_TEX_PATH = Constants.id("textures/misc/aquanautblur.png");
 
     public AquanautHelmetItem() {
         super(HatArmorMaterials.AQUANAUT, rawColorFromRGB(71, 191, 74), Services.CONFIG::getAquanautHelmetDurability, Services.CONFIG::isAquanautHelmetDamageEnabled);
     }
 
     private int getConduitPowerDuration(ItemStack stack) {
-        return Services.CONFIG.getAquanautHelmetEffectTimeWithEfficiency(Services.PLATFORM.getEnchantmentLevel(stack, Enchantments.EFFICIENCY)) * 20;
+        return Services.CONFIG.getAquanautHelmetEffectTimeWithEfficiency(CommonLoader.getEnchantmentLevel(stack, Enchantments.EFFICIENCY)) * 20;
     }
 
     @Override
     public void appendHoverText(@NotNull ItemStack stack, @NotNull Item.TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flagIn) {
         super.appendHoverText(stack, context, tooltip, flagIn);
-        int effectTime = Services.CONFIG.getAquanautHelmetEffectTimeWithEfficiency(Services.PLATFORM.getEnchantmentLevel(stack, Enchantments.EFFICIENCY));
+        int effectTime = Services.CONFIG.getAquanautHelmetEffectTimeWithEfficiency(CommonLoader.getEnchantmentLevel(stack, Enchantments.EFFICIENCY));
         tooltip.add(Component.translatable("item.usefulhats.aquanaut_helmet.desc.conduit_power", effectTime).withStyle(ChatFormatting.BLUE));
     }
 
@@ -67,7 +69,7 @@ public class AquanautHelmetItem extends AbstractHatItem implements IEquipmentCha
     }
 
     @Override
-    public void onRenderGameOverlay(GuiGraphics guiGraphics, float partialTicks) {
+    public void onRenderGameOverlay(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
         RenderSystem.disableDepthTest();
         RenderSystem.depthMask(false);
         RenderSystem.enableBlend();

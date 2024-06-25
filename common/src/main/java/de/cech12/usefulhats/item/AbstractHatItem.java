@@ -5,10 +5,10 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.FastColor;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
@@ -22,6 +22,7 @@ import net.minecraft.world.item.component.ItemAttributeModifiers;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public abstract class AbstractHatItem extends ArmorItem {
@@ -79,18 +80,19 @@ public abstract class AbstractHatItem extends ArmorItem {
     }
 
     /**
-     * Copy of {@link ItemStack#hurtAndBreak(int, RandomSource, ServerPlayer, Runnable)} to enable own damaging of hat items.
+     * Copy of {@link ItemStack#hurtAndBreak(int, ServerLevel, ServerPlayer, Consumer)} to enable own damaging of hat items.
      * Added config value to disable damage.
      */
     protected void damageHatItemByOne(ItemStack stack, LivingEntity entity) {
         if (!this.enabledDamageConfig.get()) return;
 
         if (!entity.level().isClientSide
+                && entity.level() instanceof ServerLevel serverLevel
                 && !(entity instanceof ServerPlayer player && player.getAbilities().instabuild)
                 && stack.isDamageableItem()
         ) {
-            stack.hurtAndBreak(1, entity.getRandom(), entity instanceof ServerPlayer ? (ServerPlayer)entity : null, () ->  {
-                entity.broadcastBreakEvent(EquipmentSlot.HEAD);
+            stack.hurtAndBreak(1, serverLevel, entity instanceof ServerPlayer ? (ServerPlayer)entity : null, (item) ->  {
+                entity.onEquippedItemBroken(item, EquipmentSlot.HEAD);
                 stack.shrink(1);
                 if (entity instanceof ServerPlayer player) {
                     player.awardStat(Stats.ITEM_BROKEN.get(this));

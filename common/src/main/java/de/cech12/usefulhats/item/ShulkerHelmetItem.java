@@ -1,5 +1,6 @@
 package de.cech12.usefulhats.item;
 
+import de.cech12.usefulhats.CommonLoader;
 import de.cech12.usefulhats.UsefulHatsUtils;
 import de.cech12.usefulhats.platform.Services;
 import net.minecraft.ChatFormatting;
@@ -27,7 +28,7 @@ public class ShulkerHelmetItem extends AbstractHatItem implements IEquipmentChan
     @Override
     public void appendHoverText(@NotNull ItemStack stack, @NotNull Item.TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flagIn) {
         super.appendHoverText(stack, context, tooltip, flagIn);
-        int enchantmentLevel = Services.PLATFORM.getEnchantmentLevel(stack, Enchantments.EFFICIENCY) + 1;
+        int enchantmentLevel = CommonLoader.getEnchantmentLevel(stack, Enchantments.EFFICIENCY) + 1;
         tooltip.add(Component.translatable("item.usefulhats.shulker_helmet.desc.levitation", UsefulHatsUtils.getRomanNumber(enchantmentLevel, false)).withStyle(ChatFormatting.BLUE));
     }
 
@@ -35,7 +36,7 @@ public class ShulkerHelmetItem extends AbstractHatItem implements IEquipmentChan
     public void inventoryTick(@NotNull ItemStack stack, Level level, @NotNull Entity entity, int slot, boolean selectedIndex) {
         if (!level.isClientSide && entity instanceof LivingEntity livingEntity) {
             if (!Services.REGISTRY.getEquippedHatItemStacks(livingEntity).contains(stack)) return; //only one worn stack of this item should add its effect
-            int levitationAmplifier = Services.PLATFORM.getEnchantmentLevel(stack, Enchantments.EFFICIENCY);
+            int levitationAmplifier = CommonLoader.getEnchantmentLevel(stack, Enchantments.EFFICIENCY);
             if (!this.isEffectCausedByOtherSource(livingEntity, MobEffects.LEVITATION, LEVITATION_DURATION, levitationAmplifier)) {
                 if (livingEntity.getEffect(MobEffects.LEVITATION) == null || livingEntity.tickCount % 19 == 0) {
                     this.addEffect(livingEntity, MobEffects.LEVITATION, LEVITATION_DURATION, levitationAmplifier);
@@ -51,7 +52,7 @@ public class ShulkerHelmetItem extends AbstractHatItem implements IEquipmentChan
     @Override
     public void onUnequippedHatItem(LivingEntity entity, ItemStack oldStack) {
         // disable effects when hat is removed from slot
-        int levitationAmplifier = Services.PLATFORM.getEnchantmentLevel(oldStack, Enchantments.EFFICIENCY);
+        int levitationAmplifier = CommonLoader.getEnchantmentLevel(oldStack, Enchantments.EFFICIENCY);
         this.removeEffect(entity, MobEffects.LEVITATION, LEVITATION_DURATION, levitationAmplifier);
     }
 

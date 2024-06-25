@@ -22,10 +22,3 @@ mandatory=true
 versionRange="${minecraft_version_range}"
 ordering="NONE"
 side="BOTH"
-[[dependencies.${mod_id}]]
-modId="curios"
-mandatory=false
-versionRange="${curios_version_range}"
-referralUrl="https://github.com/TheIllusiveC4/Curios"
-ordering="NONE"
-side="BOTH"

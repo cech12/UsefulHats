@@ -1,20 +1,17 @@
 package de.cech12.usefulhats.client;
 
 import de.cech12.usefulhats.Constants;
-import de.cech12.usefulhats.client.compat.CurioClientCompat;
 import de.cech12.usefulhats.item.AbstractHatItem;
 import de.cech12.usefulhats.platform.Services;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.LayerDefinitions;
 import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.component.DyedItemColor;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 
@@ -22,17 +19,9 @@ import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 @EventBusSubscriber(modid = Constants.MOD_ID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
 public class UsefulHatsNeoForgeClientEvents {
 
-    public static final ModelLayerLocation USEFUL_HAT_LAYER = new ModelLayerLocation(new ResourceLocation(Constants.MOD_ID, "usefulhat_layer"), "main");
+    public static final ModelLayerLocation USEFUL_HAT_LAYER = new ModelLayerLocation(Constants.id("usefulhat_layer"), "main");
 
     public static UsefulHatModel<LivingEntity> usefulHatModel = null;
-
-    @SubscribeEvent
-    public static void onClientRegister(FMLClientSetupEvent event) {
-        //curio rendering
-        if (Services.PLATFORM.isModLoaded(Constants.CURIOS_MOD_ID)) {
-            CurioClientCompat.register();
-        }
-    }
 
     @SubscribeEvent
     public static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {

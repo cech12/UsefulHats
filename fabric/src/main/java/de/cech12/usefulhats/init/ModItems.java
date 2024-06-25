@@ -1,6 +1,5 @@
 package de.cech12.usefulhats.init;
 
-import de.cech12.usefulhats.CommonLoader;
 import de.cech12.usefulhats.Constants;
 import de.cech12.usefulhats.item.AquanautHelmetItem;
 import de.cech12.usefulhats.item.BunnyEarsItem;
@@ -52,7 +51,7 @@ public class ModItems {
     public static void init() {}
 
     private static Item register(String name, Supplier<Item> item) {
-        Item hat = Registry.register(BuiltInRegistries.ITEM, CommonLoader.id(name), item.get());
+        Item hat = Registry.register(BuiltInRegistries.ITEM, Constants.id(name), item.get());
         ALL_HATS.add(hat);
         return hat;
     }

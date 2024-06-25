@@ -1,5 +1,6 @@
 package de.cech12.usefulhats.item;
 
+import de.cech12.usefulhats.CommonLoader;
 import de.cech12.usefulhats.UsefulHatsUtils;
 import de.cech12.usefulhats.platform.Services;
 import net.minecraft.ChatFormatting;
@@ -33,7 +34,7 @@ public class LuckyHatItem extends AbstractHatItem implements IItemFishedListener
     }
 
     private int getEffectLevel(ItemStack stack) {
-        return 1 + Services.PLATFORM.getEnchantmentLevel(stack, Enchantments.EFFICIENCY);
+        return 1 + CommonLoader.getEnchantmentLevel(stack, Enchantments.EFFICIENCY);
     }
 
     private int getLuckAmplifier(ItemStack stack) {

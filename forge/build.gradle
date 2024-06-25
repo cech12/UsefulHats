@@ -61,9 +61,6 @@ dependencies {
     annotationProcessor("org.spongepowered:mixin:0.8.5-SNAPSHOT:processor")
     //temporary necessary:
     implementation('net.sf.jopt-simple:jopt-simple:5.0.4') { version { strictly '5.0.4' } }
-
-    compileOnly "top.theillusivec4.curios:curios-forge:${project.curios_version}:api"
-    runtimeOnly "top.theillusivec4.curios:curios-forge:${project.curios_version}"
 }
 
 tasks.withType(JavaCompile).configureEach {

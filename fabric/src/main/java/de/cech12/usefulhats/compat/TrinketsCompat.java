@@ -1,5 +1,5 @@
 package de.cech12.usefulhats.compat;
-
+/* TODO
 import de.cech12.usefulhats.UsefulHatsEventUtils;
 import de.cech12.usefulhats.item.AbstractHatItem;
 import de.cech12.usefulhats.platform.Services;
@@ -55,3 +55,4 @@ public class TrinketsCompat {
     }
 
 }
+ */

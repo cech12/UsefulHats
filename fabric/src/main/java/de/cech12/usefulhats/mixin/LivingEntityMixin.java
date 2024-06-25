@@ -1,6 +1,7 @@
 package de.cech12.usefulhats.mixin;
 
 import de.cech12.usefulhats.UsefulHatsEventUtils;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
@@ -22,11 +23,11 @@ public class LivingEntityMixin {
     protected int useItemRemaining;
 
     @Inject(method = "dropAllDeathLoot", at = @At("RETURN"))
-    public void dropAllDeathLootProxy(DamageSource damageSource, CallbackInfo ci) {
+    public void dropAllDeathLootProxy(ServerLevel serverLevel, DamageSource damageSource, CallbackInfo ci) {
         UsefulHatsEventUtils.onLivingDiesBecauseOf(damageSource.getEntity());
     }
 
-    @Inject(method = "startUsingItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;getUseDuration()I", shift = At.Shift.BY, by = 2))
+    @Inject(method = "startUsingItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;getUseDuration(Lnet/minecraft/world/entity/LivingEntity;)I", shift = At.Shift.BY, by = 2))
     public void startUsingItemProxy(InteractionHand interactionHand, CallbackInfo ci) {
         LivingEntity entity = (LivingEntity) (Object) this;
         useItemRemaining = UsefulHatsEventUtils.onLivingStartsUsingItem(entity, entity.getItemInHand(interactionHand), useItemRemaining);

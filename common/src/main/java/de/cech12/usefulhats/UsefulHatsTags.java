@@ -9,11 +9,11 @@ import net.minecraft.world.item.Item;
 public class UsefulHatsTags {
 
     public static class Items {
-        public static final TagKey<Item> MUSHROOM_CAPS = tag(Services.PLATFORM.getModSharingNamespace() + ":mushroom_caps");
+        public static final TagKey<Item> MUSHROOM_CAPS = tag(Services.PLATFORM.getModSharingNamespace(), "mushroom_caps");
     }
 
-    private static TagKey<Item> tag(final String name) {
-        return TagKey.create(Registries.ITEM, new ResourceLocation(name));
+    private static TagKey<Item> tag(final String namespace, final String name) {
+        return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(namespace, name));
     }
 
 }

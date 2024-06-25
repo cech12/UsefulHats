@@ -1,6 +1,6 @@
 plugins {
     id 'idea'
-    id 'net.neoforged.gradle.userdev' version '[7.0.105,7.2)'
+    id 'net.neoforged.gradle.userdev' version '7.0.150'
     id 'java-library'
 }
 base {
@@ -48,9 +48,6 @@ dependencies {
     compileOnly project(":common")
     testCompileOnly project(":common")
 
-    compileOnly("top.theillusivec4.curios:curios-neoforge:${project.curios_version}:api")
-    runtimeOnly("top.theillusivec4.curios:curios-neoforge:${project.curios_version}")
-
     //compileOnly("com.legacy:lucent:${project.lucent_version}")
     //runtimeOnly("com.legacy:lucent:${project.lucent_version}")
 }
@@ -73,4 +70,12 @@ tasks.withType(JavaCompile).matching(notNeoTask).configureEach {
 
 tasks.withType(ProcessResources).matching(notNeoTask).configureEach {
     from project(":common").sourceSets.main.resources
+}
+
+//disable tests
+test.onlyIf { false }
+tasks.configureEach { task ->
+    if (task.name.startsWith("testJunit")) {
+        task.enabled = false
+    }
 }

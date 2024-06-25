@@ -1,8 +1,5 @@
 package de.cech12.usefulhats.platform.services;
 
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.Enchantment;
-
 /**
  * Common platform helper service interface.
  */
@@ -45,7 +42,5 @@ public interface IPlatformHelper {
     default String getEnvironmentName() {
         return isDevelopmentEnvironment() ? "development" : "production";
     }
-
-    int getEnchantmentLevel(ItemStack stack, Enchantment enchantment);
 
 }

@@ -1,5 +1,6 @@
 package de.cech12.usefulhats.item;
 
+import de.cech12.usefulhats.CommonLoader;
 import de.cech12.usefulhats.UsefulHatsUtils;
 import de.cech12.usefulhats.platform.Services;
 import net.minecraft.ChatFormatting;
@@ -29,7 +30,7 @@ public class PostmanHatItem extends AbstractHatItem implements IEquipmentChangeL
     @Override
     public void appendHoverText(@NotNull ItemStack stack, @NotNull Item.TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flagIn) {
         super.appendHoverText(stack, context, tooltip, flagIn);
-        int enchantmentLevel = Services.PLATFORM.getEnchantmentLevel(stack, Enchantments.EFFICIENCY) + 1;
+        int enchantmentLevel = CommonLoader.getEnchantmentLevel(stack, Enchantments.EFFICIENCY) + 1;
         tooltip.add(Component.translatable("item.usefulhats.postman_hat.desc.speed", UsefulHatsUtils.getRomanNumber(enchantmentLevel, false)).withStyle(ChatFormatting.BLUE));
         if (Services.CONFIG.isPostmanHatHungerEnabled()) {
             tooltip.add(Component.translatable("item.usefulhats.postman_hat.desc.hunger").withStyle(ChatFormatting.RED));
@@ -40,7 +41,7 @@ public class PostmanHatItem extends AbstractHatItem implements IEquipmentChangeL
     public void inventoryTick(@NotNull ItemStack stack, Level level, @NotNull Entity entity, int slot, boolean selectedIndex) {
         if (!level.isClientSide && entity instanceof LivingEntity livingEntity) {
             if (!Services.REGISTRY.getEquippedHatItemStacks(livingEntity).contains(stack)) return; //only one worn stack of this item should add its effect
-            int speedAmplifier = Services.PLATFORM.getEnchantmentLevel(stack, Enchantments.EFFICIENCY);
+            int speedAmplifier = CommonLoader.getEnchantmentLevel(stack, Enchantments.EFFICIENCY);
             //When Speed effect is caused by another source, do nothing
             if (this.isEffectCausedByOtherSource(livingEntity, MobEffects.MOVEMENT_SPEED, SPEED_DURATION, speedAmplifier)) return;
             // Speed of other sources will not be overridden here.
@@ -70,7 +71,7 @@ public class PostmanHatItem extends AbstractHatItem implements IEquipmentChangeL
     @Override
     public void onUnequippedHatItem(LivingEntity entity, ItemStack oldStack) {
         // disable effects when hat is removed from slot
-        int speedAmplifier = Services.PLATFORM.getEnchantmentLevel(oldStack, Enchantments.EFFICIENCY);
+        int speedAmplifier = CommonLoader.getEnchantmentLevel(oldStack, Enchantments.EFFICIENCY);
         this.removeEffect(entity, MobEffects.MOVEMENT_SPEED, SPEED_DURATION, speedAmplifier);
         if (Services.CONFIG.isPostmanHatHungerEnabled()) {
             this.removeEffect(entity, MobEffects.HUNGER, HUNGER_DURATION, HUNGER_AMPLIFIER);

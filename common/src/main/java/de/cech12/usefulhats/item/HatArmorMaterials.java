@@ -5,7 +5,6 @@ import de.cech12.usefulhats.UsefulHatsTags;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.ArmorItem;
@@ -44,11 +43,11 @@ public class HatArmorMaterials {
             defenseMap.put(type, 0);
         }
         List<ArmorMaterial.Layer> layers = new ArrayList<>();
-        layers.add(new ArmorMaterial.Layer(new ResourceLocation(Constants.MOD_ID, name), "", true));
+        layers.add(new ArmorMaterial.Layer(Constants.id(name), "", true));
         if (withOverlay) {
-            layers.add(new ArmorMaterial.Layer(new ResourceLocation(Constants.MOD_ID, name), "_overlay", false));
+            layers.add(new ArmorMaterial.Layer(Constants.id(name), "_overlay", false));
         }
-        return Registry.registerForHolder(BuiltInRegistries.ARMOR_MATERIAL, new ResourceLocation(Constants.MOD_ID, name), new ArmorMaterial(defenseMap, 15, equipSound, repairIngredients, layers, 0.0F, 0.0F));
+        return Registry.registerForHolder(BuiltInRegistries.ARMOR_MATERIAL, Constants.id(name), new ArmorMaterial(defenseMap, 15, equipSound, repairIngredients, layers, 0.0F, 0.0F));
     }
 
 }

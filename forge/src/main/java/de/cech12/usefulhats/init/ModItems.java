@@ -2,7 +2,6 @@ package de.cech12.usefulhats.init;
 
 import de.cech12.usefulhats.Constants;
 import de.cech12.usefulhats.UsefulHatsEventUtils;
-import de.cech12.usefulhats.compat.CuriosMod;
 import de.cech12.usefulhats.item.AquanautHelmetItem;
 import de.cech12.usefulhats.item.BunnyEarsItem;
 import de.cech12.usefulhats.item.ChoppingHatItem;
@@ -16,7 +15,6 @@ import de.cech12.usefulhats.item.ShulkerHelmetItem;
 import de.cech12.usefulhats.item.StockingCapItem;
 import de.cech12.usefulhats.item.StrawHatItem;
 import de.cech12.usefulhats.item.WingHelmetItem;
-import de.cech12.usefulhats.platform.Services;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -82,10 +80,6 @@ public class ModItems {
         MinecraftForge.EVENT_BUS.addListener(ModItems::onLivingChangeTargetEvent);
         MinecraftForge.EVENT_BUS.addListener(ModItems::onLivingUseItemEventStart);
         MinecraftForge.EVENT_BUS.addListener(ModItems::onRightClickItemEvent);
-        //curios events
-        if (Services.PLATFORM.isModLoaded(Constants.CURIOS_MOD_ID)) {
-            MinecraftForge.EVENT_BUS.addListener(CuriosMod::onCuriosEquipmentChangeEvent);
-        }
     }
 
     private static void onBreakSpeedEvent(PlayerEvent.BreakSpeed event) {

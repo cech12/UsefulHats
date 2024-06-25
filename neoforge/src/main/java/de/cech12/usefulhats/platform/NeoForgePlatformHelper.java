@@ -1,8 +1,6 @@
 package de.cech12.usefulhats.platform;
 
 import de.cech12.usefulhats.platform.services.IPlatformHelper;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.Enchantment;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.loading.FMLLoader;
 
@@ -18,7 +16,7 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
 
     @Override
     public String getModSharingNamespace() {
-        return "neoforge";
+        return "c";
     }
 
     @Override
@@ -29,11 +27,6 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
     @Override
     public boolean isDevelopmentEnvironment() {
         return !FMLLoader.isProduction();
-    }
-
-    @Override
-    public int getEnchantmentLevel(ItemStack stack, Enchantment enchantment) {
-        return stack.getEnchantmentLevel(enchantment);
     }
 
 }

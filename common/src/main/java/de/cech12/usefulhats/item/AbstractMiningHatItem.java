@@ -1,6 +1,6 @@
 package de.cech12.usefulhats.item;
 
-import de.cech12.usefulhats.platform.Services;
+import de.cech12.usefulhats.CommonLoader;
 import net.minecraft.core.Holder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorMaterial;
@@ -17,7 +17,7 @@ public abstract class AbstractMiningHatItem extends AbstractHatItem implements I
     }
 
     protected double getEnchantmentDoubleValue(final ItemStack stack) {
-        return getSpeedConfig(Services.PLATFORM.getEnchantmentLevel(stack, Enchantments.EFFICIENCY));
+        return getSpeedConfig(CommonLoader.getEnchantmentLevel(stack, Enchantments.EFFICIENCY));
     }
 
     protected abstract double getSpeedConfig(int enchantmentLevel);
