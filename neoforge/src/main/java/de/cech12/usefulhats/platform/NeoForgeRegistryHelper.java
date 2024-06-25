@@ -1,5 +1,6 @@
 package de.cech12.usefulhats.platform;
 
+import de.cech12.usefulhats.compat.Baubles2Compat;
 import de.cech12.usefulhats.init.ModItems;
 import de.cech12.usefulhats.item.AbstractHatItem;
 import de.cech12.usefulhats.platform.services.IRegistryHelper;
@@ -39,6 +40,9 @@ public class NeoForgeRegistryHelper implements IRegistryHelper {
         ItemStack headItemStack = entity.getItemBySlot(EquipmentSlot.HEAD);
         if (headItemStack.getItem() instanceof AbstractHatItem) {
             stacks.add(headItemStack);
+        }
+        if (Services.PLATFORM.isModLoaded(Baubles2Compat.MOD_ID)) {
+            Baubles2Compat.addEquippedHatsToList(entity, stacks);
         }
         return stacks;
     }

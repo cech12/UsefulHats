@@ -23,7 +23,7 @@ public class UsefulHatsArmorRenderer extends AbstractUsefulHatsRenderer implemen
     @Override
     protected void followBodyRotations(LivingEntity livingEntity, HumanoidModel<LivingEntity> humanoidModel) {
         if (Minecraft.getInstance().player != null) {
-            ((HumanoidModel)((RenderLayerParent)Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(livingEntity)).getModel()).copyPropertiesTo(humanoidModel);;
+            ((HumanoidModel)((RenderLayerParent)Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(livingEntity)).getModel()).copyPropertiesTo(humanoidModel);
         }
     }
 

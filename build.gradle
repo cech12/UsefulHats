@@ -76,6 +76,7 @@ subprojects {
                 "mod_issue_tracker": mod_issue_tracker,
                 "mod_description": project.description,
                 "trinkets_version": trinkets_version,
+                "baubles2_version_range": baubles2_version_range,
                 "lucent_version": lucent_version,
                 "lucent_version_range": lucent_version_range
         ]

@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Forge Recommended Versioning](https://mcforge.readthedocs.io/en/latest/conventions/versioning/).
 
 ## [1.21-6.0.0.0] - 2024-06-25
+### Added
+- added Baulbes 2 support (Pre-Release 0.4) (without rendering) (Neoforge)
+
 ### Changed
 - updated to Minecraft 1.21 (Fabric 0.100.3+1.21, Neoforge 21.0.37-beta, Forge 51.0.18)
 - updated Cloth Config support (15.0.127) (Fabric/Quilt)

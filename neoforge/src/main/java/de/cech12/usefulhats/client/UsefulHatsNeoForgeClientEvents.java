@@ -40,4 +40,13 @@ public class UsefulHatsNeoForgeClientEvents {
         }
     }
 
+    /* TODO activate rendering when it works
+    @SubscribeEvent
+    public static void onClientInit(final FMLClientSetupEvent event) {
+        if (Services.PLATFORM.isModLoaded(Baubles2Compat.MOD_ID)) {
+            Baubles2ClientCompat.register();
+        }
+    }
+     */
+
 }

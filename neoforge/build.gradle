@@ -41,12 +41,25 @@ repositories {
         name "Modding Legacy Maven"
         url "https://maven.moddinglegacy.com/artifactory/modding-legacy/"
     }
+    //for Baubles 2
+    exclusiveContent {
+        forRepository {
+            maven {
+                url "https://cursemaven.com"
+            }
+        }
+        filter {
+            includeGroup "curse.maven"
+        }
+    }
 }
 
 dependencies {
     implementation "net.neoforged:neoforge:${neoforge_version}"
     compileOnly project(":common")
     testCompileOnly project(":common")
+
+    implementation("curse.maven:baubles2-1040353:${project.baubles2_file_id}")
 
     //compileOnly("com.legacy:lucent:${project.lucent_version}")
     //runtimeOnly("com.legacy:lucent:${project.lucent_version}")
