@@ -27,6 +27,13 @@ versionRange="${minecraft_version_range}"
 ordering="NONE"
 side="BOTH"
 [[dependencies.${mod_id}]]
+modId="accessories"
+type="optional"
+versionRange="${accessories_version_range}"
+referralUrl="https://github.com/wisp-forest/accessories/"
+ordering="NONE"
+side="BOTH"
+[[dependencies.${mod_id}]]
 modId="baubles"
 type="optional"
 versionRange="${baubles2_version_range}"

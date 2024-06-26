@@ -15,8 +15,6 @@ import java.util.List;
 
 public class AccessoriesCompat {
 
-    public static String MOD_ID = "accessories";
-
     public static void register() {
         Accessory usefulHatsAccessory = new UsefulHatAccessory();
         Services.REGISTRY.getAllHatItems().forEach(item -> AccessoriesAPI.registerAccessory(item, usefulHatsAccessory));

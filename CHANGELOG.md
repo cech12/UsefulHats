@@ -3,9 +3,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Forge Recommended Versioning](https://mcforge.readthedocs.io/en/latest/conventions/versioning/).
 
+## [1.21-6.0.2.0] - 2024-06-26
+### Added
+- added Accessories (1.0.0-beta.2+1.21) support (Neoforge) #59
+
+### Fixed
+- dependency issue with Baubles 2 was fixed (Neoforge)
+
 ## [1.21-6.0.1.0] - 2024-06-26
 ### Added
-- added Accessories (1.0.0-beta.2+1.21) support (Fabric)
+- added Accessories (1.0.0-beta.2+1.21) support (Fabric) #59
 - added Baubles 2 rendering support (Neoforge)
 
 ## [1.21-6.0.0.0] - 2024-06-26

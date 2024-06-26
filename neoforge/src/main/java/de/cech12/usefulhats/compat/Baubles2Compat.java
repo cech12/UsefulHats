@@ -17,8 +17,6 @@ import java.util.List;
 
 public class Baubles2Compat {
 
-    public static String MOD_ID = "baubles";
-
     public static void register(RegisterCapabilitiesEvent event) {
         IBauble usefulHatsBauble = new UsefulHatBauble();
         Services.REGISTRY.getAllHatItems().forEach(item -> {

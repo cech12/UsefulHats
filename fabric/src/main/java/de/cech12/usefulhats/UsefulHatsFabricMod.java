@@ -19,7 +19,7 @@ public class UsefulHatsFabricMod implements ModInitializer {
             TrinketsCompat.register();
         }
          */
-        if (Services.PLATFORM.isModLoaded(AccessoriesCompat.MOD_ID)) {
+        if (Services.PLATFORM.isModLoaded(Constants.ACCESSORIES_MOD_ID)) {
             AccessoriesCompat.register();
         }
     }

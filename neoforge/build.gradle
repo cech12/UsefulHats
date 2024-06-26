@@ -72,11 +72,12 @@ dependencies {
     compileOnly project(":common")
     testCompileOnly project(":common")
 
+    implementation("dev.architectury:architectury-neoforge:$architectury_version")
     compileOnly("io.wispforest:accessories-neoforge:${accessories_version}")
-    //runtimeOnly("io.wispforest:accessories-neoforge:${accessories_version}")
+    runtimeOnly("io.wispforest:accessories-neoforge:${accessories_version}")
 
     compileOnly("curse.maven:baubles2-1040353:${project.baubles2_file_id}")
-    runtimeOnly("curse.maven:baubles2-1040353:${project.baubles2_file_id}")
+    //runtimeOnly("curse.maven:baubles2-1040353:${project.baubles2_file_id}")
 
     //compileOnly("com.legacy:lucent:${project.lucent_version}")
     //runtimeOnly("com.legacy:lucent:${project.lucent_version}")

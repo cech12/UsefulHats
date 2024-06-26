@@ -2,7 +2,6 @@ package de.cech12.usefulhats.client;
 
 import de.cech12.usefulhats.Constants;
 import de.cech12.usefulhats.client.compat.AccessoriesClientCompat;
-import de.cech12.usefulhats.compat.AccessoriesCompat;
 import de.cech12.usefulhats.item.AbstractHatItem;
 import de.cech12.usefulhats.platform.Services;
 import net.fabricmc.api.ClientModInitializer;
@@ -36,7 +35,7 @@ public class UsefulHatsFabricClientMod implements ClientModInitializer {
             TrinketsClientCompat.register();
         }
          */
-        if (Services.PLATFORM.isModLoaded(AccessoriesCompat.MOD_ID)) {
+        if (Services.PLATFORM.isModLoaded(Constants.ACCESSORIES_MOD_ID)) {
             AccessoriesClientCompat.register();
         }
     }
