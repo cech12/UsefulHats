@@ -49,7 +49,6 @@ public abstract class AbstractUsefulHatsRenderer {
     private void render(ItemStack stack, PoseStack matrices, MultiBufferSource vertexConsumers, int light, LivingEntity entity, HumanoidModel<LivingEntity> model) {
         Item item = stack.getItem();
         this.followBodyRotations(entity, model);
-        model.copyPropertiesTo(model);
         boolean flag1 = stack.hasFoil();
         int color = stack.is(ItemTags.DYEABLE) ? DyedItemColor.getOrDefault(stack, ((AbstractHatItem)stack.getItem()).getDefaultColor()) : ((AbstractHatItem)stack.getItem()).getDefaultColor();
         for (ArmorMaterial.Layer layer : ((ArmorItem) item).getMaterial().value().layers()) {

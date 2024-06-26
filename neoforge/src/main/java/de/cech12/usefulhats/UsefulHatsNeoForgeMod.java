@@ -26,6 +26,11 @@ public class UsefulHatsNeoForgeMod {
 
     @SubscribeEvent
     public static void registerCapabilities(RegisterCapabilitiesEvent event) {
+        /* TODO
+        if (Services.PLATFORM.isModLoaded(AccessoriesCompat.MOD_ID)) {
+            AccessoriesCompat.register();
+        }
+         */
         if (Services.PLATFORM.isModLoaded(Baubles2Compat.MOD_ID)) {
             Baubles2Compat.register(event);
         }

@@ -1,6 +1,8 @@
 package de.cech12.usefulhats.client;
 
 import de.cech12.usefulhats.Constants;
+import de.cech12.usefulhats.client.compat.Baubles2ClientCompat;
+import de.cech12.usefulhats.compat.Baubles2Compat;
 import de.cech12.usefulhats.item.AbstractHatItem;
 import de.cech12.usefulhats.platform.Services;
 import net.minecraft.client.Minecraft;
@@ -12,6 +14,7 @@ import net.minecraft.world.item.component.DyedItemColor;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 
@@ -40,13 +43,16 @@ public class UsefulHatsNeoForgeClientEvents {
         }
     }
 
-    /* TODO activate rendering when it works
     @SubscribeEvent
     public static void onClientInit(final FMLClientSetupEvent event) {
+        /* TODO
+        if (Services.PLATFORM.isModLoaded(AccessoriesCompat.MOD_ID)) {
+            AccessoriesClientCompat.register();
+        }
+         */
         if (Services.PLATFORM.isModLoaded(Baubles2Compat.MOD_ID)) {
             Baubles2ClientCompat.register();
         }
     }
-     */
 
 }

@@ -41,6 +41,11 @@ public class NeoForgeRegistryHelper implements IRegistryHelper {
         if (headItemStack.getItem() instanceof AbstractHatItem) {
             stacks.add(headItemStack);
         }
+        /* TODO
+        if (Services.PLATFORM.isModLoaded(AccessoriesCompat.MOD_ID)) {
+            AccessoriesCompat.addEquippedHatsToList(entity, stacks);
+        }
+         */
         if (Services.PLATFORM.isModLoaded(Baubles2Compat.MOD_ID)) {
             Baubles2Compat.addEquippedHatsToList(entity, stacks);
         }

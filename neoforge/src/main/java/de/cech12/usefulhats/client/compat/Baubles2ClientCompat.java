@@ -34,12 +34,13 @@ public class Baubles2ClientCompat {
             if (slot != BaubleType.HEAD) {
                 return;
             }
+            matrices.popPose(); //pop head translated pose
             this.render(stack, matrices, vertexConsumers, light, entity);
+            matrices.pushPose(); //push empty pose to be compatible with calling context
         }
 
         @Override
         protected void followBodyRotations(LivingEntity livingEntity, HumanoidModel<LivingEntity> humanoidModel) {
-            //TODO translation does not work properly: https://github.com/Tanticle/baubles/issues/1
             if (Minecraft.getInstance().player != null) {
                 ((HumanoidModel)((RenderLayerParent)Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(livingEntity)).getModel()).copyPropertiesTo(humanoidModel);
             }

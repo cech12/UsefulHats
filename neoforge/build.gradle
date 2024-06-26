@@ -36,11 +36,12 @@ runs {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
-    //for Lucent
-    maven {
-        name "Modding Legacy Maven"
-        url "https://maven.moddinglegacy.com/artifactory/modding-legacy/"
-    }
+    //for Accessories
+    maven { url "https://maven.wispforest.io/releases" }
+    maven { url "https://maven.su5ed.dev/releases" }
+    maven { url "https://maven.fabricmc.net/" }
+    maven { url "https://maven.shedaniel.me/" }
+    maven { url "https://maven.blamejared.com/" }
     //for Baubles 2
     exclusiveContent {
         forRepository {
@@ -52,6 +53,18 @@ repositories {
             includeGroup "curse.maven"
         }
     }
+    //for Lucent
+    exclusiveContent {
+        forRepository {
+            maven {
+                name "Modding Legacy Maven"
+                url "https://maven.moddinglegacy.com/artifactory/modding-legacy/"
+            }
+        }
+        filter {
+            includeGroup "com.legacy"
+        }
+    }
 }
 
 dependencies {
@@ -59,7 +72,11 @@ dependencies {
     compileOnly project(":common")
     testCompileOnly project(":common")
 
-    implementation("curse.maven:baubles2-1040353:${project.baubles2_file_id}")
+    compileOnly("io.wispforest:accessories-neoforge:${accessories_version}")
+    //runtimeOnly("io.wispforest:accessories-neoforge:${accessories_version}")
+
+    compileOnly("curse.maven:baubles2-1040353:${project.baubles2_file_id}")
+    runtimeOnly("curse.maven:baubles2-1040353:${project.baubles2_file_id}")
 
     //compileOnly("com.legacy:lucent:${project.lucent_version}")
     //runtimeOnly("com.legacy:lucent:${project.lucent_version}")
