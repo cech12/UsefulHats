@@ -1,6 +1,7 @@
 package de.cech12.usefulhats;
 
 import de.cech12.usefulhats.platform.Services;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.registries.VanillaRegistries;
 import net.minecraft.resources.ResourceKey;
@@ -13,6 +14,8 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
  */
 public class CommonLoader {
 
+    private static HolderLookup.RegistryLookup<Enchantment> enchantmentLookup = null;
+
     private CommonLoader() {}
 
     /**
@@ -23,7 +26,10 @@ public class CommonLoader {
     }
 
     public static int getEnchantmentLevel(ItemStack stack, ResourceKey<Enchantment> enchantment) {
-        return EnchantmentHelper.getItemEnchantmentLevel(VanillaRegistries.createLookup().lookup(Registries.ENCHANTMENT).get().getOrThrow(enchantment), stack);
+        if (enchantmentLookup == null) {
+            enchantmentLookup = VanillaRegistries.createLookup().lookup(Registries.ENCHANTMENT).get();
+        }
+        return EnchantmentHelper.getItemEnchantmentLevel(enchantmentLookup.getOrThrow(enchantment), stack);
     }
 
 }
