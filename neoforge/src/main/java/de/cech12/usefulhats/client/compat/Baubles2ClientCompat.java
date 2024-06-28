@@ -13,8 +13,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import tld.unknown.baubles.api.BaubleType;
+import tld.unknown.baubles.api.BaublesAPI;
 import tld.unknown.baubles.api.IBaubleRenderer;
-import tld.unknown.baubles.client.BaublesClient;
 
 public class Baubles2ClientCompat {
 
@@ -23,7 +23,7 @@ public class Baubles2ClientCompat {
     public static void register() {
         UsefulHatsBaubles2Renderer renderer = new UsefulHatsBaubles2Renderer();
         for (Item item : Services.REGISTRY.getAllHatItems()) {
-            BaublesClient.RENDERERS.registerRenderer(BuiltInRegistries.ITEM.getKey(item), renderer);
+            BaublesAPI.getRenderers().registerRenderer(BuiltInRegistries.ITEM.getKey(item), renderer);
         }
     }
 

@@ -12,8 +12,8 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.common.ItemAbilities;
 import net.neoforged.neoforge.common.Tags;
-import net.neoforged.neoforge.common.ToolActions;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -64,22 +64,22 @@ public class NeoForgeRegistryHelper implements IRegistryHelper {
 
     @Override
     public boolean isAxe(ItemStack tool) {
-        return tool.canPerformAction(ToolActions.AXE_DIG);
+        return tool.canPerformAction(ItemAbilities.AXE_DIG);
     }
 
     @Override
     public boolean isHoe(ItemStack tool) {
-        return tool.canPerformAction(ToolActions.HOE_DIG);
+        return tool.canPerformAction(ItemAbilities.HOE_DIG);
     }
 
     @Override
     public boolean isPickaxe(ItemStack tool) {
-        return tool.canPerformAction(ToolActions.PICKAXE_DIG);
+        return tool.canPerformAction(ItemAbilities.PICKAXE_DIG);
     }
 
     @Override
     public boolean isShovel(ItemStack tool) {
-        return tool.canPerformAction(ToolActions.SHOVEL_DIG);
+        return tool.canPerformAction(ItemAbilities.SHOVEL_DIG);
     }
 
 }

@@ -72,7 +72,6 @@ dependencies {
     compileOnly project(":common")
     testCompileOnly project(":common")
 
-    implementation("dev.architectury:architectury-neoforge:$architectury_version")
     compileOnly("io.wispforest:accessories-neoforge:${accessories_version}")
     runtimeOnly("io.wispforest:accessories-neoforge:${accessories_version}")
 
