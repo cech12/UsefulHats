@@ -42,6 +42,8 @@ repositories {
     maven { url "https://maven.fabricmc.net/" }
     maven { url "https://maven.shedaniel.me/" }
     maven { url "https://maven.blamejared.com/" }
+    //for Curios Continuation
+    maven { url "https://maven.octo-studios.com/releases" }
     //for Baubles 2
     exclusiveContent {
         forRepository {
@@ -74,6 +76,9 @@ dependencies {
 
     compileOnly("io.wispforest:accessories-neoforge:${accessories_version}")
     runtimeOnly("io.wispforest:accessories-neoforge:${accessories_version}")
+
+    compileOnly("top.theillusivec4.curios:curios-neoforge:${curios_continuation_version}")
+    runtimeOnly("top.theillusivec4.curios:curios-neoforge:${curios_continuation_version}")
 
     compileOnly("curse.maven:baubles2-1040353:${project.baubles2_file_id}")
     //runtimeOnly("curse.maven:baubles2-1040353:${project.baubles2_file_id}")

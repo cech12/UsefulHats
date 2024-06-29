@@ -20,8 +20,9 @@ public class Constants {
     /** Logger instance */
     public static final Logger LOG = LoggerFactory.getLogger(MOD_NAME);
 
-    public static String ACCESSORIES_MOD_ID = "accessories";
+    public static final String ACCESSORIES_MOD_ID = "accessories";
     public static final String BAUBLES_2_MOD_ID = "baubles";
+    public static final String CURIOS_CONTINUATION_MOD_ID = "curios";
     public static final String LUCENT_MOD_ID = "lucent";
 
     public static Supplier<DataComponentType<EnderHelmetItem.Position>> ENDER_HELMET_POSITION;

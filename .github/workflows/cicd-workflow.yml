@@ -84,6 +84,10 @@ jobs:
       release-type: release
       loaders: |
         neoforge
+      dependencies: |
+        accessories(optional)
+        baubles-2(optional)
+        curios-continuation(optional)
     secrets:
       github-token: ${{ secrets.GITHUB_TOKEN }}
       curseforge-token: ${{ secrets.CURSEFORGE_API_KEY }}
@@ -102,6 +106,10 @@ jobs:
       release-type: release
       loaders: |
         neoforge
+      dependencies: |
+        accessories(optional)
+        baubles-2(optional)
+        curios-continuation(optional)
     secrets:
       github-token: ${{ secrets.GITHUB_TOKEN }}
       modrinth-token: ${{ secrets.MODRINTH_API_KEY }}

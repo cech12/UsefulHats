@@ -3,6 +3,7 @@ package de.cech12.usefulhats.platform;
 import de.cech12.usefulhats.Constants;
 import de.cech12.usefulhats.compat.AccessoriesCompat;
 import de.cech12.usefulhats.compat.Baubles2Compat;
+import de.cech12.usefulhats.compat.CuriosContinuationCompat;
 import de.cech12.usefulhats.init.ModItems;
 import de.cech12.usefulhats.item.AbstractHatItem;
 import de.cech12.usefulhats.platform.services.IRegistryHelper;
@@ -48,6 +49,9 @@ public class NeoForgeRegistryHelper implements IRegistryHelper {
         }
         if (Services.PLATFORM.isModLoaded(Constants.BAUBLES_2_MOD_ID)) {
             Baubles2Compat.addEquippedHatsToList(entity, stacks);
+        }
+        if (Services.PLATFORM.isModLoaded(Constants.CURIOS_CONTINUATION_MOD_ID)) {
+            CuriosContinuationCompat.addEquippedHatsToList(entity, stacks);
         }
         return stacks;
     }

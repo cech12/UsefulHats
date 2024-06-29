@@ -19,7 +19,8 @@ The Fabric / Quilt version needs the following mods:
 
 This mod is compatible with:
 * Trinkets ([GitHub](https://github.com/emilyploszaj/trinkets), [Curseforge](https://www.curseforge.com/minecraft/mc-mods/trinkets), [Modrinth](https://modrinth.com/mod/trinkets)) (since Useful Hats 1.20.4-5.1.1.0)
-* Accessories ([GitHub](https://github.com/wisp-forest/accessories/), [Modrinth](https://modrinth.com/mod/accessories)) (since Useful Hats 1.21-6.0.2.0)
+* Accessories ([GitHub](https://github.com/wisp-forest/accessories/), [Curseforge](https://www.curseforge.com/minecraft/mc-mods/accessories) [Modrinth](https://modrinth.com/mod/accessories)) (since Useful Hats 1.21-6.0.2.0)
+* Curios Continuation ([GitHub](https://github.com/SSKirillSS/Curios), [Curseforge](https://www.curseforge.com/minecraft/mc-mods/curios-continuation), [Modrinth](https://modrinth.com/mod/curios-continuation)) (since Useful Hats 1.21-6.1.1.0)
 * Baubles 2 ([GitHub](https://github.com/Tanticle/baubles), [Curseforge](https://www.curseforge.com/minecraft/mc-mods/baubles-2), [Modrinth](https://modrinth.com/mod/baubles-2)) (since Useful Hats 1.21-6.0.1.0)
 * Curios ([GitHub](https://github.com/TheIllusiveC4/Curios), [Curseforge](https://www.curseforge.com/minecraft/mc-mods/curios), [Modrinth](https://modrinth.com/mod/curios)) (since Useful Hats 1.7.0 until Minecraft 1.20.6) 
 * Baubles Reborn ([GitHub](https://github.com/lazyMods/Baubles), [Curseforge](https://www.curseforge.com/minecraft/mc-mods/baubles-reborn)) (since Useful Hats 1.8.3 until Minecraft 1.18.1).

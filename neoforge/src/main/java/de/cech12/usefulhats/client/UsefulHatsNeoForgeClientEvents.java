@@ -3,6 +3,7 @@ package de.cech12.usefulhats.client;
 import de.cech12.usefulhats.Constants;
 import de.cech12.usefulhats.client.compat.AccessoriesClientCompat;
 import de.cech12.usefulhats.client.compat.Baubles2ClientCompat;
+import de.cech12.usefulhats.client.compat.CuriosContinuationClientCompat;
 import de.cech12.usefulhats.item.AbstractHatItem;
 import de.cech12.usefulhats.platform.Services;
 import net.minecraft.client.Minecraft;
@@ -50,6 +51,9 @@ public class UsefulHatsNeoForgeClientEvents {
         }
         if (Services.PLATFORM.isModLoaded(Constants.BAUBLES_2_MOD_ID)) {
             Baubles2ClientCompat.register();
+        }
+        if (Services.PLATFORM.isModLoaded(Constants.CURIOS_CONTINUATION_MOD_ID)) {
+            CuriosContinuationClientCompat.register();
         }
     }
 
