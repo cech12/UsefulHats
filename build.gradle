@@ -79,6 +79,8 @@ subprojects {
                 "baubles2_version_range": baubles2_version_range,
                 "accessories_version": accessories_version,
                 "accessories_version_range": accessories_version_range,
+                "curios_continuation_version": curios_continuation_version,
+                "curios_continuation_version_range": curios_continuation_version_range,
                 "lucent_version": lucent_version,
                 "lucent_version_range": lucent_version_range
         ]
