@@ -8,8 +8,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - updated NeoForge to 21.0.76-beta
 
 ### Fixed
-- crash when wearing a Halo and an entity is around (caused by a breaking change in Neoforge)
-- try to fix a crash when hovering a straw hat/chopping hat/mining helmet (Fabric/Quilt) (thanks to makumaku1974 for the report) #63
+- game crashed when wearing a Halo and an entity is around (caused by a breaking change in Neoforge)
+- speed calculation for straw hat/chopping hat/mining helmet was wrong (all loaders) (thanks to Imperial-Warlord for the report) #62
+- game crashed when hovering a straw hat/chopping hat/mining helmet (Fabric/Quilt) (thanks to makumaku1974 for the report) #63
 
 ## [1.21-6.1.1.0] - 2024-06-29
 ### Added
