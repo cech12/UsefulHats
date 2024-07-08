@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Forge Recommended Versioning](https://mcforge.readthedocs.io/en/latest/conventions/versioning/).
 
+## [1.20.6-5.2.0.1] - 2024-07-08
+### Fixed
+- speed calculation for straw hat/chopping hat/mining helmet was wrong (all loaders) (thanks to Imperial-Warlord for the report) #62
+
 ## [1.20.6-5.2.0.0] - 2024-05-28
 ### Changed
 - updated to Minecraft 1.20.6 (Fabric 0.99.0+1.20.6, Neoforge 20.6.83-beta, Forge 50.0.31)
