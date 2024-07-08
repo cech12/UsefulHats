@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Forge Recommended Versioning](https://mcforge.readthedocs.io/en/latest/conventions/versioning/).
 
+## [1.20.4-5.1.3.1] - 2024-07-08
+### Fixed
+- speed calculation for straw hat/chopping hat/mining helmet was wrong (all loaders) (thanks to Imperial-Warlord for the report) #62
+
 ## [1.20.4-5.1.3.0] - 2024-05-20
 ### Added
 - added support for diving in modded fluids with Aquanaut Helmet (Neoforge, Forge)
