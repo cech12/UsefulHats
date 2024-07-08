@@ -9,6 +9,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 
+import java.util.Optional;
+
 /**
  * A static class for all loaders which initializes everything which is used by all loaders.
  */
@@ -27,7 +29,18 @@ public class CommonLoader {
 
     public static int getEnchantmentLevel(ItemStack stack, ResourceKey<Enchantment> enchantment) {
         if (enchantmentLookup == null) {
-            enchantmentLookup = VanillaRegistries.createLookup().lookup(Registries.ENCHANTMENT).get();
+            try {
+                Optional<HolderLookup.RegistryLookup<Enchantment>> optional = VanillaRegistries.createLookup().lookup(Registries.ENCHANTMENT);
+                if (optional.isPresent()) {
+                    enchantmentLookup = optional.get();
+                } else {
+                    Constants.LOG.error("Cannot get a Lookup for the enchantment registry. Some mod is messing around with the enchantment registry!");
+                    return 0;
+                }
+            } catch (IllegalStateException ex) {
+                Constants.LOG.error("Cannot get a Lookup for the enchantment registry. Some mod is messing around with the registries or is trying to get the enchantment level too early!", ex);
+                return 0;
+            }
         }
         return EnchantmentHelper.getItemEnchantmentLevel(enchantmentLookup.getOrThrow(enchantment), stack);
     }
