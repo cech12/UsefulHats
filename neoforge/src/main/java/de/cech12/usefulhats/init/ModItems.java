@@ -137,7 +137,7 @@ public class ModItems {
     }
 
     private static void onLivingChangeTargetEvent(LivingChangeTargetEvent event) {
-        if (!event.isCanceled() && UsefulHatsEventUtils.shouldEntityAvoidChangingTarget(event.getEntity(), event.getNewTarget())) {
+        if (!event.isCanceled() && UsefulHatsEventUtils.shouldEntityAvoidChangingTarget(event.getEntity(), event.getNewAboutToBeSetTarget())) {
             event.setCanceled(true);
         }
     }

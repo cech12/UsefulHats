@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Forge Recommended Versioning](https://mcforge.readthedocs.io/en/latest/conventions/versioning/).
 
+## [1.21-6.2.0.0] - 2024-07-08
+### Changed
+- updated NeoForge to 21.0.76-beta
+
+### Fixed
+- crash when wearing a Halo and an entity is around (caused by a breaking change in Neoforge)
+
 ## [1.21-6.1.1.0] - 2024-06-29
 ### Added
 - added Curios Continuation support (9.0.4+1.21) (NeoForge)
