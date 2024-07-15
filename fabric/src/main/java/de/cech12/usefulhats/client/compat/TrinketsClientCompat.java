@@ -1,5 +1,5 @@
 package de.cech12.usefulhats.client.compat;
-/* TODO
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import de.cech12.usefulhats.client.AbstractUsefulHatsRenderer;
 import de.cech12.usefulhats.platform.Services;
@@ -38,4 +38,3 @@ public class TrinketsClientCompat {
     }
 
 }
- */

@@ -17,7 +17,7 @@ import java.nio.file.Path;
  */
 public class ForgeConfigHelper implements IConfigHelper {
 
-    public static ForgeConfigSpec SERVER_CONFIG;
+    public static final ForgeConfigSpec SERVER_CONFIG;
 
     public static final ForgeConfigSpec.BooleanValue AQUANAUT_HELMET_DAMAGE_ENABLED;
     public static final ForgeConfigSpec.IntValue AQUANAUT_HELMET_DURABILITY;

@@ -10,7 +10,7 @@ import net.neoforged.neoforge.common.ModConfigSpec;
  */
 public class NeoForgeConfigHelper implements IConfigHelper {
 
-    public static ModConfigSpec SERVER_CONFIG;
+    public static final ModConfigSpec SERVER_CONFIG;
 
     public static final ModConfigSpec.BooleanValue AQUANAUT_HELMET_DAMAGE_ENABLED;
     public static final ModConfigSpec.IntValue AQUANAUT_HELMET_DURABILITY;

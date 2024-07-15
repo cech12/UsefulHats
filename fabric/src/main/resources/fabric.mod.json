@@ -40,6 +40,7 @@
   },
   "suggests": {
     "modmenu": ">=${mod_menu_version}",
-    "accessories": ">=${accessories_version}"
+    "accessories": ">=${accessories_version}",
+    "trinkets": ">=${trinkets_version}"
   }
 }

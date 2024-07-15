@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Forge Recommended Versioning](https://mcforge.readthedocs.io/en/latest/conventions/versioning/).
 
+## [1.21-6.3.1.0] - 2024-07-15
+### Changed
+- re-added Trinkets support (1.21-3.10.0) (Fabric/Quilt)
+
 ## [1.21-6.3.0.0] - 2024-07-14
 ### Changed
 - updated NeoForge to 21.0.94-beta

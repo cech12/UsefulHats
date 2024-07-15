@@ -1,5 +1,5 @@
 package de.cech12.usefulhats.compat;
-/* TODO
+
 import de.cech12.usefulhats.UsefulHatsEventUtils;
 import de.cech12.usefulhats.item.AbstractHatItem;
 import de.cech12.usefulhats.platform.Services;
@@ -13,7 +13,7 @@ import java.util.List;
 
 public class TrinketsCompat {
 
-    public static String MOD_ID = "trinkets";
+    public static final String MOD_ID = "trinkets";
 
     public static void register() {
         Trinket usefulHatsTrinket = new UsefulHatTrinket();
@@ -55,4 +55,3 @@ public class TrinketsCompat {
     }
 
 }
- */

@@ -28,7 +28,7 @@ dependencies {
     }
     modImplementation("com.terraformersmc:modmenu:${mod_menu_version}")
 
-    //modImplementation("dev.emi:trinkets:${trinkets_version}")
+    modImplementation("dev.emi:trinkets:${trinkets_version}")
     modImplementation("io.wispforest:accessories-fabric:${accessories_version}")
 
     implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
