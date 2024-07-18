@@ -18,6 +18,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
+import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber(modid = Constants.MOD_ID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
@@ -26,6 +27,11 @@ public class UsefulHatsNeoForgeClientEvents {
     public static final ModelLayerLocation USEFUL_HAT_LAYER = new ModelLayerLocation(Constants.id("usefulhat_layer"), "main");
 
     public static UsefulHatModel<LivingEntity> usefulHatModel = null;
+
+    @SubscribeEvent
+    public static void registerItemExtensions(RegisterClientExtensionsEvent event) {
+        event.registerItem(UsefulHatItemExtension.INSTANCE, Services.REGISTRY.getAllHatItems().toArray(new Item[0]));
+    }
 
     @SubscribeEvent
     public static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
