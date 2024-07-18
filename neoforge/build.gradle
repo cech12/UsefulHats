@@ -37,10 +37,10 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
     //for Lucent
-    maven {
-        name "Modding Legacy Maven"
-        url "https://maven.moddinglegacy.com/artifactory/modding-legacy/"
-    }
+    //maven {
+    //    name "Modding Legacy Maven"
+    //    url "https://maven.moddinglegacy.com/artifactory/modding-legacy/"
+    //}
 }
 
 dependencies {
