@@ -23,26 +23,19 @@ public class FabricConfigHelper implements ConfigData, IConfigHelper {
         @ConfigEntry.Gui.Tooltip(count = 3)
         public boolean DAMAGE_ENABLED = AQUANAUT_HELMET_DAMAGE_ENABLED_DEFAULT;
         @ConfigEntry.Gui.Tooltip(count = 2)
-        @ConfigEntry.BoundedDiscrete(min = AQUANAUT_HELMET_DURABILITY_MIN, max = AQUANAUT_HELMET_DURABILITY_MAX)
-        public long DURABILITY = AQUANAUT_HELMET_DURABILITY_DEFAULT;
-        @ConfigEntry.Gui.Tooltip(count = 4)
-        @ConfigEntry.BoundedDiscrete(min = AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_0_MIN, max = AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_0_MAX)
-        public long EFFECT_TIME_WITH_EFFICIENCY_0 = AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_0_DEFAULT;
-        @ConfigEntry.Gui.Tooltip(count = 4)
-        @ConfigEntry.BoundedDiscrete(min = AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_1_MIN, max = AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_1_MAX)
-        public long EFFECT_TIME_WITH_EFFICIENCY_1 = AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_1_DEFAULT;
-        @ConfigEntry.Gui.Tooltip(count = 4)
-        @ConfigEntry.BoundedDiscrete(min = AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_2_MIN, max = AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_2_MAX)
-        public long EFFECT_TIME_WITH_EFFICIENCY_2 = AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_2_DEFAULT;
-        @ConfigEntry.Gui.Tooltip(count = 4)
-        @ConfigEntry.BoundedDiscrete(min = AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_3_MIN, max = AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_3_MAX)
-        public long EFFECT_TIME_WITH_EFFICIENCY_3 = AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_3_DEFAULT;
-        @ConfigEntry.Gui.Tooltip(count = 4)
-        @ConfigEntry.BoundedDiscrete(min = AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_4_MIN, max = AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_4_MAX)
-        public long EFFECT_TIME_WITH_EFFICIENCY_4 = AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_4_DEFAULT;
-        @ConfigEntry.Gui.Tooltip(count = 4)
-        @ConfigEntry.BoundedDiscrete(min = AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_5_MIN, max = AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_5_MAX)
-        public long EFFECT_TIME_WITH_EFFICIENCY_5 = AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_5_DEFAULT;
+        public int DURABILITY = AQUANAUT_HELMET_DURABILITY_DEFAULT;
+        @ConfigEntry.Gui.Tooltip(count = 5)
+        public int EFFECT_TIME_WITH_EFFICIENCY_0 = AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_0_DEFAULT;
+        @ConfigEntry.Gui.Tooltip(count = 5)
+        public int EFFECT_TIME_WITH_EFFICIENCY_1 = AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_1_DEFAULT;
+        @ConfigEntry.Gui.Tooltip(count = 5)
+        public int EFFECT_TIME_WITH_EFFICIENCY_2 = AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_2_DEFAULT;
+        @ConfigEntry.Gui.Tooltip(count = 5)
+        public int EFFECT_TIME_WITH_EFFICIENCY_3 = AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_3_DEFAULT;
+        @ConfigEntry.Gui.Tooltip(count = 5)
+        public int EFFECT_TIME_WITH_EFFICIENCY_4 = AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_4_DEFAULT;
+        @ConfigEntry.Gui.Tooltip(count = 5)
+        public int EFFECT_TIME_WITH_EFFICIENCY_5 = AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_5_DEFAULT;
 
         private AquanautHelmet() {}
     }
@@ -54,9 +47,8 @@ public class FabricConfigHelper implements ConfigData, IConfigHelper {
     public static final class BunnyEars implements ConfigData {
         @ConfigEntry.Gui.Tooltip(count = 3)
         public boolean DAMAGE_ENABLED = BUNNY_EARS_DAMAGE_ENABLED_DEFAULT;
-        @ConfigEntry.Gui.Tooltip(count = 2)
-        @ConfigEntry.BoundedDiscrete(min = BUNNY_EARS_DURABILITY_MIN, max = BUNNY_EARS_DURABILITY_MAX)
-        public long DURABILITY = BUNNY_EARS_DURABILITY_DEFAULT;
+        @ConfigEntry.Gui.Tooltip(count = 3)
+        public int DURABILITY = BUNNY_EARS_DURABILITY_DEFAULT;
 
         private BunnyEars() {}
     }
@@ -68,27 +60,20 @@ public class FabricConfigHelper implements ConfigData, IConfigHelper {
     public static final class ChoppingHat implements ConfigData {
         @ConfigEntry.Gui.Tooltip(count = 3)
         public boolean DAMAGE_ENABLED = CHOPPING_HAT_DAMAGE_ENABLED_DEFAULT;
-        @ConfigEntry.Gui.Tooltip(count = 2)
-        @ConfigEntry.BoundedDiscrete(min = CHOPPING_HAT_DURABILITY_MIN, max = CHOPPING_HAT_DURABILITY_MAX)
-        public long DURABILITY = CHOPPING_HAT_DURABILITY_DEFAULT;
-        @ConfigEntry.Gui.Tooltip(count = 4)
-        @ConfigEntry.BoundedDiscrete(min = (long) (CHOPPING_HAT_SPEED_WITH_EFFICIENCY_0_MIN * 100), max = (long) (CHOPPING_HAT_SPEED_WITH_EFFICIENCY_0_MAX * 100))
-        public long SPEED_WITH_EFFICIENCY_0 = (long) (CHOPPING_HAT_SPEED_WITH_EFFICIENCY_0_DEFAULT * 100);
-        @ConfigEntry.Gui.Tooltip(count = 4)
-        @ConfigEntry.BoundedDiscrete(min = (long) (CHOPPING_HAT_SPEED_WITH_EFFICIENCY_1_MIN * 100), max = (long) (CHOPPING_HAT_SPEED_WITH_EFFICIENCY_1_MAX * 100))
-        public long SPEED_WITH_EFFICIENCY_1 = (long) (CHOPPING_HAT_SPEED_WITH_EFFICIENCY_1_DEFAULT * 100);
-        @ConfigEntry.Gui.Tooltip(count = 4)
-        @ConfigEntry.BoundedDiscrete(min = (long) (CHOPPING_HAT_SPEED_WITH_EFFICIENCY_2_MIN * 100), max = (long) (CHOPPING_HAT_SPEED_WITH_EFFICIENCY_2_MAX * 100))
-        public long SPEED_WITH_EFFICIENCY_2 = (long) (CHOPPING_HAT_SPEED_WITH_EFFICIENCY_2_DEFAULT * 100);
-        @ConfigEntry.Gui.Tooltip(count = 4)
-        @ConfigEntry.BoundedDiscrete(min = (long) (CHOPPING_HAT_SPEED_WITH_EFFICIENCY_3_MIN * 100), max = (long) (CHOPPING_HAT_SPEED_WITH_EFFICIENCY_3_MAX * 100))
-        public long SPEED_WITH_EFFICIENCY_3 = (long) (CHOPPING_HAT_SPEED_WITH_EFFICIENCY_3_DEFAULT * 100);
-        @ConfigEntry.Gui.Tooltip(count = 4)
-        @ConfigEntry.BoundedDiscrete(min = (long) (CHOPPING_HAT_SPEED_WITH_EFFICIENCY_4_MIN * 100), max = (long) (CHOPPING_HAT_SPEED_WITH_EFFICIENCY_4_MAX * 100))
-        public long SPEED_WITH_EFFICIENCY_4 = (long) (CHOPPING_HAT_SPEED_WITH_EFFICIENCY_4_DEFAULT * 100);
-        @ConfigEntry.Gui.Tooltip(count = 4)
-        @ConfigEntry.BoundedDiscrete(min = (long) (CHOPPING_HAT_SPEED_WITH_EFFICIENCY_5_MIN * 100), max = (long) (CHOPPING_HAT_SPEED_WITH_EFFICIENCY_5_MAX * 100))
-        public long SPEED_WITH_EFFICIENCY_5 = (long) (CHOPPING_HAT_SPEED_WITH_EFFICIENCY_5_DEFAULT * 100);
+        @ConfigEntry.Gui.Tooltip(count = 3)
+        public int DURABILITY = CHOPPING_HAT_DURABILITY_DEFAULT;
+        @ConfigEntry.Gui.Tooltip(count = 5)
+        public int SPEED_WITH_EFFICIENCY_0 = (int) (CHOPPING_HAT_SPEED_WITH_EFFICIENCY_0_DEFAULT * 100);
+        @ConfigEntry.Gui.Tooltip(count = 5)
+        public int SPEED_WITH_EFFICIENCY_1 = (int) (CHOPPING_HAT_SPEED_WITH_EFFICIENCY_1_DEFAULT * 100);
+        @ConfigEntry.Gui.Tooltip(count = 5)
+        public int SPEED_WITH_EFFICIENCY_2 = (int) (CHOPPING_HAT_SPEED_WITH_EFFICIENCY_2_DEFAULT * 100);
+        @ConfigEntry.Gui.Tooltip(count = 5)
+        public int SPEED_WITH_EFFICIENCY_3 = (int) (CHOPPING_HAT_SPEED_WITH_EFFICIENCY_3_DEFAULT * 100);
+        @ConfigEntry.Gui.Tooltip(count = 5)
+        public int SPEED_WITH_EFFICIENCY_4 = (int) (CHOPPING_HAT_SPEED_WITH_EFFICIENCY_4_DEFAULT * 100);
+        @ConfigEntry.Gui.Tooltip(count = 5)
+        public int SPEED_WITH_EFFICIENCY_5 = (int) (CHOPPING_HAT_SPEED_WITH_EFFICIENCY_5_DEFAULT * 100);
 
         private ChoppingHat() {}
     }
@@ -100,9 +85,8 @@ public class FabricConfigHelper implements ConfigData, IConfigHelper {
     public static final class EnderHelmet implements ConfigData {
         @ConfigEntry.Gui.Tooltip(count = 3)
         public boolean DAMAGE_ENABLED = ENDER_HELMET_DAMAGE_ENABLED_DEFAULT;
-        @ConfigEntry.Gui.Tooltip(count = 2)
-        @ConfigEntry.BoundedDiscrete(min = ENDER_HELMET_DURABILITY_MIN, max = ENDER_HELMET_DURABILITY_MAX)
-        public long DURABILITY = ENDER_HELMET_DURABILITY_DEFAULT;
+        @ConfigEntry.Gui.Tooltip(count = 3)
+        public int DURABILITY = ENDER_HELMET_DURABILITY_DEFAULT;
         @ConfigEntry.Gui.Tooltip(count = 4)
         public boolean INTERDIMENSIONAL_ENABLED = ENDER_HELMET_INTERDIMENSIONAL_ENABLED_DEFAULT;
 
@@ -116,9 +100,8 @@ public class FabricConfigHelper implements ConfigData, IConfigHelper {
     public static final class Halo implements ConfigData {
         @ConfigEntry.Gui.Tooltip(count = 3)
         public boolean DAMAGE_ENABLED = HALO_DAMAGE_ENABLED_DEFAULT;
-        @ConfigEntry.Gui.Tooltip(count = 2)
-        @ConfigEntry.BoundedDiscrete(min = HALO_DURABILITY_MIN, max = HALO_DURABILITY_MAX)
-        public long DURABILITY = HALO_DURABILITY_DEFAULT;
+        @ConfigEntry.Gui.Tooltip(count = 3)
+        public int DURABILITY = HALO_DURABILITY_DEFAULT;
     }
 
     @ConfigEntry.Gui.CollapsibleObject
@@ -128,9 +111,8 @@ public class FabricConfigHelper implements ConfigData, IConfigHelper {
     public static final class LuckyHat implements ConfigData {
         @ConfigEntry.Gui.Tooltip(count = 3)
         public boolean DAMAGE_ENABLED = LUCKY_HAT_DAMAGE_ENABLED_DEFAULT;
-        @ConfigEntry.Gui.Tooltip(count = 2)
-        @ConfigEntry.BoundedDiscrete(min = LUCKY_HAT_DURABILITY_MIN, max = LUCKY_HAT_DURABILITY_MAX)
-        public long DURABILITY = LUCKY_HAT_DURABILITY_DEFAULT;
+        @ConfigEntry.Gui.Tooltip(count = 3)
+        public int DURABILITY = LUCKY_HAT_DURABILITY_DEFAULT;
         @ConfigEntry.Gui.Tooltip(count = 4)
         public boolean UNLUCK_ENABLED = LUCKY_HAT_UNLUCK_ENABLED_DEFAULT;
 
@@ -144,31 +126,24 @@ public class FabricConfigHelper implements ConfigData, IConfigHelper {
     public static final class MiningHat implements ConfigData {
         @ConfigEntry.Gui.Tooltip(count = 3)
         public boolean DAMAGE_ENABLED = MINING_HAT_DAMAGE_ENABLED_DEFAULT;
-        @ConfigEntry.Gui.Tooltip(count = 2)
-        @ConfigEntry.BoundedDiscrete(min = MINING_HAT_DURABILITY_MIN, max = MINING_HAT_DURABILITY_MAX)
-        public long DURABILITY = MINING_HAT_DURABILITY_DEFAULT;
+        @ConfigEntry.Gui.Tooltip(count = 3)
+        public int DURABILITY = MINING_HAT_DURABILITY_DEFAULT;
         @ConfigEntry.Gui.Tooltip(count = 4)
         public boolean NIGHT_VISION_ENABLED = MINING_HAT_NIGHT_VISION_ENABLED_DEFAULT;
         @ConfigEntry.Gui.Tooltip(count = 4)
         public boolean MAKE_PIGLINS_NEUTRAL_ENABLED = MINING_HAT_MAKE_PIGLINS_NEUTRAL_ENABLED_DEFAULT;
-        @ConfigEntry.Gui.Tooltip(count = 4)
-        @ConfigEntry.BoundedDiscrete(min = (long) (MINING_HAT_SPEED_WITH_EFFICIENCY_0_MIN * 100), max = (long) (MINING_HAT_SPEED_WITH_EFFICIENCY_0_MAX * 100))
-        public long SPEED_WITH_EFFICIENCY_0 = (long) (MINING_HAT_SPEED_WITH_EFFICIENCY_0_DEFAULT * 100);
-        @ConfigEntry.Gui.Tooltip(count = 4)
-        @ConfigEntry.BoundedDiscrete(min = (long) (MINING_HAT_SPEED_WITH_EFFICIENCY_1_MIN * 100), max = (long) (MINING_HAT_SPEED_WITH_EFFICIENCY_1_MAX * 100))
-        public long SPEED_WITH_EFFICIENCY_1 = (long) (MINING_HAT_SPEED_WITH_EFFICIENCY_1_DEFAULT * 100);
-        @ConfigEntry.Gui.Tooltip(count = 4)
-        @ConfigEntry.BoundedDiscrete(min = (long) (MINING_HAT_SPEED_WITH_EFFICIENCY_2_MIN * 100), max = (long) (MINING_HAT_SPEED_WITH_EFFICIENCY_2_MAX * 100))
-        public long SPEED_WITH_EFFICIENCY_2 = (long) (MINING_HAT_SPEED_WITH_EFFICIENCY_2_DEFAULT * 100);
-        @ConfigEntry.Gui.Tooltip(count = 4)
-        @ConfigEntry.BoundedDiscrete(min = (long) (MINING_HAT_SPEED_WITH_EFFICIENCY_3_MIN * 100), max = (long) (MINING_HAT_SPEED_WITH_EFFICIENCY_3_MAX * 100))
-        public long SPEED_WITH_EFFICIENCY_3 = (long) (MINING_HAT_SPEED_WITH_EFFICIENCY_3_DEFAULT * 100);
-        @ConfigEntry.Gui.Tooltip(count = 4)
-        @ConfigEntry.BoundedDiscrete(min = (long) (MINING_HAT_SPEED_WITH_EFFICIENCY_4_MIN * 100), max = (long) (MINING_HAT_SPEED_WITH_EFFICIENCY_4_MAX * 100))
-        public long SPEED_WITH_EFFICIENCY_4 = (long) (MINING_HAT_SPEED_WITH_EFFICIENCY_4_DEFAULT * 100);
-        @ConfigEntry.Gui.Tooltip(count = 4)
-        @ConfigEntry.BoundedDiscrete(min = (long) (MINING_HAT_SPEED_WITH_EFFICIENCY_5_MIN * 100), max = (long) (MINING_HAT_SPEED_WITH_EFFICIENCY_5_MAX * 100))
-        public long SPEED_WITH_EFFICIENCY_5 = (long) (MINING_HAT_SPEED_WITH_EFFICIENCY_5_DEFAULT * 100);
+        @ConfigEntry.Gui.Tooltip(count = 5)
+        public int SPEED_WITH_EFFICIENCY_0 = (int) (MINING_HAT_SPEED_WITH_EFFICIENCY_0_DEFAULT * 100);
+        @ConfigEntry.Gui.Tooltip(count = 5)
+        public int SPEED_WITH_EFFICIENCY_1 = (int) (MINING_HAT_SPEED_WITH_EFFICIENCY_1_DEFAULT * 100);
+        @ConfigEntry.Gui.Tooltip(count = 5)
+        public int SPEED_WITH_EFFICIENCY_2 = (int) (MINING_HAT_SPEED_WITH_EFFICIENCY_2_DEFAULT * 100);
+        @ConfigEntry.Gui.Tooltip(count = 5)
+        public int SPEED_WITH_EFFICIENCY_3 = (int) (MINING_HAT_SPEED_WITH_EFFICIENCY_3_DEFAULT * 100);
+        @ConfigEntry.Gui.Tooltip(count = 5)
+        public int SPEED_WITH_EFFICIENCY_4 = (int) (MINING_HAT_SPEED_WITH_EFFICIENCY_4_DEFAULT * 100);
+        @ConfigEntry.Gui.Tooltip(count = 5)
+        public int SPEED_WITH_EFFICIENCY_5 = (int) (MINING_HAT_SPEED_WITH_EFFICIENCY_5_DEFAULT * 100);
 
         private MiningHat() {}
     }
@@ -180,12 +155,10 @@ public class FabricConfigHelper implements ConfigData, IConfigHelper {
     public static final class MushroomHat implements ConfigData {
         @ConfigEntry.Gui.Tooltip(count = 3)
         public boolean DAMAGE_ENABLED = MUSHROOM_HAT_DAMAGE_ENABLED_DEFAULT;
-        @ConfigEntry.Gui.Tooltip(count = 2)
-        @ConfigEntry.BoundedDiscrete(min = MUSHROOM_HAT_DURABILITY_MIN, max = MUSHROOM_HAT_DURABILITY_MAX)
-        public long DURABILITY = MUSHROOM_HAT_DURABILITY_DEFAULT;
-        @ConfigEntry.Gui.Tooltip(count = 4)
-        @ConfigEntry.BoundedDiscrete(min = MUSHROOM_HAT_EAT_INTERVAL_MIN, max = MUSHROOM_HAT_EAT_INTERVAL_MAX)
-        public long EAT_INTERVAL = MUSHROOM_HAT_EAT_INTERVAL_DEFAULT;
+        @ConfigEntry.Gui.Tooltip(count = 3)
+        public int DURABILITY = MUSHROOM_HAT_DURABILITY_DEFAULT;
+        @ConfigEntry.Gui.Tooltip(count = 5)
+        public int EAT_INTERVAL = MUSHROOM_HAT_EAT_INTERVAL_DEFAULT;
 
         private MushroomHat() {}
     }
@@ -197,9 +170,8 @@ public class FabricConfigHelper implements ConfigData, IConfigHelper {
     public static final class PostmanHat implements ConfigData {
         @ConfigEntry.Gui.Tooltip(count = 3)
         public boolean DAMAGE_ENABLED = POSTMAN_HAT_DAMAGE_ENABLED_DEFAULT;
-        @ConfigEntry.Gui.Tooltip(count = 2)
-        @ConfigEntry.BoundedDiscrete(min = POSTMAN_HAT_DURABILITY_MIN, max = POSTMAN_HAT_DURABILITY_MAX)
-        public long DURABILITY = POSTMAN_HAT_DURABILITY_DEFAULT;
+        @ConfigEntry.Gui.Tooltip(count = 3)
+        public int DURABILITY = POSTMAN_HAT_DURABILITY_DEFAULT;
         @ConfigEntry.Gui.Tooltip(count = 4)
         public boolean HUNGER_ENABLED = POSTMAN_HAT_HUNGER_ENABLED_DEFAULT;
 
@@ -214,9 +186,8 @@ public class FabricConfigHelper implements ConfigData, IConfigHelper {
     public static final class ShulkerHelmet implements ConfigData {
         @ConfigEntry.Gui.Tooltip(count = 3)
         public boolean DAMAGE_ENABLED = SHULKER_HELMET_DAMAGE_ENABLED_DEFAULT;
-        @ConfigEntry.Gui.Tooltip(count = 2)
-        @ConfigEntry.BoundedDiscrete(min = SHULKER_HELMET_DURABILITY_MIN, max = SHULKER_HELMET_DURABILITY_MAX)
-        public long DURABILITY = SHULKER_HELMET_DURABILITY_DEFAULT;
+        @ConfigEntry.Gui.Tooltip(count = 3)
+        public int DURABILITY = SHULKER_HELMET_DURABILITY_DEFAULT;
 
         private ShulkerHelmet() {}
     }
@@ -228,9 +199,8 @@ public class FabricConfigHelper implements ConfigData, IConfigHelper {
     public static final class StockingCap implements ConfigData {
         @ConfigEntry.Gui.Tooltip(count = 3)
         public boolean DAMAGE_ENABLED = STOCKING_CAP_DAMAGE_ENABLED_DEFAULT;
-        @ConfigEntry.Gui.Tooltip(count = 2)
-        @ConfigEntry.BoundedDiscrete(min = STOCKING_CAP_DURABILITY_MIN, max = STOCKING_CAP_DURABILITY_MAX)
-        public long DURABILITY = STOCKING_CAP_DURABILITY_DEFAULT;
+        @ConfigEntry.Gui.Tooltip(count = 3)
+        public int DURABILITY = STOCKING_CAP_DURABILITY_DEFAULT;
 
         private StockingCap() {}
     }
@@ -242,27 +212,20 @@ public class FabricConfigHelper implements ConfigData, IConfigHelper {
     public static final class StrawHat implements ConfigData {
         @ConfigEntry.Gui.Tooltip(count = 3)
         public boolean DAMAGE_ENABLED = STRAW_HAT_DAMAGE_ENABLED_DEFAULT;
-        @ConfigEntry.Gui.Tooltip(count = 2)
-        @ConfigEntry.BoundedDiscrete(min = STRAW_HAT_DURABILITY_MIN, max = STRAW_HAT_DURABILITY_MAX)
-        public long DURABILITY = STRAW_HAT_DURABILITY_DEFAULT;
-        @ConfigEntry.Gui.Tooltip(count = 4)
-        @ConfigEntry.BoundedDiscrete(min = (long) (STRAW_HAT_SPEED_WITH_EFFICIENCY_0_MIN * 100), max = (long) (STRAW_HAT_SPEED_WITH_EFFICIENCY_0_MAX * 100))
-        public long SPEED_WITH_EFFICIENCY_0 = (long) (STRAW_HAT_SPEED_WITH_EFFICIENCY_0_DEFAULT * 100);
-        @ConfigEntry.Gui.Tooltip(count = 4)
-        @ConfigEntry.BoundedDiscrete(min = (long) (STRAW_HAT_SPEED_WITH_EFFICIENCY_1_MIN * 100), max = (long) (STRAW_HAT_SPEED_WITH_EFFICIENCY_1_MAX * 100))
-        public long SPEED_WITH_EFFICIENCY_1 = (long) (STRAW_HAT_SPEED_WITH_EFFICIENCY_1_DEFAULT * 100);
-        @ConfigEntry.Gui.Tooltip(count = 4)
-        @ConfigEntry.BoundedDiscrete(min = (long) (STRAW_HAT_SPEED_WITH_EFFICIENCY_2_MIN * 100), max = (long) (STRAW_HAT_SPEED_WITH_EFFICIENCY_2_MAX * 100))
-        public long SPEED_WITH_EFFICIENCY_2 = (long) (STRAW_HAT_SPEED_WITH_EFFICIENCY_2_DEFAULT * 100);
-        @ConfigEntry.Gui.Tooltip(count = 4)
-        @ConfigEntry.BoundedDiscrete(min = (long) (STRAW_HAT_SPEED_WITH_EFFICIENCY_3_MIN * 100), max = (long) (STRAW_HAT_SPEED_WITH_EFFICIENCY_3_MAX * 100))
-        public long SPEED_WITH_EFFICIENCY_3 = (long) (STRAW_HAT_SPEED_WITH_EFFICIENCY_3_DEFAULT * 100);
-        @ConfigEntry.Gui.Tooltip(count = 4)
-        @ConfigEntry.BoundedDiscrete(min = (long) (STRAW_HAT_SPEED_WITH_EFFICIENCY_4_MIN * 100), max = (long) (STRAW_HAT_SPEED_WITH_EFFICIENCY_4_MAX * 100))
-        public long SPEED_WITH_EFFICIENCY_4 = (long) (STRAW_HAT_SPEED_WITH_EFFICIENCY_4_DEFAULT * 100);
-        @ConfigEntry.Gui.Tooltip(count = 4)
-        @ConfigEntry.BoundedDiscrete(min = (long) (STRAW_HAT_SPEED_WITH_EFFICIENCY_5_MIN * 100), max = (long) (STRAW_HAT_SPEED_WITH_EFFICIENCY_5_MAX * 100))
-        public long SPEED_WITH_EFFICIENCY_5 = (long) (STRAW_HAT_SPEED_WITH_EFFICIENCY_5_DEFAULT * 100);
+        @ConfigEntry.Gui.Tooltip(count = 3)
+        public int DURABILITY = STRAW_HAT_DURABILITY_DEFAULT;
+        @ConfigEntry.Gui.Tooltip(count = 5)
+        public int SPEED_WITH_EFFICIENCY_0 = (int) (STRAW_HAT_SPEED_WITH_EFFICIENCY_0_DEFAULT * 100);
+        @ConfigEntry.Gui.Tooltip(count = 5)
+        public int SPEED_WITH_EFFICIENCY_1 = (int) (STRAW_HAT_SPEED_WITH_EFFICIENCY_1_DEFAULT * 100);
+        @ConfigEntry.Gui.Tooltip(count = 5)
+        public int SPEED_WITH_EFFICIENCY_2 = (int) (STRAW_HAT_SPEED_WITH_EFFICIENCY_2_DEFAULT * 100);
+        @ConfigEntry.Gui.Tooltip(count = 5)
+        public int SPEED_WITH_EFFICIENCY_3 = (int) (STRAW_HAT_SPEED_WITH_EFFICIENCY_3_DEFAULT * 100);
+        @ConfigEntry.Gui.Tooltip(count = 5)
+        public int SPEED_WITH_EFFICIENCY_4 = (int) (STRAW_HAT_SPEED_WITH_EFFICIENCY_4_DEFAULT * 100);
+        @ConfigEntry.Gui.Tooltip(count = 5)
+        public int SPEED_WITH_EFFICIENCY_5 = (int) (STRAW_HAT_SPEED_WITH_EFFICIENCY_5_DEFAULT * 100);
 
         private StrawHat() {}
     }
@@ -274,9 +237,8 @@ public class FabricConfigHelper implements ConfigData, IConfigHelper {
     public static final class WingHelmet implements ConfigData {
         @ConfigEntry.Gui.Tooltip(count = 3)
         public boolean DAMAGE_ENABLED = WING_HELMET_DAMAGE_ENABLED_DEFAULT;
-        @ConfigEntry.Gui.Tooltip(count = 2)
-        @ConfigEntry.BoundedDiscrete(min = WING_HELMET_DURABILITY_MIN, max = WING_HELMET_DURABILITY_MAX)
-        public long DURABILITY = WING_HELMET_DURABILITY_DEFAULT;
+        @ConfigEntry.Gui.Tooltip(count = 3)
+        public int DURABILITY = WING_HELMET_DURABILITY_DEFAULT;
         @ConfigEntry.Gui.Tooltip(count = 4)
         public boolean LEVITATION_ENABLED = WING_HELMET_LEVITATION_ENABLED_DEFAULT;
 
@@ -292,40 +254,36 @@ public class FabricConfigHelper implements ConfigData, IConfigHelper {
         return AutoConfig.getConfigHolder(FabricConfigHelper.class).getConfig();
     }
 
-    private int getInteger(long config) {
-        return (int) config;
-    }
-
-    private int getEnchantmentInteger(int enchantmentLevel, long config0, long config1, long config2, long config3, long config4, long config5) {
+    private int getEnchantmentInteger(int enchantmentLevel, int config0, int config1, int config2, int config3, int config4, int config5) {
         if (enchantmentLevel < 0) {
-            return getInteger(config0);
+            return config0;
         }
-        return getInteger(switch (enchantmentLevel) {
+        return switch (enchantmentLevel) {
             case 0 -> config0;
             case 1 -> config1;
             case 2 -> config2;
             case 3 -> config3;
             case 4 -> config4;
             default -> config5;
-        });
+        };
     }
 
-    private double getDouble(long config) {
+    private double getDouble(int config) {
         return config / 100D;
     }
 
-    private double getEnchantmentDouble(int enchantmentLevel, long config0, long config1, long config2, long config3, long config4, long config5) {
+    private double getEnchantmentDouble(int enchantmentLevel, double config0, double config1, double config2, double config3, double config4, double config5) {
         if (enchantmentLevel < 0) {
-            return getDouble(config0);
+            return config0;
         }
-        return getDouble(switch (enchantmentLevel) {
+        return switch (enchantmentLevel) {
             case 0 -> config0;
             case 1 -> config1;
             case 2 -> config2;
             case 3 -> config3;
             case 4 -> config4;
             default -> config5;
-        });
+        };
     }
 
     @Override
@@ -335,19 +293,19 @@ public class FabricConfigHelper implements ConfigData, IConfigHelper {
 
     @Override
     public int getAquanautHelmetDurability() {
-        return getInteger(getConfig().AQUANAUT_HELMET.DURABILITY);
+        return Math.clamp(getConfig().AQUANAUT_HELMET.DURABILITY, AQUANAUT_HELMET_DURABILITY_MIN, AQUANAUT_HELMET_DURABILITY_MAX);
     }
 
     @Override
     public int getAquanautHelmetEffectTimeWithEfficiency(int enchantmentLevel) {
         FabricConfigHelper config = getConfig();
         return getEnchantmentInteger(enchantmentLevel,
-                config.AQUANAUT_HELMET.EFFECT_TIME_WITH_EFFICIENCY_0,
-                config.AQUANAUT_HELMET.EFFECT_TIME_WITH_EFFICIENCY_1,
-                config.AQUANAUT_HELMET.EFFECT_TIME_WITH_EFFICIENCY_2,
-                config.AQUANAUT_HELMET.EFFECT_TIME_WITH_EFFICIENCY_3,
-                config.AQUANAUT_HELMET.EFFECT_TIME_WITH_EFFICIENCY_4,
-                config.AQUANAUT_HELMET.EFFECT_TIME_WITH_EFFICIENCY_5
+                Math.clamp(config.AQUANAUT_HELMET.EFFECT_TIME_WITH_EFFICIENCY_0, AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_0_MIN, AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_0_MAX),
+                Math.clamp(config.AQUANAUT_HELMET.EFFECT_TIME_WITH_EFFICIENCY_1, AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_1_MIN, AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_1_MAX),
+                Math.clamp(config.AQUANAUT_HELMET.EFFECT_TIME_WITH_EFFICIENCY_2, AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_2_MIN, AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_2_MAX),
+                Math.clamp(config.AQUANAUT_HELMET.EFFECT_TIME_WITH_EFFICIENCY_3, AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_3_MIN, AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_3_MAX),
+                Math.clamp(config.AQUANAUT_HELMET.EFFECT_TIME_WITH_EFFICIENCY_4, AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_4_MIN, AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_4_MAX),
+                Math.clamp(config.AQUANAUT_HELMET.EFFECT_TIME_WITH_EFFICIENCY_5, AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_5_MIN, AQUANAUT_HELMET_EFFECT_TIME_WITH_EFFICIENCY_5_MAX)
         );
     }
 
@@ -358,7 +316,7 @@ public class FabricConfigHelper implements ConfigData, IConfigHelper {
 
     @Override
     public int getBunnyEarsDurability() {
-        return getInteger(getConfig().getConfig().BUNNY_EARS.DURABILITY);
+        return Math.clamp(getConfig().getConfig().BUNNY_EARS.DURABILITY, BUNNY_EARS_DURABILITY_MIN, BUNNY_EARS_DURABILITY_MAX);
     }
 
     @Override
@@ -368,19 +326,19 @@ public class FabricConfigHelper implements ConfigData, IConfigHelper {
 
     @Override
     public int getChoppingHatDurability() {
-        return getInteger(getConfig().CHOPPING_HAT.DURABILITY);
+        return Math.clamp(getConfig().CHOPPING_HAT.DURABILITY, CHOPPING_HAT_DURABILITY_MIN, CHOPPING_HAT_DURABILITY_MAX);
     }
 
     @Override
     public double getChoppingHatSpeedWithEfficiency(int enchantmentLevel) {
         FabricConfigHelper config = getConfig();
         return getEnchantmentDouble(enchantmentLevel,
-                config.CHOPPING_HAT.SPEED_WITH_EFFICIENCY_0,
-                config.CHOPPING_HAT.SPEED_WITH_EFFICIENCY_1,
-                config.CHOPPING_HAT.SPEED_WITH_EFFICIENCY_2,
-                config.CHOPPING_HAT.SPEED_WITH_EFFICIENCY_3,
-                config.CHOPPING_HAT.SPEED_WITH_EFFICIENCY_4,
-                config.CHOPPING_HAT.SPEED_WITH_EFFICIENCY_5
+                Math.clamp(getDouble(config.CHOPPING_HAT.SPEED_WITH_EFFICIENCY_0), CHOPPING_HAT_SPEED_WITH_EFFICIENCY_0_MIN, CHOPPING_HAT_SPEED_WITH_EFFICIENCY_0_MAX),
+                Math.clamp(getDouble(config.CHOPPING_HAT.SPEED_WITH_EFFICIENCY_1), CHOPPING_HAT_SPEED_WITH_EFFICIENCY_1_MIN, CHOPPING_HAT_SPEED_WITH_EFFICIENCY_1_MAX),
+                Math.clamp(getDouble(config.CHOPPING_HAT.SPEED_WITH_EFFICIENCY_2), CHOPPING_HAT_SPEED_WITH_EFFICIENCY_2_MIN, CHOPPING_HAT_SPEED_WITH_EFFICIENCY_2_MAX),
+                Math.clamp(getDouble(config.CHOPPING_HAT.SPEED_WITH_EFFICIENCY_3), CHOPPING_HAT_SPEED_WITH_EFFICIENCY_3_MIN, CHOPPING_HAT_SPEED_WITH_EFFICIENCY_3_MAX),
+                Math.clamp(getDouble(config.CHOPPING_HAT.SPEED_WITH_EFFICIENCY_4), CHOPPING_HAT_SPEED_WITH_EFFICIENCY_4_MIN, CHOPPING_HAT_SPEED_WITH_EFFICIENCY_4_MAX),
+                Math.clamp(getDouble(config.CHOPPING_HAT.SPEED_WITH_EFFICIENCY_5), CHOPPING_HAT_SPEED_WITH_EFFICIENCY_5_MIN, CHOPPING_HAT_SPEED_WITH_EFFICIENCY_5_MAX)
         );
     }
 
@@ -391,7 +349,7 @@ public class FabricConfigHelper implements ConfigData, IConfigHelper {
 
     @Override
     public int getEnderHelmetDurability() {
-        return getInteger(getConfig().ENDER_HELMET.DURABILITY);
+        return Math.clamp(getConfig().ENDER_HELMET.DURABILITY, ENDER_HELMET_DURABILITY_MIN, ENDER_HELMET_DURABILITY_MAX);
     }
 
     @Override
@@ -406,7 +364,7 @@ public class FabricConfigHelper implements ConfigData, IConfigHelper {
 
     @Override
     public int getHaloDurability() {
-        return getInteger(getConfig().HALO.DURABILITY);
+        return Math.clamp(getConfig().HALO.DURABILITY, HALO_DURABILITY_MIN, HALO_DURABILITY_MAX);
     }
 
     @Override
@@ -416,7 +374,7 @@ public class FabricConfigHelper implements ConfigData, IConfigHelper {
 
     @Override
     public int getLuckyHatDurability() {
-        return getInteger(getConfig().LUCKY_HAT.DURABILITY);
+        return Math.clamp(getConfig().LUCKY_HAT.DURABILITY, LUCKY_HAT_DURABILITY_MIN, LUCKY_HAT_DURABILITY_MAX);
     }
 
     @Override
@@ -431,7 +389,7 @@ public class FabricConfigHelper implements ConfigData, IConfigHelper {
 
     @Override
     public int getMiningHatDurability() {
-        return getInteger(getConfig().MINING_HAT.DURABILITY);
+        return Math.clamp(getConfig().MINING_HAT.DURABILITY, MINING_HAT_DURABILITY_MIN, MINING_HAT_DURABILITY_MAX);
     }
 
     @Override
@@ -448,12 +406,12 @@ public class FabricConfigHelper implements ConfigData, IConfigHelper {
     public double getMiningHatSpeedWithEfficiency(int enchantmentLevel) {
         FabricConfigHelper config = getConfig();
         return getEnchantmentDouble(enchantmentLevel,
-                config.MINING_HAT.SPEED_WITH_EFFICIENCY_0,
-                config.MINING_HAT.SPEED_WITH_EFFICIENCY_1,
-                config.MINING_HAT.SPEED_WITH_EFFICIENCY_2,
-                config.MINING_HAT.SPEED_WITH_EFFICIENCY_3,
-                config.MINING_HAT.SPEED_WITH_EFFICIENCY_4,
-                config.MINING_HAT.SPEED_WITH_EFFICIENCY_5
+                Math.clamp(getDouble(config.MINING_HAT.SPEED_WITH_EFFICIENCY_0), MINING_HAT_SPEED_WITH_EFFICIENCY_0_MIN, MINING_HAT_SPEED_WITH_EFFICIENCY_0_MAX),
+                Math.clamp(getDouble(config.MINING_HAT.SPEED_WITH_EFFICIENCY_1), MINING_HAT_SPEED_WITH_EFFICIENCY_1_MIN, MINING_HAT_SPEED_WITH_EFFICIENCY_1_MAX),
+                Math.clamp(getDouble(config.MINING_HAT.SPEED_WITH_EFFICIENCY_2), MINING_HAT_SPEED_WITH_EFFICIENCY_2_MIN, MINING_HAT_SPEED_WITH_EFFICIENCY_2_MAX),
+                Math.clamp(getDouble(config.MINING_HAT.SPEED_WITH_EFFICIENCY_3), MINING_HAT_SPEED_WITH_EFFICIENCY_3_MIN, MINING_HAT_SPEED_WITH_EFFICIENCY_3_MAX),
+                Math.clamp(getDouble(config.MINING_HAT.SPEED_WITH_EFFICIENCY_4), MINING_HAT_SPEED_WITH_EFFICIENCY_4_MIN, MINING_HAT_SPEED_WITH_EFFICIENCY_4_MAX),
+                Math.clamp(getDouble(config.MINING_HAT.SPEED_WITH_EFFICIENCY_5), MINING_HAT_SPEED_WITH_EFFICIENCY_5_MIN, MINING_HAT_SPEED_WITH_EFFICIENCY_5_MAX)
         );
     }
 
@@ -464,12 +422,12 @@ public class FabricConfigHelper implements ConfigData, IConfigHelper {
 
     @Override
     public int getMushroomHatDurability() {
-        return getInteger(getConfig().MUSHROOM_HAT.DURABILITY);
+        return Math.clamp(getConfig().MUSHROOM_HAT.DURABILITY, MUSHROOM_HAT_DURABILITY_MIN, MUSHROOM_HAT_DURABILITY_MAX);
     }
 
     @Override
     public int getMushroomHatEatInterval() {
-        return getInteger(getConfig().MUSHROOM_HAT.EAT_INTERVAL);
+        return Math.clamp(getConfig().MUSHROOM_HAT.EAT_INTERVAL, MUSHROOM_HAT_EAT_INTERVAL_MIN, MUSHROOM_HAT_EAT_INTERVAL_MAX);
     }
 
     @Override
@@ -479,7 +437,7 @@ public class FabricConfigHelper implements ConfigData, IConfigHelper {
 
     @Override
     public int getPostmanHatDurability() {
-        return getInteger(getConfig().POSTMAN_HAT.DURABILITY);
+        return Math.clamp(getConfig().POSTMAN_HAT.DURABILITY, POSTMAN_HAT_DURABILITY_MIN, POSTMAN_HAT_DURABILITY_MAX);
     }
 
     @Override
@@ -494,7 +452,7 @@ public class FabricConfigHelper implements ConfigData, IConfigHelper {
 
     @Override
     public int getShulkerHelmetDurability() {
-        return getInteger(getConfig().SHULKER_HELMET.DURABILITY);
+        return Math.clamp(getConfig().SHULKER_HELMET.DURABILITY, SHULKER_HELMET_DURABILITY_MIN, SHULKER_HELMET_DURABILITY_MAX);
     }
 
     @Override
@@ -504,7 +462,7 @@ public class FabricConfigHelper implements ConfigData, IConfigHelper {
 
     @Override
     public int getStockingCapDurability() {
-        return getInteger(getConfig().STOCKING_CAP.DURABILITY);
+        return Math.clamp(getConfig().STOCKING_CAP.DURABILITY, STOCKING_CAP_DURABILITY_MIN, STOCKING_CAP_DURABILITY_MAX);
     }
 
     @Override
@@ -514,19 +472,19 @@ public class FabricConfigHelper implements ConfigData, IConfigHelper {
 
     @Override
     public int getStrawHatDurability() {
-        return getInteger(getConfig().STRAW_HAT.DURABILITY);
+        return Math.clamp(getConfig().STRAW_HAT.DURABILITY, STRAW_HAT_DURABILITY_MIN, STRAW_HAT_DURABILITY_MAX);
     }
 
     @Override
     public double getStrawHatSpeedWithEfficiency(int enchantmentLevel) {
         FabricConfigHelper config = getConfig();
         return getEnchantmentDouble(enchantmentLevel,
-                config.STRAW_HAT.SPEED_WITH_EFFICIENCY_0,
-                config.STRAW_HAT.SPEED_WITH_EFFICIENCY_1,
-                config.STRAW_HAT.SPEED_WITH_EFFICIENCY_2,
-                config.STRAW_HAT.SPEED_WITH_EFFICIENCY_3,
-                config.STRAW_HAT.SPEED_WITH_EFFICIENCY_4,
-                config.STRAW_HAT.SPEED_WITH_EFFICIENCY_5
+                Math.clamp(getDouble(config.STRAW_HAT.SPEED_WITH_EFFICIENCY_0), STRAW_HAT_SPEED_WITH_EFFICIENCY_0_MIN, STRAW_HAT_SPEED_WITH_EFFICIENCY_0_MAX),
+                Math.clamp(getDouble(config.STRAW_HAT.SPEED_WITH_EFFICIENCY_1), STRAW_HAT_SPEED_WITH_EFFICIENCY_1_MIN, STRAW_HAT_SPEED_WITH_EFFICIENCY_1_MAX),
+                Math.clamp(getDouble(config.STRAW_HAT.SPEED_WITH_EFFICIENCY_2), STRAW_HAT_SPEED_WITH_EFFICIENCY_2_MIN, STRAW_HAT_SPEED_WITH_EFFICIENCY_2_MAX),
+                Math.clamp(getDouble(config.STRAW_HAT.SPEED_WITH_EFFICIENCY_3), STRAW_HAT_SPEED_WITH_EFFICIENCY_3_MIN, STRAW_HAT_SPEED_WITH_EFFICIENCY_3_MAX),
+                Math.clamp(getDouble(config.STRAW_HAT.SPEED_WITH_EFFICIENCY_4), STRAW_HAT_SPEED_WITH_EFFICIENCY_4_MIN, STRAW_HAT_SPEED_WITH_EFFICIENCY_4_MAX),
+                Math.clamp(getDouble(config.STRAW_HAT.SPEED_WITH_EFFICIENCY_5), STRAW_HAT_SPEED_WITH_EFFICIENCY_5_MIN, STRAW_HAT_SPEED_WITH_EFFICIENCY_5_MAX)
         );
     }
 
@@ -537,7 +495,7 @@ public class FabricConfigHelper implements ConfigData, IConfigHelper {
 
     @Override
     public int getWingHelmetDurability() {
-        return getInteger(getConfig().WING_HELMET.DURABILITY);
+        return Math.clamp(getConfig().WING_HELMET.DURABILITY, WING_HELMET_DURABILITY_MIN, WING_HELMET_DURABILITY_MAX);
     }
 
     @Override
