@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(HumanoidArmorLayer.class)
 public class HumanoidArmorLayerMixin {
 
-    @ModifyVariable(method = "renderArmorPiece", at = @At("STORE"), ordinal = 1)
+    @ModifyVariable(method = "renderArmorPiece(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/entity/EquipmentSlot;ILnet/minecraft/client/model/HumanoidModel;FFFFFF)V", at = @At("STORE"), ordinal = 1)
     public <T extends LivingEntity, M extends HumanoidModel<T>> int changeColor(int i, PoseStack p_117119_, MultiBufferSource p_117120_, T entity, EquipmentSlot slot, int p_117123_, M p_117124_) {
         ItemStack itemstack = entity.getItemBySlot(slot);
         if (itemstack.getItem() instanceof AbstractHatItem hatItem) {
