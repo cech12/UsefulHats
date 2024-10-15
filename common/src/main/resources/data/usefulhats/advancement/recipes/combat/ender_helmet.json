@@ -2,16 +2,16 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "usefulhats:stocking_cap"
+      "usefulhats:ender_helmet"
     ]
   },
   "criteria": {
-    "has_string": {
+    "has_ender_pearl": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "items": "#c:strings"
+            "items": "#c:ender_pearls"
           }
         ]
       }
@@ -19,13 +19,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "usefulhats:stocking_cap"
+        "recipe": "usefulhats:ender_helmet"
       }
     }
   },
   "requirements": [
     [
-      "has_string",
+      "has_ender_pearl",
       "has_the_recipe"
     ]
   ]

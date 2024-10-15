@@ -15,11 +15,6 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
     }
 
     @Override
-    public String getModSharingNamespace() {
-        return "c";
-    }
-
-    @Override
     public boolean isModLoaded(String modId) {
         return ModList.get().isLoaded(modId);
     }

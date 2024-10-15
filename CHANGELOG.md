@@ -3,6 +3,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Forge Recommended Versioning](https://mcforge.readthedocs.io/en/latest/conventions/versioning/).
 
+## [1.21.1-6.5.1.0] - 2024-10-15
+### Changed
+- updated to Forge 52.0.21
+- use common tags for carrots, wheat and ender pearls in advancements and recipes (all loaders)
+
+### Fixed
+- fixed recipes and advancements by using the new common tags in Forge
+
 ## [1.21.1-6.5.0.0] - 2024-09-28
 ### Changed
 - updated to Minecraft 1.21.1 (Fabric 0.105.0+1.21.1, NeoForge 21.1.62, Forge 52.0.16)

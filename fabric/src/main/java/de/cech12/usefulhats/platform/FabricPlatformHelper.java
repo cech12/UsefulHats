@@ -14,11 +14,6 @@ public class FabricPlatformHelper implements IPlatformHelper {
     }
 
     @Override
-    public String getModSharingNamespace() {
-        return "c";
-    }
-
-    @Override
     public boolean isModLoaded(String modId) {
         return FabricLoader.getInstance().isModLoaded(modId);
     }

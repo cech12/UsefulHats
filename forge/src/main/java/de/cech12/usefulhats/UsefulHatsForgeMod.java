@@ -10,8 +10,8 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 @Mod(Constants.MOD_ID)
 public class UsefulHatsForgeMod {
 
-    public UsefulHatsForgeMod() {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+    public UsefulHatsForgeMod(FMLJavaModLoadingContext context) {
+        IEventBus modEventBus = context.getModEventBus();
         ModItems.ITEMS.register(modEventBus);
         ModItems.DATA_COMPONENTS.register(modEventBus);
         ModItems.addEventListeners();

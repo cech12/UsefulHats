@@ -15,11 +15,6 @@ public class ForgePlatformHelper implements IPlatformHelper {
     }
 
     @Override
-    public String getModSharingNamespace() {
-        return "forge";
-    }
-
-    @Override
     public boolean isModLoaded(String modId) {
         return ModList.get().isLoaded(modId);
     }

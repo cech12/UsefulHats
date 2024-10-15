@@ -13,13 +13,6 @@ public interface IPlatformHelper {
     String getPlatformName();
 
     /**
-     * Gets the namespace that is shared by other mods
-     *
-     * @return namespace that is shared by other mods
-     */
-    String getModSharingNamespace();
-
-    /**
      * Checks if a mod with the given id is loaded.
      *
      * @param modId The mod to check if it is loaded.

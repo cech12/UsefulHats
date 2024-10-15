@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:brown_mushroom_block",
+    "minecraft:red_mushroom_block",
+    {
+      "id": "#forge:mushroom_caps",
+      "required": false
+    }
+  ]
+}

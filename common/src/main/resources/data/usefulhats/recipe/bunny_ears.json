@@ -11,7 +11,7 @@
       "item": "minecraft:rabbit_hide"
     },
     "C": {
-      "item": "minecraft:carrot"
+      "tag": "c:crops/carrot"
     }
   },
   "result": {
