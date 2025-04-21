@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Forge Recommended Versioning](https://mcforge.readthedocs.io/en/latest/conventions/versioning/).
 
+## [1.20.6-5.2.0.3] - 2025-04-21
+### Fixed
+- fixed Halo to work also in custom dimensions. Only dimensions that are ultrawarm and piglinsafe are interpreted as Nether. (all loaders) (thanks to jtrmike for the report) #71
+
 ## [1.20.6-5.2.0.2] - 2024-07-18
 ### Fixed
 - the recipe of Postman Hat contained a wrong lapis item tag (Fabric/Quilt & Neoforge) (thanks to WhitePhant0m for the report) #66
