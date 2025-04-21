@@ -35,7 +35,7 @@ public class HaloItem extends AbstractHatItem implements IAttackTargetChanger, I
     }
 
     private static boolean isEntityInNether(Entity entity) {
-        return entity.level().dimensionType().respawnAnchorWorks();
+        return entity.level().dimensionType().ultraWarm() && entity.level().dimensionType().piglinSafe();
     }
 
     @Override

@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Forge Recommended Versioning](https://mcforge.readthedocs.io/en/latest/conventions/versioning/).
 
+## [1.21.1-6.5.1.1] - 2025-04-21
+### Fixed
+- fixed Halo to work also in custom dimensions. Only dimensions that are ultrawarm and piglinsafe are interpreted as Nether. (all loaders) (thanks to jtrmike for the report) #71
+
 ## [1.21.1-6.5.1.0] - 2024-10-15
 ### Changed
 - updated to Forge 52.0.21
