@@ -6,12 +6,8 @@
     "# #"
   ],
   "key": {
-    "S": {
-      "item": "minecraft:shulker_shell"
-    },
-    "#": {
-      "item": "minecraft:phantom_membrane"
-    }
+    "S": "minecraft:shulker_shell",
+    "#": "minecraft:phantom_membrane"
   },
   "result": {
     "id": "usefulhats:shulker_helmet"

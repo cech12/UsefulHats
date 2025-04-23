@@ -6,12 +6,8 @@
     "# #"
   ],
   "key": {
-    "#": {
-      "item": "minecraft:phantom_membrane"
-    },
-    "F": {
-      "tag": "c:feathers"
-    }
+    "#": "minecraft:phantom_membrane",
+    "F": "#c:feathers"
   },
   "result": {
     "id": "usefulhats:wing_helmet"

@@ -21,8 +21,8 @@ public class ShulkerHelmetItem extends AbstractHatItem implements IEquipmentChan
 
     private static final int LEVITATION_DURATION = 219;
 
-    public ShulkerHelmetItem() {
-        super(HatArmorMaterials.SHULKER, rawColorFromRGB(150, 105, 150), Services.CONFIG::getShulkerHelmetDurability, Services.CONFIG::isShulkerHelmetDamageEnabled);
+    public ShulkerHelmetItem(String name) {
+        super(name, HatArmorMaterials.SHULKER, rawColorFromRGB(150, 105, 150), Services.CONFIG::getShulkerHelmetDurability, Services.CONFIG::isShulkerHelmetDamageEnabled);
     }
 
     @Override

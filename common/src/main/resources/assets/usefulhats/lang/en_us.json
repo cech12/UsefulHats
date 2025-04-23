@@ -260,12 +260,6 @@
   "text.autoconfig.usefulhats.option.MINING_HAT.NIGHT_VISION_ENABLED.@Tooltip[2]": "Hat should be enabled in dark areas.",
   "text.autoconfig.usefulhats.option.MINING_HAT.NIGHT_VISION_ENABLED.@Tooltip[3]": "§7§oDefault: true",
 
-  "text.autoconfig.usefulhats.option.MINING_HAT.MAKE_PIGLINS_NEUTRAL_ENABLED": "Make Piglins neutral enabled",
-  "text.autoconfig.usefulhats.option.MINING_HAT.MAKE_PIGLINS_NEUTRAL_ENABLED.@Tooltip[0]": "§6§lMake Piglins neutral enabled",
-  "text.autoconfig.usefulhats.option.MINING_HAT.MAKE_PIGLINS_NEUTRAL_ENABLED.@Tooltip[1]": "Whether or not wearing a Mining Hat",
-  "text.autoconfig.usefulhats.option.MINING_HAT.MAKE_PIGLINS_NEUTRAL_ENABLED.@Tooltip[2]": "should make Piglins neutral.",
-  "text.autoconfig.usefulhats.option.MINING_HAT.MAKE_PIGLINS_NEUTRAL_ENABLED.@Tooltip[3]": "§7§oDefault: true",
-
   "text.autoconfig.usefulhats.option.MINING_HAT.SPEED_WITH_EFFICIENCY_0": "Mining Speed increase: no Efficiency",
   "text.autoconfig.usefulhats.option.MINING_HAT.SPEED_WITH_EFFICIENCY_0.@Tooltip[0]": "§6§lMining Speed increase: no Efficiency",
   "text.autoconfig.usefulhats.option.MINING_HAT.SPEED_WITH_EFFICIENCY_0.@Tooltip[1]": "Mining speed increase without",

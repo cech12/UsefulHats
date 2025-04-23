@@ -1,0 +1,15 @@
+{
+    "layers": {
+        "humanoid": [
+            {
+                "dyeable": {
+                    "color_when_undyed": -10240
+                },
+                "texture": "usefulhats:mining_hat"
+            },
+            {
+                "texture": "usefulhats:mining_hat_overlay"
+            }
+        ]
+    }
+}

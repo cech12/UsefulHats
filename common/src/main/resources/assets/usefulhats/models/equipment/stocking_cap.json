@@ -1,0 +1,15 @@
+{
+    "layers": {
+        "humanoid": [
+            {
+                "dyeable": {
+                    "color_when_undyed": -3407849
+                },
+                "texture": "usefulhats:stocking_cap"
+            },
+            {
+                "texture": "usefulhats:stocking_cap_overlay"
+            }
+        ]
+    }
+}

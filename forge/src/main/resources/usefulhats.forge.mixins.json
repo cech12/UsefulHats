@@ -6,9 +6,6 @@
   "mixins": [
     "ItemMixin"
   ],
-  "client": [
-    "HumanoidArmorLayerMixin"
-  ],
   "injectors": {
     "defaultRequire": 1
   },

@@ -2,19 +2,19 @@ plugins {
     id 'java'
     id 'idea'
     id 'maven-publish'
-    id 'fabric-loom' version '[1.7.4,1.8)'
+    id 'fabric-loom' version '1.9-SNAPSHOT'
 }
 base {
     archivesName = "${mod_id}-fabric"
 }
 
 repositories {
-    maven { url "https://maven.shedaniel.me/" }
-    maven { url "https://maven.terraformersmc.com/releases/" } //modmenu & trinkets
-    maven { url "https://maven.ladysnake.org/releases" } //trinkets
-    maven { url 'https://maven.wispforest.io/releases' } //accessories
-    maven { url 'https://maven.su5ed.dev/releases' } //accessories
-    maven { url 'https://maven.blamejared.com/' } //accessories
+    maven { url = "https://maven.shedaniel.me/" }
+    maven { url = "https://maven.terraformersmc.com/releases/" } //modmenu & trinkets
+    maven { url = "https://maven.ladysnake.org/releases" } //trinkets
+    maven { url = "https://maven.wispforest.io/releases" } //accessories
+    maven { url = "https://maven.su5ed.dev/releases" } //accessories
+    maven { url = "https://maven.blamejared.com/" } //accessories
 }
 
 dependencies {
@@ -28,7 +28,7 @@ dependencies {
     }
     modImplementation("com.terraformersmc:modmenu:${mod_menu_version}")
 
-    modImplementation("dev.emi:trinkets:${trinkets_version}")
+    //modImplementation("dev.emi:trinkets:${trinkets_version}")
     modImplementation("io.wispforest:accessories-fabric:${accessories_version}")
 
     implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'

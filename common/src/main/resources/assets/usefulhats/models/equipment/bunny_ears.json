@@ -1,0 +1,15 @@
+{
+    "layers": {
+        "humanoid": [
+            {
+                "dyeable": {
+                    "color_when_undyed": -7440290
+                },
+                "texture": "usefulhats:bunny_ears"
+            },
+            {
+                "texture": "usefulhats:bunny_ears_overlay"
+            }
+        ]
+    }
+}

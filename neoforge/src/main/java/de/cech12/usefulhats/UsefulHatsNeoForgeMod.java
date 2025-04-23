@@ -1,7 +1,6 @@
 package de.cech12.usefulhats;
 
 import de.cech12.usefulhats.compat.AccessoriesCompat;
-import de.cech12.usefulhats.compat.Baubles2Compat;
 import de.cech12.usefulhats.init.ModCreativeTabs;
 import de.cech12.usefulhats.init.ModItems;
 import de.cech12.usefulhats.platform.Services;
@@ -29,9 +28,6 @@ public class UsefulHatsNeoForgeMod {
     public static void registerCapabilities(RegisterCapabilitiesEvent event) {
         if (Services.PLATFORM.isModLoaded(Constants.ACCESSORIES_MOD_ID)) {
             AccessoriesCompat.register();
-        }
-        if (Services.PLATFORM.isModLoaded(Constants.BAUBLES_2_MOD_ID)) {
-            Baubles2Compat.register(event);
         }
     }
 

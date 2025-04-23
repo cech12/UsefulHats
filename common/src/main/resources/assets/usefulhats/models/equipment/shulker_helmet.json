@@ -1,0 +1,12 @@
+{
+    "layers": {
+        "humanoid": [
+            {
+                "dyeable": {
+                    "color_when_undyed": -6919786
+                },
+                "texture": "usefulhats:shulker_helmet"
+            }
+        ]
+    }
+}

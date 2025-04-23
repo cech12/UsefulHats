@@ -22,8 +22,8 @@ public class BunnyEarsItem extends AbstractHatItem implements IEquipmentChangeLi
 
     private static final int JUMP_BOOST_DURATION = 219;
 
-    public BunnyEarsItem() {
-        super(HatArmorMaterials.BUNNY, rawColorFromRGB(142, 120, 94), Services.CONFIG::getBunnyEarsDurability, Services.CONFIG::isBunnyEarsDamageEnabled);
+    public BunnyEarsItem(String name) {
+        super(name, HatArmorMaterials.BUNNY, rawColorFromRGB(142, 120, 94), Services.CONFIG::getBunnyEarsDurability, Services.CONFIG::isBunnyEarsDamageEnabled);
     }
 
     @Override

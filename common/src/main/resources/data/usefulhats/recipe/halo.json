@@ -7,12 +7,8 @@
     " # "
   ],
   "key": {
-    "O": {
-      "item": "minecraft:nether_star"
-    },
-    "#": {
-      "tag": "c:dusts/glowstone"
-    }
+    "O": "minecraft:nether_star",
+    "#": "#c:dusts/glowstone"
   },
   "result": {
     "id": "usefulhats:halo"

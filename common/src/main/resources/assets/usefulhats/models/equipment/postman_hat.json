@@ -1,0 +1,15 @@
+{
+    "layers": {
+        "humanoid": [
+            {
+                "dyeable": {
+                    "color_when_undyed": -13016170
+                },
+                "texture": "usefulhats:postman_hat"
+            },
+            {
+                "texture": "usefulhats:postman_hat_overlay"
+            }
+        ]
+    }
+}

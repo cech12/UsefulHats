@@ -1,0 +1,15 @@
+{
+    "layers": {
+        "humanoid": [
+            {
+                "dyeable": {
+                    "color_when_undyed": -3857629
+                },
+                "texture": "usefulhats:mushroom_hat"
+            },
+            {
+                "texture": "usefulhats:mushroom_hat_overlay"
+            }
+        ]
+    }
+}

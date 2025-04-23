@@ -1,54 +1,56 @@
 package de.cech12.usefulhats.item;
 
-import de.cech12.usefulhats.client.AbstractUsefulHatsRenderer;
+import de.cech12.usefulhats.Constants;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
-import net.minecraft.util.FastColor;
+import net.minecraft.util.ARGB;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.component.ItemAttributeModifiers;
+import net.minecraft.world.item.equipment.ArmorMaterial;
+import net.minecraft.world.item.equipment.ArmorType;
+import net.minecraft.world.item.equipment.Equippable;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public abstract class AbstractHatItem extends ArmorItem {
+public abstract class AbstractHatItem extends Item {
 
     private final int initColor;
     private final Supplier<Integer> durabilityConfig;
     protected final Supplier<Boolean> enabledDamageConfig;
 
-    public AbstractHatItem(Holder<ArmorMaterial> material, int initColor, Supplier<Integer> durabilityConfig, Supplier<Boolean> enabledDamageConfig) {
-        super(material, Type.HELMET, new Properties());
+    public AbstractHatItem(String name, ArmorMaterial material, int initColor, Supplier<Integer> durabilityConfig, Supplier<Boolean> enabledDamageConfig) {
+        this(name, material.humanoidProperties(new Properties(), ArmorType.HELMET).component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.HEAD).setEquipSound(material.equipSound()).setModel(material.modelId()).setDamageOnHurt(false).build()),
+                initColor, durabilityConfig, enabledDamageConfig);
+    }
+
+    public AbstractHatItem(String name, Properties properties, int initColor, Supplier<Integer> durabilityConfig, Supplier<Boolean> enabledDamageConfig) {
+        super(properties.setId(ResourceKey.create(BuiltInRegistries.ITEM.key(), Constants.id(name))));
         this.initColor = initColor;
         this.durabilityConfig = durabilityConfig;
         this.enabledDamageConfig = enabledDamageConfig;
     }
 
     protected static int rawColorFromRGB(int red, int green, int blue) {
-        return FastColor.ARGB32.color(red, green, blue);
+        return ARGB.color(red, green, blue);
     }
 
     public int getDurabilityFromConfig() {
         return this.durabilityConfig.get();
-    }
-
-    @Override
-    public boolean isEnchantable(@NotNull ItemStack stack) {
-        return true;
     }
 
     protected boolean isEffectCausedByOtherSource(LivingEntity entity, Holder<MobEffect> effect, int maxDuration, int amplifier) {
@@ -103,35 +105,18 @@ public abstract class AbstractHatItem extends ArmorItem {
     }
 
     /**
-     * Disables "When on head" line of ArmorItem Tooltip
-     */
-    @Override
-    @NotNull
-    public ItemAttributeModifiers getDefaultAttributeModifiers() {
-        return ItemAttributeModifiers.EMPTY;
-    }
-
-    /**
      * Adds "When on head" line to end of tooltip.
      * When hat item has no effect, override this method with an empty method.
      */
     @Override
     public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flagIn) {
         super.appendHoverText(stack, context, tooltip, flagIn);
-        //tooltip.add(new TextComponent("Durability: " + (stack.getMaxDamage() - stack.getDamageValue()) + "/" + stack.getMaxDamage()).withStyle(ChatFormatting.RED));
-        tooltip.add(Component.literal(""));
+        tooltip.add(Component.empty());
         tooltip.add((Component.translatable("item.modifiers." + EquipmentSlot.HEAD.getName())).withStyle(ChatFormatting.GRAY));
     }
 
     public int getDefaultColor() {
         return initColor;
-    }
-
-    /**
-     * @return true, if this hat has another texture at christmastime.
-     */
-    public boolean hasChristmasVariant() {
-        return false;
     }
 
     /*
@@ -141,11 +126,6 @@ public abstract class AbstractHatItem extends ArmorItem {
     //@Override //overrides interface method of Neoforge
     public int getMaxDamage(ItemStack stack) {
         return this.getDurabilityFromConfig();
-    }
-
-    //@Override //overrides interface method of Forge & Neoforge //Fabric has its own renderer
-    public ResourceLocation getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, ArmorMaterial.Layer layer, boolean inner) {
-        return AbstractUsefulHatsRenderer.getArmorTexture((ArmorItem) stack.getItem(), layer);
     }
 
 }

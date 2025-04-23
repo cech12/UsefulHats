@@ -130,9 +130,6 @@ public interface IConfigHelper {
     String MINING_HAT_NIGHT_VISION_ENABLED_DESCRIPTION = "Whether or not Night Vision effect of Mining Hat should be enabled in dark areas.";
     boolean MINING_HAT_NIGHT_VISION_ENABLED_DEFAULT = true;
 
-    String MINING_HAT_MAKE_PIGLINS_NEUTRAL_ENABLED_DESCRIPTION = "Whether or not wearing a Mining Hat should make Piglins neutral.";
-    boolean MINING_HAT_MAKE_PIGLINS_NEUTRAL_ENABLED_DEFAULT = true;
-
     String MINING_HAT_SPEED_WITH_EFFICIENCY_0_DESCRIPTION = "Mining Hat speed increase without Efficiency enchantment.";
     double MINING_HAT_SPEED_WITH_EFFICIENCY_0_DEFAULT = 0.2;
     double MINING_HAT_SPEED_WITH_EFFICIENCY_0_MIN = 0.0;
@@ -282,7 +279,6 @@ public interface IConfigHelper {
     boolean isMiningHatDamageEnabled();
     int getMiningHatDurability();
     boolean isMiningHatNightVisionEnabled();
-    boolean isMiningHatMakePiglinsNeutralEnabled();
     double getMiningHatSpeedWithEfficiency(int enchantmentLevel);
 
     boolean isMushroomHatDamageEnabled();

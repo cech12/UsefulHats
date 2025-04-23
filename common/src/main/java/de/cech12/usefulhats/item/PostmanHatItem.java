@@ -23,8 +23,8 @@ public class PostmanHatItem extends AbstractHatItem implements IEquipmentChangeL
     private static final int HUNGER_DURATION = 219;
     private static final int SPEED_DURATION = 219;
 
-    public PostmanHatItem() {
-        super(HatArmorMaterials.POSTMAN, rawColorFromRGB(57, 99, 150), Services.CONFIG::getPostmanHatDurability, Services.CONFIG::isPostmanHatDamageEnabled);
+    public PostmanHatItem(String name) {
+        super(name, HatArmorMaterials.POSTMAN, rawColorFromRGB(57, 99, 150), Services.CONFIG::getPostmanHatDurability, Services.CONFIG::isPostmanHatDamageEnabled);
     }
 
     @Override

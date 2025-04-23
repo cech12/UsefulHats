@@ -6,12 +6,8 @@
     "# #"
   ],
   "key": {
-    "#": {
-      "tag": "c:gems/lapis"
-    },
-    "O": {
-      "tag": "c:nuggets/gold"
-    }
+    "#": "#c:gems/lapis",
+    "O": "#c:nuggets/gold"
   },
   "result": {
     "id": "usefulhats:postman_hat"

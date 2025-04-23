@@ -7,7 +7,7 @@ subprojects {
     apply plugin: 'java'
     apply plugin: 'maven-publish'
 
-    version "$project.minecraft_version-$project.mod_version"
+    version = "$project.minecraft_version-$project.mod_version"
 
     java.toolchain.languageVersion = JavaLanguageVersion.of(java_version)
     //java.withSourcesJar()
@@ -41,10 +41,6 @@ subprojects {
             name = 'Sponge / Mixin'
             url = 'https://repo.spongepowered.org/repository/maven-public/'
         }
-        maven {
-            name "curios"
-            url "https://maven.theillusivec4.top/"
-        }
     }
 
     dependencies {
@@ -76,11 +72,8 @@ subprojects {
                 "mod_issue_tracker": mod_issue_tracker,
                 "mod_description": project.description,
                 "trinkets_version": trinkets_version,
-                "baubles2_version_range": baubles2_version_range,
                 "accessories_version": accessories_version,
                 "accessories_version_range": accessories_version_range,
-                "curios_continuation_version": curios_continuation_version,
-                "curios_continuation_version_range": curios_continuation_version_range,
                 "lucent_version": lucent_version,
                 "lucent_version_range": lucent_version_range
         ]

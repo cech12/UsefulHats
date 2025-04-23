@@ -2,8 +2,6 @@ package de.cech12.usefulhats.client;
 
 import de.cech12.usefulhats.Constants;
 import de.cech12.usefulhats.client.compat.AccessoriesClientCompat;
-import de.cech12.usefulhats.client.compat.TrinketsClientCompat;
-import de.cech12.usefulhats.compat.TrinketsCompat;
 import de.cech12.usefulhats.item.AbstractHatItem;
 import de.cech12.usefulhats.platform.Services;
 import net.fabricmc.api.ClientModInitializer;
@@ -12,14 +10,14 @@ import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.minecraft.client.model.geom.LayerDefinitions;
 import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 import net.minecraft.world.item.component.DyedItemColor;
 
 public class UsefulHatsFabricClientMod implements ClientModInitializer {
 
     public static final ModelLayerLocation USEFUL_HAT_LAYER = new ModelLayerLocation(Constants.id("usefulhat_layer"), "main");
 
-    private static UsefulHatModel<LivingEntity> usefulHatModel = null;
+    private static UsefulHatModel<HumanoidRenderState> usefulHatModel = null;
 
     @Override
     public void onInitializeClient() {
@@ -32,9 +30,9 @@ public class UsefulHatsFabricClientMod implements ClientModInitializer {
             //register armor renderer
             ArmorRenderer.register(renderer, item);
         });
-        if (Services.PLATFORM.isModLoaded(TrinketsCompat.MOD_ID)) {
-            TrinketsClientCompat.register();
-        }
+        //if (Services.PLATFORM.isModLoaded(TrinketsCompat.MOD_ID)) {
+        //    TrinketsClientCompat.register();
+        //}
         if (Services.PLATFORM.isModLoaded(Constants.ACCESSORIES_MOD_ID)) {
             AccessoriesClientCompat.register();
         }
@@ -44,7 +42,7 @@ public class UsefulHatsFabricClientMod implements ClientModInitializer {
         usefulHatModel = new UsefulHatModel<>(net.minecraft.client.Minecraft.getInstance().getEntityModels().bakeLayer(USEFUL_HAT_LAYER));
     }
 
-    public static UsefulHatModel<LivingEntity> getUsefulHatModel() {
+    public static UsefulHatModel<HumanoidRenderState> getUsefulHatModel() {
         if (usefulHatModel == null) {
             resetUsefulHatModel();
         }

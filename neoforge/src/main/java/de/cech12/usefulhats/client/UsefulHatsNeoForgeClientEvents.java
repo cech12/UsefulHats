@@ -2,14 +2,12 @@ package de.cech12.usefulhats.client;
 
 import de.cech12.usefulhats.Constants;
 import de.cech12.usefulhats.client.compat.AccessoriesClientCompat;
-import de.cech12.usefulhats.client.compat.Baubles2ClientCompat;
-import de.cech12.usefulhats.client.compat.CuriosContinuationClientCompat;
 import de.cech12.usefulhats.item.AbstractHatItem;
 import de.cech12.usefulhats.platform.Services;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.LayerDefinitions;
 import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.component.DyedItemColor;
 import net.neoforged.api.distmarker.Dist;
@@ -26,7 +24,7 @@ public class UsefulHatsNeoForgeClientEvents {
 
     public static final ModelLayerLocation USEFUL_HAT_LAYER = new ModelLayerLocation(Constants.id("usefulhat_layer"), "main");
 
-    public static UsefulHatModel<LivingEntity> usefulHatModel = null;
+    public static UsefulHatModel<HumanoidRenderState> usefulHatModel = null;
 
     @SubscribeEvent
     public static void registerItemExtensions(RegisterClientExtensionsEvent event) {
@@ -54,12 +52,6 @@ public class UsefulHatsNeoForgeClientEvents {
     public static void onClientInit(final FMLClientSetupEvent event) {
         if (Services.PLATFORM.isModLoaded(Constants.ACCESSORIES_MOD_ID)) {
             AccessoriesClientCompat.register();
-        }
-        if (Services.PLATFORM.isModLoaded(Constants.BAUBLES_2_MOD_ID)) {
-            Baubles2ClientCompat.register();
-        }
-        if (Services.PLATFORM.isModLoaded(Constants.CURIOS_CONTINUATION_MOD_ID)) {
-            CuriosContinuationClientCompat.register();
         }
     }
 

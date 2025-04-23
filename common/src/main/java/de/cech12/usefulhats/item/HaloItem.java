@@ -3,7 +3,6 @@ package de.cech12.usefulhats.item;
 import de.cech12.usefulhats.platform.Services;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
@@ -11,6 +10,7 @@ import net.minecraft.world.entity.monster.ZombifiedPiglin;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -23,8 +23,8 @@ public class HaloItem extends AbstractHatItem implements IAttackTargetChanger, I
 
     private static final Map<LivingEntity, Integer> PREVIOUS_DAMAGE_TICK_OF_ENTITY = new HashMap<>();
 
-    public HaloItem() {
-        super(HatArmorMaterials.HALO, rawColorFromRGB(255, 236, 142), Services.CONFIG::getHaloDurability, Services.CONFIG::isHaloDamageEnabled);
+    public HaloItem(String name) {
+        super(name, HatArmorMaterials.HALO, rawColorFromRGB(255, 236, 142), Services.CONFIG::getHaloDurability, Services.CONFIG::isHaloDamageEnabled);
     }
 
     @Override
@@ -34,8 +34,8 @@ public class HaloItem extends AbstractHatItem implements IAttackTargetChanger, I
         tooltip.add(Component.translatable("item.usefulhats.halo.desc.beware_of_nether").withStyle(ChatFormatting.RED));
     }
 
-    private static boolean isEntityInNether(Entity entity) {
-        return entity.level().dimensionType().ultraWarm() && entity.level().dimensionType().piglinSafe();
+    private static boolean isNether(Level level) {
+        return level.dimensionType().ultraWarm() && level.dimensionType().piglinSafe();
     }
 
     @Override
@@ -52,7 +52,7 @@ public class HaloItem extends AbstractHatItem implements IAttackTargetChanger, I
     @Override
     public boolean avoidMobChangingTarget(ItemStack stack, LivingEntity entity, LivingEntity target) {
         // avoid to get attacked from non-boss mob entities outside the nether
-        if (Services.REGISTRY.isBossEntity(entity) || isEntityInNether(target)) return false;
+        if (Services.REGISTRY.isBossEntity(entity) || isNether(target.level())) return false;
         if (this.enabledDamageConfig.get()) {
             //damage stack each second
             Integer previousDamageTick = PREVIOUS_DAMAGE_TICK_OF_ENTITY.get(target);
@@ -66,7 +66,7 @@ public class HaloItem extends AbstractHatItem implements IAttackTargetChanger, I
 
     @Override
     public void onEquippedHatItem(LivingEntity entity, ItemStack newStack) {
-        if (isEntityInNether(entity)) return;
+        if (isNether(entity.level())) return;
         //all aggressive entities in range should forget their targets, when halo is equipped
         Vec3 entityPos = entity.position();
         int range = 32;
@@ -78,8 +78,8 @@ public class HaloItem extends AbstractHatItem implements IAttackTargetChanger, I
     private static class NearestHaloTargetGoal extends NearestAttackableTargetGoal<LivingEntity> {
         NearestHaloTargetGoal(Mob mobEntity, IMobEntityChanger hatItem) {
             super(mobEntity, LivingEntity.class, 0, true, false,
-                    (entity) -> {
-                        if (entity instanceof LivingEntity && isEntityInNether(entity)) {
+                    (entity, level) -> {
+                        if (isNether(level)) {
                             for (ItemStack headSlotItemStack : Services.REGISTRY.getEquippedHatItemStacks(entity)) {
                                 if (headSlotItemStack.getItem() == hatItem) {
                                     return true;

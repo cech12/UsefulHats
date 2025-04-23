@@ -1,96 +1,104 @@
 package de.cech12.usefulhats.client;
 
-import com.google.common.collect.Maps;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import de.cech12.usefulhats.Constants;
 import de.cech12.usefulhats.item.AbstractHatItem;
+import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.util.FastColor;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ArmorMaterial;
-import net.minecraft.world.item.Item;
+import net.minecraft.util.ARGB;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.DyedItemColor;
+import net.minecraft.world.item.equipment.EquipmentModel;
+import net.minecraft.world.item.equipment.Equippable;
 
-import java.util.Calendar;
-import java.util.Map;
+import java.util.List;
+import java.util.Optional;
+import java.util.function.Function;
 
 public abstract class AbstractUsefulHatsRenderer {
 
     public static final ModelLayerLocation USEFUL_HAT_LAYER = new ModelLayerLocation(Constants.id("usefulhat_layer"), "main");
 
-    private static final Map<String, ResourceLocation> ARMOR_TEXTURE_RES_MAP = Maps.newHashMap();
-    private static final boolean IS_CHRISTMAS = Calendar.getInstance().get(Calendar.MONTH) + 1 == 12;
-    private static final int WHITE = FastColor.ARGB32.colorFromFloat(1.0F, 1.0F, 1.0F, 1.0F);
+    private final Function<LayerTextureKey, ResourceLocation> layerTextureLookup;
+    private HumanoidModel<HumanoidRenderState> usefulHatModel;
 
-    private HumanoidModel<LivingEntity> usefulHatModel;
-
-    public void render(ItemStack stack, PoseStack matrices, MultiBufferSource vertexConsumers, int light, LivingEntity entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
-        HumanoidModel<LivingEntity> model = this.getModel(stack);
-        model.setupAnim(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
-        model.prepareMobModel(entity, limbAngle, limbDistance, tickDelta);
-        this.render(stack, matrices, vertexConsumers, light, entity, model);
+    public AbstractUsefulHatsRenderer() {
+        this.layerTextureLookup = Util.memoize((textureKey) -> textureKey.layer.getTextureLocation(textureKey.layerType));
     }
 
-    public void render(ItemStack stack, PoseStack matrices, MultiBufferSource vertexConsumers, int light, LivingEntity entity) {
-        this.render(stack, matrices, vertexConsumers, light, entity, this.getModel(stack));
+    public void render(ItemStack stack, PoseStack matrices, MultiBufferSource vertexConsumers, int light, HumanoidModel<HumanoidRenderState> entityModel) {
+        HumanoidModel<HumanoidRenderState> model = getArmorModel(stack);
+        entityModel.copyPropertiesTo(model); //follow rotation
+        this.internalRender(stack, matrices, vertexConsumers, light, model);
     }
 
-    private void render(ItemStack stack, PoseStack matrices, MultiBufferSource vertexConsumers, int light, LivingEntity entity, HumanoidModel<LivingEntity> model) {
-        Item item = stack.getItem();
-        this.followBodyRotations(entity, model);
-        boolean flag1 = stack.hasFoil();
-        int color = stack.is(ItemTags.DYEABLE) ? DyedItemColor.getOrDefault(stack, ((AbstractHatItem)stack.getItem()).getDefaultColor()) : ((AbstractHatItem)stack.getItem()).getDefaultColor();
-        for (ArmorMaterial.Layer layer : ((ArmorItem) item).getMaterial().value().layers()) {
-            if (layer.dyeable()) {
-                this.renderLayer(matrices, vertexConsumers, light, flag1, model, color, this.getTexture((ArmorItem) stack.getItem(), layer));
-            } else {
-                this.renderLayer(matrices, vertexConsumers, light, flag1, model, WHITE, this.getTexture((ArmorItem) stack.getItem(), layer));
+    public void render(ItemStack stack, PoseStack matrices, MultiBufferSource vertexConsumers, int light, HumanoidRenderState humanoidRenderState) {
+        HumanoidModel<HumanoidRenderState> model = getArmorModel(stack);
+        model.setupAnim(humanoidRenderState); //follow rotation
+        this.internalRender(stack, matrices, vertexConsumers, light, model);
+    }
+
+    protected <S extends LivingEntityRenderState> void internalRender(ItemStack stack, PoseStack matrices, MultiBufferSource vertexConsumers, int light, EntityModel<S> model) {
+        Equippable equippable = stack.get(DataComponents.EQUIPPABLE);
+        if (equippable != null && equippable.model().isPresent() && equippable.slot() == EquipmentSlot.HEAD) {
+            ResourceLocation modelId = equippable.model().orElseThrow();
+            EquipmentModel.LayerType layerType = EquipmentModel.LayerType.HUMANOID;
+            List<EquipmentModel.Layer> layers = Minecraft.getInstance().getEquipmentModels().get(modelId).getLayers(layerType);
+            if (!layers.isEmpty()) {
+                int defaultColor = getDefaultColor(stack);
+                boolean glint = stack.hasFoil();
+
+                for (EquipmentModel.Layer layer : layers) {
+                    int color = getColorForLayer(layer, defaultColor);
+                    if (color != 0) {
+                        ResourceLocation layerTexture = this.layerTextureLookup.apply(new LayerTextureKey(layerType, layer));
+                        VertexConsumer vertexConsumer = ItemRenderer.getArmorFoilBuffer(vertexConsumers, RenderType.armorTranslucent(layerTexture), glint);
+                        model.renderToBuffer(matrices, vertexConsumer, light, OverlayTexture.NO_OVERLAY, color);
+                        glint = false;
+                    }
+                }
             }
         }
-        if (stack.hasFoil()) {
-            this.renderGlint(matrices, vertexConsumers, light, model);
+    }
+
+    public static int getDefaultColor(ItemStack stack) {
+        if (stack.getItem() instanceof AbstractHatItem abstractHatItem) {
+            return stack.is(ItemTags.DYEABLE) ? DyedItemColor.getOrDefault(stack, abstractHatItem.getDefaultColor()) : abstractHatItem.getDefaultColor();
+        }
+        return 0;
+    }
+
+    private static int getColorForLayer(EquipmentModel.Layer layer, int defaultColor) {
+        Optional<EquipmentModel.Dyeable> optional = layer.dyeable();
+        if (optional.isPresent()) {
+            int color = optional.get().colorWhenUndyed().map(ARGB::opaque).orElse(0);
+            return defaultColor != 0 ? defaultColor : color;
+        } else {
+            return -1;
         }
     }
 
-    protected abstract void followBodyRotations(LivingEntity livingEntity, HumanoidModel<LivingEntity> humanoidModel);
-
-    private void renderLayer(PoseStack poseStack, MultiBufferSource multiBufferSource, int light, boolean bl, HumanoidModel<LivingEntity> humanoidModel, int color, ResourceLocation armorResource) {
-        VertexConsumer vertexConsumer = ItemRenderer.getFoilBuffer(multiBufferSource, humanoidModel.renderType(armorResource), false, bl);
-        humanoidModel.renderToBuffer(poseStack, vertexConsumer, light, OverlayTexture.NO_OVERLAY, color);
-    }
-
-    private void renderGlint(PoseStack poseStack, MultiBufferSource multiBufferSource, int light, HumanoidModel<LivingEntity> humanoidModel) {
-        humanoidModel.renderToBuffer(poseStack, multiBufferSource.getBuffer(RenderType.armorEntityGlint()), light, OverlayTexture.NO_OVERLAY, WHITE);
-    }
-
-    private HumanoidModel<LivingEntity> getModel(ItemStack stack) {
+    private HumanoidModel<HumanoidRenderState> getArmorModel(ItemStack stack) {
         if (usefulHatModel == null) {
             usefulHatModel = new UsefulHatModel<>(Minecraft.getInstance().getEntityModels().bakeLayer(USEFUL_HAT_LAYER));
         }
         return usefulHatModel;
     }
 
-    private ResourceLocation getTexture(ArmorItem armorItem, ArmorMaterial.Layer layer) {
-        ResourceLocation location = getArmorTexture(armorItem, layer);
-        return ARMOR_TEXTURE_RES_MAP.computeIfAbsent(location.toString(), k -> location);
-    }
-
-    public static ResourceLocation getArmorTexture(ArmorItem armorItem, ArmorMaterial.Layer layer) {
-        ResourceLocation location = layer.texture(false);
-        return location.withPath(String.format("%s%s.png",
-                location.getPath().replace("_layer_1", "").replace(".png", ""),
-                (IS_CHRISTMAS && ((AbstractHatItem) armorItem).hasChristmasVariant()) ? "_xmas" : ""));
-    }
+    record LayerTextureKey(EquipmentModel.LayerType layerType, EquipmentModel.Layer layer) {}
 
 }

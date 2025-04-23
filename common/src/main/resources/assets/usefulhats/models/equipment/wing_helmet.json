@@ -1,0 +1,15 @@
+{
+    "layers": {
+        "humanoid": [
+            {
+                "dyeable": {
+                    "color_when_undyed": -1
+                },
+                "texture": "usefulhats:wing_helmet"
+            },
+            {
+                "texture": "usefulhats:wing_helmet_overlay"
+            }
+        ]
+    }
+}

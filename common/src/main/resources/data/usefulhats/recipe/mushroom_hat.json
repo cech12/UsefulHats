@@ -6,9 +6,7 @@
     "# #"
   ],
   "key": {
-    "#": {
-      "tag": "c:mushroom_caps"
-    }
+    "#": "#c:mushroom_caps"
   },
   "result": {
     "id": "usefulhats:mushroom_hat"

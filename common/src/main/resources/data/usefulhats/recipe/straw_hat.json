@@ -6,9 +6,7 @@
     "# #"
   ],
   "key": {
-    "#": {
-      "tag": "c:crops/wheat"
-    }
+    "#": "#c:crops/wheat"
   },
   "result": {
     "id": "usefulhats:straw_hat"

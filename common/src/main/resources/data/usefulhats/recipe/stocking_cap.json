@@ -6,9 +6,7 @@
     "# #"
   ],
   "key": {
-    "#": {
-      "tag": "c:strings"
-    }
+    "#": "#c:strings"
   },
   "result": {
     "id": "usefulhats:stocking_cap"

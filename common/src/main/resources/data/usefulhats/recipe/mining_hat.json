@@ -6,12 +6,8 @@
     "# #"
   ],
   "key": {
-    "#": {
-      "tag": "c:ingots/gold"
-    },
-    "O": {
-      "tag": "c:dusts/glowstone"
-    }
+    "#": "#c:ingots/gold",
+    "O": "#c:dusts/glowstone"
   },
   "result": {
     "id": "usefulhats:mining_hat"

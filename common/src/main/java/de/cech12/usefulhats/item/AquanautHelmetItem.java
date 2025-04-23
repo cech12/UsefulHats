@@ -1,32 +1,34 @@
 package de.cech12.usefulhats.item;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import de.cech12.usefulhats.CommonLoader;
 import de.cech12.usefulhats.Constants;
 import de.cech12.usefulhats.platform.Services;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.DeltaTracker;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.item.equipment.ArmorType;
+import net.minecraft.world.item.equipment.Equippable;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class AquanautHelmetItem extends AbstractHatItem implements IEquipmentChangeListener, IGameOverlayRenderer {
+public class AquanautHelmetItem extends AbstractHatItem implements IEquipmentChangeListener {
 
-    private static final ResourceLocation AQUANAUT_GUI_TEX_PATH = Constants.id("textures/misc/aquanautblur.png");
+    private static final ResourceLocation AQUANAUT_GUI_TEX_PATH = Constants.id("misc/aquanautblur");
 
-    public AquanautHelmetItem() {
-        super(HatArmorMaterials.AQUANAUT, rawColorFromRGB(71, 191, 74), Services.CONFIG::getAquanautHelmetDurability, Services.CONFIG::isAquanautHelmetDamageEnabled);
+    public AquanautHelmetItem(String name) {
+        super(name, HatArmorMaterials.AQUANAUT.humanoidProperties(new Properties(), ArmorType.HELMET).component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.HEAD).setEquipSound(HatArmorMaterials.AQUANAUT.equipSound()).setModel(HatArmorMaterials.AQUANAUT.modelId()).setDamageOnHurt(false).setCameraOverlay(AQUANAUT_GUI_TEX_PATH).build()),
+                rawColorFromRGB(71, 191, 74), Services.CONFIG::getAquanautHelmetDurability, Services.CONFIG::isAquanautHelmetDamageEnabled);
     }
 
     private int getConduitPowerDuration(ItemStack stack) {
@@ -66,19 +68,6 @@ public class AquanautHelmetItem extends AbstractHatItem implements IEquipmentCha
             // disable effects when hat is removed from slot
             this.removeEffect(entity, MobEffects.CONDUIT_POWER, this.getConduitPowerDuration(oldStack), 0);
         }
-    }
-
-    @Override
-    public void onRenderGameOverlay(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
-        RenderSystem.disableDepthTest();
-        RenderSystem.depthMask(false);
-        RenderSystem.enableBlend();
-        guiGraphics.setColor(1.0F, 1.0F, 1.0F, 1.0F);
-        guiGraphics.blit(AQUANAUT_GUI_TEX_PATH, 0, 0, -90, 0.0F, 0.0F, guiGraphics.guiWidth(), guiGraphics.guiHeight(), guiGraphics.guiWidth(), guiGraphics.guiHeight());
-        RenderSystem.disableBlend();
-        RenderSystem.depthMask(true);
-        RenderSystem.enableDepthTest();
-        guiGraphics.setColor(1.0F, 1.0F, 1.0F, 1.0F);
     }
 
 }

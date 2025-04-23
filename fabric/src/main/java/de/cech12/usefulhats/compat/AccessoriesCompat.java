@@ -3,9 +3,9 @@ package de.cech12.usefulhats.compat;
 import de.cech12.usefulhats.UsefulHatsEventUtils;
 import de.cech12.usefulhats.item.AbstractHatItem;
 import de.cech12.usefulhats.platform.Services;
-import io.wispforest.accessories.api.AccessoriesAPI;
 import io.wispforest.accessories.api.AccessoriesCapability;
 import io.wispforest.accessories.api.Accessory;
+import io.wispforest.accessories.api.AccessoryRegistry;
 import io.wispforest.accessories.api.slot.SlotEntryReference;
 import io.wispforest.accessories.api.slot.SlotReference;
 import net.minecraft.world.entity.LivingEntity;
@@ -17,7 +17,7 @@ public class AccessoriesCompat {
 
     public static void register() {
         Accessory usefulHatsAccessory = new UsefulHatAccessory();
-        Services.REGISTRY.getAllHatItems().forEach(item -> AccessoriesAPI.registerAccessory(item, usefulHatsAccessory));
+        Services.REGISTRY.getAllHatItems().forEach(item -> AccessoryRegistry.register(item, usefulHatsAccessory));
     }
 
     public static void addEquippedHatsToList(LivingEntity entity, List<ItemStack> stacks) {

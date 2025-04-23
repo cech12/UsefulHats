@@ -6,9 +6,7 @@
     "# #"
   ],
   "key": {
-    "#": {
-      "tag": "c:ender_pearls"
-    }
+    "#": "#c:ender_pearls"
   },
   "result": {
     "id": "usefulhats:ender_helmet"

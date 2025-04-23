@@ -1,0 +1,15 @@
+{
+    "layers": {
+        "humanoid": [
+            {
+                "dyeable": {
+                    "color_when_undyed": -12075190
+                },
+                "texture": "usefulhats:aquanaut_helmet"
+            },
+            {
+                "texture": "usefulhats:aquanaut_helmet_overlay"
+            }
+        ]
+    }
+}

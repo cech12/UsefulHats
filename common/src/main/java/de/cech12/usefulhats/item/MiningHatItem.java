@@ -23,8 +23,8 @@ public class MiningHatItem extends AbstractMiningHatItem implements IEquipmentCh
     private static final int NIGHT_VISION_DURATION = 239;
     private static final int NIGHT_VISION_AMPLIFIER = 0;
 
-    public MiningHatItem() {
-        super(HatArmorMaterials.MINING, rawColorFromRGB(255, 216, 0), Services.CONFIG::getMiningHatDurability, Services.CONFIG::isMiningHatDamageEnabled);
+    public MiningHatItem(String name) {
+        super(name, HatArmorMaterials.MINING, rawColorFromRGB(255, 216, 0), Services.CONFIG::getMiningHatDurability, Services.CONFIG::isMiningHatDamageEnabled);
     }
 
     public static boolean isLightEnabled(LivingEntity entity) {
@@ -94,10 +94,5 @@ public class MiningHatItem extends AbstractMiningHatItem implements IEquipmentCh
     public void onUnequippedHatItem(LivingEntity entity, ItemStack oldStack) {
         // disable effects when hat is removed from slot
         this.removeEffect(entity, MobEffects.NIGHT_VISION, NIGHT_VISION_DURATION, NIGHT_VISION_AMPLIFIER);
-    }
-
-    //@Override //not vanilla but overrides interface method of Forge & Neoforge
-    public boolean makesPiglinsNeutral(ItemStack stack, LivingEntity wearer) {
-        return Services.CONFIG.isMiningHatMakePiglinsNeutralEnabled();
     }
 }

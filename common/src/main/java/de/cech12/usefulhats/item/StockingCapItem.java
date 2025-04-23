@@ -14,13 +14,8 @@ import java.util.List;
 
 public class StockingCapItem extends AbstractHatItem {
 
-    public StockingCapItem() {
-        super(HatArmorMaterials.STOCKING, rawColorFromRGB(204, 0, 23), Services.CONFIG::getStockingCapDurability, Services.CONFIG::isStockingCapDamageEnabled);
-    }
-
-    @Override
-    public boolean hasChristmasVariant() {
-        return true;
+    public StockingCapItem(String name) {
+        super(name, HatArmorMaterials.STOCKING, rawColorFromRGB(204, 0, 23), Services.CONFIG::getStockingCapDurability, Services.CONFIG::isStockingCapDamageEnabled);
     }
 
     /**

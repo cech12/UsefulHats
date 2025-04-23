@@ -24,8 +24,8 @@ public class LuckyHatItem extends AbstractHatItem implements IItemFishedListener
     private static final int UNLUCK_AMPLIFIER = 0;
     private static final int UNLUCK_DURATION = 200;
 
-    public LuckyHatItem() {
-        super(HatArmorMaterials.LUCKY, rawColorFromRGB(72, 242, 0), Services.CONFIG::getLuckyHatDurability, Services.CONFIG::isLuckyHatDamageEnabled);
+    public LuckyHatItem(String name) {
+        super(name, HatArmorMaterials.LUCKY, rawColorFromRGB(72, 242, 0), Services.CONFIG::getLuckyHatDurability, Services.CONFIG::isLuckyHatDamageEnabled);
     }
 
     private boolean isLuckOrUnluckCausedByOtherSource(LivingEntity entity, ItemStack stack) {

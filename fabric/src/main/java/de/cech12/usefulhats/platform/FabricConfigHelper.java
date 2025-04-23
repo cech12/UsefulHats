@@ -130,8 +130,6 @@ public class FabricConfigHelper implements ConfigData, IConfigHelper {
         public int DURABILITY = MINING_HAT_DURABILITY_DEFAULT;
         @ConfigEntry.Gui.Tooltip(count = 4)
         public boolean NIGHT_VISION_ENABLED = MINING_HAT_NIGHT_VISION_ENABLED_DEFAULT;
-        @ConfigEntry.Gui.Tooltip(count = 4)
-        public boolean MAKE_PIGLINS_NEUTRAL_ENABLED = MINING_HAT_MAKE_PIGLINS_NEUTRAL_ENABLED_DEFAULT;
         @ConfigEntry.Gui.Tooltip(count = 5)
         public int SPEED_WITH_EFFICIENCY_0 = (int) (MINING_HAT_SPEED_WITH_EFFICIENCY_0_DEFAULT * 100);
         @ConfigEntry.Gui.Tooltip(count = 5)
@@ -395,11 +393,6 @@ public class FabricConfigHelper implements ConfigData, IConfigHelper {
     @Override
     public boolean isMiningHatNightVisionEnabled() {
         return getConfig().MINING_HAT.NIGHT_VISION_ENABLED;
-    }
-
-    @Override
-    public boolean isMiningHatMakePiglinsNeutralEnabled() {
-        return getConfig().MINING_HAT.MAKE_PIGLINS_NEUTRAL_ENABLED;
     }
 
     @Override

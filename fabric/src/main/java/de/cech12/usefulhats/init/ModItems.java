@@ -21,7 +21,7 @@ import net.minecraft.world.item.Item;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Supplier;
+import java.util.function.Function;
 import java.util.function.UnaryOperator;
 
 public class ModItems {
@@ -42,7 +42,7 @@ public class ModItems {
     public static final Item STRAW_HAT = register("straw_hat", StrawHatItem::new);
     public static final Item WING_HELMET = register("wing_helmet", WingHelmetItem::new);
 
-    public static final DataComponentType<EnderHelmetItem.Position> ENDER_HELMET_POSITION = register("ender_helmet_position", (builder) -> builder.networkSynchronized(EnderHelmetItem.Position.STREAM_CODEC));
+    public static final DataComponentType<EnderHelmetItem.Position> ENDER_HELMET_POSITION = registerComponent("ender_helmet_position", (builder) -> builder.networkSynchronized(EnderHelmetItem.Position.STREAM_CODEC));
 
     static {
         Constants.ENDER_HELMET_POSITION = () -> ENDER_HELMET_POSITION;
@@ -50,13 +50,13 @@ public class ModItems {
 
     public static void init() {}
 
-    private static Item register(String name, Supplier<Item> item) {
-        Item hat = Registry.register(BuiltInRegistries.ITEM, Constants.id(name), item.get());
+    private static Item register(String name, Function<String, Item> item) {
+        Item hat = Registry.register(BuiltInRegistries.ITEM, Constants.id(name), item.apply(name));
         ALL_HATS.add(hat);
         return hat;
     }
 
-    private static <T> DataComponentType<T> register(String name, UnaryOperator<DataComponentType.Builder<T>> unaryOperator) {
+    private static <T> DataComponentType<T> registerComponent(String name, UnaryOperator<DataComponentType.Builder<T>> unaryOperator) {
         return Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, name, (unaryOperator.apply(DataComponentType.builder())).build());
     }
 

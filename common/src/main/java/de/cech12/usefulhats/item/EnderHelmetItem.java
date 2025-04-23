@@ -18,21 +18,24 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Relative;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.portal.TeleportTransition;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 public class EnderHelmetItem extends AbstractHatItem implements IRightClickListener {
 
-    public EnderHelmetItem() {
-        super(HatArmorMaterials.ENDER, rawColorFromRGB(43, 203, 175), Services.CONFIG::getEnderHelmetDurability, Services.CONFIG::isEnderHelmetDamageEnabled);
+    public EnderHelmetItem(String name) {
+        super(name, HatArmorMaterials.ENDER, rawColorFromRGB(43, 203, 175), Services.CONFIG::getEnderHelmetDurability, Services.CONFIG::isEnderHelmetDamageEnabled);
     }
 
     @Override
@@ -84,16 +87,17 @@ public class EnderHelmetItem extends AbstractHatItem implements IRightClickListe
 
     @NotNull
     @Override
-    public InteractionResultHolder<ItemStack> use(@NotNull Level worldIn, @NotNull Player playerIn, @NotNull InteractionHand handIn) {
+    public InteractionResult use(@NotNull Level worldIn, @NotNull Player playerIn, @NotNull InteractionHand handIn) {
         ItemStack stack = playerIn.getItemInHand(handIn);
         if (playerIn.isShiftKeyDown() && !stack.isEmpty()) { //shift right click
             if (!worldIn.isClientSide) {
                 //save position on item stack
                 setPosition(stack, worldIn, playerIn);
+                playerIn.setItemInHand(handIn, stack);
                 //inform player about saved position
                 ((ServerPlayer) playerIn).connection.send(new ClientboundSetActionBarTextPacket(Component.translatable("item.usefulhats.ender_helmet.message.position_saved")));
             }
-            return InteractionResultHolder.sidedSuccess(stack, worldIn.isClientSide());
+            return InteractionResult.SUCCESS;
         }
         return super.use(worldIn, playerIn, handIn);
     }
@@ -115,12 +119,12 @@ public class EnderHelmetItem extends AbstractHatItem implements IRightClickListe
                 //check for correct position
                 if (destinationPos != null && destinationWorld != null && canTeleportToPosition(destinationWorld, destinationPos)) {
                     //set cooldown for ender pearls
-                    player.getCooldowns().addCooldown(usedStack.getItem(), 20);
+                    player.getCooldowns().addCooldown(usedStack, 20);
                     //teleport player
                     player.fallDistance = 0;
                     player.playNotifySound(SoundEvents.ENDERMAN_TELEPORT, SoundSource.PLAYERS, 1F, 1F);
                     if (player.level() != destinationWorld) {
-                        ((ServerPlayer) player).teleportTo(destinationWorld, destinationPos.getX() + 0.5, destinationPos.getY(), destinationPos.getZ() + 0.5, player.yRotO, player.xRotO);
+                        player.teleport(new TeleportTransition(destinationWorld, new Vec3(destinationPos.getX() + 0.5, destinationPos.getY(), destinationPos.getZ() + 0.5), Vec3.ZERO, player.yRotO, player.xRotO, Relative.union(Relative.ROTATION, Relative.DELTA), TeleportTransition.DO_NOTHING));
                     } else {
                         player.teleportTo(destinationPos.getX() + 0.5, destinationPos.getY(), destinationPos.getZ() + 0.5);
                     }

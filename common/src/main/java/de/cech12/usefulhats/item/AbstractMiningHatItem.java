@@ -1,19 +1,18 @@
 package de.cech12.usefulhats.item;
 
 import de.cech12.usefulhats.CommonLoader;
-import net.minecraft.core.Holder;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.item.equipment.ArmorMaterial;
 import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.function.Supplier;
 
 public abstract class AbstractMiningHatItem extends AbstractHatItem implements IBreakSpeedChanger {
 
-    AbstractMiningHatItem(Holder<ArmorMaterial> material, int initColor, Supplier<Integer> durabilityConfig, Supplier<Boolean> enabledDamageConfig) {
-        super(material, initColor, durabilityConfig, enabledDamageConfig);
+    AbstractMiningHatItem(String name, ArmorMaterial material, int initColor, Supplier<Integer> durabilityConfig, Supplier<Boolean> enabledDamageConfig) {
+        super(name, material, initColor, durabilityConfig, enabledDamageConfig);
     }
 
     protected double getEnchantmentDoubleValue(final ItemStack stack) {

@@ -1,53 +1,38 @@
 package de.cech12.usefulhats.item;
 
-import de.cech12.usefulhats.Constants;
 import de.cech12.usefulhats.UsefulHatsTags;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ArmorMaterial;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.equipment.ArmorMaterial;
+import net.minecraft.world.item.equipment.ArmorType;
 
-import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.EnumMap;
-import java.util.List;
-import java.util.function.Supplier;
 
 public class HatArmorMaterials {
 
-    public static final Holder<ArmorMaterial> AQUANAUT = register("aquanaut_helmet", SoundEvents.ARMOR_EQUIP_TURTLE, () -> Ingredient.of(Items.TURTLE_SCUTE));
-    public static final Holder<ArmorMaterial> BUNNY = register("bunny_ears", SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.of(Items.RABBIT_HIDE, Items.CARROT));
-    public static final Holder<ArmorMaterial> CHOPPING = register("chopping_hat", SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.of(Items.RABBIT_HIDE));
-    public static final Holder<ArmorMaterial> ENDER = register("ender_helmet", SoundEvents.ARMOR_EQUIP_IRON, () -> Ingredient.of(Items.ENDER_PEARL), false);
-    public static final Holder<ArmorMaterial> HALO = register("halo", SoundEvents.ARMOR_EQUIP_GOLD, () -> Ingredient.of(Items.GLOWSTONE_DUST), false);
-    public static final Holder<ArmorMaterial> LUCKY = register("lucky_hat", SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.of(Items.RABBIT_FOOT));
-    public static final Holder<ArmorMaterial> MINING = register("mining_hat", SoundEvents.ARMOR_EQUIP_GOLD, () -> Ingredient.of(Items.GOLD_INGOT));
-    public static final Holder<ArmorMaterial> MUSHROOM = register("mushroom_hat", SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.of(UsefulHatsTags.Items.MUSHROOM_CAPS));
-    public static final Holder<ArmorMaterial> POSTMAN = register("postman_hat", SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.of(Items.LAPIS_LAZULI));
-    public static final Holder<ArmorMaterial> SHULKER = register("shulker_helmet", SoundEvents.ARMOR_EQUIP_IRON, () -> Ingredient.of(Items.SHULKER_SHELL, Items.PHANTOM_MEMBRANE), false);
-    public static final Holder<ArmorMaterial> STOCKING = register("stocking_cap", SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.of(Items.STRING));
-    public static final Holder<ArmorMaterial> STRAW = register("straw_hat", SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.of(Items.WHEAT));
-    public static final Holder<ArmorMaterial> WING = register("wing_helmet", SoundEvents.ARMOR_EQUIP_IRON, () -> Ingredient.of(Items.FEATHER, Items.PHANTOM_MEMBRANE));
+    private static final boolean IS_CHRISTMAS = Calendar.getInstance().get(Calendar.MONTH) + 1 == 12;
 
-    private static Holder<ArmorMaterial> register(String name, Holder<SoundEvent> equipSound, Supplier<Ingredient> repairIngredients) {
-        return register(name, equipSound, repairIngredients, true);
-    }
+    public static final ArmorMaterial AQUANAUT = register(SoundEvents.ARMOR_EQUIP_TURTLE, UsefulHatsTags.Items.REPAIRS_AQUANAUT_HELMET, HatArmorModels.AQUANAUT);
+    public static final ArmorMaterial BUNNY = register(SoundEvents.ARMOR_EQUIP_LEATHER, UsefulHatsTags.Items.REPAIRS_BUNNY_EARS, HatArmorModels.BUNNY);
+    public static final ArmorMaterial CHOPPING = register(SoundEvents.ARMOR_EQUIP_LEATHER, UsefulHatsTags.Items.REPAIRS_CHOPPING_HAT, HatArmorModels.CHOPPING);
+    public static final ArmorMaterial ENDER = register(SoundEvents.ARMOR_EQUIP_IRON, UsefulHatsTags.Items.REPAIRS_ENDER_HELMET, HatArmorModels.ENDER);
+    public static final ArmorMaterial HALO = register(SoundEvents.ARMOR_EQUIP_GOLD, UsefulHatsTags.Items.REPAIRS_HALO, HatArmorModels.HALO);
+    public static final ArmorMaterial LUCKY = register(SoundEvents.ARMOR_EQUIP_LEATHER, UsefulHatsTags.Items.REPAIRS_LUCKY_HAT, HatArmorModels.LUCKY);
+    public static final ArmorMaterial MINING = register(SoundEvents.ARMOR_EQUIP_GOLD, UsefulHatsTags.Items.REPAIRS_MINING_HELMET, HatArmorModels.MINING);
+    public static final ArmorMaterial MUSHROOM = register(SoundEvents.ARMOR_EQUIP_LEATHER, UsefulHatsTags.Items.REPAIRS_MUSHROOM_HAT, HatArmorModels.MUSHROOM);
+    public static final ArmorMaterial POSTMAN = register(SoundEvents.ARMOR_EQUIP_LEATHER, UsefulHatsTags.Items.REPAIRS_POSTMAN_HAT, HatArmorModels.POSTMAN);
+    public static final ArmorMaterial SHULKER = register(SoundEvents.ARMOR_EQUIP_IRON, UsefulHatsTags.Items.REPAIRS_SHULKER_HELMET, HatArmorModels.SHULKER);
+    public static final ArmorMaterial STOCKING = register(SoundEvents.ARMOR_EQUIP_LEATHER, UsefulHatsTags.Items.REPAIRS_STOCKING_CAP, IS_CHRISTMAS ? HatArmorModels.STOCKING_XMAS : HatArmorModels.STOCKING);
+    public static final ArmorMaterial STRAW = register(SoundEvents.ARMOR_EQUIP_LEATHER, UsefulHatsTags.Items.REPAIRS_STRAW_HAT, HatArmorModels.STRAW);
+    public static final ArmorMaterial WING = register(SoundEvents.ARMOR_EQUIP_IRON, UsefulHatsTags.Items.REPAIRS_WING_HELMET, HatArmorModels.WING);
 
-    private static Holder<ArmorMaterial> register(String name, Holder<SoundEvent> equipSound, Supplier<Ingredient> repairIngredients, boolean withOverlay) {
-        EnumMap<ArmorItem.Type, Integer> defenseMap = new EnumMap<>(ArmorItem.Type.class);
-        for (ArmorItem.Type type : ArmorItem.Type.values()) {
-            defenseMap.put(type, 0);
-        }
-        List<ArmorMaterial.Layer> layers = new ArrayList<>();
-        layers.add(new ArmorMaterial.Layer(Constants.id(name), "", true));
-        if (withOverlay) {
-            layers.add(new ArmorMaterial.Layer(Constants.id(name), "_overlay", false));
-        }
-        return Registry.registerForHolder(BuiltInRegistries.ARMOR_MATERIAL, Constants.id(name), new ArmorMaterial(defenseMap, 15, equipSound, repairIngredients, layers, 0.0F, 0.0F));
+    private static ArmorMaterial register(Holder<SoundEvent> equipSound, TagKey<Item> repairIngredient, ResourceLocation equipmentModel) {
+        return new ArmorMaterial(5, new EnumMap<>(ArmorType.class) {{ put(ArmorType.HELMET, 0); }}, 15, equipSound, 0.0F, 0.0F, repairIngredient, equipmentModel);
     }
 
 }

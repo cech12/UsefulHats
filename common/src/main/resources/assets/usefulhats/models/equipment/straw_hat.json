@@ -1,0 +1,15 @@
+{
+    "layers": {
+        "humanoid": [
+            {
+                "dyeable": {
+                    "color_when_undyed": -1917696
+                },
+                "texture": "usefulhats:straw_hat"
+            },
+            {
+                "texture": "usefulhats:straw_hat_overlay"
+            }
+        ]
+    }
+}

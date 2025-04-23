@@ -6,12 +6,8 @@
     "# #"
   ],
   "key": {
-    "#": {
-      "item": "minecraft:lime_wool"
-    },
-    "O": {
-      "item": "minecraft:rabbit_foot"
-    }
+    "#": "minecraft:lime_wool",
+    "O": "minecraft:rabbit_foot"
   },
   "result": {
     "id": "usefulhats:lucky_hat"

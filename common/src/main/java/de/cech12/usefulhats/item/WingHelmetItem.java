@@ -23,8 +23,8 @@ public class WingHelmetItem extends AbstractHatItem implements IEquipmentChangeL
     private static final int LEVITATION_AMPLIFIER = 2;
     private static final int LEVITATION_DURATION = 200;
 
-    public WingHelmetItem() {
-        super(HatArmorMaterials.WING, rawColorFromRGB(255, 255, 255), Services.CONFIG::getWingHelmetDurability, Services.CONFIG::isWingHelmetDamageEnabled);
+    public WingHelmetItem(String name) {
+        super(name, HatArmorMaterials.WING, rawColorFromRGB(255, 255, 255), Services.CONFIG::getWingHelmetDurability, Services.CONFIG::isWingHelmetDamageEnabled);
     }
 
     @Override

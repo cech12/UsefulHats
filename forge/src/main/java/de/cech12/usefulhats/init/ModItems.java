@@ -35,30 +35,35 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.function.Function;
 import java.util.function.UnaryOperator;
 
 public class ModItems {
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Constants.MOD_ID);
 
-    public static final RegistryObject<Item> AQUANAUT_HELMET = ITEMS.register("aquanaut_helmet", AquanautHelmetItem::new);
-    public static final RegistryObject<Item> BUNNY_EARS = ITEMS.register("bunny_ears", BunnyEarsItem::new);
-    public static final RegistryObject<Item> CHOPPING_HAT = ITEMS.register("chopping_hat", ChoppingHatItem::new);
-    public static final RegistryObject<Item> ENDER_HELMET = ITEMS.register("ender_helmet", EnderHelmetItem::new);
-    public static final RegistryObject<Item> HALO = ITEMS.register("halo", HaloItem::new);
-    public static final RegistryObject<Item> LUCKY_HAT = ITEMS.register("lucky_hat", LuckyHatItem::new);
-    public static final RegistryObject<Item> MINING_HAT = ITEMS.register("mining_hat", MiningHatItem::new);
-    public static final RegistryObject<Item> MUSHROOM_HAT = ITEMS.register("mushroom_hat", MushroomHatItem::new);
-    public static final RegistryObject<Item> POSTMAN_HAT = ITEMS.register("postman_hat", PostmanHatItem::new);
-    public static final RegistryObject<Item> SHULKER_HELMET = ITEMS.register("shulker_helmet", ShulkerHelmetItem::new);
-    public static final RegistryObject<Item> STOCKING_CAP = ITEMS.register("stocking_cap", StockingCapItem::new);
-    public static final RegistryObject<Item> STRAW_HAT = ITEMS.register("straw_hat", StrawHatItem::new);
-    public static final RegistryObject<Item> WING_HELMET = ITEMS.register("wing_helmet", WingHelmetItem::new);
+    public static final RegistryObject<Item> AQUANAUT_HELMET = register("aquanaut_helmet", AquanautHelmetItem::new);
+    public static final RegistryObject<Item> BUNNY_EARS = register("bunny_ears", BunnyEarsItem::new);
+    public static final RegistryObject<Item> CHOPPING_HAT = register("chopping_hat", ChoppingHatItem::new);
+    public static final RegistryObject<Item> ENDER_HELMET = register("ender_helmet", EnderHelmetItem::new);
+    public static final RegistryObject<Item> HALO = register("halo", HaloItem::new);
+    public static final RegistryObject<Item> LUCKY_HAT = register("lucky_hat", LuckyHatItem::new);
+    public static final RegistryObject<Item> MINING_HAT = register("mining_hat", MiningHatItem::new);
+    public static final RegistryObject<Item> MUSHROOM_HAT = register("mushroom_hat", MushroomHatItem::new);
+    public static final RegistryObject<Item> POSTMAN_HAT = register("postman_hat", PostmanHatItem::new);
+    public static final RegistryObject<Item> SHULKER_HELMET = register("shulker_helmet", ShulkerHelmetItem::new);
+    public static final RegistryObject<Item> STOCKING_CAP = register("stocking_cap", StockingCapItem::new);
+    public static final RegistryObject<Item> STRAW_HAT = register("straw_hat", StrawHatItem::new);
+    public static final RegistryObject<Item> WING_HELMET = register("wing_helmet", WingHelmetItem::new);
 
     public static final DeferredRegister<DataComponentType<?>> DATA_COMPONENTS = DeferredRegister.create(Registries.DATA_COMPONENT_TYPE, Constants.MOD_ID);
 
     static {
         Constants.ENDER_HELMET_POSITION = DATA_COMPONENTS.register("ender_helmet_position", () -> createDataComponent((builder) -> builder.networkSynchronized(EnderHelmetItem.Position.STREAM_CODEC)));
+    }
+
+    private static RegistryObject<Item> register(String name, Function<String, Item> itemFactory) {
+        return ITEMS.register(name, () -> itemFactory.apply(name));
     }
 
     private static <T> DataComponentType<T> createDataComponent(UnaryOperator<DataComponentType.Builder<T>> unaryOperator) {

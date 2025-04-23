@@ -54,7 +54,6 @@ public class ForgeConfigHelper implements IConfigHelper {
     public static final ForgeConfigSpec.BooleanValue MINING_HAT_DAMAGE_ENABLED;
     public static final ForgeConfigSpec.IntValue MINING_HAT_DURABILITY;
     public static final ForgeConfigSpec.BooleanValue MINING_HAT_NIGHT_VISION_ENABLED;
-    public static final ForgeConfigSpec.BooleanValue MINING_HAT_MAKE_PIGLINS_NEUTRAL_ENABLED;
     public static final ForgeConfigSpec.DoubleValue MINING_HAT_SPEED_WITH_EFFICIENCY_0;
     public static final ForgeConfigSpec.DoubleValue MINING_HAT_SPEED_WITH_EFFICIENCY_1;
     public static final ForgeConfigSpec.DoubleValue MINING_HAT_SPEED_WITH_EFFICIENCY_2;
@@ -200,9 +199,6 @@ public class ForgeConfigHelper implements IConfigHelper {
         MINING_HAT_NIGHT_VISION_ENABLED = builder
                 .comment(MINING_HAT_NIGHT_VISION_ENABLED_DESCRIPTION)
                 .define("miningHatNightVisionEnabled", MINING_HAT_NIGHT_VISION_ENABLED_DEFAULT);
-        MINING_HAT_MAKE_PIGLINS_NEUTRAL_ENABLED = builder
-                .comment(MINING_HAT_MAKE_PIGLINS_NEUTRAL_ENABLED_DESCRIPTION)
-                .define("miningHatMakePiglinsNeutralEnabled", MINING_HAT_MAKE_PIGLINS_NEUTRAL_ENABLED_DEFAULT);
         MINING_HAT_SPEED_WITH_EFFICIENCY_0 = builder
                 .comment(MINING_HAT_SPEED_WITH_EFFICIENCY_0_DESCRIPTION)
                 .defineInRange("miningHatSpeedWithEfficiency0", MINING_HAT_SPEED_WITH_EFFICIENCY_0_DEFAULT, MINING_HAT_SPEED_WITH_EFFICIENCY_0_MIN, MINING_HAT_SPEED_WITH_EFFICIENCY_0_MAX);
@@ -477,11 +473,6 @@ public class ForgeConfigHelper implements IConfigHelper {
     @Override
     public boolean isMiningHatNightVisionEnabled() {
         return getBoolean(MINING_HAT_NIGHT_VISION_ENABLED, MINING_HAT_NIGHT_VISION_ENABLED_DEFAULT);
-    }
-
-    @Override
-    public boolean isMiningHatMakePiglinsNeutralEnabled() {
-        return getBoolean(MINING_HAT_MAKE_PIGLINS_NEUTRAL_ENABLED, MINING_HAT_MAKE_PIGLINS_NEUTRAL_ENABLED_DEFAULT);
     }
 
     @Override

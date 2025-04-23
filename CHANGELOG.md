@@ -3,6 +3,19 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Forge Recommended Versioning](https://mcforge.readthedocs.io/en/latest/conventions/versioning/).
 
+## [1.21.3-6.6.0.0] - 2025-04-23
+### Changed
+- Updated to Minecraft 1.21.3 (Fabric 0.107.0+1.21.3, NeoForge 21.3.56, Forge 53.0.47)
+- Updated Cloth Config support (16.0.141) (Fabric/Quilt)
+- Updated ModMenu support (12.0.0) (Fabric/Quilt)
+- Updated Accessories support (1.2.3-beta) (Fabric/Quilt, NeoForge)
+- temporary removed Trinkets support until it is ported to 1.21.3 (Fabric/Quilt, NeoForge)
+
+### Removed
+- removed "miningHatMakePiglinsNeutralEnabled" option and used the new vanilla item tag "piglin_safe_armor" (all loaders)
+- removed Baubles 2 support (NeoForge)
+- removed Curios API Continuation support (NeoForge)
+
 ## [1.21.1-6.5.1.1] - 2025-04-21
 ### Fixed
 - fixed Halo to work also in custom dimensions. Only dimensions that are ultrawarm and piglinsafe are interpreted as Nether. (all loaders) (thanks to jtrmike for the report) #71

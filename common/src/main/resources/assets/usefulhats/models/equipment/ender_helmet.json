@@ -1,0 +1,12 @@
+{
+    "layers": {
+        "humanoid": [
+            {
+                "dyeable": {
+                    "color_when_undyed": -13907025
+                },
+                "texture": "usefulhats:ender_helmet"
+            }
+        ]
+    }
+}

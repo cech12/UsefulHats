@@ -2,7 +2,7 @@ package de.cech12.usefulhats.init;
 
 import de.cech12.usefulhats.Constants;
 import de.cech12.usefulhats.UsefulHatsEventUtils;
-import de.cech12.usefulhats.compat.CuriosContinuationCompat;
+import de.cech12.usefulhats.item.AbstractHatItem;
 import de.cech12.usefulhats.item.AquanautHelmetItem;
 import de.cech12.usefulhats.item.BunnyEarsItem;
 import de.cech12.usefulhats.item.ChoppingHatItem;
@@ -16,13 +16,13 @@ import de.cech12.usefulhats.item.ShulkerHelmetItem;
 import de.cech12.usefulhats.item.StockingCapItem;
 import de.cech12.usefulhats.item.StrawHatItem;
 import de.cech12.usefulhats.item.WingHelmetItem;
-import de.cech12.usefulhats.platform.Services;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Item;
 import net.neoforged.bus.api.EventPriority;
+import net.neoforged.neoforge.client.event.GatherSkippedAttributeTooltipsEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.living.LivingChangeTargetEvent;
@@ -37,30 +37,35 @@ import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import java.util.function.Function;
 import java.util.function.UnaryOperator;
 
 public class ModItems {
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(BuiltInRegistries.ITEM, Constants.MOD_ID);
 
-    public static final DeferredHolder<Item, Item> AQUANAUT_HELMET = ITEMS.register("aquanaut_helmet", AquanautHelmetItem::new);
-    public static final DeferredHolder<Item, Item> BUNNY_EARS = ITEMS.register("bunny_ears", BunnyEarsItem::new);
-    public static final DeferredHolder<Item, Item> CHOPPING_HAT = ITEMS.register("chopping_hat", ChoppingHatItem::new);
-    public static final DeferredHolder<Item, Item> ENDER_HELMET = ITEMS.register("ender_helmet", EnderHelmetItem::new);
-    public static final DeferredHolder<Item, Item> HALO = ITEMS.register("halo", HaloItem::new);
-    public static final DeferredHolder<Item, Item> LUCKY_HAT = ITEMS.register("lucky_hat", LuckyHatItem::new);
-    public static final DeferredHolder<Item, Item> MINING_HAT = ITEMS.register("mining_hat", MiningHatItem::new);
-    public static final DeferredHolder<Item, Item> MUSHROOM_HAT = ITEMS.register("mushroom_hat", MushroomHatItem::new);
-    public static final DeferredHolder<Item, Item> POSTMAN_HAT = ITEMS.register("postman_hat", PostmanHatItem::new);
-    public static final DeferredHolder<Item, Item> SHULKER_HELMET = ITEMS.register("shulker_helmet", ShulkerHelmetItem::new);
-    public static final DeferredHolder<Item, Item> STOCKING_CAP = ITEMS.register("stocking_cap", StockingCapItem::new);
-    public static final DeferredHolder<Item, Item> STRAW_HAT = ITEMS.register("straw_hat", StrawHatItem::new);
-    public static final DeferredHolder<Item, Item> WING_HELMET = ITEMS.register("wing_helmet", WingHelmetItem::new);
+    public static final DeferredHolder<Item, Item> AQUANAUT_HELMET = register("aquanaut_helmet", AquanautHelmetItem::new);
+    public static final DeferredHolder<Item, Item> BUNNY_EARS = register("bunny_ears", BunnyEarsItem::new);
+    public static final DeferredHolder<Item, Item> CHOPPING_HAT = register("chopping_hat", ChoppingHatItem::new);
+    public static final DeferredHolder<Item, Item> ENDER_HELMET = register("ender_helmet", EnderHelmetItem::new);
+    public static final DeferredHolder<Item, Item> HALO = register("halo", HaloItem::new);
+    public static final DeferredHolder<Item, Item> LUCKY_HAT = register("lucky_hat", LuckyHatItem::new);
+    public static final DeferredHolder<Item, Item> MINING_HAT = register("mining_hat", MiningHatItem::new);
+    public static final DeferredHolder<Item, Item> MUSHROOM_HAT = register("mushroom_hat", MushroomHatItem::new);
+    public static final DeferredHolder<Item, Item> POSTMAN_HAT = register("postman_hat", PostmanHatItem::new);
+    public static final DeferredHolder<Item, Item> SHULKER_HELMET = register("shulker_helmet", ShulkerHelmetItem::new);
+    public static final DeferredHolder<Item, Item> STOCKING_CAP = register("stocking_cap", StockingCapItem::new);
+    public static final DeferredHolder<Item, Item> STRAW_HAT = register("straw_hat", StrawHatItem::new);
+    public static final DeferredHolder<Item, Item> WING_HELMET = register("wing_helmet", WingHelmetItem::new);
 
     public static final DeferredRegister<DataComponentType<?>> DATA_COMPONENTS = DeferredRegister.create(Registries.DATA_COMPONENT_TYPE, Constants.MOD_ID);
 
     static {
         Constants.ENDER_HELMET_POSITION = DATA_COMPONENTS.register("ender_helmet_position", () -> createDataComponent((builder) -> builder.networkSynchronized(EnderHelmetItem.Position.STREAM_CODEC)));
+    }
+
+    private static DeferredHolder<Item, Item> register(String name, Function<String, Item> itemFactory) {
+        return ITEMS.register(name, () -> itemFactory.apply(name));
     }
 
     private static <T> DataComponentType<T> createDataComponent(UnaryOperator<DataComponentType.Builder<T>> unaryOperator) {
@@ -82,10 +87,7 @@ public class ModItems {
         NeoForge.EVENT_BUS.addListener(ModItems::onLivingChangeTargetEvent);
         NeoForge.EVENT_BUS.addListener(ModItems::onLivingUseItemEventStart);
         NeoForge.EVENT_BUS.addListener(ModItems::onRightClickItemEvent);
-        //curios events
-        if (Services.PLATFORM.isModLoaded(Constants.CURIOS_CONTINUATION_MOD_ID)) {
-            NeoForge.EVENT_BUS.addListener(CuriosContinuationCompat::onCuriosEquipmentChangeEvent);
-        }
+        NeoForge.EVENT_BUS.addListener(ModItems::removeWhenOnHeadTooltipLine);
     }
 
     private static void onBreakSpeedEvent(PlayerEvent.BreakSpeed event) {
@@ -145,6 +147,15 @@ public class ModItems {
     private static void onRightClickItemEvent(PlayerInteractEvent.RightClickItem event) {
         if (!event.isCanceled() && UsefulHatsEventUtils.shouldRightClickBeCancelled(event.getLevel(), event.getEntity(), event.getItemStack(), event.getHand())) {
             event.setCanceled(true);
+        }
+    }
+
+    /**
+     * Disables "When on head" line of ArmorItem Tooltip (common ItemStack Mixin does not work for NeoForge)
+     */
+    private static void removeWhenOnHeadTooltipLine(GatherSkippedAttributeTooltipsEvent event) {
+        if (event.getStack().getItem() instanceof AbstractHatItem) {
+            event.setSkipAll(true);
         }
     }
 
