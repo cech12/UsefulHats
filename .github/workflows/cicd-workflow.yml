@@ -87,6 +87,7 @@ jobs:
       dependencies: |
         accessories(optional)
         baubles-2(optional)
+        curios(optional)
         curios-continuation(optional)
     secrets:
       github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -109,6 +110,7 @@ jobs:
       dependencies: |
         accessories(optional)
         baubles-2(optional)
+        curios(optional)
         curios-continuation(optional)
     secrets:
       github-token: ${{ secrets.GITHUB_TOKEN }}
