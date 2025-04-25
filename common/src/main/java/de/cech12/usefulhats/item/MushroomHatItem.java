@@ -19,7 +19,7 @@ import java.util.List;
 public class MushroomHatItem extends AbstractHatItem {
 
     public MushroomHatItem(String name) {
-        super(name, HatArmorMaterials.MUSHROOM, rawColorFromRGB(197, 35, 35), Services.CONFIG::getMushroomHatDurability, Services.CONFIG::isMushroomHatDamageEnabled);
+        super(name, HatArmorMaterials.MUSHROOM, Services.CONFIG::getMushroomHatDurability, Services.CONFIG::isMushroomHatDamageEnabled);
     }
 
     @Override

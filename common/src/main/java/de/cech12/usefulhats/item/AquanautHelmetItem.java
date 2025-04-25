@@ -27,8 +27,8 @@ public class AquanautHelmetItem extends AbstractHatItem implements IEquipmentCha
     private static final ResourceLocation AQUANAUT_GUI_TEX_PATH = Constants.id("misc/aquanautblur");
 
     public AquanautHelmetItem(String name) {
-        super(name, HatArmorMaterials.AQUANAUT.humanoidProperties(new Properties(), ArmorType.HELMET).component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.HEAD).setEquipSound(HatArmorMaterials.AQUANAUT.equipSound()).setModel(HatArmorMaterials.AQUANAUT.modelId()).setDamageOnHurt(false).setCameraOverlay(AQUANAUT_GUI_TEX_PATH).build()),
-                rawColorFromRGB(71, 191, 74), Services.CONFIG::getAquanautHelmetDurability, Services.CONFIG::isAquanautHelmetDamageEnabled);
+        super(name, HatArmorMaterials.AQUANAUT.humanoidProperties(new Properties(), ArmorType.HELMET).component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.HEAD).setEquipSound(HatArmorMaterials.AQUANAUT.equipSound()).setAsset(HatArmorMaterials.AQUANAUT.assetId()).setDamageOnHurt(false).setCameraOverlay(AQUANAUT_GUI_TEX_PATH).build()),
+                Services.CONFIG::getAquanautHelmetDurability, Services.CONFIG::isAquanautHelmetDamageEnabled);
     }
 
     private int getConduitPowerDuration(ItemStack stack) {

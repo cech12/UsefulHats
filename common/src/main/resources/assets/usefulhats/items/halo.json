@@ -1,0 +1,12 @@
+{
+    "model": {
+        "type": "minecraft:model",
+        "model": "usefulhats:item/halo",
+        "tints": [
+            {
+                "type": "minecraft:dye",
+                "default": -4978
+            }
+        ]
+    }
+}

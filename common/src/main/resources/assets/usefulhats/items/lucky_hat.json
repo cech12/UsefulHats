@@ -1,0 +1,12 @@
+{
+    "model": {
+        "type": "minecraft:model",
+        "model": "usefulhats:item/lucky_hat",
+        "tints": [
+            {
+                "type": "minecraft:dye",
+                "default": -11996672
+            }
+        ]
+    }
+}

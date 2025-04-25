@@ -35,7 +35,7 @@ import java.util.List;
 public class EnderHelmetItem extends AbstractHatItem implements IRightClickListener {
 
     public EnderHelmetItem(String name) {
-        super(name, HatArmorMaterials.ENDER, rawColorFromRGB(43, 203, 175), Services.CONFIG::getEnderHelmetDurability, Services.CONFIG::isEnderHelmetDamageEnabled);
+        super(name, HatArmorMaterials.ENDER, Services.CONFIG::getEnderHelmetDurability, Services.CONFIG::isEnderHelmetDamageEnabled);
     }
 
     @Override

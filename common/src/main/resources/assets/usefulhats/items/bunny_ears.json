@@ -1,0 +1,12 @@
+{
+    "model": {
+        "type": "minecraft:model",
+        "model": "usefulhats:item/bunny_ears",
+        "tints": [
+            {
+                "type": "minecraft:dye",
+                "default": -7440290
+            }
+        ]
+    }
+}

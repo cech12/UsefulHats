@@ -15,7 +15,7 @@ import java.util.List;
 public class ChoppingHatItem extends AbstractMiningHatItem {
 
     public ChoppingHatItem(String name) {
-        super(name, HatArmorMaterials.CHOPPING, rawColorFromRGB(91, 91, 91), Services.CONFIG::getChoppingHatDurability, Services.CONFIG::isChoppingHatDamageEnabled);
+        super(name, HatArmorMaterials.CHOPPING, Services.CONFIG::getChoppingHatDurability, Services.CONFIG::isChoppingHatDamageEnabled);
     }
 
     @Override

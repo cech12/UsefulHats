@@ -1,0 +1,12 @@
+{
+    "model": {
+        "type": "minecraft:model",
+        "model": "usefulhats:item/mining_hat",
+        "tints": [
+            {
+                "type": "minecraft:dye",
+                "default": -10240
+            }
+        ]
+    }
+}

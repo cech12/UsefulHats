@@ -24,7 +24,7 @@ public class PostmanHatItem extends AbstractHatItem implements IEquipmentChangeL
     private static final int SPEED_DURATION = 219;
 
     public PostmanHatItem(String name) {
-        super(name, HatArmorMaterials.POSTMAN, rawColorFromRGB(57, 99, 150), Services.CONFIG::getPostmanHatDurability, Services.CONFIG::isPostmanHatDamageEnabled);
+        super(name, HatArmorMaterials.POSTMAN, Services.CONFIG::getPostmanHatDurability, Services.CONFIG::isPostmanHatDamageEnabled);
     }
 
     @Override

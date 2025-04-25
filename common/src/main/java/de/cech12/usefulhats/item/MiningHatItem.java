@@ -24,7 +24,7 @@ public class MiningHatItem extends AbstractMiningHatItem implements IEquipmentCh
     private static final int NIGHT_VISION_AMPLIFIER = 0;
 
     public MiningHatItem(String name) {
-        super(name, HatArmorMaterials.MINING, rawColorFromRGB(255, 216, 0), Services.CONFIG::getMiningHatDurability, Services.CONFIG::isMiningHatDamageEnabled);
+        super(name, HatArmorMaterials.MINING, Services.CONFIG::getMiningHatDurability, Services.CONFIG::isMiningHatDamageEnabled);
     }
 
     public static boolean isLightEnabled(LivingEntity entity) {

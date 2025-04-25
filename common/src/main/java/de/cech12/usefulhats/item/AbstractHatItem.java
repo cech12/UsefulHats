@@ -10,7 +10,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
-import net.minecraft.util.ARGB;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -29,24 +28,18 @@ import java.util.function.Supplier;
 
 public abstract class AbstractHatItem extends Item {
 
-    private final int initColor;
     private final Supplier<Integer> durabilityConfig;
     protected final Supplier<Boolean> enabledDamageConfig;
 
-    public AbstractHatItem(String name, ArmorMaterial material, int initColor, Supplier<Integer> durabilityConfig, Supplier<Boolean> enabledDamageConfig) {
-        this(name, material.humanoidProperties(new Properties(), ArmorType.HELMET).component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.HEAD).setEquipSound(material.equipSound()).setModel(material.modelId()).setDamageOnHurt(false).build()),
-                initColor, durabilityConfig, enabledDamageConfig);
+    public AbstractHatItem(String name, ArmorMaterial material, Supplier<Integer> durabilityConfig, Supplier<Boolean> enabledDamageConfig) {
+        this(name, material.humanoidProperties(new Properties(), ArmorType.HELMET).component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.HEAD).setEquipSound(material.equipSound()).setAsset(material.assetId()).setDamageOnHurt(false).build()),
+                durabilityConfig, enabledDamageConfig);
     }
 
-    public AbstractHatItem(String name, Properties properties, int initColor, Supplier<Integer> durabilityConfig, Supplier<Boolean> enabledDamageConfig) {
+    public AbstractHatItem(String name, Properties properties, Supplier<Integer> durabilityConfig, Supplier<Boolean> enabledDamageConfig) {
         super(properties.setId(ResourceKey.create(BuiltInRegistries.ITEM.key(), Constants.id(name))));
-        this.initColor = initColor;
         this.durabilityConfig = durabilityConfig;
         this.enabledDamageConfig = enabledDamageConfig;
-    }
-
-    protected static int rawColorFromRGB(int red, int green, int blue) {
-        return ARGB.color(red, green, blue);
     }
 
     public int getDurabilityFromConfig() {
@@ -113,10 +106,6 @@ public abstract class AbstractHatItem extends Item {
         super.appendHoverText(stack, context, tooltip, flagIn);
         tooltip.add(Component.empty());
         tooltip.add((Component.translatable("item.modifiers." + EquipmentSlot.HEAD.getName())).withStyle(ChatFormatting.GRAY));
-    }
-
-    public int getDefaultColor() {
-        return initColor;
     }
 
     /*

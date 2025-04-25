@@ -24,7 +24,7 @@ public class HaloItem extends AbstractHatItem implements IAttackTargetChanger, I
     private static final Map<LivingEntity, Integer> PREVIOUS_DAMAGE_TICK_OF_ENTITY = new HashMap<>();
 
     public HaloItem(String name) {
-        super(name, HatArmorMaterials.HALO, rawColorFromRGB(255, 236, 142), Services.CONFIG::getHaloDurability, Services.CONFIG::isHaloDamageEnabled);
+        super(name, HatArmorMaterials.HALO, Services.CONFIG::getHaloDurability, Services.CONFIG::isHaloDamageEnabled);
     }
 
     @Override

@@ -11,8 +11,8 @@ import java.util.function.Supplier;
 
 public abstract class AbstractMiningHatItem extends AbstractHatItem implements IBreakSpeedChanger {
 
-    AbstractMiningHatItem(String name, ArmorMaterial material, int initColor, Supplier<Integer> durabilityConfig, Supplier<Boolean> enabledDamageConfig) {
-        super(name, material, initColor, durabilityConfig, enabledDamageConfig);
+    AbstractMiningHatItem(String name, ArmorMaterial material, Supplier<Integer> durabilityConfig, Supplier<Boolean> enabledDamageConfig) {
+        super(name, material, durabilityConfig, enabledDamageConfig);
     }
 
     protected double getEnchantmentDoubleValue(final ItemStack stack) {

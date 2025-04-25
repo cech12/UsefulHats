@@ -1,17 +1,12 @@
 package de.cech12.usefulhats.client;
 
 import de.cech12.usefulhats.Constants;
-import de.cech12.usefulhats.item.AbstractHatItem;
-import de.cech12.usefulhats.platform.Services;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.LayerDefinitions;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.component.DyedItemColor;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -32,13 +27,6 @@ public class UsefulHatsForgeClientEvents {
     @SubscribeEvent
     public static void initModels(EntityRenderersEvent.AddLayers event) {
         usefulHatModel = new UsefulHatModel<>(Minecraft.getInstance().getEntityModels().bakeLayer(USEFUL_HAT_LAYER));
-    }
-
-    @SubscribeEvent
-    public static void registerColors(RegisterColorHandlersEvent.Item event) {
-        for (Item item : Services.REGISTRY.getAllHatItems()) {
-            event.register((itemStack, layer) -> layer > 0 ? -1 : DyedItemColor.getOrDefault(itemStack, ((AbstractHatItem)itemStack.getItem()).getDefaultColor()), item);
-        }
     }
 
 }

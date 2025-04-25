@@ -1,0 +1,12 @@
+{
+    "model": {
+        "type": "minecraft:model",
+        "model": "usefulhats:item/chopping_hat",
+        "tints": [
+            {
+                "type": "minecraft:dye",
+                "default": -10790053
+            }
+        ]
+    }
+}
