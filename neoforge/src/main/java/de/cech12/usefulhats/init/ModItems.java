@@ -2,7 +2,6 @@ package de.cech12.usefulhats.init;
 
 import de.cech12.usefulhats.Constants;
 import de.cech12.usefulhats.UsefulHatsEventUtils;
-import de.cech12.usefulhats.item.AbstractHatItem;
 import de.cech12.usefulhats.item.AquanautHelmetItem;
 import de.cech12.usefulhats.item.BunnyEarsItem;
 import de.cech12.usefulhats.item.ChoppingHatItem;
@@ -22,7 +21,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Item;
 import net.neoforged.bus.api.EventPriority;
-import net.neoforged.neoforge.client.event.GatherSkippedAttributeTooltipsEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.living.LivingChangeTargetEvent;
@@ -87,7 +85,6 @@ public class ModItems {
         NeoForge.EVENT_BUS.addListener(ModItems::onLivingChangeTargetEvent);
         NeoForge.EVENT_BUS.addListener(ModItems::onLivingUseItemEventStart);
         NeoForge.EVENT_BUS.addListener(ModItems::onRightClickItemEvent);
-        NeoForge.EVENT_BUS.addListener(ModItems::removeWhenOnHeadTooltipLine);
     }
 
     private static void onBreakSpeedEvent(PlayerEvent.BreakSpeed event) {
@@ -147,15 +144,6 @@ public class ModItems {
     private static void onRightClickItemEvent(PlayerInteractEvent.RightClickItem event) {
         if (!event.isCanceled() && UsefulHatsEventUtils.shouldRightClickBeCancelled(event.getLevel(), event.getEntity(), event.getItemStack(), event.getHand())) {
             event.setCanceled(true);
-        }
-    }
-
-    /**
-     * Disables "When on head" line of ArmorItem Tooltip (common ItemStack Mixin does not work for NeoForge)
-     */
-    private static void removeWhenOnHeadTooltipLine(GatherSkippedAttributeTooltipsEvent event) {
-        if (event.getStack().getItem() instanceof AbstractHatItem) {
-            event.setSkipAll(true);
         }
     }
 

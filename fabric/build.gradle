@@ -2,7 +2,7 @@ plugins {
     id 'java'
     id 'idea'
     id 'maven-publish'
-    id 'fabric-loom' version '1.9-SNAPSHOT'
+    id 'fabric-loom' version '1.10-SNAPSHOT'
 }
 base {
     archivesName = "${mod_id}-fabric"
@@ -29,7 +29,7 @@ dependencies {
     modImplementation("com.terraformersmc:modmenu:${mod_menu_version}")
 
     //modImplementation("dev.emi:trinkets:${trinkets_version}")
-    modImplementation("io.wispforest:accessories-fabric:${accessories_version}")
+    //modImplementation("io.wispforest:accessories-fabric:${accessories_version}")
 
     implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
     compileOnly project(":common")

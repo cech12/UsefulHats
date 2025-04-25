@@ -25,12 +25,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.portal.TeleportTransition;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 public class EnderHelmetItem extends AbstractHatItem implements IRightClickListener {
 
@@ -39,14 +40,14 @@ public class EnderHelmetItem extends AbstractHatItem implements IRightClickListe
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flagIn) {
-        tooltip.add(Component.translatable("item.usefulhats.ender_helmet.desc.define_teleport").withStyle(ChatFormatting.BLUE));
+    public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull TooltipDisplay display, @NotNull Consumer<Component> tooltip, @NotNull TooltipFlag flagIn) {
+        tooltip.accept(Component.translatable("item.usefulhats.ender_helmet.desc.define_teleport").withStyle(ChatFormatting.BLUE));
         Position position = getPosition(stack);
         if (position != null) {
-            super.appendHoverText(stack, context, tooltip, flagIn);
-            tooltip.add(Component.translatable("item.usefulhats.ender_helmet.desc.teleport").withStyle(ChatFormatting.BLUE));
-            tooltip.add(Component.translatable("item.usefulhats.ender_helmet.desc.teleport_position", position.pos.getX(), position.pos.getY(), position.pos.getZ()).withStyle(ChatFormatting.BLUE));
-            tooltip.add(Component.literal(position.dimName.toString()).withStyle(ChatFormatting.BLUE));
+            super.appendHoverText(stack, context, display, tooltip, flagIn);
+            tooltip.accept(Component.translatable("item.usefulhats.ender_helmet.desc.teleport").withStyle(ChatFormatting.BLUE));
+            tooltip.accept(Component.translatable("item.usefulhats.ender_helmet.desc.teleport_position", position.pos.getX(), position.pos.getY(), position.pos.getZ()).withStyle(ChatFormatting.BLUE));
+            tooltip.accept(Component.literal(position.dimName.toString()).withStyle(ChatFormatting.BLUE));
         }
     }
 

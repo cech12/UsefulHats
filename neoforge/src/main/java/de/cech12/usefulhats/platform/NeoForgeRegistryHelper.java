@@ -1,17 +1,15 @@
 package de.cech12.usefulhats.platform;
 
-import de.cech12.usefulhats.Constants;
-import de.cech12.usefulhats.compat.AccessoriesCompat;
 import de.cech12.usefulhats.init.ModItems;
 import de.cech12.usefulhats.item.AbstractHatItem;
 import de.cech12.usefulhats.platform.services.IRegistryHelper;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.common.ItemAbilities;
 import net.neoforged.neoforge.common.Tags;
 
 import java.util.LinkedList;
@@ -42,9 +40,9 @@ public class NeoForgeRegistryHelper implements IRegistryHelper {
         if (headItemStack.getItem() instanceof AbstractHatItem) {
             stacks.add(headItemStack);
         }
-        if (Services.PLATFORM.isModLoaded(Constants.ACCESSORIES_MOD_ID)) {
-            AccessoriesCompat.addEquippedHatsToList(entity, stacks);
-        }
+        //if (Services.PLATFORM.isModLoaded(Constants.ACCESSORIES_MOD_ID)) {
+        //    AccessoriesCompat.addEquippedHatsToList(entity, stacks);
+        //}
         return stacks;
     }
 
@@ -60,22 +58,22 @@ public class NeoForgeRegistryHelper implements IRegistryHelper {
 
     @Override
     public boolean isAxe(ItemStack tool) {
-        return tool.canPerformAction(ItemAbilities.AXE_DIG);
+        return tool.is(ItemTags.AXES);
     }
 
     @Override
     public boolean isHoe(ItemStack tool) {
-        return tool.canPerformAction(ItemAbilities.HOE_DIG);
+        return tool.is(ItemTags.HOES);
     }
 
     @Override
     public boolean isPickaxe(ItemStack tool) {
-        return tool.canPerformAction(ItemAbilities.PICKAXE_DIG);
+        return tool.is(ItemTags.PICKAXES);
     }
 
     @Override
     public boolean isShovel(ItemStack tool) {
-        return tool.canPerformAction(ItemAbilities.SHOVEL_DIG);
+        return tool.is(ItemTags.SHOVELS);
     }
 
 }

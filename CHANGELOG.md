@@ -3,6 +3,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Forge Recommended Versioning](https://mcforge.readthedocs.io/en/latest/conventions/versioning/).
 
+## [1.21.4-6.8.0.0] - 2025-04-25
+### Changed
+- Updated to Minecraft 1.21.5 (Fabric 0.120.0+1.21.5, NeoForge 21.5.47-beta, Forge 55.0.9)
+- Updated Cloth Config support (18.0.145) (Fabric/Quilt)
+- Updated ModMenu support (14.0.0-rc.2) (Fabric/Quilt)
+- temporary removed Accessories support until it is ported to 1.21.5 (Fabric/Quilt, NeoForge)
+
+### Known Issues
+- Forge does not start until this issue is fixed: https://github.com/MinecraftForge/MinecraftForge/issues/10524
+
 ## [1.21.4-6.7.0.0] - 2025-04-25
 ### Changed
 - Updated to Minecraft 1.21.4 (Fabric 0.116.0+1.21.4, NeoForge 21.4.88-beta, Forge 54.0.26)

@@ -17,12 +17,12 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.equipment.ArmorMaterial;
 import net.minecraft.world.item.equipment.ArmorType;
 import net.minecraft.world.item.equipment.Equippable;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -32,7 +32,9 @@ public abstract class AbstractHatItem extends Item {
     protected final Supplier<Boolean> enabledDamageConfig;
 
     public AbstractHatItem(String name, ArmorMaterial material, Supplier<Integer> durabilityConfig, Supplier<Boolean> enabledDamageConfig) {
-        this(name, material.humanoidProperties(new Properties(), ArmorType.HELMET).component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.HEAD).setEquipSound(material.equipSound()).setAsset(material.assetId()).setDamageOnHurt(false).build()),
+        this(name, new Properties().humanoidArmor(material, ArmorType.HELMET)
+                        .component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.HEAD).setEquipSound(material.equipSound()).setAsset(material.assetId()).setDamageOnHurt(false).build())
+                        .component(DataComponents.TOOLTIP_DISPLAY, createTooltipDisplay()),
                 durabilityConfig, enabledDamageConfig);
     }
 
@@ -44,6 +46,10 @@ public abstract class AbstractHatItem extends Item {
 
     public int getDurabilityFromConfig() {
         return this.durabilityConfig.get();
+    }
+
+    protected static TooltipDisplay createTooltipDisplay() {
+        return TooltipDisplay.DEFAULT.withHidden(DataComponents.ATTRIBUTE_MODIFIERS, true);
     }
 
     protected boolean isEffectCausedByOtherSource(LivingEntity entity, Holder<MobEffect> effect, int maxDuration, int amplifier) {
@@ -102,10 +108,10 @@ public abstract class AbstractHatItem extends Item {
      * When hat item has no effect, override this method with an empty method.
      */
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flagIn) {
-        super.appendHoverText(stack, context, tooltip, flagIn);
-        tooltip.add(Component.empty());
-        tooltip.add((Component.translatable("item.modifiers." + EquipmentSlot.HEAD.getName())).withStyle(ChatFormatting.GRAY));
+    public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull TooltipDisplay display, @NotNull Consumer<Component> tooltip, @NotNull TooltipFlag flagIn) {
+        super.appendHoverText(stack, context, display, tooltip, flagIn);
+        tooltip.accept(Component.empty());
+        tooltip.accept((Component.translatable("item.modifiers." + EquipmentSlot.HEAD.getName())).withStyle(ChatFormatting.GRAY));
     }
 
     /*
