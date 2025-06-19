@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [this versioning scheme](https://gist.github.com/cech12/69319028e88c50349a6b044000a6607b).
 
+## [1.21.6-6.9.0.0] - 2025-06-19
+### Changed
+- Updated to Minecraft 1.21.6 (Fabric 0.127.1+1.21.6, NeoForge 21.6.6-beta, Forge 56.0.3)
+- Updated Cloth Config support (19.0.147) (Fabric/Quilt)
+- Updated ModMenu support (15.0.0-beta.2) (Fabric/Quilt)
+
 ## [1.21.5-6.8.0.1] - 2025-05-10
 - Updated Forge to 55.0.11 to fix startup issue
 

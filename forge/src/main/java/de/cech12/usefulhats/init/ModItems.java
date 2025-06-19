@@ -19,7 +19,6 @@ import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingChangeTargetEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
@@ -30,7 +29,9 @@ import net.minecraftforge.event.entity.player.ItemFishedEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.level.BlockEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.eventbus.api.listener.Priority;
+import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -38,6 +39,8 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.function.Function;
 import java.util.function.UnaryOperator;
 
+@SuppressWarnings("unused")
+@Mod.EventBusSubscriber(modid = Constants.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ModItems {
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Constants.MOD_ID);
@@ -70,83 +73,60 @@ public class ModItems {
         return (unaryOperator.apply(DataComponentType.builder())).build();
     }
 
-    /**
-     * Called at mod initialization.
-     */
-    public static void addEventListeners() {
-        //reduce event priority to support other mods that are overriding the speed
-        MinecraftForge.EVENT_BUS.addListener(EventPriority.LOWEST, ModItems::onBreakSpeedEvent);
-        MinecraftForge.EVENT_BUS.addListener(ModItems::onBreakEvent);
-        MinecraftForge.EVENT_BUS.addListener(ModItems::onEntityJoinWorldEvent);
-        MinecraftForge.EVENT_BUS.addListener(ModItems::onItemFishedEvent);
-        MinecraftForge.EVENT_BUS.addListener(ModItems::onLivingDropsEvent);
-        MinecraftForge.EVENT_BUS.addListener(ModItems::onLivingJumpEvent);
-        MinecraftForge.EVENT_BUS.addListener(ModItems::onLivingEquipmentChangeEvent);
-        MinecraftForge.EVENT_BUS.addListener(ModItems::onLivingChangeTargetEvent);
-        MinecraftForge.EVENT_BUS.addListener(ModItems::onLivingUseItemEventStart);
-        MinecraftForge.EVENT_BUS.addListener(ModItems::onRightClickItemEvent);
+    @SubscribeEvent(priority = Priority.LOWEST) //reduce event priority to support other mods that are overriding the speed
+    public static void onBreakSpeedEvent(PlayerEvent.BreakSpeed event) {
+        //use getNewSpeed() instead of getOriginalSpeed() to support other mods that are changing the break speed with this event.
+        event.setNewSpeed(UsefulHatsEventUtils.onBreakSpeedCalculation(event.getEntity(), event.getState(), event.getNewSpeed()));
     }
 
-    private static void onBreakSpeedEvent(PlayerEvent.BreakSpeed event) {
-        if (!event.isCanceled()) {
-            //use getNewSpeed() instead of getOriginalSpeed() to support other mods that are changing the break speed with this event.
-            event.setNewSpeed(UsefulHatsEventUtils.onBreakSpeedCalculation(event.getEntity(), event.getState(), event.getNewSpeed()));
-        }
+    @SubscribeEvent
+    public static void onBreakEvent(BlockEvent.BreakEvent event) {
+        UsefulHatsEventUtils.onBlockBreak(event.getPlayer(), event.getState());
     }
 
-    private static void onBreakEvent(BlockEvent.BreakEvent event) {
-        if (!event.isCanceled()) {
-            UsefulHatsEventUtils.onBlockBreak(event.getPlayer(), event.getState());
-        }
+    @SubscribeEvent
+    public static void onEntityJoinWorldEvent(EntityJoinLevelEvent event) {
+        UsefulHatsEventUtils.onEntityJoinWorld(event.getEntity());
     }
 
-    private static void onEntityJoinWorldEvent(EntityJoinLevelEvent event) {
-        if (!event.isCanceled()) {
-            UsefulHatsEventUtils.onEntityJoinWorld(event.getEntity());
-        }
+    @SubscribeEvent
+    public static void onItemFishedEvent(ItemFishedEvent event) {
+        UsefulHatsEventUtils.onItemFished(event.getEntity());
     }
 
-    private static void onItemFishedEvent(ItemFishedEvent event) {
-        if (!event.isCanceled()) {
-            UsefulHatsEventUtils.onItemFished(event.getEntity());
-        }
+    @SubscribeEvent
+    public static void onLivingDropsEvent(LivingDropsEvent event) {
+        UsefulHatsEventUtils.onLivingDiesBecauseOf(event.getSource().getDirectEntity());
     }
 
-    private static void onLivingDropsEvent(LivingDropsEvent event) {
-        if (!event.isCanceled()) {
-            UsefulHatsEventUtils.onLivingDiesBecauseOf(event.getSource().getDirectEntity());
-        }
+    @SubscribeEvent
+    public static void onLivingJumpEvent(LivingEvent.LivingJumpEvent event) {
+        UsefulHatsEventUtils.onLivingJump(event.getEntity());
     }
 
-    private static void onLivingJumpEvent(LivingEvent.LivingJumpEvent event) {
-        if (!event.isCanceled()) {
-            UsefulHatsEventUtils.onLivingJump(event.getEntity());
-        }
-    }
-
-    private static void onLivingUseItemEventStart(LivingEntityUseItemEvent event) {
-        if (!event.isCanceled() && event instanceof LivingEntityUseItemEvent.Start) {
+    @SubscribeEvent
+    public static void onLivingUseItemEventStart(LivingEntityUseItemEvent event) {
+        if (event instanceof LivingEntityUseItemEvent.Start) {
             event.setDuration(UsefulHatsEventUtils.onLivingStartsUsingItem(event.getEntity(), event.getItem(), event.getDuration()));
         }
     }
 
-    private static void onLivingEquipmentChangeEvent(LivingEquipmentChangeEvent event) {
-        if (!event.isCanceled() && event.getSlot() == EquipmentSlot.HEAD) {
+    @SubscribeEvent
+    public static void onLivingEquipmentChangeEvent(LivingEquipmentChangeEvent event) {
+        if (event.getSlot() == EquipmentSlot.HEAD) {
             UsefulHatsEventUtils.onUnequip(event.getEntity(), event.getFrom());
             UsefulHatsEventUtils.onEquip(event.getEntity(), event.getTo());
         }
     }
 
-    private static void onLivingChangeTargetEvent(LivingChangeTargetEvent event) {
-        if (!event.isCanceled() && UsefulHatsEventUtils.shouldEntityAvoidChangingTarget(event.getEntity(), event.getNewTarget())) {
-            event.setCanceled(true);
-        }
+    @SubscribeEvent
+    public static boolean onLivingChangeTargetEvent(LivingChangeTargetEvent event) {
+        return UsefulHatsEventUtils.shouldEntityAvoidChangingTarget(event.getEntity(), event.getNewTarget());
     }
 
-    private static void onRightClickItemEvent(PlayerInteractEvent.RightClickItem event) {
-        if (!event.isCanceled() && UsefulHatsEventUtils.shouldRightClickBeCancelled(event.getLevel(), event.getEntity(), event.getItemStack(), event.getHand())) {
-            event.setCanceled(true);
-        }
+    @SubscribeEvent
+    public static boolean onRightClickItemEvent(PlayerInteractEvent.RightClickItem event) {
+        return UsefulHatsEventUtils.shouldRightClickBeCancelled(event.getLevel(), event.getEntity(), event.getItemStack(), event.getHand());
     }
 
 }
