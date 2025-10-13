@@ -18,6 +18,7 @@ import de.cech12.usefulhats.item.WingHelmetItem;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 
 import java.util.ArrayList;
@@ -43,7 +44,7 @@ public class ModItems {
     public static final Item STRAW_HAT = register("straw_hat", StrawHatItem::new);
     public static final Item WING_HELMET = register("wing_helmet", WingHelmetItem::new);
 
-    public static final DataComponentType<EnderHelmetItem.Position> ENDER_HELMET_POSITION = register("ender_helmet_position", (builder) -> builder.networkSynchronized(EnderHelmetItem.Position.STREAM_CODEC));
+    public static final DataComponentType<EnderHelmetItem.Position> ENDER_HELMET_POSITION = register("ender_helmet_position", (builder) -> builder.persistent(EnderHelmetItem.Position.CODEC).networkSynchronized(EnderHelmetItem.Position.STREAM_CODEC));
 
     static {
         Constants.ENDER_HELMET_POSITION = () -> ENDER_HELMET_POSITION;
@@ -58,7 +59,7 @@ public class ModItems {
     }
 
     private static <T> DataComponentType<T> register(String name, UnaryOperator<DataComponentType.Builder<T>> unaryOperator) {
-        return Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, name, (unaryOperator.apply(DataComponentType.builder())).build());
+        return Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, new ResourceLocation(Constants.MOD_ID, name), (unaryOperator.apply(DataComponentType.builder())).build());
     }
 
 }
