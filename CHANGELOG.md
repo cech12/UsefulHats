@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - updated to Minecraft 1.21.8 (Fabric 0.134.0+1.21.8, NeoForge 21.8.47, Forge 58.1.0)
 - updated Cloth Config support (19.0.147) (Fabric/Quilt)
 - updated ModMenu support (15.0.0) (Fabric/Quilt)
+- re-added Accessories support (1.3.8-beta) (Fabric/Quilt, NeoForge)
 
 ## [1.21.6-6.9.1.0] - 2025-10-13
 ### Added
