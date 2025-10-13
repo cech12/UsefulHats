@@ -17,7 +17,6 @@ import de.cech12.usefulhats.item.WingHelmetItem;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 
 import java.util.ArrayList;
@@ -58,7 +57,7 @@ public class ModItems {
     }
 
     private static <T> DataComponentType<T> register(String name, UnaryOperator<DataComponentType.Builder<T>> unaryOperator) {
-        return Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, new ResourceLocation(Constants.MOD_ID, name), (unaryOperator.apply(DataComponentType.builder())).build());
+        return Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, Constants.id(name), (unaryOperator.apply(DataComponentType.builder())).build());
     }
 
 }
