@@ -59,7 +59,7 @@ public class ModItems {
     public static final DeferredRegister<DataComponentType<?>> DATA_COMPONENTS = DeferredRegister.create(Registries.DATA_COMPONENT_TYPE, Constants.MOD_ID);
 
     static {
-        Constants.ENDER_HELMET_POSITION = DATA_COMPONENTS.register("ender_helmet_position", () -> createDataComponent((builder) -> builder.networkSynchronized(EnderHelmetItem.Position.STREAM_CODEC)));
+        Constants.ENDER_HELMET_POSITION = DATA_COMPONENTS.register("ender_helmet_position", () -> createDataComponent((builder) -> builder.persistent(EnderHelmetItem.Position.CODEC).networkSynchronized(EnderHelmetItem.Position.STREAM_CODEC)));
     }
 
     private static RegistryObject<Item> register(String name, Function<String, Item> itemFactory) {

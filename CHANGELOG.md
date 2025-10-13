@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [this versioning scheme](https://gist.github.com/cech12/69319028e88c50349a6b044000a6607b).
 
+## [1.21.5-6.8.1.0] - 2025-10-13
+### Fixed
+- location of Ender Helmet was not saved persistently (thanks to Gunman1313 for the report) #76
+
 ## [1.21.5-6.8.0.1] - 2025-05-10
 - Updated Forge to 55.0.11 to fix startup issue
 
