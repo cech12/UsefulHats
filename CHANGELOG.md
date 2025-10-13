@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Forge Recommended Versioning](https://mcforge.readthedocs.io/en/latest/conventions/versioning/).
 
 ## [1.21.3-6.6.1.0] - 2025-10-13
+### Added
+- added config options for disabling Eat Boost or Jump Boost of Bunny Ears (thanks to Ameizo for the idea) #77
+
 ### Fixed
 - location of Ender Helmet was not saved persistently (thanks to Gunman1313 for the report) #76
 
