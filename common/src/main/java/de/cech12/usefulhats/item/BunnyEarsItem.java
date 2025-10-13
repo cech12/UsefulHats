@@ -32,13 +32,17 @@ public class BunnyEarsItem extends AbstractHatItem implements IEquipmentChangeLi
     public void appendHoverText(@NotNull ItemStack stack, @NotNull Item.TooltipContext context, @NotNull TooltipDisplay display, @NotNull Consumer<Component> tooltip, @NotNull TooltipFlag flagIn) {
         super.appendHoverText(stack, context, display, tooltip, flagIn);
         int enchantmentLevel = CommonLoader.getEnchantmentLevel(stack, Enchantments.EFFICIENCY) + 1;
-        tooltip.accept(Component.translatable("item.usefulhats.bunny_ears.desc.jump_boost", UsefulHatsUtils.getRomanNumber(enchantmentLevel, false)).withStyle(ChatFormatting.BLUE));
-        tooltip.accept(Component.translatable("item.usefulhats.bunny_ears.desc.eating", enchantmentLevel + 1).withStyle(ChatFormatting.BLUE));
+        if (Services.CONFIG.isBunnyEarsJumpBoostEnabled()) {
+            tooltip.accept(Component.translatable("item.usefulhats.bunny_ears.desc.jump_boost", UsefulHatsUtils.getRomanNumber(enchantmentLevel, false)).withStyle(ChatFormatting.BLUE));
+        }
+        if (Services.CONFIG.isBunnyEarsEatBoostEnabled()) {
+            tooltip.accept(Component.translatable("item.usefulhats.bunny_ears.desc.eating", enchantmentLevel + 1).withStyle(ChatFormatting.BLUE));
+        }
     }
 
     @Override
     public void inventoryTick(@NotNull ItemStack stack, ServerLevel level, @NotNull Entity entity, EquipmentSlot slot) {
-        if (!level.isClientSide && entity instanceof LivingEntity livingEntity) {
+        if (Services.CONFIG.isBunnyEarsJumpBoostEnabled() && !level.isClientSide && entity instanceof LivingEntity livingEntity) {
             if (!Services.REGISTRY.getEquippedHatItemStacks(livingEntity).contains(stack)) return; //only one worn stack of this item should add its effect
             int amplifier = CommonLoader.getEnchantmentLevel(stack, Enchantments.EFFICIENCY);
             if (!this.isEffectCausedByOtherSource(livingEntity, MobEffects.JUMP_BOOST, JUMP_BOOST_DURATION, amplifier)) {
@@ -51,7 +55,7 @@ public class BunnyEarsItem extends AbstractHatItem implements IEquipmentChangeLi
 
     @Override
     public int onItemUseEventStart(LivingEntity entity, ItemStack usedStack, int actualDuration, ItemStack headSlotItemStack) {
-        if (usedStack.has(DataComponents.FOOD)) {
+        if (Services.CONFIG.isBunnyEarsEatBoostEnabled() && usedStack.has(DataComponents.FOOD)) {
             int amplifier = CommonLoader.getEnchantmentLevel(headSlotItemStack, Enchantments.EFFICIENCY) + 2;
             this.damageHatItemByOne(headSlotItemStack, entity);
             return actualDuration / amplifier;
@@ -61,16 +65,20 @@ public class BunnyEarsItem extends AbstractHatItem implements IEquipmentChangeLi
 
     @Override
     public void onUnequippedHatItem(LivingEntity entity, ItemStack oldStack) {
-        // disable effects when hat is removed from slot
-        int amplifier = CommonLoader.getEnchantmentLevel(oldStack, Enchantments.EFFICIENCY);
-        this.removeEffect(entity, MobEffects.JUMP_BOOST, JUMP_BOOST_DURATION, amplifier);
+        if (Services.CONFIG.isBunnyEarsJumpBoostEnabled()) {
+            // disable effects when hat is removed from slot
+            int amplifier = CommonLoader.getEnchantmentLevel(oldStack, Enchantments.EFFICIENCY);
+            this.removeEffect(entity, MobEffects.JUMP_BOOST, JUMP_BOOST_DURATION, amplifier);
+        }
     }
 
     @Override
     public void onLivingJumpEvent(LivingEntity jumpingEntity, ItemStack headSlotItemStack) {
-        int amplifier = CommonLoader.getEnchantmentLevel(headSlotItemStack, Enchantments.EFFICIENCY);
-        if (!this.isEffectCausedByOtherSource(jumpingEntity, MobEffects.JUMP_BOOST, JUMP_BOOST_DURATION, amplifier)) {
-            this.damageHatItemByOne(headSlotItemStack, jumpingEntity);
+        if (Services.CONFIG.isBunnyEarsJumpBoostEnabled()) {
+            int amplifier = CommonLoader.getEnchantmentLevel(headSlotItemStack, Enchantments.EFFICIENCY);
+            if (!this.isEffectCausedByOtherSource(jumpingEntity, MobEffects.JUMP_BOOST, JUMP_BOOST_DURATION, amplifier)) {
+                this.damageHatItemByOne(headSlotItemStack, jumpingEntity);
+            }
         }
     }
 }

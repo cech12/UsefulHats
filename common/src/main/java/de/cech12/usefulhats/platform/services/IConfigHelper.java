@@ -51,6 +51,12 @@ public interface IConfigHelper {
     int BUNNY_EARS_DURABILITY_MIN = 1;
     int BUNNY_EARS_DURABILITY_MAX = 10000;
 
+    String BUNNY_EARS_EAT_BOOST_ENABLED_DESCRIPTION = "Whether or not Eat Boost of Bunny Ears should be enabled.";
+    boolean BUNNY_EARS_EAT_BOOST_ENABLED_DEFAULT = true;
+
+    String BUNNY_EARS_JUMP_BOOST_ENABLED_DESCRIPTION = "Whether or not Jump Boost of Bunny Ears should be enabled.";
+    boolean BUNNY_EARS_JUMP_BOOST_ENABLED_DEFAULT = true;
+
     String CHOPPING_HAT_DAMAGE_ENABLED_DESCRIPTION = "Whether or not damaging of Chopping Hat should be enabled.";
     boolean CHOPPING_HAT_DAMAGE_ENABLED_DEFAULT = true;
 
@@ -260,6 +266,8 @@ public interface IConfigHelper {
 
     boolean isBunnyEarsDamageEnabled();
     int getBunnyEarsDurability();
+    boolean isBunnyEarsEatBoostEnabled();
+    boolean isBunnyEarsJumpBoostEnabled();
 
     boolean isChoppingHatDamageEnabled();
     int getChoppingHatDurability();

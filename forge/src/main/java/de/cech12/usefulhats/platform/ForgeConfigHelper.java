@@ -30,6 +30,8 @@ public class ForgeConfigHelper implements IConfigHelper {
 
     public static final ForgeConfigSpec.BooleanValue BUNNY_EARS_DAMAGE_ENABLED;
     public static final ForgeConfigSpec.IntValue BUNNY_EARS_DURABILITY;
+    public static final ForgeConfigSpec.BooleanValue BUNNY_EARS_EAT_BOOST_ENABLED;
+    public static final ForgeConfigSpec.BooleanValue BUNNY_EARS_JUMP_BOOST_ENABLED;
 
     public static final ForgeConfigSpec.BooleanValue CHOPPING_HAT_DAMAGE_ENABLED;
     public static final ForgeConfigSpec.IntValue CHOPPING_HAT_DURABILITY;
@@ -127,6 +129,12 @@ public class ForgeConfigHelper implements IConfigHelper {
         BUNNY_EARS_DURABILITY = builder
                 .comment(BUNNY_EARS_DURABILITY_DESCRIPTION)
                 .defineInRange("bunnyEarsDurability", BUNNY_EARS_DURABILITY_DEFAULT, BUNNY_EARS_DURABILITY_MIN, BUNNY_EARS_DURABILITY_MAX);
+        BUNNY_EARS_EAT_BOOST_ENABLED = builder
+                .comment(BUNNY_EARS_EAT_BOOST_ENABLED_DESCRIPTION)
+                .define("bunnyEarsEatBoostEnabled", BUNNY_EARS_EAT_BOOST_ENABLED_DEFAULT);
+        BUNNY_EARS_JUMP_BOOST_ENABLED = builder
+                .comment(BUNNY_EARS_JUMP_BOOST_ENABLED_DESCRIPTION)
+                .define("bunnyEarsJumpBoostEnabled", BUNNY_EARS_JUMP_BOOST_ENABLED_DEFAULT);
         builder.pop();
 
         builder.push("ChoppingHat");
@@ -396,6 +404,16 @@ public class ForgeConfigHelper implements IConfigHelper {
     @Override
     public int getBunnyEarsDurability() {
         return getInteger(BUNNY_EARS_DURABILITY, BUNNY_EARS_DURABILITY_DEFAULT);
+    }
+
+    @Override
+    public boolean isBunnyEarsEatBoostEnabled() {
+        return getBoolean(BUNNY_EARS_EAT_BOOST_ENABLED, BUNNY_EARS_EAT_BOOST_ENABLED_DEFAULT);
+    }
+
+    @Override
+    public boolean isBunnyEarsJumpBoostEnabled() {
+        return getBoolean(BUNNY_EARS_JUMP_BOOST_ENABLED, BUNNY_EARS_JUMP_BOOST_ENABLED_DEFAULT);
     }
 
     @Override
