@@ -5,6 +5,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ## [1.21.5-6.8.1.0] - 2025-10-13
 ### Added
+- re-added Accessories support (1.3.4-beta) (Fabric/Quilt, NeoForge)
 - added config options for disabling Eat Boost or Jump Boost of Bunny Ears (thanks to Ameizo for the idea) #77
 
 ### Fixed

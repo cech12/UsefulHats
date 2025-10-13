@@ -1,13 +1,15 @@
 package de.cech12.usefulhats.compat;
-/*
+
 import de.cech12.usefulhats.UsefulHatsEventUtils;
 import de.cech12.usefulhats.item.AbstractHatItem;
 import de.cech12.usefulhats.platform.Services;
 import io.wispforest.accessories.api.AccessoriesCapability;
-import io.wispforest.accessories.api.Accessory;
-import io.wispforest.accessories.api.AccessoryRegistry;
+import io.wispforest.accessories.api.core.Accessory;
+import io.wispforest.accessories.api.core.AccessoryRegistry;
 import io.wispforest.accessories.api.slot.SlotEntryReference;
 import io.wispforest.accessories.api.slot.SlotReference;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 
@@ -37,7 +39,9 @@ public class AccessoriesCompat {
 
         @Override
         public void tick(ItemStack stack, SlotReference reference) {
-            stack.getItem().inventoryTick(stack, reference.entity().level(), reference.entity(), reference.slot(), false);
+            if (!reference.entity().level().isClientSide()) {
+                stack.getItem().inventoryTick(stack, (ServerLevel) reference.entity().level(), reference.entity(), EquipmentSlot.HEAD);
+            }
         }
 
         @Override
@@ -57,4 +61,3 @@ public class AccessoriesCompat {
     }
 
 }
- */
