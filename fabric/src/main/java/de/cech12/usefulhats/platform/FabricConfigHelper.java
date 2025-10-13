@@ -49,6 +49,10 @@ public class FabricConfigHelper implements ConfigData, IConfigHelper {
         public boolean DAMAGE_ENABLED = BUNNY_EARS_DAMAGE_ENABLED_DEFAULT;
         @ConfigEntry.Gui.Tooltip(count = 3)
         public int DURABILITY = BUNNY_EARS_DURABILITY_DEFAULT;
+        @ConfigEntry.Gui.Tooltip(count = 3)
+        public boolean EAT_BOOST_ENABLED = BUNNY_EARS_EAT_BOOST_ENABLED_DEFAULT;
+        @ConfigEntry.Gui.Tooltip(count = 3)
+        public boolean JUMP_BOOST_ENABLED = BUNNY_EARS_JUMP_BOOST_ENABLED_DEFAULT;
 
         private BunnyEars() {}
     }
@@ -317,6 +321,16 @@ public class FabricConfigHelper implements ConfigData, IConfigHelper {
     @Override
     public int getBunnyEarsDurability() {
         return Math.clamp(getConfig().getConfig().BUNNY_EARS.DURABILITY, BUNNY_EARS_DURABILITY_MIN, BUNNY_EARS_DURABILITY_MAX);
+    }
+
+    @Override
+    public boolean isBunnyEarsEatBoostEnabled() {
+        return getConfig().BUNNY_EARS.EAT_BOOST_ENABLED;
+    }
+
+    @Override
+    public boolean isBunnyEarsJumpBoostEnabled() {
+        return getConfig().BUNNY_EARS.JUMP_BOOST_ENABLED;
     }
 
     @Override
