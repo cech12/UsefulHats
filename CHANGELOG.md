@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Forge Recommended Versioning](https://mcforge.readthedocs.io/en/latest/conventions/versioning/).
 
+## [1.21.3-6.6.1.0] - 2025-10-13
+### Fixed
+- location of Ender Helmet was not saved persistently (thanks to Gunman1313 for the report) #76
+
 ## [1.21.3-6.6.0.0] - 2025-04-23
 ### Changed
 - Updated to Minecraft 1.21.3 (Fabric 0.107.0+1.21.3, NeoForge 21.3.56, Forge 53.0.47)
