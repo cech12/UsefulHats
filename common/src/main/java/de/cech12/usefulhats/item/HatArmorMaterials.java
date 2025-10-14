@@ -12,7 +12,7 @@ import net.minecraft.world.item.equipment.ArmorType;
 import net.minecraft.world.item.equipment.EquipmentAsset;
 
 import java.util.Calendar;
-import java.util.EnumMap;
+import java.util.Map;
 
 public class HatArmorMaterials {
 
@@ -33,7 +33,7 @@ public class HatArmorMaterials {
     public static final ArmorMaterial WING = register(SoundEvents.ARMOR_EQUIP_IRON, UsefulHatsTags.Items.REPAIRS_WING_HELMET, HatArmorModels.WING);
 
     private static ArmorMaterial register(Holder<SoundEvent> equipSound, TagKey<Item> repairIngredient, ResourceKey<EquipmentAsset> equipmentModel) {
-        return new ArmorMaterial(5, new EnumMap<>(ArmorType.class) {{ put(ArmorType.HELMET, 0); }}, 15, equipSound, 0.0F, 0.0F, repairIngredient, equipmentModel);
+        return new ArmorMaterial(5, Map.of(ArmorType.HELMET, 0), 15, equipSound, 0.0F, 0.0F, repairIngredient, equipmentModel);
     }
 
 }

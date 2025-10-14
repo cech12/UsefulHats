@@ -60,7 +60,7 @@ public abstract class AbstractUsefulHatsRenderer {
             EquipmentClientInfo.LayerType layerType = EquipmentClientInfo.LayerType.HUMANOID;
             List<EquipmentClientInfo.Layer> layers = Minecraft.getInstance().getEntityRenderDispatcher().equipmentAssets.get(assetId).getLayers(layerType);
             if (!layers.isEmpty()) {
-                int defaultColor = stack.is(ItemTags.DYEABLE) ? DyedItemColor.getOrDefault(stack, 0) : 0;;
+                int defaultColor = stack.is(ItemTags.DYEABLE) ? DyedItemColor.getOrDefault(stack, 0) : 0;
                 boolean glint = stack.hasFoil();
                 int i = 0;
                 int outlineColor = 0;
