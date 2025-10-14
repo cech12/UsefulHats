@@ -53,7 +53,7 @@ public class LuckyHatItem extends AbstractHatItem implements IItemFishedListener
     }
 
     public void inventoryTick(@NotNull ItemStack stack, ServerLevel level, @NotNull Entity entity, EquipmentSlot slot) {
-        if (!level.isClientSide && entity instanceof Player player) {
+        if (!level.isClientSide() && entity instanceof Player player) {
             if (!Services.REGISTRY.getEquippedHatItemStacks(player).contains(stack)) return; //only one worn stack of this item should add its effect
             //when luck or unluck are caused by other source, do nothing
             if (this.isLuckOrUnluckCausedByOtherSource(player, stack)) return;

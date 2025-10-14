@@ -28,7 +28,7 @@ public class StockingCapItem extends AbstractHatItem {
 
     @Override
     public void inventoryTick(@NotNull ItemStack stack, ServerLevel level, @NotNull Entity entity, EquipmentSlot slot) {
-        if (!level.isClientSide && entity instanceof LivingEntity livingEntity && level.random.nextInt(1000) == 0) {
+        if (!level.isClientSide() && entity instanceof LivingEntity livingEntity && level.random.nextInt(1000) == 0) {
             if (!Services.REGISTRY.getEquippedHatItemStacks(livingEntity).contains(stack)) return; //only one worn stack of this item should add its effect
             this.damageHatItemByOne(stack, livingEntity);
         }

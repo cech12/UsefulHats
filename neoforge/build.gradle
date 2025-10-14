@@ -62,7 +62,7 @@ dependencies {
     compileOnly project(":common")
     testCompileOnly project(":common")
 
-    compileOnly("io.wispforest:accessories-neoforge:${accessories_version}")
+    //compileOnly("io.wispforest:accessories-neoforge:${accessories_version}")
     //runtimeOnly("io.wispforest:accessories-neoforge:${accessories_version}")
 
     //compileOnly("com.legacy:lucent:${project.lucent_version}")

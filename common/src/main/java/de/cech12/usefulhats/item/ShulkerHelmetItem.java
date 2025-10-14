@@ -36,7 +36,7 @@ public class ShulkerHelmetItem extends AbstractHatItem implements IEquipmentChan
 
     @Override
     public void inventoryTick(@NotNull ItemStack stack, ServerLevel level, @NotNull Entity entity, EquipmentSlot slot) {
-        if (!level.isClientSide && entity instanceof LivingEntity livingEntity) {
+        if (!level.isClientSide() && entity instanceof LivingEntity livingEntity) {
             if (!Services.REGISTRY.getEquippedHatItemStacks(livingEntity).contains(stack)) return; //only one worn stack of this item should add its effect
             int levitationAmplifier = CommonLoader.getEnchantmentLevel(stack, Enchantments.EFFICIENCY);
             if (!this.isEffectCausedByOtherSource(livingEntity, MobEffects.LEVITATION, LEVITATION_DURATION, levitationAmplifier)) {

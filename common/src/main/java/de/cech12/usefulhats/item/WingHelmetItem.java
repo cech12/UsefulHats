@@ -46,7 +46,7 @@ public class WingHelmetItem extends AbstractHatItem implements IEquipmentChangeL
 
     @Override
     public void inventoryTick(@NotNull ItemStack stack, ServerLevel level, @NotNull Entity entity, EquipmentSlot slot) {
-        if (!level.isClientSide && entity instanceof LivingEntity livingEntity) {
+        if (!level.isClientSide() && entity instanceof LivingEntity livingEntity) {
             if (!Services.REGISTRY.getEquippedHatItemStacks(livingEntity).contains(stack)) return; //only one worn stack of this item should add its effect
             //Sometimes the helmet is afraid of monsters and flies away
             boolean isLevitationFromOtherSource = this.isEffectCausedByOtherSource(livingEntity, MobEffects.LEVITATION, LEVITATION_DURATION, LEVITATION_AMPLIFIER);

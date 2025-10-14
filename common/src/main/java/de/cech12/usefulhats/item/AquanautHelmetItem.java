@@ -47,7 +47,7 @@ public class AquanautHelmetItem extends AbstractHatItem implements IEquipmentCha
 
     @Override
     public void inventoryTick(@NotNull ItemStack stack, ServerLevel level, @NotNull Entity entity, EquipmentSlot slot) {
-        if (!level.isClientSide && entity instanceof LivingEntity livingEntity) {
+        if (!level.isClientSide() && entity instanceof LivingEntity livingEntity) {
             if (!Services.REGISTRY.getEquippedHatItemStacks(livingEntity).contains(stack)) return; //only one worn stack of this item should add its effect
             int maxDuration = this.getConduitPowerDuration(stack);
             //When Conduit Power effect is caused by another source, do nothing
@@ -66,7 +66,7 @@ public class AquanautHelmetItem extends AbstractHatItem implements IEquipmentCha
 
     @Override
     public void onUnequippedHatItem(LivingEntity entity, ItemStack oldStack) {
-        if (!entity.level().isClientSide) {
+        if (!entity.level().isClientSide()) {
             if (Services.REGISTRY.getEquippedHatItemStacks(entity).stream().anyMatch(stack -> stack.getItem() == this)) return;
             // disable effects when hat is removed from slot
             this.removeEffect(entity, MobEffects.CONDUIT_POWER, this.getConduitPowerDuration(oldStack), 0);

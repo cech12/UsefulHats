@@ -32,7 +32,7 @@ public class MushroomHatItem extends AbstractHatItem {
 
     @Override
     public void inventoryTick(@NotNull ItemStack stack, ServerLevel level, @NotNull Entity entity, EquipmentSlot slot) {
-        if (!level.isClientSide && entity instanceof Player player) {
+        if (!level.isClientSide() && entity instanceof Player player) {
             if (!Services.REGISTRY.getEquippedHatItemStacks(player).contains(stack)) return; //only one worn stack of this item should add its effect
             //eat every 3 seconds until no food is needed
             FoodData foodStats = player.getFoodData();

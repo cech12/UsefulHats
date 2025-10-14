@@ -42,7 +42,7 @@ public class BunnyEarsItem extends AbstractHatItem implements IEquipmentChangeLi
 
     @Override
     public void inventoryTick(@NotNull ItemStack stack, ServerLevel level, @NotNull Entity entity, EquipmentSlot slot) {
-        if (Services.CONFIG.isBunnyEarsJumpBoostEnabled() && !level.isClientSide && entity instanceof LivingEntity livingEntity) {
+        if (Services.CONFIG.isBunnyEarsJumpBoostEnabled() && !level.isClientSide() && entity instanceof LivingEntity livingEntity) {
             if (!Services.REGISTRY.getEquippedHatItemStacks(livingEntity).contains(stack)) return; //only one worn stack of this item should add its effect
             int amplifier = CommonLoader.getEnchantmentLevel(stack, Enchantments.EFFICIENCY);
             if (!this.isEffectCausedByOtherSource(livingEntity, MobEffects.JUMP_BOOST, JUMP_BOOST_DURATION, amplifier)) {

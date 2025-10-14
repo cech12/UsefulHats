@@ -91,7 +91,7 @@ public class EnderHelmetItem extends AbstractHatItem implements IRightClickListe
     public InteractionResult use(@NotNull Level worldIn, @NotNull Player playerIn, @NotNull InteractionHand handIn) {
         ItemStack stack = playerIn.getItemInHand(handIn);
         if (playerIn.isShiftKeyDown() && !stack.isEmpty()) { //shift right click
-            if (!worldIn.isClientSide) {
+            if (!worldIn.isClientSide()) {
                 //save position on item stack
                 setPosition(stack, worldIn, playerIn);
                 playerIn.setItemInHand(handIn, stack);
@@ -111,11 +111,11 @@ public class EnderHelmetItem extends AbstractHatItem implements IRightClickListe
             return false;
         }
         player.swing(hand);
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             //check for correct dimension
             Position position = getPosition(headSlotItemStack);
             if (position != null && (Services.CONFIG.isEnderHelmetInterdimensionalEnabled() || levelEqualsPosition(level, position))) {
-                ServerLevel destinationWorld = getLevel(player.getServer(), headSlotItemStack);
+                ServerLevel destinationWorld = getLevel(player.level().getServer(), headSlotItemStack);
                 BlockPos destinationPos = position.pos;
                 //check for correct position
                 if (destinationPos != null && destinationWorld != null && canTeleportToPosition(destinationWorld, destinationPos)) {

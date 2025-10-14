@@ -87,7 +87,7 @@ public abstract class AbstractHatItem extends Item {
     protected void damageHatItemByOne(ItemStack stack, LivingEntity entity) {
         if (!this.enabledDamageConfig.get()) return;
 
-        if (!entity.level().isClientSide
+        if (!entity.level().isClientSide()
                 && entity.level() instanceof ServerLevel serverLevel
                 && !(entity instanceof ServerPlayer player && player.getAbilities().instabuild)
                 && stack.isDamageableItem()

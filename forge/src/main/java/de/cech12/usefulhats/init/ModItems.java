@@ -40,7 +40,7 @@ import java.util.function.Function;
 import java.util.function.UnaryOperator;
 
 @SuppressWarnings("unused")
-@Mod.EventBusSubscriber(modid = Constants.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+@Mod.EventBusSubscriber(modid = Constants.MOD_ID)
 public class ModItems {
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Constants.MOD_ID);

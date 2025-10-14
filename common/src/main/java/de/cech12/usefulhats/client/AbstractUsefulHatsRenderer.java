@@ -1,16 +1,14 @@
 package de.cech12.usefulhats.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import de.cech12.usefulhats.Constants;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -41,19 +39,21 @@ public abstract class AbstractUsefulHatsRenderer {
         this.layerTextureLookup = Util.memoize((textureKey) -> textureKey.layer.getTextureLocation(textureKey.layerType));
     }
 
-    public void render(ItemStack stack, PoseStack matrices, MultiBufferSource vertexConsumers, int light, HumanoidModel<HumanoidRenderState> entityModel) {
+    public void render(ItemStack stack, HumanoidRenderState humanoidRenderState, PoseStack matrices, SubmitNodeCollector submitNodeCollector, int light, HumanoidModel<HumanoidRenderState> entityModel) {
         HumanoidModel<HumanoidRenderState> model = getArmorModel(stack);
-        entityModel.copyPropertiesTo(model); //follow rotation
-        this.internalRender(stack, matrices, vertexConsumers, light, model);
+        //entityModel.copyPropertiesTo(model); //follow rotation
+        this.internalRender(stack, humanoidRenderState, matrices, submitNodeCollector, light, model);
     }
 
+    /*
     public void render(ItemStack stack, PoseStack matrices, MultiBufferSource vertexConsumers, int light, HumanoidRenderState humanoidRenderState) {
         HumanoidModel<HumanoidRenderState> model = getArmorModel(stack);
         model.setupAnim(humanoidRenderState); //follow rotation
         this.internalRender(stack, matrices, vertexConsumers, light, model);
     }
+     */
 
-    protected <S extends LivingEntityRenderState> void internalRender(ItemStack stack, PoseStack matrices, MultiBufferSource vertexConsumers, int light, EntityModel<S> model) {
+    protected <S extends LivingEntityRenderState> void internalRender(ItemStack stack, S humanoidRenderState, PoseStack matrices, SubmitNodeCollector submitNodeCollector, int light, EntityModel<S> model) {
         Equippable equippable = stack.get(DataComponents.EQUIPPABLE);
         if (equippable != null && equippable.assetId().isPresent() && equippable.slot() == EquipmentSlot.HEAD) {
             ResourceKey<EquipmentAsset> assetId = equippable.assetId().orElseThrow();
@@ -62,15 +62,20 @@ public abstract class AbstractUsefulHatsRenderer {
             if (!layers.isEmpty()) {
                 int defaultColor = stack.is(ItemTags.DYEABLE) ? DyedItemColor.getOrDefault(stack, 0) : 0;;
                 boolean glint = stack.hasFoil();
+                int i = 0;
+                int outlineColor = 0;
 
                 for (EquipmentClientInfo.Layer layer : layers) {
                     int color = getColorForLayer(layer, defaultColor);
                     if (color != 0) {
                         ResourceLocation layerTexture = this.layerTextureLookup.apply(new LayerTextureKey(layerType, layer));
-                        VertexConsumer vertexConsumer = ItemRenderer.getArmorFoilBuffer(vertexConsumers, RenderType.armorTranslucent(layerTexture), glint);
-                        model.renderToBuffer(matrices, vertexConsumer, light, OverlayTexture.NO_OVERLAY, color);
+                        submitNodeCollector.order(i++).submitModel(model, humanoidRenderState, matrices, RenderType.armorTranslucent(layerTexture), light, OverlayTexture.NO_OVERLAY, color, null, outlineColor, null);
+                        if (glint) {
+                            submitNodeCollector.order(i++).submitModel(model, humanoidRenderState, matrices, RenderType.armorEntityGlint(), light, OverlayTexture.NO_OVERLAY, color, null, outlineColor, null);
+                        }
                         glint = false;
                     }
+
                 }
             }
         }
