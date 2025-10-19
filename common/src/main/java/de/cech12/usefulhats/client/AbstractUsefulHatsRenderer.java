@@ -45,13 +45,11 @@ public abstract class AbstractUsefulHatsRenderer {
         this.internalRender(stack, humanoidRenderState, matrices, submitNodeCollector, light, model);
     }
 
-    /*
-    public void render(ItemStack stack, PoseStack matrices, MultiBufferSource vertexConsumers, int light, HumanoidRenderState humanoidRenderState) {
+    public void render(ItemStack stack, HumanoidRenderState humanoidRenderState, PoseStack matrices, SubmitNodeCollector submitNodeCollector, int light, EntityModel<HumanoidRenderState> entityModel) {
         HumanoidModel<HumanoidRenderState> model = getArmorModel(stack);
-        model.setupAnim(humanoidRenderState); //follow rotation
-        this.internalRender(stack, matrices, vertexConsumers, light, model);
+        //model.setupAnim(humanoidRenderState); //follow rotation
+        this.internalRender(stack, humanoidRenderState, matrices, submitNodeCollector, light, model);
     }
-     */
 
     protected <S extends LivingEntityRenderState> void internalRender(ItemStack stack, S humanoidRenderState, PoseStack matrices, SubmitNodeCollector submitNodeCollector, int light, EntityModel<S> model) {
         Equippable equippable = stack.get(DataComponents.EQUIPPABLE);

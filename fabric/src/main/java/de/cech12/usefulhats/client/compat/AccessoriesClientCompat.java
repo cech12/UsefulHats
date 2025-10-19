@@ -1,14 +1,15 @@
 package de.cech12.usefulhats.client.compat;
-/*
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import de.cech12.usefulhats.Constants;
 import de.cech12.usefulhats.client.AbstractUsefulHatsRenderer;
 import de.cech12.usefulhats.platform.Services;
+import io.wispforest.accessories.api.client.AccessoriesRenderStateKeys;
 import io.wispforest.accessories.api.client.AccessoriesRendererRegistry;
+import io.wispforest.accessories.api.client.AccessoryRenderState;
 import io.wispforest.accessories.api.client.renderers.AccessoryRenderer;
-import io.wispforest.accessories.api.slot.SlotPath;
 import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.resources.ResourceLocation;
@@ -32,12 +33,13 @@ public class AccessoriesClientCompat {
     private static class UsefulHatsAccessoriesRenderer extends AbstractUsefulHatsRenderer implements AccessoryRenderer {
 
         @Override
-        public <S extends LivingEntityRenderState> void render(ItemStack stack, SlotPath slotPath, PoseStack matrices, EntityModel<S> model, S renderState, MultiBufferSource multiBufferSource, int light, float partialTicks) {
+        public <S extends LivingEntityRenderState> void render(AccessoryRenderState accessoryRenderState, S renderState, EntityModel<S> model, PoseStack matrices, SubmitNodeCollector submitNodeCollector) {
             if (renderState instanceof HumanoidRenderState humanoidRenderState) {
-                this.render(stack, matrices, multiBufferSource, light, humanoidRenderState);
+                ItemStack stack = accessoryRenderState.getStateData(AccessoriesRenderStateKeys.ITEM_STACK);
+                int light = humanoidRenderState.getStateData(AccessoriesRenderStateKeys.LIGHT);
+                this.render(stack, humanoidRenderState, matrices, submitNodeCollector, light, (EntityModel<HumanoidRenderState>) model);
             }
         }
     }
 
 }
- */
