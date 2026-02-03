@@ -8,8 +8,8 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 /**
  * Hat model class, which adds a hat flat addition (like straw hat for villagers) .
@@ -31,7 +31,7 @@ public class UsefulHatModel<T extends HumanoidRenderState> extends HumanoidModel
     }
 
     public UsefulHatModel(ModelPart modelPart) {
-        super(modelPart, RenderType::entityTranslucent);
+        super(modelPart, RenderTypes::entityTranslucent);
         //disable all render models of biped model except the hat (because it is overridden with own model)
         this.setAllVisible(false);
         this.head.visible = true;

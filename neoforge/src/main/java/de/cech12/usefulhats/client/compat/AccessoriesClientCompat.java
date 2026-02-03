@@ -1,5 +1,5 @@
 package de.cech12.usefulhats.client.compat;
-
+/*
 import com.mojang.blaze3d.vertex.PoseStack;
 import de.cech12.usefulhats.Constants;
 import de.cech12.usefulhats.client.AbstractUsefulHatsRenderer;
@@ -44,3 +44,4 @@ public class AccessoriesClientCompat {
     }
 
 }
+ */

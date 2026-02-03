@@ -6,7 +6,7 @@ import de.cech12.usefulhats.platform.Services;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -25,7 +25,7 @@ import java.util.function.Consumer;
 
 public class AquanautHelmetItem extends AbstractHatItem implements IEquipmentChangeListener {
 
-    private static final ResourceLocation AQUANAUT_GUI_TEX_PATH = Constants.id("misc/aquanautblur");
+    private static final Identifier AQUANAUT_GUI_TEX_PATH = Constants.id("misc/aquanautblur");
 
     public AquanautHelmetItem(String name) {
         super(name, new Properties().humanoidArmor(HatArmorMaterials.AQUANAUT, ArmorType.HELMET)

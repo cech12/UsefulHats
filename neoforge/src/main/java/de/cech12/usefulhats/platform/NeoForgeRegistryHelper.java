@@ -1,7 +1,5 @@
 package de.cech12.usefulhats.platform;
 
-import de.cech12.usefulhats.Constants;
-import de.cech12.usefulhats.compat.AccessoriesCompat;
 import de.cech12.usefulhats.init.ModItems;
 import de.cech12.usefulhats.item.AbstractHatItem;
 import de.cech12.usefulhats.platform.services.IRegistryHelper;
@@ -42,9 +40,9 @@ public class NeoForgeRegistryHelper implements IRegistryHelper {
         if (headItemStack.getItem() instanceof AbstractHatItem) {
             stacks.add(headItemStack);
         }
-        if (Services.PLATFORM.isModLoaded(Constants.ACCESSORIES_MOD_ID)) {
-            AccessoriesCompat.addEquippedHatsToList(entity, stacks);
-        }
+        //if (Services.PLATFORM.isModLoaded(Constants.ACCESSORIES_MOD_ID)) {
+        //    AccessoriesCompat.addEquippedHatsToList(entity, stacks);
+        //}
         return stacks;
     }
 

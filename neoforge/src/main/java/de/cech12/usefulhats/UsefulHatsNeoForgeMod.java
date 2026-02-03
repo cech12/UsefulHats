@@ -1,9 +1,7 @@
 package de.cech12.usefulhats;
 
-import de.cech12.usefulhats.compat.AccessoriesCompat;
 import de.cech12.usefulhats.init.ModCreativeTabs;
 import de.cech12.usefulhats.init.ModItems;
-import de.cech12.usefulhats.platform.Services;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -26,9 +24,9 @@ public class UsefulHatsNeoForgeMod {
 
     @SubscribeEvent
     public static void registerCapabilities(RegisterCapabilitiesEvent event) {
-        if (Services.PLATFORM.isModLoaded(Constants.ACCESSORIES_MOD_ID)) {
-            AccessoriesCompat.register();
-        }
+        //if (Services.PLATFORM.isModLoaded(Constants.ACCESSORIES_MOD_ID)) {
+        //    AccessoriesCompat.register();
+        //}
     }
 
 }

@@ -10,12 +10,11 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -52,7 +51,7 @@ public class EnderHelmetItem extends AbstractHatItem implements IRightClickListe
     }
 
     private static void setPosition(@NotNull ItemStack stack, @NotNull Level level, @NotNull LivingEntity entity) {
-        stack.set(Constants.ENDER_HELMET_POSITION.get(), new Position(level.dimension().registry(), level.dimension().location(), entity.blockPosition()));
+        stack.set(Constants.ENDER_HELMET_POSITION.get(), new Position(level.dimension().registry(), level.dimension().identifier(), entity.blockPosition()));
     }
 
     private static boolean hasPosition(@NotNull ItemStack stack) {
@@ -67,7 +66,7 @@ public class EnderHelmetItem extends AbstractHatItem implements IRightClickListe
     }
 
     private static boolean levelEqualsPosition(Level level, Position position) {
-        return level.dimension().registry().equals(position.dimKey) && level.dimension().location().equals(position.dimName);
+        return level.dimension().registry().equals(position.dimKey) && level.dimension().identifier().equals(position.dimName);
     }
 
     private ServerLevel getLevel(@NotNull MinecraftServer server, @NotNull ItemStack stack) {
@@ -123,13 +122,13 @@ public class EnderHelmetItem extends AbstractHatItem implements IRightClickListe
                     player.getCooldowns().addCooldown(usedStack, 20);
                     //teleport player
                     player.fallDistance = 0;
-                    player.playNotifySound(SoundEvents.ENDERMAN_TELEPORT, SoundSource.PLAYERS, 1F, 1F);
+                    player.playSound(SoundEvents.ENDERMAN_TELEPORT, 1F, 1F);
                     if (player.level() != destinationWorld) {
                         player.teleport(new TeleportTransition(destinationWorld, new Vec3(destinationPos.getX() + 0.5, destinationPos.getY(), destinationPos.getZ() + 0.5), Vec3.ZERO, player.yRotO, player.xRotO, Relative.union(Relative.ROTATION, Relative.DELTA), TeleportTransition.DO_NOTHING));
                     } else {
                         player.teleportTo(destinationPos.getX() + 0.5, destinationPos.getY(), destinationPos.getZ() + 0.5);
                     }
-                    player.playNotifySound(SoundEvents.ENDERMAN_TELEPORT, SoundSource.PLAYERS, 1F, 1F);
+                    player.playSound(SoundEvents.ENDERMAN_TELEPORT, 1F, 1F);
                     //remove one ender pearl
                     player.awardStat(Stats.ITEM_USED.get(usedStack.getItem()));
                     if (!player.getAbilities().instabuild) {
@@ -148,17 +147,17 @@ public class EnderHelmetItem extends AbstractHatItem implements IRightClickListe
         return true;
     }
 
-    public record Position(ResourceLocation dimKey, ResourceLocation dimName, BlockPos pos) {
+    public record Position(Identifier dimKey, Identifier dimName, BlockPos pos) {
 
         public static final Codec<Position> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
-                ResourceLocation.CODEC.fieldOf("dimKey").forGetter(Position::dimKey),
-                ResourceLocation.CODEC.fieldOf("dimName").forGetter(Position::dimName),
+                Identifier.CODEC.fieldOf("dimKey").forGetter(Position::dimKey),
+                Identifier.CODEC.fieldOf("dimName").forGetter(Position::dimName),
                 BlockPos.CODEC.fieldOf("pos").forGetter(Position::pos)
         ).apply(instance, Position::new));
 
         public static final StreamCodec<RegistryFriendlyByteBuf, Position> STREAM_CODEC = StreamCodec.composite(
-                ResourceLocation.STREAM_CODEC, Position::dimKey,
-                ResourceLocation.STREAM_CODEC, Position::dimName,
+                Identifier.STREAM_CODEC, Position::dimKey,
+                Identifier.STREAM_CODEC, Position::dimName,
                 BlockPos.STREAM_CODEC, Position::pos,
                 Position::new);
 

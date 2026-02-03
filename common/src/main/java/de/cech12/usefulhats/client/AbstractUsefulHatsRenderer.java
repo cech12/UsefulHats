@@ -2,22 +2,22 @@ package de.cech12.usefulhats.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import de.cech12.usefulhats.Constants;
-import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.EquipmentClientInfo;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ARGB;
+import net.minecraft.util.Util;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.DyedItemColor;
@@ -32,7 +32,7 @@ public abstract class AbstractUsefulHatsRenderer {
 
     public static final ModelLayerLocation USEFUL_HAT_LAYER = new ModelLayerLocation(Constants.id("usefulhat_layer"), "main");
 
-    private final Function<LayerTextureKey, ResourceLocation> layerTextureLookup;
+    private final Function<LayerTextureKey, Identifier> layerTextureLookup;
     private HumanoidModel<HumanoidRenderState> usefulHatModel;
 
     public AbstractUsefulHatsRenderer() {
@@ -66,10 +66,10 @@ public abstract class AbstractUsefulHatsRenderer {
                 for (EquipmentClientInfo.Layer layer : layers) {
                     int color = getColorForLayer(layer, defaultColor);
                     if (color != 0) {
-                        ResourceLocation layerTexture = this.layerTextureLookup.apply(new LayerTextureKey(layerType, layer));
-                        submitNodeCollector.order(i++).submitModel(model, humanoidRenderState, matrices, RenderType.armorTranslucent(layerTexture), light, OverlayTexture.NO_OVERLAY, color, null, outlineColor, null);
+                        Identifier layerTexture = this.layerTextureLookup.apply(new LayerTextureKey(layerType, layer));
+                        submitNodeCollector.order(i++).submitModel(model, humanoidRenderState, matrices, RenderTypes.armorTranslucent(layerTexture), light, OverlayTexture.NO_OVERLAY, color, null, outlineColor, null);
                         if (glint) {
-                            submitNodeCollector.order(i++).submitModel(model, humanoidRenderState, matrices, RenderType.armorEntityGlint(), light, OverlayTexture.NO_OVERLAY, color, null, outlineColor, null);
+                            submitNodeCollector.order(i++).submitModel(model, humanoidRenderState, matrices, RenderTypes.armorEntityGlint(), light, OverlayTexture.NO_OVERLAY, color, null, outlineColor, null);
                         }
                         glint = false;
                     }

@@ -1,7 +1,7 @@
 package de.cech12.usefulhats;
 
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 
@@ -26,11 +26,11 @@ public class UsefulHatsTags {
     }
 
     private static TagKey<Item> tag(final String name) {
-        return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, name));
+        return TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(Constants.MOD_ID, name));
     }
 
     private static TagKey<Item> tag(final String namespace, final String name) {
-        return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(namespace, name));
+        return TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(namespace, name));
     }
 
 }
