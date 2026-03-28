@@ -43,6 +43,8 @@ repositories {
     maven { url = "https://maven.fabricmc.net/" }
     maven { url = "https://maven.shedaniel.me/" }
     maven { url = "https://maven.blamejared.com/" }
+    //for Curios
+    maven { url = "https://maven.theillusivec4.top/" }
     //for Lucent
     exclusiveContent {
         forRepository {
@@ -63,7 +65,10 @@ dependencies {
     testCompileOnly project(":common")
 
     compileOnly("io.wispforest:accessories-neoforge:${accessories_version}")
-    runtimeOnly("io.wispforest:accessories-neoforge:${accessories_version}")
+    //runtimeOnly("io.wispforest:accessories-neoforge:${accessories_version}")
+
+    compileOnly("top.theillusivec4.curios:curios-neoforge:${curios_version}")
+    runtimeOnly("top.theillusivec4.curios:curios-neoforge:${curios_version}")
 
     //compileOnly("com.legacy:lucent:${project.lucent_version}")
     //runtimeOnly("com.legacy:lucent:${project.lucent_version}")

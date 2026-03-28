@@ -74,6 +74,8 @@ subprojects {
                 "trinkets_version": trinkets_version,
                 "accessories_version": accessories_version,
                 "accessories_version_range": accessories_version_range,
+                "curios_version": curios_version,
+                "curios_version_range": curios_version_range,
                 "lucent_version": lucent_version,
                 "lucent_version_range": lucent_version_range
         ]

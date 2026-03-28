@@ -2,6 +2,7 @@ package de.cech12.usefulhats.init;
 
 import de.cech12.usefulhats.Constants;
 import de.cech12.usefulhats.UsefulHatsEventUtils;
+import de.cech12.usefulhats.compat.CuriosCompat;
 import de.cech12.usefulhats.item.AbstractHatItem;
 import de.cech12.usefulhats.item.AquanautHelmetItem;
 import de.cech12.usefulhats.item.BunnyEarsItem;
@@ -16,6 +17,7 @@ import de.cech12.usefulhats.item.ShulkerHelmetItem;
 import de.cech12.usefulhats.item.StockingCapItem;
 import de.cech12.usefulhats.item.StrawHatItem;
 import de.cech12.usefulhats.item.WingHelmetItem;
+import de.cech12.usefulhats.platform.Services;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -88,6 +90,10 @@ public class ModItems {
         NeoForge.EVENT_BUS.addListener(ModItems::onLivingUseItemEventStart);
         NeoForge.EVENT_BUS.addListener(ModItems::onRightClickItemEvent);
         NeoForge.EVENT_BUS.addListener(ModItems::removeWhenOnHeadTooltipLine);
+        //curios events
+        if (Services.PLATFORM.isModLoaded(Constants.CURIOS_MOD_ID)) {
+            NeoForge.EVENT_BUS.addListener(CuriosCompat::onCuriosEquipmentChangeEvent);
+        }
     }
 
     private static void onBreakSpeedEvent(PlayerEvent.BreakSpeed event) {
