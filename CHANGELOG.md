@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 ## [26.1-7.0.0.0] - 2026-03-28
 ### Added
 - color of dyed hats can be removed by using the cauldron (can be disabled by changing the item tag "minecraft:cauldron_can_remove_dye")
+- re-added Curios support (NeoForge)
 
 ### Changed
 - updated to Minecraft 26.1 (Fabric 0.144.3+26.1, NeoForge 26.1.0.7-beta, Forge 62.0.4)

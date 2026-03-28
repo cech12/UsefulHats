@@ -85,7 +85,9 @@ processResources {
             'mod_menu_version'             : mod_menu_version,
             "trinkets_version": trinkets_version,
             "accessories_version": accessories_version,
-            "accessories_version_range": accessories_version_range
+            "accessories_version_range": accessories_version_range,
+            "curios_version": curios_version,
+            "curios_version_range": curios_version_range
     ]
 
     var jsonExpandProps = expandProps.collectEntries {
