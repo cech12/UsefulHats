@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:crafting_dye",
+  "category": "misc",
+  "dye": "#minecraft:dyes",
+  "group": "dyed_armor",
+  "result": {
+    "id": "usefulhats:wing_helmet"
+  },
+  "target": "usefulhats:wing_helmet"
+}

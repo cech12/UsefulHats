@@ -1,6 +1,5 @@
 package de.cech12.usefulhats.item;
 
-import de.cech12.usefulhats.Constants;
 import de.cech12.usefulhats.platform.Services;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -49,11 +48,7 @@ public class MiningHatItem extends AbstractMiningHatItem implements IEquipmentCh
         int value = (int) (this.getEnchantmentDoubleValue(stack) * 100);
         tooltip.accept(Component.translatable("item.usefulhats.mining_hat.desc.mining_speed", value).withStyle(ChatFormatting.BLUE));
         if (Services.CONFIG.isMiningHatNightVisionEnabled()) {
-            if (Services.PLATFORM.isModLoaded(Constants.LUCENT_MOD_ID)) {
-                tooltip.accept(Component.translatable("item.usefulhats.mining_hat.desc.lucent").withStyle(ChatFormatting.BLUE));
-            } else {
-                tooltip.accept(Component.translatable("item.usefulhats.mining_hat.desc.night_vision").withStyle(ChatFormatting.BLUE));
-            }
+            tooltip.accept(Component.translatable("item.usefulhats.mining_hat.desc.night_vision").withStyle(ChatFormatting.BLUE));
         }
     }
 
@@ -63,13 +58,6 @@ public class MiningHatItem extends AbstractMiningHatItem implements IEquipmentCh
             if (!Services.REGISTRY.getEquippedHatItemStacks(livingEntity).contains(stack)) return; //only one worn stack of this item should add its effect
             //When Night Vision effect is disabled in config, do nothing.
             if (!Services.CONFIG.isMiningHatNightVisionEnabled()) return;
-            //lucent mod replaces night vision effect
-            if (Services.PLATFORM.isModLoaded(Constants.LUCENT_MOD_ID)) {
-                if (isLightEnabled(livingEntity) && livingEntity.tickCount % 20 == 0) {
-                    this.damageHatItemByOne(stack, livingEntity);
-                }
-                return;
-            }
             //When Night Vision effect is caused by another source, do nothing
             if (this.isEffectCausedByOtherSource(livingEntity, MobEffects.NIGHT_VISION, NIGHT_VISION_DURATION, NIGHT_VISION_AMPLIFIER))
                 return;

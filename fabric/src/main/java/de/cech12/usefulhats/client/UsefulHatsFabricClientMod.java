@@ -4,7 +4,7 @@ import de.cech12.usefulhats.Constants;
 import de.cech12.usefulhats.platform.Services;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
-import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.ModelLayerRegistry;
 import net.minecraft.client.model.geom.LayerDefinitions;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
@@ -18,7 +18,7 @@ public class UsefulHatsFabricClientMod implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         //register entity model layer
-        EntityModelLayerRegistry.registerModelLayer(USEFUL_HAT_LAYER, () -> UsefulHatModel.createLayer(LayerDefinitions.INNER_ARMOR_DEFORMATION, 0));
+        ModelLayerRegistry.registerModelLayer(USEFUL_HAT_LAYER, () -> UsefulHatModel.createLayer(LayerDefinitions.INNER_ARMOR_DEFORMATION, 0));
         UsefulHatsArmorRenderer renderer = new UsefulHatsArmorRenderer();
         Services.REGISTRY.getAllHatItems().forEach(item -> {
             //register armor renderer

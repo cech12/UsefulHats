@@ -15,7 +15,6 @@ import net.minecraft.client.resources.model.EquipmentClientInfo;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ARGB;
 import net.minecraft.util.Util;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -58,7 +57,7 @@ public abstract class AbstractUsefulHatsRenderer {
             EquipmentClientInfo.LayerType layerType = EquipmentClientInfo.LayerType.HUMANOID;
             List<EquipmentClientInfo.Layer> layers = Minecraft.getInstance().getEntityRenderDispatcher().equipmentAssets.get(assetId).getLayers(layerType);
             if (!layers.isEmpty()) {
-                int defaultColor = stack.is(ItemTags.DYEABLE) ? DyedItemColor.getOrDefault(stack, 0) : 0;
+                int defaultColor = DyedItemColor.getOrDefault(stack, 0);
                 boolean glint = stack.hasFoil();
                 int i = 0;
                 int outlineColor = 0;
@@ -73,7 +72,6 @@ public abstract class AbstractUsefulHatsRenderer {
                         }
                         glint = false;
                     }
-
                 }
             }
         }

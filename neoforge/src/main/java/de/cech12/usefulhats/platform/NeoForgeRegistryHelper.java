@@ -3,6 +3,7 @@ package de.cech12.usefulhats.platform;
 import de.cech12.usefulhats.init.ModItems;
 import de.cech12.usefulhats.item.AbstractHatItem;
 import de.cech12.usefulhats.platform.services.IRegistryHelper;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -10,6 +11,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.common.NeoForgeMod;
 import net.neoforged.neoforge.common.Tags;
 
 import java.util.LinkedList;
@@ -24,7 +26,7 @@ public class NeoForgeRegistryHelper implements IRegistryHelper {
 
     @Override
     public boolean isBossEntity(LivingEntity entity) {
-        return entity.getType().is(Tags.EntityTypes.BOSSES);
+        return entity.is(Tags.EntityTypes.BOSSES);
     }
 
     @Override
@@ -48,12 +50,13 @@ public class NeoForgeRegistryHelper implements IRegistryHelper {
 
     @Override
     public boolean areEntityEyesInDrownableFluid(LivingEntity entity) {
-        return entity.getEyeInFluidType().canDrownIn(entity);
+        return entity.canDrownInFluidType(NeoForgeMod.WATER_TYPE.value()) && entity.isEyeInFluid(FluidTags.WATER)
+                || entity.canDrownInFluidType(NeoForgeMod.LAVA_TYPE.value()) && entity.isEyeInFluid(FluidTags.LAVA);
     }
 
     @Override
     public boolean isEntityInFluid(LivingEntity entity) {
-        return entity.isInFluidType();
+        return entity.isInLiquid();
     }
 
     @Override

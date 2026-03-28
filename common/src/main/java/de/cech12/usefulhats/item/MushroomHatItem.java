@@ -38,7 +38,7 @@ public class MushroomHatItem extends AbstractHatItem {
             FoodData foodStats = player.getFoodData();
             if (foodStats.needsFood() && player.tickCount % Services.CONFIG.getMushroomHatEatInterval() == 0) {
                 foodStats.eat(1, 0.5F);
-                level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.PLAYER_BURP, SoundSource.PLAYERS, 0.5F, level.random.nextFloat() * 0.1F + 0.9F);
+                level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.PLAYER_BURP, SoundSource.PLAYERS, 0.5F, level.getRandom().nextFloat() * 0.1F + 0.9F);
                 this.damageHatItemByOne(stack, player);
             }
         }

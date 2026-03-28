@@ -25,7 +25,7 @@ public class FabricRegistryHelper implements IRegistryHelper {
 
     @Override
     public boolean isBossEntity(LivingEntity entity) {
-        return entity.getType().is(ConventionalEntityTypeTags.BOSSES);
+        return entity.is(ConventionalEntityTypeTags.BOSSES);
     }
 
     @Override
@@ -59,7 +59,7 @@ public class FabricRegistryHelper implements IRegistryHelper {
 
     @Override
     public boolean isEntityInFluid(LivingEntity entity) {
-        return entity.isInWater() || entity.isInLava();
+        return entity.isInLiquid();
     }
 
     @Override

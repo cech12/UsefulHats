@@ -25,7 +25,7 @@ public class ForgeRegistryHelper implements IRegistryHelper {
 
     @Override
     public boolean isBossEntity(LivingEntity entity) {
-        return entity.getType().is(Tags.EntityTypes.BOSSES);
+        return entity.is(Tags.EntityTypes.BOSSES);
     }
 
     @Override

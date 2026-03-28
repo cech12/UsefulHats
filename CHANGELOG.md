@@ -3,6 +3,19 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [this versioning scheme](https://gist.github.com/cech12/69319028e88c50349a6b044000a6607b).
 
+## [26.1-7.0.0.0] - 2026-03-28
+### Added
+- color of dyed hats can be removed by using the cauldron (can be disabled by changing the item tag "minecraft:cauldron_can_remove_dye")
+
+### Changed
+- updated to Minecraft 26.1 (Fabric 0.144.3+26.1, NeoForge 26.1.0.7-beta, Forge 62.0.4)
+- updated Cloth Config support (26.1.154) (Fabric/Quilt)
+- updated ModMenu support (18.0.0-alpha.8) (Fabric/Quilt)
+- temporary removed Accessories support until it is ported to 26.1 (Fabric/Quilt, NeoForge)
+
+### Known Issues
+- Forge: items are not rendered with colors until this issue is fixed: https://github.com/MinecraftForge/MinecraftForge/issues/10799
+
 ## [1.21.11-6.12.0.0] - 2026-02-03
 ### Changed
 - updated to Minecraft 1.21.11 (Fabric 0.141.2+1.21.11, NeoForge 21.11.37-beta, Forge 61.0.8)

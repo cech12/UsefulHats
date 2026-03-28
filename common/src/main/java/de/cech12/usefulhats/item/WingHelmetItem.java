@@ -53,7 +53,7 @@ public class WingHelmetItem extends AbstractHatItem implements IEquipmentChangeL
             boolean isLevitationEffectActive = livingEntity.getEffect(MobEffects.LEVITATION) != null;
             if (!isLevitationEffectActive && Services.CONFIG.isWingHelmetLevitationEnabled()) {
                 if (livingEntity.getLastDamageSource() != null && livingEntity.getLastDamageSource().getEntity() instanceof LivingEntity) {
-                    if (level.random.nextInt(100) == 0) {
+                    if (level.getRandom().nextInt(100) == 0) {
                         this.removeEffect(livingEntity, MobEffects.SLOW_FALLING, SLOW_FALLING_DURATION, SLOW_FALLING_AMPLIFIER);
                         this.addEffect(livingEntity, MobEffects.LEVITATION, LEVITATION_DURATION, LEVITATION_AMPLIFIER, true);
                         isLevitationEffectActive = true;

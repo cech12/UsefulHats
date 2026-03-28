@@ -33,9 +33,13 @@ public class UsefulHatModel<T extends HumanoidRenderState> extends HumanoidModel
     public UsefulHatModel(ModelPart modelPart) {
         super(modelPart, RenderTypes::entityTranslucent);
         //disable all render models of biped model except the hat (because it is overridden with own model)
-        this.setAllVisible(false);
         this.head.visible = true;
         this.hat.visible = true;
+        this.body.visible = false;
+        this.rightArm.visible = false;
+        this.leftArm.visible = false;
+        this.rightLeg.visible = false;
+        this.leftLeg.visible = false;
     }
 
 }

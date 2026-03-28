@@ -10,26 +10,11 @@ repositories {
     maven { url = "https://maven.fabricmc.net/" }
     maven { url = "https://maven.shedaniel.me/" }
     maven { url = "https://maven.blamejared.com/" }
-    //for Lucent
-    exclusiveContent {
-        forRepository {
-            maven {
-                name = "Modding Legacy Maven"
-                url = "https://maven.moddinglegacy.com/artifactory/modding-legacy/"
-            }
-        }
-        filter {
-            includeGroup "com.legacy"
-        }
-    }
 }
 
 dependencies {
     //compileOnly("io.wispforest:accessories-neoforge:${accessories_version}")
     //runtimeOnly("io.wispforest:accessories-neoforge:${accessories_version}")
-
-    //compileOnly("com.legacy:lucent:${project.lucent_version}")
-    //runtimeOnly("com.legacy:lucent:${project.lucent_version}")
 }
 
 neoForge {
@@ -39,10 +24,6 @@ neoForge {
     if (at.exists()) {
         accessTransformers.from(at.absolutePath)
     }
-    parchment {
-        minecraftVersion = parchment_minecraft
-        mappingsVersion = parchment_version
-    }
     runs {
         configureEach {
             systemProperty('neoforge.enabledGameTestNamespaces', mod_id)
@@ -50,16 +31,19 @@ neoForge {
         }
         client {
             client()
+            gameDirectory = this.mkdir(this.file("runs/client"))
         }
         data {
             clientData()
-
+            gameDirectory = this.mkdir(this.file("runs/data"))
             // DataGen can be run by - "./gradlew :neoforge:runData" in Terminal.
             // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
             programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
         }
         server {
             server()
+            this.file("runs/server").createParentDirectories()
+            gameDirectory = this.mkdir(this.file("runs/server"))
         }
     }
     mods {
@@ -81,7 +65,7 @@ def loaderAttribute = Attribute.of('io.github.mcgradleconventions.loader', Strin
     }
 }
 sourceSets.configureEach {
-    [it.compileClasspathConfigurationName, it.runtimeClasspathConfigurationName, it.getTaskName(null, 'jarJar')].each { variant->
+    [it.compileClasspathConfigurationName, it.runtimeClasspathConfigurationName, it.getTaskName(null, 'jarJar')].each { variant ->
         configurations.named("$variant") {
             attributes {
                 attribute(loaderAttribute, 'neoforge')
