@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [this versioning scheme](https://gist.github.com/cech12/69319028e88c50349a6b044000a6607b).
 
+## [1.21.5-6.8.2.0] - 2026-03-28
+### Added
+- re-added Curios support (NeoForge)
+
 ## [1.21.5-6.8.1.0] - 2025-10-13
 ### Added
 - re-added Accessories support (1.3.4-beta) (Fabric/Quilt, NeoForge)
