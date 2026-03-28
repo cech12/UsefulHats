@@ -2,6 +2,7 @@ package de.cech12.usefulhats.client;
 
 import de.cech12.usefulhats.Constants;
 import de.cech12.usefulhats.client.compat.AccessoriesClientCompat;
+import de.cech12.usefulhats.client.compat.CuriosClientCompat;
 import de.cech12.usefulhats.platform.Services;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.LayerDefinitions;
@@ -42,6 +43,9 @@ public class UsefulHatsNeoForgeClientEvents {
     public static void onClientInit(final FMLClientSetupEvent event) {
         if (Services.PLATFORM.isModLoaded(Constants.ACCESSORIES_MOD_ID)) {
             AccessoriesClientCompat.register();
+        }
+        if (Services.PLATFORM.isModLoaded(Constants.CURIOS_MOD_ID)) {
+            CuriosClientCompat.register();
         }
     }
 
