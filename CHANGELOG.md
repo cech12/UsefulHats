@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [this versioning scheme](https://gist.github.com/cech12/69319028e88c50349a6b044000a6607b).
 
+## [1.21.8-6.10.1.0] - 2026-03-28
+### Added
+- re-added Curios support (NeoForge)
+
 ## [1.21.8-6.10.0.0] - 2025-10-13
 ### Changed
 - updated to Minecraft 1.21.8 (Fabric 0.134.0+1.21.8, NeoForge 21.8.47, Forge 58.1.0)
