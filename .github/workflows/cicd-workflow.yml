@@ -42,6 +42,7 @@ jobs:
       game-versions: |
         26.1
         26.1.1
+        26.1.2
       release-type: release
       loaders: |
         forge
