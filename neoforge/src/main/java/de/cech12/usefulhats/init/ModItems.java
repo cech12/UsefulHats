@@ -33,7 +33,7 @@ import net.neoforged.neoforge.event.entity.living.LivingEvent;
 import net.neoforged.neoforge.event.entity.player.ItemFishedEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
-import net.neoforged.neoforge.event.level.BlockEvent;
+import net.neoforged.neoforge.event.level.block.BreakBlockEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -78,7 +78,7 @@ public class ModItems {
     public static void addEventListeners() {
         //reduce event priority to support other mods that are overriding the speed
         NeoForge.EVENT_BUS.addListener(EventPriority.LOWEST, ModItems::onBreakSpeedEvent);
-        NeoForge.EVENT_BUS.addListener(ModItems::onBreakEvent);
+        NeoForge.EVENT_BUS.addListener(ModItems::onBreakBlockEvent);
         NeoForge.EVENT_BUS.addListener(ModItems::onEntityJoinWorldEvent);
         NeoForge.EVENT_BUS.addListener(ModItems::onItemFishedEvent);
         NeoForge.EVENT_BUS.addListener(ModItems::onLivingDropsEvent);
@@ -100,7 +100,7 @@ public class ModItems {
         }
     }
 
-    private static void onBreakEvent(BlockEvent.BreakEvent event) {
+    private static void onBreakBlockEvent(BreakBlockEvent event) {
         if (!event.isCanceled()) {
             UsefulHatsEventUtils.onBlockBreak(event.getPlayer(), event.getState());
         }
