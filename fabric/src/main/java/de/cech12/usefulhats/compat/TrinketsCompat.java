@@ -1,11 +1,13 @@
 package de.cech12.usefulhats.compat;
-/*
+
 import de.cech12.usefulhats.UsefulHatsEventUtils;
 import de.cech12.usefulhats.item.AbstractHatItem;
 import de.cech12.usefulhats.platform.Services;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.Trinket;
 import dev.emi.trinkets.api.TrinketsApi;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 
@@ -35,7 +37,9 @@ public class TrinketsCompat {
 
         @Override
         public void tick(ItemStack stack, SlotReference slot, LivingEntity entity) {
-            stack.getItem().inventoryTick(stack, entity.level(), entity, slot.index(), false);
+            if (!entity.level().isClientSide()) {
+                stack.getItem().inventoryTick(stack, (ServerLevel) entity.level(), entity, EquipmentSlot.HEAD);
+            }
         }
 
         @Override
@@ -55,4 +59,3 @@ public class TrinketsCompat {
     }
 
 }
- */

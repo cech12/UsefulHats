@@ -1,5 +1,6 @@
 package de.cech12.usefulhats.platform;
 
+import de.cech12.usefulhats.compat.TrinketsCompat;
 import de.cech12.usefulhats.init.ModItems;
 import de.cech12.usefulhats.item.AbstractHatItem;
 import de.cech12.usefulhats.platform.services.IRegistryHelper;
@@ -41,11 +42,9 @@ public class FabricRegistryHelper implements IRegistryHelper {
         if (headItemStack.getItem() instanceof AbstractHatItem) {
             stacks.add(headItemStack);
         }
-        /*
         if (Services.PLATFORM.isModLoaded(TrinketsCompat.MOD_ID)) {
             TrinketsCompat.addEquippedHatsToList(entity, stacks);
         }
-         */
         //if (Services.PLATFORM.isModLoaded(Constants.ACCESSORIES_MOD_ID)) {
         //    AccessoriesCompat.addEquippedHatsToList(entity, stacks);
         //}

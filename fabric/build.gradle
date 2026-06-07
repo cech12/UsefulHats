@@ -10,6 +10,17 @@ repositories {
     maven { url = "https://maven.wispforest.io/releases" } //accessories
     maven { url = "https://maven.su5ed.dev/releases" } //accessories
     maven { url = "https://maven.blamejared.com/" } //accessories
+    exclusiveContent { //trinkets canary
+        forRepository {
+            maven {
+                name = "Modrinth"
+                url = "https://api.modrinth.com/maven"
+            }
+        }
+        filter {
+            includeGroup "maven.modrinth"
+        }
+    }
 }
 
 dependencies {
@@ -26,7 +37,13 @@ dependencies {
     }
     modImplementation("com.terraformersmc:modmenu:${mod_menu_version}")
 
-    //modImplementation("dev.emi:trinkets:${trinkets_version}")
+    modCompileOnly("maven.modrinth:trinkets-canary:${trinkets_version}")
+    modCompileOnly("org.ladysnake.cardinal-components-api:cardinal-components-base:${cca_version}")
+    modCompileOnly("org.ladysnake.cardinal-components-api:cardinal-components-entity:${cca_version}")
+    modRuntimeOnly("maven.modrinth:trinkets-canary:${trinkets_version}")
+    modRuntimeOnly("org.ladysnake.cardinal-components-api:cardinal-components-base:${cca_version}")
+    modRuntimeOnly("org.ladysnake.cardinal-components-api:cardinal-components-entity:${cca_version}")
+
     //modImplementation("io.wispforest:accessories-fabric:${accessories_version}")
 }
 
