@@ -2,6 +2,7 @@ package de.cech12.usefulhats.platform;
 
 import de.cech12.usefulhats.Constants;
 import de.cech12.usefulhats.compat.CuriosCompat;
+import de.cech12.usefulhats.compat.TrinketsCompat;
 import de.cech12.usefulhats.init.ModItems;
 import de.cech12.usefulhats.item.AbstractHatItem;
 import de.cech12.usefulhats.platform.services.IRegistryHelper;
@@ -49,6 +50,9 @@ public class NeoForgeRegistryHelper implements IRegistryHelper {
         //}
         if (Services.PLATFORM.isModLoaded(Constants.CURIOS_MOD_ID)) {
             CuriosCompat.addEquippedHatsToList(entity, stacks);
+        }
+        if (Services.PLATFORM.isModLoaded(TrinketsCompat.MOD_ID)) {
+            TrinketsCompat.addEquippedHatsToList(entity, stacks);
         }
         return stacks;
     }

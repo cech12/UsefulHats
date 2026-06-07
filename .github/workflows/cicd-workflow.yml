@@ -80,6 +80,9 @@ jobs:
       release-type: release
       loaders: |
         neoforge
+      dependencies: |
+        curios(optional)
+        trinkets-updated(optional)
     secrets:
       github-token: ${{ secrets.GITHUB_TOKEN }}
       curseforge-token: ${{ secrets.CURSEFORGE_API_KEY }}
@@ -98,6 +101,9 @@ jobs:
       release-type: release
       loaders: |
         neoforge
+      dependencies: |
+        curios(optional)
+        trinkets-updated(optional)
     secrets:
       github-token: ${{ secrets.GITHUB_TOKEN }}
       modrinth-token: ${{ secrets.MODRINTH_API_KEY }}
@@ -117,6 +123,11 @@ jobs:
       loaders: |
         fabric
         quilt
+      dependencies: |
+        fabric-api(required)
+        cloth-config(required)
+        trinkets-updated(optional)
+        modmenu(optional)
     secrets:
       github-token: ${{ secrets.GITHUB_TOKEN }}
       curseforge-token: ${{ secrets.CURSEFORGE_API_KEY }}
@@ -136,6 +147,11 @@ jobs:
       loaders: |
         fabric
         quilt
+      dependencies: |
+        fabric-api(required)
+        cloth-config(required)
+        trinkets-updated(optional)
+        modmenu(optional)
     secrets:
       github-token: ${{ secrets.GITHUB_TOKEN }}
       modrinth-token: ${{ secrets.MODRINTH_API_KEY }}

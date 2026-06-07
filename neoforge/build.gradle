@@ -12,6 +12,8 @@ repositories {
     maven { url = "https://maven.blamejared.com/" }
     //for Curios
     maven { url = "https://maven.theillusivec4.top/" }
+    //for trinkets-updated
+    maven { url = 'https://maven.nucleoid.xyz/releases' }
 }
 
 dependencies {
@@ -20,6 +22,9 @@ dependencies {
 
     compileOnly("top.theillusivec4.curios:curios-neoforge:${curios_version}")
     runtimeOnly("top.theillusivec4.curios:curios-neoforge:${curios_version}")
+
+    compileOnly("eu.pb4:trinkets:${trinkets_version}")
+    //runtimeOnly("eu.pb4:trinkets:${trinkets_version}")
 }
 
 neoForge {

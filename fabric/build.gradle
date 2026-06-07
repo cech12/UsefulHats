@@ -5,11 +5,11 @@ plugins {
 
 repositories {
     maven { url = "https://maven.shedaniel.me/" }
-    maven { url = "https://maven.terraformersmc.com/releases/" } //modmenu & trinkets
-    maven { url = "https://maven.ladysnake.org/releases" } //trinkets
+    maven { url = "https://maven.terraformersmc.com/releases/" } //modmenu
     maven { url = "https://maven.wispforest.io/releases" } //accessories
     maven { url = "https://maven.su5ed.dev/releases" } //accessories
     maven { url = "https://maven.blamejared.com/" } //accessories
+    maven { url = 'https://maven.nucleoid.xyz/releases' } //trinkets-updated
 }
 
 dependencies {
@@ -22,7 +22,8 @@ dependencies {
     }
     implementation("com.terraformersmc:modmenu:${mod_menu_version}")
 
-    //implementation("dev.emi:trinkets:${trinkets_version}")
+    implementation("eu.pb4:trinkets:${trinkets_version}")
+
     //implementation("io.wispforest:accessories-fabric:${accessories_version}")
 }
 

@@ -2,6 +2,8 @@ package de.cech12.usefulhats.client;
 
 import de.cech12.usefulhats.Constants;
 import de.cech12.usefulhats.client.compat.CuriosClientCompat;
+import de.cech12.usefulhats.client.compat.TrinketsClientCompat;
+import de.cech12.usefulhats.compat.TrinketsCompat;
 import de.cech12.usefulhats.platform.Services;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.LayerDefinitions;
@@ -45,6 +47,9 @@ public class UsefulHatsNeoForgeClientEvents {
         //}
         if (Services.PLATFORM.isModLoaded(Constants.CURIOS_MOD_ID)) {
             CuriosClientCompat.register();
+        }
+        if (Services.PLATFORM.isModLoaded(TrinketsCompat.MOD_ID)) {
+            TrinketsClientCompat.register();
         }
     }
 

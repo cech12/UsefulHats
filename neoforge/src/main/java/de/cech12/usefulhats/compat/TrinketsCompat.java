@@ -15,7 +15,7 @@ import java.util.List;
 
 public class TrinketsCompat {
 
-    public static final String MOD_ID = "trinkets";
+    public static final String MOD_ID = "trinkets_updated";
 
     public static void register() {
         TrinketCallback usefulHatsTrinket = new UsefulHatTrinket();
