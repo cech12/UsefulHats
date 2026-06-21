@@ -3,6 +3,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [this versioning scheme](https://gist.github.com/cech12/69319028e88c50349a6b044000a6607b).
 
+## [26.2-7.2.0.0] - 2026-06-21
+### Changed
+- updated to Minecraft 26.2 (Fabric 0.152.2+26.2, NeoForge 26.2.0.6-beta, Forge 65.0.0)
+- updated Cloth Config support (26.2.155) (Fabric/Quilt)
+- updated ModMenu support (20.0.0-beta.3) (Fabric/Quilt)
+- temporary removed Curios support until it is ported to 26.2 (NeoForge)
+- temporary removed Trinkets Updated support until it is ported to 26.2 (Fabric/Quilt, NeoForge)
+- temporary removed Accessories support until it is ported to 26.2 (Fabric/Quilt, NeoForge)
+
 ## [26.1.2-7.1.1.0] - 2026-06-07
 ### Added
 - re-added Trinkets (Updated) support (NeoForge & Fabric/Quilt)

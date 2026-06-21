@@ -1,8 +1,6 @@
 package de.cech12.usefulhats.client;
 
 import de.cech12.usefulhats.Constants;
-import de.cech12.usefulhats.client.compat.TrinketsClientCompat;
-import de.cech12.usefulhats.compat.TrinketsCompat;
 import de.cech12.usefulhats.platform.Services;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
@@ -26,9 +24,11 @@ public class UsefulHatsFabricClientMod implements ClientModInitializer {
             //register armor renderer
             ArmorRenderer.register(renderer, item);
         });
+        /*
         if (Services.PLATFORM.isModLoaded(TrinketsCompat.MOD_ID)) {
             TrinketsClientCompat.register();
         }
+         */
         //if (Services.PLATFORM.isModLoaded(Constants.ACCESSORIES_MOD_ID)) {
         //    AccessoriesClientCompat.register();
         //}
