@@ -1,5 +1,5 @@
 package de.cech12.usefulhats.compat;
-/*
+
 import de.cech12.usefulhats.UsefulHatsEventUtils;
 import de.cech12.usefulhats.item.AbstractHatItem;
 import de.cech12.usefulhats.platform.Services;
@@ -23,9 +23,9 @@ public class TrinketsCompat {
     }
 
     public static void addEquippedHatsToList(LivingEntity entity, List<ItemStack> stacks) {
-        TrinketsApi.getAttachment(entity).getAllEquipped()
-                .forEach(slotReferenceItemStackTuple -> {
-                    ItemStack stack = slotReferenceItemStackTuple.getB();
+        TrinketsApi.getAttachment(entity).allEquipped(false)
+                .forEach(trinketSlotAccess -> {
+                    ItemStack stack = trinketSlotAccess.get();
                     if (stack.getItem() instanceof AbstractHatItem && stacks.stream().noneMatch(s -> s.getItem() == stack.getItem())) {
                         stacks.add(stack);
                     }
@@ -58,4 +58,3 @@ public class TrinketsCompat {
     }
 
 }
- */

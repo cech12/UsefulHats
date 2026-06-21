@@ -22,7 +22,7 @@ dependencies {
     }
     implementation("com.terraformersmc:modmenu:${mod_menu_version}")
 
-    //implementation("eu.pb4:trinkets:${trinkets_version}")
+    implementation("eu.pb4:trinkets:${trinkets_version}")
 
     //implementation("io.wispforest:accessories-fabric:${accessories_version}")
 }
