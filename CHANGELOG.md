@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [this versioning scheme](https://gist.github.com/cech12/69319028e88c50349a6b044000a6607b).
 
+## [26.2-7.2.2.0] - 2026-07-21
+### Changed
+- updated NeoForge to 26.2.0.26-beta
+
+### Added
+- re-added Curios support (16.0.0+26.2) (NeoForge) #84
+
 ## [26.2-7.2.1.0] - 2026-06-21
 ### Added
 - re-added Trinkets Updated support (4.1.0-beta.2+26.2) (NeoForge & Fabric/Quilt)

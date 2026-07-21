@@ -20,11 +20,11 @@ dependencies {
     //compileOnly("io.wispforest:accessories-neoforge:${accessories_version}")
     //runtimeOnly("io.wispforest:accessories-neoforge:${accessories_version}")
 
-    //compileOnly("top.theillusivec4.curios:curios-neoforge:${curios_version}")
-    //runtimeOnly("top.theillusivec4.curios:curios-neoforge:${curios_version}")
+    compileOnly("top.theillusivec4.curios:curios-neoforge:${curios_version}")
+    runtimeOnly("top.theillusivec4.curios:curios-neoforge:${curios_version}")
 
     compileOnly("eu.pb4:trinkets:${trinkets_version}")
-    runtimeOnly("eu.pb4:trinkets:${trinkets_version}")
+    //runtimeOnly("eu.pb4:trinkets:${trinkets_version}")
 }
 
 neoForge {

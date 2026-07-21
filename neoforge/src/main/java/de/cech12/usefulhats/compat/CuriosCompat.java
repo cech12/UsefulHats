@@ -1,5 +1,5 @@
 package de.cech12.usefulhats.compat;
-/*
+
 import de.cech12.usefulhats.UsefulHatsEventUtils;
 import de.cech12.usefulhats.item.AbstractHatItem;
 import net.minecraft.world.entity.LivingEntity;
@@ -15,7 +15,7 @@ public class CuriosCompat {
 
     /**
      * equipment change event of curios mod
-     /
+     */
     public static void onCuriosEquipmentChangeEvent(CurioChangeEvent.Item event) {
         UsefulHatsEventUtils.onUnequip(event.getEntity(), event.getFrom());
         UsefulHatsEventUtils.onEquip(event.getEntity(), event.getTo());
@@ -25,7 +25,7 @@ public class CuriosCompat {
      * Adds equipped hats from curios slots to the given list.
      * @param entity entity
      * @param stacks equipped hats
-     /
+     */
     public static void addEquippedHatsToList(LivingEntity entity, List<ItemStack> stacks) {
         //all curios slots that contain an AbstractHatItem
         CuriosApi.getCuriosInventory(entity).ifPresent(itemHandler -> {
@@ -40,4 +40,3 @@ public class CuriosCompat {
     }
 
 }
- */
