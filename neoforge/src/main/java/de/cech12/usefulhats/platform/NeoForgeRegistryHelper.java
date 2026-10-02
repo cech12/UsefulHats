@@ -7,7 +7,6 @@ import de.cech12.usefulhats.init.ModItems;
 import de.cech12.usefulhats.item.AbstractHatItem;
 import de.cech12.usefulhats.platform.services.IRegistryHelper;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -66,26 +65,6 @@ public class NeoForgeRegistryHelper implements IRegistryHelper {
     @Override
     public boolean isEntityInFluid(LivingEntity entity) {
         return entity.isInLiquid();
-    }
-
-    @Override
-    public boolean isAxe(ItemStack tool) {
-        return tool.is(ItemTags.AXES);
-    }
-
-    @Override
-    public boolean isHoe(ItemStack tool) {
-        return tool.is(ItemTags.HOES);
-    }
-
-    @Override
-    public boolean isPickaxe(ItemStack tool) {
-        return tool.is(ItemTags.PICKAXES);
-    }
-
-    @Override
-    public boolean isShovel(ItemStack tool) {
-        return tool.is(ItemTags.SHOVELS);
     }
 
 }

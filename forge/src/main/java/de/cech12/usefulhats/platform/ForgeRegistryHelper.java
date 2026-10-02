@@ -10,7 +10,6 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.LinkedList;
@@ -52,26 +51,6 @@ public class ForgeRegistryHelper implements IRegistryHelper {
     @Override
     public boolean isEntityInFluid(LivingEntity entity) {
         return entity.isInFluidType();
-    }
-
-    @Override
-    public boolean isAxe(ItemStack tool) {
-        return tool.canPerformAction(ToolActions.AXE_DIG);
-    }
-
-    @Override
-    public boolean isHoe(ItemStack tool) {
-        return tool.canPerformAction(ToolActions.HOE_DIG);
-    }
-
-    @Override
-    public boolean isPickaxe(ItemStack tool) {
-        return tool.canPerformAction(ToolActions.PICKAXE_DIG);
-    }
-
-    @Override
-    public boolean isShovel(ItemStack tool) {
-        return tool.canPerformAction(ToolActions.SHOVEL_DIG);
     }
 
 }

@@ -9,6 +9,7 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.EquipmentClientInfo;
@@ -66,10 +67,8 @@ public abstract class AbstractUsefulHatsRenderer {
                     int color = getColorForLayer(layer, defaultColor);
                     if (color != 0) {
                         Identifier layerTexture = this.layerTextureLookup.apply(new LayerTextureKey(layerType, layer));
-                        submitNodeCollector.order(i++).submitModel(model, humanoidRenderState, matrices, RenderTypes.armorTranslucent(layerTexture), light, OverlayTexture.NO_OVERLAY, color, null, outlineColor, null);
-                        if (glint) {
-                            submitNodeCollector.order(i++).submitModel(model, humanoidRenderState, matrices, RenderTypes.armorEntityGlint(), light, OverlayTexture.NO_OVERLAY, color, null, outlineColor, null);
-                        }
+                        RenderType renderType = glint ? RenderTypes.armorCutoutNoCullGlint(layerTexture) : RenderTypes.entityTranslucent(layerTexture);
+                        submitNodeCollector.order(i++).submitModel(model, humanoidRenderState, matrices, renderType, light, OverlayTexture.NO_OVERLAY, color, null, outlineColor);
                         glint = false;
                     }
                 }

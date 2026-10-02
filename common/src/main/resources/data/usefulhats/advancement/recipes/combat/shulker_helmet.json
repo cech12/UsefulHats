@@ -19,7 +19,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "usefulhats:shulker_helmet"
+        "recipes": "usefulhats:shulker_helmet"
       }
     }
   },

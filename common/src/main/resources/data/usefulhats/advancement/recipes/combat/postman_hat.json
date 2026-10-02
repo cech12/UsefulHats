@@ -29,7 +29,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "usefulhats:postman_hat"
+        "recipes": "usefulhats:postman_hat"
       }
     }
   },

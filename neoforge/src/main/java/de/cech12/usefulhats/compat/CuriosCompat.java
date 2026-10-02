@@ -6,6 +6,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.event.CurioChangeEvent;
+import top.theillusivec4.curios.api.type.inventory.IDynamicStackHandler;
 
 import java.util.List;
 
@@ -28,15 +29,18 @@ public class CuriosCompat {
      */
     public static void addEquippedHatsToList(LivingEntity entity, List<ItemStack> stacks) {
         //all curios slots that contain an AbstractHatItem
-        CuriosApi.getCuriosInventory(entity).ifPresent(itemHandler -> {
-            int slots = itemHandler.getSlots();
-            for (int i = 0; i < slots; i++) {
-                ItemStack stack = itemHandler.getEquippedCurios().getStackInSlot(i);
-                if (!stack.isEmpty() && stack.getItem() instanceof AbstractHatItem && stacks.stream().noneMatch(s -> s.getItem() == stack.getItem())) {
-                    stacks.add(stack);
-                }
-            }
-        });
+        CuriosApi.getCuriosInventory(entity).ifPresent(itemHandler ->
+                itemHandler.getCurios().forEach((_, stacksHandler) -> {
+                    IDynamicStackHandler stackHandler = stacksHandler.getStacks();
+                    int slots = stackHandler.getSlots();
+                    for (int i = 0; i < slots; i++) {
+                        ItemStack stack = stackHandler.getStackInSlot(i);
+                        if (!stack.isEmpty() && stack.getItem() instanceof AbstractHatItem && stacks.stream().noneMatch(s -> s.getItem() == stack.getItem())) {
+                            stacks.add(stack);
+                        }
+                    }
+                })
+        );
     }
 
 }

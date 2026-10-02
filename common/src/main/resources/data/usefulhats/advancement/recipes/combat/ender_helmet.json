@@ -19,7 +19,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "usefulhats:ender_helmet"
+        "recipes": "usefulhats:ender_helmet"
       }
     }
   },

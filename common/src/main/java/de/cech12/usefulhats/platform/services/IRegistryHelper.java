@@ -1,5 +1,6 @@
 package de.cech12.usefulhats.platform.services;
 
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -44,12 +45,20 @@ public interface IRegistryHelper {
      */
     boolean isEntityInFluid(LivingEntity entity);
 
-    boolean isAxe(ItemStack tool);
+    default boolean isAxe(ItemStack tool) {
+        return tool.is(ItemTags.AXES);
+    }
 
-    boolean isHoe(ItemStack tool);
+    default boolean isHoe(ItemStack tool) {
+        return tool.is(ItemTags.HOES);
+    }
 
-    boolean isPickaxe(ItemStack tool);
+    default boolean isPickaxe(ItemStack tool) {
+        return tool.is(ItemTags.PICKAXES);
+    }
 
-    boolean isShovel(ItemStack tool);
+    default boolean isShovel(ItemStack tool) {
+        return tool.is(ItemTags.SHOVELS);
+    }
 
 }

@@ -308,7 +308,7 @@ public class NeoForgeConfigHelper implements IConfigHelper {
 
     @Override
     public void init() {
-        ModLoadingContext.get().getActiveContainer().registerConfig(ModConfig.Type.SERVER, SERVER_CONFIG);
+        ModLoadingContext.get().getActiveContainer().registerConfig(ModConfig.Type.SYNCED, SERVER_CONFIG);
     }
 
     private boolean getBoolean(ModConfigSpec.BooleanValue config, boolean defaultValue) {
